@@ -3,8 +3,9 @@ import { TickMinor, DuplicateMinor } from "@shopify/polaris-icons";
 import { ContainerSection, LinkRouter } from "common/style/Utils.style";
 import config from "config";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { ApplicationActionTS } from "stores/Application/action";
 import { RootReducer } from "stores/reducers";
 import {
   ButtonWrapper,
@@ -16,7 +17,7 @@ import {
 
 function CodeInfo() {
   const { widgetId } = useParams();
-  const script = `<div id="orichi-root"></div><div name="orichi" data-id="${widgetId}"></div>${config.script}`;
+  const script = `<div name="orichi" data-id="${widgetId}"></div>${config.script}`;
 
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
   const [isCopy, setCopy] = useState(false);
@@ -35,6 +36,10 @@ function CodeInfo() {
     }
   }, [isCopy]);
 
+  const dispatch = useDispatch();
+  const onSetActiveMenu = () => {
+    dispatch(ApplicationActionTS.OnHandleMenuItem("my-widget", true));
+  };
   return (
     <ContainerSection width={40} pl={30} pt={30} pr={20}>
       <SupportHelperText
@@ -73,6 +78,7 @@ function CodeInfo() {
       </SupportHelperText>
       <ButtonWrapper>
         <LinkRouter
+          onClick={onSetActiveMenu}
           size="small"
           to={`/my-widget?shop=${shopReducer.shop.domain}`}
         >

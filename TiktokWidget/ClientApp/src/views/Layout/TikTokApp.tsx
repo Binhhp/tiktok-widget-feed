@@ -1,10 +1,15 @@
+import LayoutTemplateContextProvider from "Dependencies/LayoutTemplate/LayoutTemplateContext";
 import TikTokLayout from "layout/TikTokLayout";
 import React from "react";
 import TikTok from "./Application";
-export default function TikTokApp() {
+import { ITikTokAppProps } from "./TikTokModel";
+
+export default function TikTokApp(props: ITikTokAppProps) {
   return (
-    <TikTokLayout>
-      <TikTok></TikTok>
-    </TikTokLayout>
+    <LayoutTemplateContextProvider>
+      <TikTokLayout>
+        <TikTok {...props}></TikTok>
+      </TikTokLayout>
+    </LayoutTemplateContextProvider>
   );
 }

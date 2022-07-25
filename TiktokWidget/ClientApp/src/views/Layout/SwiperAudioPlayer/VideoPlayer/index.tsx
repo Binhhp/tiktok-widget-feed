@@ -82,26 +82,29 @@ function VideoPlayer(props: IVideoProps) {
               <h2>{props.error?.message}</h2>
             </DivErrorVideo>
             <DivBasicPlayerWrapper hidden={props.loading}>
-              <ReactPlayer
-                playIcon={
-                  <DivPlayerIconContainer>
-                    <DivPlayerIcon></DivPlayerIcon>
-                  </DivPlayerIconContainer>
-                }
-                fallback={<Loader></Loader>}
-                onPause={props.onPause}
-                onPlay={props.onPlaying(props.item.id)}
-                url={video}
-                playing={props.playing ?? false}
-                stopOnUnmount={true}
-                loop={true}
-                width={props.loading ? 0 : `auto`}
-                height="100%"
-                controls
-                onError={(error) => {
-                  if (props.onError) props.onError(error);
-                }}
-              />
+              {props.item.id === props.videoId && (
+                <ReactPlayer
+                  playIcon={
+                    <DivPlayerIconContainer>
+                      <DivPlayerIcon></DivPlayerIcon>
+                    </DivPlayerIconContainer>
+                  }
+                  onStart={props.onPlaying(props.item.id)}
+                  fallback={<Loader></Loader>}
+                  onPause={props.onPause}
+                  onPlay={props.onPlaying(props.item.id)}
+                  url={video}
+                  playing={props.playing ?? false}
+                  stopOnUnmount={true}
+                  loop={true}
+                  width={props.loading ? 0 : `auto`}
+                  height="100%"
+                  controls
+                  onError={(error) => {
+                    if (props.onError) props.onError(error);
+                  }}
+                />
+              )}
               <DivPlayerIconContainer
                 onClick={props.onPlaying(props.item.id)}
                 hidden={props.playing}
@@ -198,4 +201,4 @@ function VideoPlayer(props: IVideoProps) {
   );
 }
 
-export default VideoPlayer;
+export default React.memo(VideoPlayer);

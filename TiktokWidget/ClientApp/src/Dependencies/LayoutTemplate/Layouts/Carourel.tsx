@@ -1,20 +1,15 @@
-import React, { Suspense } from "react";
-import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import React, { Suspense, useContext } from "react";
 import Item from "../Item";
 import { LayoutPropTypes } from "../LayoutTemplateType";
 //Swiper
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Loader from "ui-components/Loader";
-import { TemplateStoreModel } from "stores/Templates/state";
+import { LayoutTemplateContext } from "../LayoutTemplateContext";
 
 SwiperCore.use([Autoplay, Navigation]);
 function Carousel(props: LayoutPropTypes) {
-  const templateReducer: TemplateStoreModel = useSelector(
-    (state: RootReducer) =>
-      state.templateStoreReducer.filter((x) => x.id === props.id)[0]
-  );
+  const templateContext = useContext(LayoutTemplateContext);
 
   const autoPlay = () => {
     if (props.autoplay) {
@@ -39,7 +34,7 @@ function Carousel(props: LayoutPropTypes) {
         navigation={true}
         watchOverflow={true}
       >
-        {templateReducer.items.map((item, index) => (
+        {templateContext.state.items.map((item, index) => (
           <SwiperSlide key={`carousel-${index}`}>
             <Item
               enableHover={props.enableHover}

@@ -25,7 +25,7 @@ export const TitleTemplateMajor = styled.h2`
   line-height: 29px;
   color: #000000;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 `;
 
 //Hashtag

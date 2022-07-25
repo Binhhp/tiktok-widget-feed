@@ -1,32 +1,40 @@
-import React from "react";
-import { TemplateStoreActionTS } from "stores/Templates/action";
+import React, { useContext } from "react";
 import Template from "Dependencies/LayoutTemplate";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { useDispatch } from "react-redux";
 import { ISettingProviderWidget } from "stores/Widget/state";
+import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import { AudioPlayerContext } from "../SwiperAudioPlayer/AudioPlayerContext";
 
 interface LayoutProps {
   id: string;
   widget: ISettingProviderWidget;
 }
-export default function Layout(props: LayoutProps) {
-  const dispatch = useDispatch();
-  const fetchData = (pageIndex: number) => {
-    return new WidgetReponsitory().GetVideos(props.id ?? "", pageIndex);
+function Layout(props: LayoutProps) {
+  const templateContext = useContext(LayoutTemplateContext);
+  const audioPlayerContext = useContext(AudioPlayerContext);
+  const fetchData = (pageIndex: number, showItems?: number) => {
+    return new WidgetReponsitory().GetVideos(
+      props.id ?? "",
+      pageIndex,
+      showItems
+    );
   };
 
   const onOpenVideo = (index: number) => {
-    dispatch(
-      TemplateStoreActionTS.OnActiveItem(props.id, {
-        active: true,
-        realIndex: index,
-      })
-    );
+    templateContext.OnActiveItem({
+      realIndex: index,
+      active: true,
+    });
+
+    if (index === 0) {
+      const videoId = templateContext.state.items[index].id;
+      audioPlayerContext.handleVideoClick(videoId);
+    }
   };
   return (
     <Template
-      id={`${props.id}`}
+      disableContext
       clickRender={onOpenVideo}
       enableHover={true}
       options={{
@@ -45,3 +53,5 @@ export default function Layout(props: LayoutProps) {
     ></Template>
   );
 }
+
+export default React.memo(Layout);

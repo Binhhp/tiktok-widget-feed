@@ -11,7 +11,14 @@ import {
   TextTemplate,
 } from "./PatternStyle";
 
-function TemplateSettings() {
+interface ITemplateSettingsProps {
+  style?: {
+    marginTopParent?: number;
+    marginItem?: number;
+    height?: number;
+  };
+}
+function TemplateSettings(props: ITemplateSettingsProps) {
   const widgetReducer = useSelector(
     (state: RootReducer) => state.widgetReducer
   );
@@ -24,9 +31,11 @@ function TemplateSettings() {
     );
   };
   return (
-    <TemplateSettingWrapper>
+    <TemplateSettingWrapper marginTop={props?.style?.marginTopParent}>
       {TemplateModel.layouts.map((item, index) => (
         <TemplateItem
+          height={props?.style?.height}
+          margin={props?.style?.marginItem}
           key={index}
           onClick={onSetLayout(item.key)}
           isActive={widgetReducer.settings.layout === item.key}

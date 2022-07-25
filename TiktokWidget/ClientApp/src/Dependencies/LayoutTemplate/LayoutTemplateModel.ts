@@ -136,3 +136,41 @@ export interface IAuthorStats {
   videoCount?: number;
   diggCount?: number;
 }
+
+export interface IUserInformation {
+  followerCount?: number;
+  followingCount?: number;
+  avatarThumb?: string;
+  diggCount?: number;
+  author?: string;
+}
+
+export interface IItemActive {
+  realIndex: number;
+  active: boolean;
+}
+
+export interface ITemplateStoreModel {
+  items: ITikTokVideoDto[];
+  index: IItemActive;
+  pageIndex: number;
+  count: number;
+  user: IUserInformation;
+}
+export class TemplateStoreModel implements ITemplateStoreModel {
+  items: ITikTokVideoDto[];
+  index: IItemActive;
+  pageIndex: number;
+  count: number;
+  user: IUserInformation;
+  constructor() {
+    this.items = [];
+    this.index = {
+      realIndex: 0,
+      active: false,
+    };
+    this.pageIndex = 1;
+    this.count = 0;
+    this.user = {};
+  }
+}

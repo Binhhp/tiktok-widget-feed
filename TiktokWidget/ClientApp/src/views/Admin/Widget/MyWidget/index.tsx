@@ -18,7 +18,6 @@ import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { ApplicationActionTS } from "stores/Application/action";
 import { RootReducer } from "stores/reducers";
-import { TemplateStoreActionTS } from "stores/Templates/action";
 import { WidgetActionTS } from "stores/Widget/action";
 import { SettingProviderWidget } from "stores/Widget/state";
 import {
@@ -62,7 +61,6 @@ function MyWidget() {
       if (res?.Status) {
         const result = res.Data as IWidgetResponse;
         const dto = new SettingProviderWidget(result).ToDto();
-        dispatch(TemplateStoreActionTS.OnClearState());
         dispatch(WidgetActionTS.OnStep(2));
         dispatch(WidgetActionTS.OnSetSetting(dto));
         onClickToCreateWidget();

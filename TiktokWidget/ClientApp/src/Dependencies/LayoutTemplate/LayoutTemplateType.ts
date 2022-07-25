@@ -15,7 +15,6 @@ export interface IItemState {
   image: string;
 }
 export interface ITemplateProps {
-  id: string;
   autoplay?: boolean | number;
   showItems?: number;
   showLoadInfinite?: boolean;
@@ -27,11 +26,15 @@ export interface ITemplateProps {
   flexDirection?: "row" | "column";
   imgHeight?: number;
   hiddenContent?: boolean;
-  _queryData: (pageIndex: number) => Promise<IVideoTemplateModel>;
+  _queryData: (
+    pageIndex: number,
+    showItems?: number
+  ) => Promise<IVideoTemplateModel>;
   clickRender?: (index: number) => void;
   onNotFound?: () => JSX.Element;
   enableHover?: boolean;
   style?: ITemplateStyle;
+  disableContext?: boolean;
 }
 
 interface ITemplateStyle {
@@ -54,6 +57,7 @@ export interface ITemplate {
   showNetworkIcon?: "enable" | "disable";
   accentColor?: string;
   viewMore?: string;
+  row?: number;
 }
 
 export class TemplateProvider {
@@ -63,6 +67,7 @@ export class TemplateProvider {
 export interface ITemplateImage {
   flexDirection?: "row" | "column";
   imgHeight?: number | string;
+  height?: number;
 }
 
 export interface ITemplateType {
@@ -130,4 +135,4 @@ interface ILayoutProps {
   loadingButton: boolean;
 }
 
-export type LayoutPropTypes = ILayoutProps & ITemplateProps & { id: string };
+export type LayoutPropTypes = ILayoutProps & ITemplateProps;

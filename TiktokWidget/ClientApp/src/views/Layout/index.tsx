@@ -7,15 +7,19 @@ import GlobalStyle from "./GlobalStyle";
 import workerTikTokManager from "stores/TikTok";
 import TikTokApp from "./TikTokApp";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("orichi-root") as HTMLElement
-);
+const elements = document.querySelectorAll("div[name='orichi']");
 
-root.render(
-  <Provider store={workerTikTokManager.store}>
-    <BrowserRouter>
-      <GlobalStyle />
-      <TikTokApp />
-    </BrowserRouter>
-  </Provider>
-);
+if (elements && elements.length > 0) {
+  elements.forEach((element) => {
+    const root = ReactDOM.createRoot(element);
+    const widgetId = element.getAttribute("data-id");
+    root.render(
+      <Provider store={workerTikTokManager.store}>
+        <BrowserRouter>
+          <GlobalStyle />
+          <TikTokApp widgetId={widgetId} />
+        </BrowserRouter>
+      </Provider>
+    );
+  });
+}

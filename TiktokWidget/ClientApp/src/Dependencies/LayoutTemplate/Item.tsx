@@ -58,7 +58,6 @@ function Item(props: ITemplateItem) {
   };
 
   const handleClickShowVideos = () => props.clickRender(props.index)();
-
   return (
     <TemplateContainer {...props}>
       <TemplateImage onClick={handleClickShowVideos} {...props}>

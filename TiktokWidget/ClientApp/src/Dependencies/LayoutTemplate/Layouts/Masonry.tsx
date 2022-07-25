@@ -1,19 +1,14 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry from "react-masonry-css";
-import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
-import { TemplateStoreModel } from "stores/Templates/state";
 import Loader from "ui-components/Loader";
 import LoadingInfinite from "ui-components/LoadingInfinite";
 import Item from "../Item";
+import { LayoutTemplateContext } from "../LayoutTemplateContext";
 import { LayoutPropTypes } from "../LayoutTemplateType";
 
 function Masonries(props: LayoutPropTypes) {
-  const templateReducer: TemplateStoreModel = useSelector(
-    (state: RootReducer) =>
-      state.templateStoreReducer.filter((x) => x.id === props.id)[0]
-  );
+  const templateContext = useContext(LayoutTemplateContext);
 
   return (
     <Suspense fallback={<Loader />}>
@@ -29,8 +24,8 @@ function Masonries(props: LayoutPropTypes) {
             className="masonry-grid"
             columnClassName="masonry-grid_column"
           >
-            {templateReducer.items
-              .slice(0, props.showItems || templateReducer.items.length)
+            {templateContext.state.items
+              .slice(0, props.showItems || templateContext.state.items.length)
               .map((item, index) => (
                 <Item
                   showDesc
@@ -52,7 +47,7 @@ function Masonries(props: LayoutPropTypes) {
                 ></Item>
               ))}
           </Masonry>
-          {(templateReducer.items.length < templateReducer.count ||
+          {(templateContext.state.items.length < templateContext.state.count ||
             props.showLoadInfinite) && (
             <LoadingInfinite
               viewMore={props.options?.viewMore}
@@ -63,11 +58,11 @@ function Masonries(props: LayoutPropTypes) {
         </div>
       ) : (
         <InfiniteScroll
-          dataLength={templateReducer.items.length}
+          dataLength={templateContext.state.items.length}
           hasMore={
             props.showLoadInfinite
               ? true
-              : templateReducer.items.length < templateReducer.count
+              : templateContext.state.items.length < templateContext.state.count
           }
           loader={<LoadingInfinite></LoadingInfinite>}
           next={props.fetchData}
@@ -77,8 +72,8 @@ function Masonries(props: LayoutPropTypes) {
             className="masonry-grid"
             columnClassName="masonry-grid_column"
           >
-            {templateReducer.items
-              .slice(0, props.showItems || templateReducer.items.length)
+            {templateContext.state.items
+              .slice(0, props.showItems || templateContext.state.items.length)
               .map((item, index) => (
                 <Item
                   showDesc

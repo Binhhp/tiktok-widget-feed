@@ -12,6 +12,7 @@ const device = {
   sxm: `max-width: ${size.sxm}`,
   sm: `max-width: ${size.sm}`,
   lg: `max-width: ${size.lg}`,
+  betweenLgToBigLg: `max-width:${size.sm} and max-width: ${size.bigLg}`,
   bigLg: `min-width: ${size.bigLg}`,
 };
 const breakpoints = { size, device };

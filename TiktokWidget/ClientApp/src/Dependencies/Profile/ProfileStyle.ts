@@ -37,10 +37,16 @@ export const ProfileInfo = styled.div<IProfileInfo>`
   h2 {
     width: 100%;
     font-weight: 600;
-    font-size: ${(props) => props.fontSize || 16}px;
+    font-size: ${(props) => props.fontSize || 16}px !important;
+    font-family: "SF Pro Display";
+    font-style: normal;
+    text-transform: none !important;
   }
   span {
-    font-size: ${(props) => props.fontSize || 16}px;
+    font-size: ${(props) => props.fontSize || 16}px !important;
+    font-family: "SF Pro Display";
+    font-style: normal;
+    text-transform: none !important;
   }
 `;
 
@@ -60,11 +66,18 @@ export const ContactItem = styled.div<IProfileInfo>`
   h3 {
     text-align: center;
     font-weight: 600;
-    font-size: ${(props) => props.fontSize || 16}px;
+    font-size: ${(props) => props.fontSize || 16}px !important;
+    font-family: "SF Pro Display";
+    font-style: normal;
+    text-transform: none !important;
   }
   span {
     color: #8a8b8f;
-    font-size: ${(props) => (props.fontSize ? props.fontSize - 3 : 13)}px;
+    font-size: ${(props) =>
+      props.fontSize ? props.fontSize - 3 : 13}px !important;
+    font-family: "SF Pro Display";
+    font-style: normal;
+    text-transform: none !important;
   }
 `;
 
@@ -105,9 +118,11 @@ export const ProfileHeader = styled.div`
 export const FollowerButton = styled.button`
   padding: 6px 40px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 600 !important;
   margin-bottom: 5px;
   margin-left: 10px;
+  font-size: 14px !important;
+  line-height: normal !important;
 `;
 
 export const AvatarProfile = styled.div<IAvatar>`

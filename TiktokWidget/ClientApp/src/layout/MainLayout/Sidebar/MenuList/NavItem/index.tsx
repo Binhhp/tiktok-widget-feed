@@ -13,6 +13,9 @@ import { ApplicationActionTS } from "stores/Application/action";
 import { RootReducer } from "stores/reducers";
 
 function NavItem(props: INavItemProps) {
+  const widgetReducer = useSelector(
+    (state: RootReducer) => state.widgetReducer
+  );
   const item = () => {
     return (
       <>
@@ -22,7 +25,7 @@ function NavItem(props: INavItemProps) {
           </ListItemIcon>
         }
         <Heading>{props.item.title}</Heading>
-        {(props?.item?.chip || props?.chip) && <Chip>{props?.item?.chip}</Chip>}
+        {props?.item?.chip && <Chip>{widgetReducer.count}</Chip>}
       </>
     );
   };

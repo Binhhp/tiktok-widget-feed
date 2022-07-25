@@ -7,21 +7,27 @@ export interface ITemplateItemImage {
 
 export interface ITemplateTem {
   isActive?: boolean;
+  margin?: number;
+  height?: number;
 }
 
-export const TemplateSettingWrapper = styled.div`
+interface ITemplateSettingWrapper {
+  marginTop?: number;
+}
+export const TemplateSettingWrapper = styled.div<ITemplateSettingWrapper>`
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: ${(props) => props.marginTop ?? 30}px;
   align-content: stretch;
+  justify-content: space-between;
 `;
 
 export const TemplateItem = styled.div<ITemplateTem>`
-  width: calc(50% - 40px);
-  height: 150px;
-  margin: 10px auto;
+  width: calc(50% - 10px);
+  height: ${(props) => props.height ?? 150}px;
+  margin: ${(props) => props.margin ?? 10}px 0px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -29,7 +35,7 @@ export const TemplateItem = styled.div<ITemplateTem>`
   cursor: pointer;
   border: 1px solid ${(props) => (props.isActive ? "black" : "#ffffff")};
   @media only screen and (${breakpoints.device.bigLg}) {
-    height: 250px;
+    height: ${(props) => (props.height ? props.height + 100 : 250)}px;
   }
 `;
 

@@ -11,8 +11,20 @@ import {
 import { ODataQuery } from "common/functions/ODataQuery";
 import DataTableFunc from "Dependencies/DataTables/DataTableModel";
 import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequest";
+import config from "config";
+import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
+import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 
 export class WidgetReponsitory implements IWidgetReponsitory {
+  AddJob = async (domain?: string, req?: AddJobRequest) => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/shops('${domain}')/AddJob`,
+      body: req,
+    });
+    return response;
+  };
   GetByIds = async (widgetIds: string[]) => {
     const response = await FetchDataFromServer({
       method: "GET",
@@ -27,13 +39,27 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   };
   GetVideos = async (
     key: string,
-    pageIndex: number
+    pageIndex: number,
+    showItems?: number
   ): Promise<IVideoTemplateModel> => {
     return DataTableFunc.BuildPaging<ITikTokVideoDto>(
       `${RootURL.ApiBase}/odata/widgetVideos('${key}')`,
       pageIndex,
-      50,
+      showItems ? showItems : config.showItems,
       "video,music,challenges"
+    );
+  };
+
+  GetVideosByJob = async (
+    req: GetVideoByJobRequest,
+    showItems?: number
+  ): Promise<IVideoTemplateModel> => {
+    return DataTableFunc.BuildPaging<ITikTokVideoDto>(
+      `${RootURL.ApiBase}/odata/widgetVideos('')`,
+      1,
+      showItems ? showItems : config.showItems,
+      "video,music,challenges",
+      `data=${req.data}&type=${req.type}`
     );
   };
 
@@ -95,7 +121,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     return response;
   };
 
-  Update = async (key: string, req: CreateWidgetRequest) => {
+  Update = async (key: string, req: UpdateWidgetRequest) => {
     const response = await FetchDataFromServer({
       method: "PUT",
       url: `${RootURL.ApiBase}/odata/widgets('${key}')`,

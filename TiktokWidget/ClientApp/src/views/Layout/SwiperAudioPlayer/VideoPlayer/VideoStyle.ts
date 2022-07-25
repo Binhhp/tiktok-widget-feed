@@ -26,6 +26,9 @@ export const DivContainer = styled.div<IVideoWrapperStyle>`
     object-fit: contain;
     max-width: 100%;
   }
+  @media only screen and (${breakpoints.device.bigLg}) {
+    padding: 6% 0;
+  }
 `;
 
 export const DivContent = styled.div`
@@ -130,7 +133,7 @@ export const ImgPoster = styled.img`
   object-fit: contain;
   height: 100%;
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
 `;
 
 export const ButtonClose = styled.div`

@@ -1,26 +1,21 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
-import { TemplateStoreModel } from "stores/Templates/state";
 import Loader from "ui-components/Loader";
 import LoadingInfinite from "ui-components/LoadingInfinite";
 import Item from "../Item";
+import { LayoutTemplateContext } from "../LayoutTemplateContext";
 import { TemplateInfiniteItem } from "../LayoutTemplateStype";
 import { LayoutPropTypes } from "../LayoutTemplateType";
 
 function LayoutList(props: LayoutPropTypes) {
-  const templateReducer: TemplateStoreModel = useSelector(
-    (state: RootReducer) =>
-      state.templateStoreReducer.filter((x) => x.id === props.id)[0]
-  );
+  const templateContext = useContext(LayoutTemplateContext);
   return (
     <Suspense fallback={<Loader />}>
       {props.options?.viewMore ? (
         <div>
           <TemplateInfiniteItem>
-            {templateReducer.items
-              .slice(0, props.showItems || templateReducer.items.length)
+            {templateContext.state.items
+              .slice(0, props.showItems || templateContext.state.items.length)
               .map((item, index) => (
                 <Item
                   enableHover={props.enableHover}
@@ -35,14 +30,14 @@ function LayoutList(props: LayoutPropTypes) {
                   index={index}
                   type={props.type}
                   zIndex={props.style?.zIndex}
-                  bg="#00000024"
+                  bg="#dfdfdf"
                   mr={props.style && props.style.pr === 0 ? props.style.pr : 5}
                   ml={props.style && props.style.pl === 0 ? props.style.pl : 5}
                   mb={props.style && props.style.pb === 0 ? props.style.pb : 10}
                 ></Item>
               ))}
           </TemplateInfiniteItem>
-          {(templateReducer.items.length < templateReducer.count ||
+          {(templateContext.state.items.length < templateContext.state.count ||
             props.showLoadInfinite) && (
             <LoadingInfinite
               viewMore={props.options?.viewMore}
@@ -53,18 +48,18 @@ function LayoutList(props: LayoutPropTypes) {
         </div>
       ) : (
         <InfiniteScroll
-          dataLength={templateReducer.items.length}
+          dataLength={templateContext.state.items.length}
           hasMore={
             props.showLoadInfinite
               ? true
-              : templateReducer.items.length < templateReducer.count
+              : templateContext.state.items.length < templateContext.state.count
           }
           loader={<LoadingInfinite></LoadingInfinite>}
           next={props.fetchData}
         >
           <TemplateInfiniteItem>
-            {templateReducer.items
-              .slice(0, props.showItems || templateReducer.items.length)
+            {templateContext.state.items
+              .slice(0, props.showItems || templateContext.state.items.length)
               .map((item, index) => (
                 <Item
                   enableHover={props.enableHover}

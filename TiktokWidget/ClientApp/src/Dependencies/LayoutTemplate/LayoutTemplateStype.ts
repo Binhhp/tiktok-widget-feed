@@ -69,19 +69,11 @@ export const TemplateImage = styled.div<ITemplateImage>`
         }`
       : "auto"};
   min-height: 300px;
-  height: 100%;
+  height: ${(props) => (props.height ? `${props.height}px` : "auto")};
   position: relative;
   cursor: pointer;
-  background-color: #000000;
+  background-color: #fafafa;
   img {
-    height: ${(props) =>
-      props.imgHeight
-        ? `${
-            typeof props.imgHeight === "number"
-              ? `${props.imgHeight}px`
-              : `${props.imgHeight}`
-          }`
-        : "100%"};
     object-fit: cover;
   }
   &:hover ${DynamicVideo} {
@@ -115,7 +107,7 @@ export const TemplateContent = styled.div<ITemplateType>`
   background: ${(props) => (props.bg ? props.bg : "transparent")};
   padding: 5px;
   background: ${(props) =>
-    props.bg && props.contentOverflow ? `${props.bg}38` : props.bg};
+    props.bg && props.contentOverflow ? `${props.bg}00` : props.bg};
 `;
 
 export const TemplateLeftItem = styled.div<ITemplateType>`
@@ -440,13 +432,8 @@ export const TemplateWrapper = styled.div<ITemplateType>`
   .swiper-button-prev {
     left: 0;
   }
+
   @media only screen and (${breakpoints.device.lg}) {
-    .masonry-grid {
-      display: block;
-    }
-    .masonry-grid_column {
-      width: 100% !important;
-    }
     ${TemplateContainer} {
       width: 100%;
       height: auto;

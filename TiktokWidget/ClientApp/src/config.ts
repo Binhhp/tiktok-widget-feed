@@ -10,8 +10,9 @@ const config = {
     "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
   youtubeUrl: "https://www.youtube.com/embed/sEusMMkl1vM",
   learnMoreUrl: "https://youtube.com",
-  scriptJwPlayer: "https://content.jwplatform.com/libraries/jvJ1Gu3c.js",
   linkButtonWidget: "http://localhost",
+  showItems: 15,
+  sliderShowItem: 100,
 };
 
 export default config;

@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Card,
   ContextualSaveBar,
   Frame,
@@ -100,42 +101,73 @@ function ButtonWidget() {
   const [isPending, setIsPending] = useState(false);
 
   const [showNotify, setShowNotify] = useState(false);
+  const [status, setStatus] = useState<"Enabled" | "Disabled" | "SaveChanges">(
+    "Enabled"
+  );
 
-  const onUpdateConfiguration = (isEnabled: boolean) => () => {
-    if (shopReducer.shop?.id) {
-      setIsPending(true);
-      const shopReponsitory = new ShopReponsitory();
-      toastNotify.promise(
-        shopReponsitory
-          .Update(shopReducer.shop?.domain, {
-            buttonPosition: ButtonPositionProvider.ToDtoV2(
-              buttonWidget.position
-            ),
-            image: buttonWidget.image,
-            tikTokUserName: buttonWidget.userName,
-            theme: buttonWidget.theme,
-            isEnabled: isEnabled,
-          })
-          .then((res) => {
-            if (res.Status) {
-              fetchShopConfiguration();
-            }
-            setShowNotify(false);
-            setIsPending(false);
-            return res;
-          }),
-        {
-          loading: isEnabled
-            ? `Enabling configuration for ${shopReducer.shop.domain}`
-            : `Disabling configuration for ${shopReducer.shop.domain}`,
-          success: () => (isEnabled ? `Enabled succeed` : `Disabled succeed`),
+  const onUpdateConfiguration =
+    (isEnabled: boolean = false) =>
+    () => {
+      if (shopReducer.shop?.id) {
+        setIsPending(true);
+        const shopReponsitory = new ShopReponsitory();
+        let statusBtn = true;
+        let loadingTitle = `Enabling configuration for ${shopReducer.shop.domain}`;
+        let successTitle = `Enabled succeed`;
+
+        if (!isEnabled) {
+          if (status === "Disabled") {
+            statusBtn = false;
+            loadingTitle = `Disabling configuration for ${shopReducer.shop.domain}`;
+            successTitle = `Disabled succeed`;
+          }
+          if (status === "SaveChanges") {
+            statusBtn = buttonWidget.isEnabled;
+            loadingTitle = `Save Changing configuration for ${shopReducer.shop.domain}`;
+            successTitle = `Save changed succeed`;
+          }
+        } else {
+          setStatus("Enabled");
         }
-      );
-    }
-  };
+
+        toastNotify.promise(
+          shopReponsitory
+            .Update(shopReducer.shop?.domain, {
+              buttonPosition: ButtonPositionProvider.ToDtoV2(
+                buttonWidget.position
+              ),
+              image: buttonWidget.image,
+              tikTokUserName: buttonWidget.userName,
+              theme: buttonWidget.theme,
+              isEnabled: statusBtn,
+            })
+            .then((res) => {
+              if (res.Status) {
+                fetchShopConfiguration();
+              }
+              setShowNotify(false);
+              setIsPending(false);
+              return res;
+            }),
+          {
+            loading: loadingTitle,
+            success: () => successTitle,
+          }
+        );
+      }
+    };
 
   const onHandleNotify = () => {
     setShowNotify(!showNotify);
+  };
+  const onDisable = () => {
+    onHandleNotify();
+    setStatus("Disabled");
+  };
+
+  const onSaveChange = () => {
+    onHandleNotify();
+    setStatus("SaveChanges");
   };
 
   return (
@@ -161,9 +193,14 @@ function ButtonWidget() {
               </p>
             </ContainerSection>
             {buttonWidget.isEnabled ? (
-              <Button loading={isPending} onClick={onHandleNotify}>
-                Disable App
-              </Button>
+              <ButtonGroup>
+                <Button loading={isPending} onClick={onDisable}>
+                  Disable App
+                </Button>
+                <Button loading={isPending} primary onClick={onSaveChange}>
+                  Save
+                </Button>
+              </ButtonGroup>
             ) : (
               <Button
                 onClick={onUpdateConfiguration(true)}

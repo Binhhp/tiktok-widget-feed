@@ -87,3 +87,12 @@ export const FormSubmitWrapper = styled.div`
     }
   }
 `;
+
+export const ButtonCancel = styled.button`
+  border: none;
+  background: transparent;
+  color: #fe2c55;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 15px;
+`;

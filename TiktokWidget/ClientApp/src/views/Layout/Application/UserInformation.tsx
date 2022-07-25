@@ -1,28 +1,20 @@
 import { ContainerSection } from "common/style/Utils.style";
+import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
 import Profile from "Dependencies/Profile";
-import React from "react";
-import { useSelector } from "react-redux";
-import { TemplateStoreModel } from "stores/Templates/state";
-import { RootTikTokReducer } from "stores/TikTokReducer";
+import React, { useContext } from "react";
 
-export interface IUserProfileProps {
-  id: string;
-}
-function UserInformation(props: IUserProfileProps) {
-  const templateReducer: TemplateStoreModel = useSelector(
-    (state: RootTikTokReducer) =>
-      state.templateStoreReducer.filter((x) => x.id === props.id)[0]
-  );
+function UserInformation() {
+  const templateContext = useContext(LayoutTemplateContext);
 
   return (
     <ContainerSection width={100} mb={50}>
       <Profile
         profileInfo={{
-          name: templateReducer?.user?.author,
-          followers: templateReducer?.user?.followerCount,
-          following: templateReducer?.user?.followingCount,
-          avt: templateReducer?.user?.avatarThumb,
-          like: templateReducer?.user?.diggCount,
+          name: templateContext.state?.user?.author,
+          followers: templateContext.state?.user?.followerCount,
+          following: templateContext.state?.user?.followingCount,
+          avt: templateContext.state?.user?.avatarThumb,
+          like: templateContext.state?.user?.diggCount,
         }}
       ></Profile>
     </ContainerSection>

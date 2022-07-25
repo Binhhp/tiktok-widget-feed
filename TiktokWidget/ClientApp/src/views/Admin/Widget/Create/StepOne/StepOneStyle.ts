@@ -57,3 +57,17 @@ export const FormControlWidget = styled.div<IFormControlWidget>`
   background-position: left bottom, left bottom, right top, right top, 1px 1px;
   box-shadow: 0px 0px 24px rgba(180, 188, 203, 0.24);
 `;
+
+export interface IFormSubmitStep {
+  size?: "small" | "large";
+}
+export const FormSubmitStep = styled.div<IFormSubmitStep>`
+  .Polaris-Stack .Polaris-Stack__Item {
+    margin-top: ${(props) =>
+      props.size === "small" ? `4px` : `var(--pc-stack-spacing)`};
+  }
+  .Polaris-FormLayout__Item {
+    margin-top: ${(props) =>
+      props.size === "small" ? `15px` : `var(--p-space-4)`};
+  }
+`;

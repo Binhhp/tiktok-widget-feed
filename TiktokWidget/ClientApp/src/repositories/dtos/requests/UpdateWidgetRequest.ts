@@ -1,6 +1,5 @@
 import { ISettingProviderWidget } from "stores/Widget/state";
-
-export class CreateWidgetRequest {
+export class UpdateWidgetRequest {
   public widgetTitle: string;
   public sourceType: number;
   public valueSource: string;

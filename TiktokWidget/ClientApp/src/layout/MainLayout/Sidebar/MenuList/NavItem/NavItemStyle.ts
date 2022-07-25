@@ -87,11 +87,15 @@ export const ListItemIcon = styled.div`
 
 export const Chip = styled.div`
   border-radius: 50%;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   color: #202223;
   background: rgba(228, 229, 231, 1);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 1px 6px;
 `;
 
 export const ListItemWrapper = styled.div`

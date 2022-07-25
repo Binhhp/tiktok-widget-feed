@@ -6,6 +6,7 @@ import { BaseShopConfiguration } from "repositories/dtos/responses/BaseShopConfi
 export interface IShopReponsitory {
   Get: (shopDomain: string) => Promise<BaseShop | null>;
   GetConfiguration: (domain: string) => Promise<BaseShopConfiguration | null>;
+  GetWidgetsCount: (shopDomain: string) => Promise<number>;
   Update: (
     domain?: string,
     req?: UpdateShopConfigurationRequest

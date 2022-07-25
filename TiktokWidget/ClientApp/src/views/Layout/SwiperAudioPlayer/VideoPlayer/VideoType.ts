@@ -18,6 +18,7 @@ export interface IVideoProps {
   playing: boolean;
   loading: boolean;
   error?: IErrorPlayer;
+  videoId?: string;
   onError?: (error: any) => void;
   onPlaying: (id?: string) => () => void;
   onPause: () => void;

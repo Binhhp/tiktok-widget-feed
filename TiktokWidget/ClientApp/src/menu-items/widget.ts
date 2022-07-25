@@ -16,6 +16,7 @@ const widget = {
       title: "My widget",
       type: "item",
       url: "/my-widget",
+      chip: true,
     },
   ],
 };

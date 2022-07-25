@@ -11,7 +11,7 @@ import {
   MobileInformation,
   TitleConfig,
 } from "../FormConfigStyle";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Icon } from "@shopify/polaris";
 import { AnalyticsMajor, WifiMajor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
@@ -19,39 +19,47 @@ import Image from "ui-components/Image";
 import Profile from "Dependencies/Profile";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { TemplateStoreModel } from "stores/Templates/state";
 import LoadingInfinite from "ui-components/LoadingInfinite";
+import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
+import { IVideoTemplateModel } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
 
 function LiveTemplate() {
   const widgetReducer = useSelector(
     (state: RootReducer) => state.widgetReducer
   );
 
-  const templateReducer: TemplateStoreModel = useSelector(
-    (state: RootReducer) => state.templateStoreReducer[0]
-  );
-
   const [intervalId, setIntervalId] = useState(0);
 
-  const queryData = (pageIndex: number) => {
+  const [layouts, setLayouts] = useState<IVideoTemplateModel>({
+    count: 0,
+    data: [],
+  });
+  const queryData = () => {
     clearInterval(intervalId);
     setIntervalId(0);
-    return new WidgetReponsitory().GetVideos(
-      widgetReducer.settings.id ?? "",
-      pageIndex
-    );
+    return Promise.resolve(layouts);
   };
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const newIntervalId = setInterval(async () => {
-      const res = await new WidgetReponsitory().GetVideos(
-        widgetReducer.settings.id ?? "",
-        1
+      const res = await new WidgetReponsitory().GetVideosByJob(
+        new GetVideoByJobRequest(
+          widgetReducer.settings.valueSource,
+          widgetReducer.settings.source
+        ),
+        100
       );
-      if (res?.count && res?.count > 0) {
+      if (res?.count) {
         setLoading(false);
+        clearInterval(newIntervalId);
+        setIntervalId(0);
+        setLayouts({
+          count: res.count,
+          data: res.data,
+        });
       }
     }, 2000);
     setIntervalId(newIntervalId);
@@ -66,7 +74,7 @@ function LiveTemplate() {
 
   const RenderLiveTemplates = (
     <Template
-      id="template"
+      disableContext
       showLoadInfinite
       circleLoading
       options={{
@@ -108,6 +116,7 @@ function LiveTemplate() {
       }}
     ></Template>
   );
+  const templateContext = useContext(LayoutTemplateContext);
   return (
     <FormConfigurationWrapper>
       {!widgetReducer.mobile && widgetReducer.settings.header === "enable" && (
@@ -149,11 +158,11 @@ function LiveTemplate() {
         {widgetReducer.mobile && widgetReducer.settings.source === 1 && (
           <Profile
             profileInfo={{
-              name: templateReducer?.user?.author,
-              followers: templateReducer?.user?.followerCount,
-              following: templateReducer?.user?.followingCount,
-              avt: templateReducer?.user?.avatarThumb,
-              like: templateReducer?.user?.diggCount,
+              name: templateContext.state?.user?.author,
+              followers: templateContext.state?.user?.followerCount,
+              following: templateContext.state?.user?.followingCount,
+              avt: templateContext.state?.user?.avatarThumb,
+              like: templateContext.state?.user?.diggCount,
             }}
             style={{
               mb: 20,

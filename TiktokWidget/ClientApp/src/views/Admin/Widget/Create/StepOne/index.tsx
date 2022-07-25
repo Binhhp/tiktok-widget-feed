@@ -15,7 +15,8 @@ import { Container } from "common/style/Utils.style";
 import { RootReducer } from "stores/reducers";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import toast from "react-hot-toast";
-import { TemplateStoreActionTS } from "stores/Templates/action";
+import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
+
 function StepOne() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,24 +33,19 @@ function StepOne() {
   const [loading, setLoading] = useState(false);
   const onSubmit = async (values: any, resetForm: any) => {
     setLoading(true);
-    dispatch(TemplateStoreActionTS.OnClearState());
     dispatch(WidgetActionTS.OnStep(2));
     const widgetReponsitory = new WidgetReponsitory();
     const sourceType = widgetReducer.settings.source ?? 0;
-    const res = await widgetReponsitory.Create(
-      {
-        widgetTitle: values.title,
-        valueSource: values.value,
-        sourceType: sourceType,
-      },
-      shopReducer.shop.domain
+    const res = await widgetReponsitory.AddJob(
+      shopReducer.shop.domain,
+      new AddJobRequest(values.value, sourceType)
     );
     if (res.Status) {
       dispatch(
         WidgetActionTS.OnSetSetting({
           title: values.title,
           valueSource: values.value,
-          id: res.Data.widgetId,
+          source: sourceType,
         })
       );
       resetForm();

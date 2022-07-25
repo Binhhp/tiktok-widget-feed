@@ -1,6 +1,6 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
 import styled from "styled-components";
-import { IImageCoverStyle, IVideoScrollWrapper } from "./VideoScrollTyle";
+import { IImageCoverStyle, IAudioPlayerWrapper } from "./AudioPlayerType";
 
 export const DivVideoContainer = styled.div`
   background: rgb(0, 0, 0);
@@ -50,7 +50,7 @@ export const ButtonBasicClose = styled.button`
   }
 `;
 
-export const VideoScrollWrapper = styled.div<IVideoScrollWrapper>`
+export const VideoScrollWrapper = styled.div<IAudioPlayerWrapper>`
   display: ${(props) => (props.active ? "block" : "none")};
   position: fixed;
   inset: 0;

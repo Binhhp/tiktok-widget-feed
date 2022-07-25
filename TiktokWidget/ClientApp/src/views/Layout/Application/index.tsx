@@ -14,12 +14,14 @@ import {
   SettingProviderWidget,
 } from "stores/Widget/state";
 import ApplicationContainer from "ui-components/ApplicationContainer";
-import VideoScroll from "../VideoScroll";
 import { ShopActionTS } from "stores/Shop/action";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
+import { ITikTokAppProps } from "../TikTokModel";
+import AudioPlayerContainer from "../SwiperAudioPlayer";
+import { AudioPlayerProvider } from "../SwiperAudioPlayer/AudioPlayerContext";
 
-function TikTok() {
+function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);
 
   const dispatch = useDispatch();
@@ -41,24 +43,6 @@ function TikTok() {
     });
   };
 
-  const fetchWidgetByIds = (widgetIds: Array<string>) => {
-    new WidgetReponsitory().GetByIds(widgetIds).then((res) => {
-      const result = res.Data as IWidgetResponse[];
-      const listNewWidgetIds: Array<ISettingProviderWidget> = [];
-
-      result.forEach((item) => {
-        listNewWidgetIds.push(new SettingProviderWidget(item).ToDto());
-      });
-      setWidgets([...widgets, ...listNewWidgetIds]);
-      dispatch(
-        ShopActionTS.OnSetInformation({
-          shop: result[0].shops,
-        })
-      );
-      setPending(false);
-    });
-  };
-
   const fetchWidgetsFromDomain = () => {
     const domain = window.location.host;
     new WidgetReponsitory().Get(0, domain).then((res) => {
@@ -76,23 +60,8 @@ function TikTok() {
     });
   };
   useEffect(() => {
-    const widgetElements = document.querySelectorAll('div[name="orichi"]');
-    if (widgetElements && widgetElements.length > 0) {
-      if (widgetElements.length === 1) {
-        const widgetId = widgetElements[0].getAttribute("data-id");
-        if (widgetId) {
-          fetchWidget(widgetId);
-        }
-      } else {
-        let widgetIds: Array<string> = [];
-        widgetElements.forEach((item: any) => {
-          const id = item.getAttribute("data-id");
-          if (id) {
-            widgetIds.push(id);
-          }
-        });
-        fetchWidgetByIds(widgetIds);
-      }
+    if (props.widgetId) {
+      fetchWidget(props.widgetId);
     } else {
       fetchWidgetsFromDomain();
     }
@@ -100,23 +69,25 @@ function TikTok() {
 
   return (
     <ApplicationContainer>
-      {widgets.map((item, index) => (
+      {widgets.map((item) => (
         <DivTiKTokenizer key={`TikTok-Widget-${item.id}`}>
-          <TikTokWrapper>
-            <DivTikTok>
-              {item.showProfile && item.source === 1 && (
-                <UserProfile id={`${item.id}`}></UserProfile>
-              )}
-              <ContainerSection height={100} width={100}>
-                {!isPending && item.id && (
-                  <TikTokContent hidden={false}>
-                    <Layout id={item.id} widget={item} />
-                  </TikTokContent>
+          <AudioPlayerProvider>
+            <TikTokWrapper>
+              <DivTikTok>
+                {item.showProfile && item.source === 1 && (
+                  <UserProfile></UserProfile>
                 )}
-              </ContainerSection>
-            </DivTikTok>
-          </TikTokWrapper>
-          <VideoScroll id={`${item.id}`}></VideoScroll>
+                <ContainerSection height={100} width={100}>
+                  {!isPending && item.id && (
+                    <TikTokContent hidden={false}>
+                      <Layout id={item.id} widget={item} />
+                    </TikTokContent>
+                  )}
+                </ContainerSection>
+              </DivTikTok>
+            </TikTokWrapper>
+            <AudioPlayerContainer widget={item} />
+          </AudioPlayerProvider>
         </DivTiKTokenizer>
       ))}
     </ApplicationContainer>

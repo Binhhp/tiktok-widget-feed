@@ -37,9 +37,9 @@ export const SnipperLoader = styled.div`
 
 export const ImageStyle = styled.img`
   width: 100%;
+  max-width: 100%;
   height: 100%;
-  object-fit: cover;
-  z-index: 1;
+  display: block;
 `;
 
 export const ButtonViewMore = styled.button`
@@ -63,6 +63,8 @@ export const LoadingInfiniteWrapper = styled.div`
     color: #fafafa;
     cursor: pointer;
     h2 {
+      letter-spacing: 0px !important;
+      text-transform: none !important;
       margin: 5px 0px;
     }
     &:hover {

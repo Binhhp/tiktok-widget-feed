@@ -12,6 +12,7 @@ import { ShopActionTS } from "stores/Shop/action";
 import Loader from "ui-components/Loader";
 import withAppProvider from "Dependencies/ApplicationProvider";
 import { useQuery } from "hooks";
+import { WidgetActionTS } from "stores/Widget/action";
 
 function App() {
   const navigate = useNavigate();
@@ -21,18 +22,27 @@ function App() {
   useEffect(() => {
     if (shop) {
       const shopReponsitory = new ShopReponsitory();
-      shopReponsitory.Get(shop).then((res) => {
-        if (res) {
-          dispatch(
-            ShopActionTS.OnSetInformation({
-              shop: res,
-            })
-          );
-        } else {
+      shopReponsitory
+        .Get(shop)
+        .then((res) => {
+          if (res) {
+            dispatch(
+              ShopActionTS.OnSetInformation({
+                shop: res,
+              })
+            );
+            shopReponsitory.GetWidgetsCount(res.domain ?? "").then((val) => {
+              dispatch(WidgetActionTS.OnSetWidgetCount(val));
+            });
+          } else {
+            navigate("/not-found");
+          }
+          setPending(false);
+        })
+        .catch(() => {
           navigate("/not-found");
-        }
-        setPending(false);
-      });
+          setPending(false);
+        });
     } else {
       navigate("/not-found");
       setPending(false);
