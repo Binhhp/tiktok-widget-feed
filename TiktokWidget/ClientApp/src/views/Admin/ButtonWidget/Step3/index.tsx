@@ -5,8 +5,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
 import { RootReducer } from "stores/reducers";
+import { IButtonWidgetProps } from "../ButtonWidgetModel";
 
-function Step3() {
+function Step3(props: IButtonWidgetProps) {
+  const buttonWidget = useSelector(
+    (state: RootReducer) => state.buttonWidgetReducer
+  );
   const options = [
     {
       label: "Dawn",
@@ -19,16 +23,15 @@ function Step3() {
   ];
   const dispatch = useDispatch();
   const handleSelectChange = (value: string) => {
+    if (buttonWidget.id) {
+      props.onSaveChanges();
+    }
     dispatch(
       ButtonWidgetActionTS.OnSetOptional({
         theme: value,
       })
     );
   };
-
-  const buttonWidget = useSelector(
-    (state: RootReducer) => state.buttonWidgetReducer
-  );
   return (
     <Card title="Step 3: Installation" sectioned>
       <Container flexDirection="column">

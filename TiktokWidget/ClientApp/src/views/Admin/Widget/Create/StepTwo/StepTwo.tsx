@@ -53,7 +53,7 @@ function StepTwo() {
     <CreateWidgetProvider animation={true}>
       <Container position="relative">
         <ContainerSection
-          width={35}
+          width={32}
           pt={20}
           pl={30}
           pr={20}
@@ -71,7 +71,7 @@ function StepTwo() {
           ></Pattern>
           <FormSubmit></FormSubmit>
         </ContainerSection>
-        <ContainerSection width={100} pt={30} pl="45%" pr={30} pb={40}>
+        <ContainerSection width={100} pt={30} pl="40%" pr={30} pb={40}>
           <FormConfiguration></FormConfiguration>
         </ContainerSection>
       </Container>

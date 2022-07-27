@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using TiktokWidget.Common.Enums;
+using TiktokWidget.Service.Dtos.Requests;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
@@ -16,6 +18,16 @@ namespace TiktokWidget.Controllers
         [EnableQuery]
         public IActionResult Get([FromODataUri] string key)
         {
+            var queryString = Request.Query;
+            if (queryString.TryGetValue("data", out var data) && queryString.TryGetValue("type", out var type))
+            {
+                var response = _widgetService.GetVideoJob(new GetVideoByJobRequest
+                {
+                    Data = data,
+                    Type = type.Equals("0") ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName
+                });
+                return Ok(response);
+            }
             var result = _widgetService.GetVideos(key);
             return Ok(result);
         }

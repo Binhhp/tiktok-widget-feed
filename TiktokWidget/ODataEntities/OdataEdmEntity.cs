@@ -25,7 +25,9 @@ namespace TiktokWidget.ODataEntities
         private static List<string> ShopEntityActions = new List<string>
         {
             "UpdateShopConfiguration",
-            "RegisterWidget"
+            "RegisterWidget",
+            "AddJob",
+            "GetWidgetCounts"
         };
         private static void BuildEdmModelShare()
         {

@@ -5,14 +5,18 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
 import { RootReducer } from "stores/reducers";
+import { IButtonWidgetProps } from "../ButtonWidgetModel";
 import { ButtonWidgetControl } from "../ButtonWidgetStyle";
 
-function Step1() {
+function Step1(props: IButtonWidgetProps) {
   const buttonWidget = useSelector(
     (state: RootReducer) => state.buttonWidgetReducer
   );
   const dispatch = useDispatch();
   const onSetButton = (image: string) => () => {
+    if (buttonWidget.id) {
+      props.onSaveChanges();
+    }
     dispatch(
       ButtonWidgetActionTS.OnSetOptional({
         image: image,

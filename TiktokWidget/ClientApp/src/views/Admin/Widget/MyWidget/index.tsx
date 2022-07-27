@@ -79,7 +79,7 @@ function MyWidget() {
     });
   };
 
-  const [timeZone, setTimeZone] = useState<string | undefined>("");
+  const [timeZone, setTimeZone] = useState<string | undefined>("UTC");
   const fetchData = async (pageIndex: number) => {
     const widgetReponsitory = new WidgetReponsitory();
     const shopReponsitory = new ShopReponsitory();

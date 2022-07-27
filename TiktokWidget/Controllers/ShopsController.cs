@@ -30,6 +30,15 @@ namespace TiktokWidget.Controllers
             return SingleResult.Create(result);
         }
 
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Shops({domain})/GetWidgetCounts")]
+        public IActionResult GetWidgetCounts([FromODataUri] string domain)
+        {
+            var result = _widgetService.GetCounts(domain);
+            return Ok(result);
+        }
+
         [HttpPost]
         [ODataRoute("Shops")]
         public async Task<IActionResult> Post([FromBody] ShopCreateDto request)
@@ -97,6 +106,15 @@ namespace TiktokWidget.Controllers
             {
                 return NotFound(response);
             }
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        [ODataRoute("Shops({domain})/AddJob")]
+        public async Task<IActionResult> AddJob([FromODataUri] string domain, [FromBody] AddJobRequest request)
+        {
+            var response = await _widgetService.AddJob(request);
             return Ok(response);
         }
     }

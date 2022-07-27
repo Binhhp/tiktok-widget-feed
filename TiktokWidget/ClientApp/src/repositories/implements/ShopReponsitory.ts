@@ -7,13 +7,15 @@ import { IShopReponsitory } from "repositories/interfaces/IShopReponsitory";
 
 export class ShopReponsitory implements IShopReponsitory {
   GetConfiguration = async (domain?: string) => {
-    const response = await FetchDataFromServer({
-      method: "GET",
-      url: `${RootURL.ApiBase}/odata/shops('${domain}')/shopConfiguration`,
-    });
-    if (response.Status) {
-      return response.Data as BaseShopConfiguration;
-    }
+    try {
+      const response = await FetchDataFromServer({
+        method: "GET",
+        url: `${RootURL.ApiBase}/odata/shops('${domain}')/shopConfiguration`,
+      });
+      if (response.Status) {
+        return response.Data as BaseShopConfiguration;
+      }
+    } catch {}
     return null;
   };
 

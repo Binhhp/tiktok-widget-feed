@@ -95,4 +95,5 @@ export const ButtonCancel = styled.button`
   cursor: pointer;
   font-weight: 400;
   font-size: 15px;
+  margin-right: 5px;
 `;

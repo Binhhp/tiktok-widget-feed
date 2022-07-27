@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos;
+using TiktokWidget.Service.Dtos.Requests;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Service.Dtos.Response;
 using TiktokWidget.Service.Dtos.Responses;
@@ -19,6 +20,9 @@ namespace TiktokWidget.Service.Interfaces
         Task<ResponseBase> UpdateAsync(string key, UpdateWidgetRequest request);
         Task<ResponseBase> DeleteAsync(string key);
         Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<string> productIds);
-        IQueryable<VideoTikTokModel> GetVideos(string widgetId); 
+        IQueryable<VideoTikTokModel> GetVideos(string widgetId);
+        int GetCounts(string domain);
+        Task<AddJobResponse> AddJob(AddJobRequest request);
+        IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request);
     }
 }

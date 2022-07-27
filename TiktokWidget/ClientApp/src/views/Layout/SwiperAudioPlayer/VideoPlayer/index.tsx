@@ -45,6 +45,7 @@ import {
 } from "./VideoStyle";
 import { IVideoProps } from "./VideoType";
 import Loader from "ui-components/Loader";
+import breakpoints from "Dependencies/Devices/breakpoint";
 
 function VideoPlayer(props: IVideoProps) {
   const video = props.item.video?.playAddr;
@@ -59,6 +60,7 @@ function VideoPlayer(props: IVideoProps) {
     );
     if (more) more.style.display = "none";
   };
+
   return (
     <DivVideoWrapper
       showProducts={
@@ -69,6 +71,11 @@ function VideoPlayer(props: IVideoProps) {
         <DivContent>
           <DivVideoPlay>
             <ImgPoster
+              height={`${
+                props.item.video.height *
+                breakpoints.imgSize(props.item.video.height)
+              }px`}
+              loading="lazy"
               src={props.item.video.originCover}
               alt={props.item.desc}
             ></ImgPoster>
@@ -89,6 +96,7 @@ function VideoPlayer(props: IVideoProps) {
                       <DivPlayerIcon></DivPlayerIcon>
                     </DivPlayerIconContainer>
                   }
+                  key={`player-${props.item.id}`}
                   onStart={props.onPlaying(props.item.id)}
                   fallback={<Loader></Loader>}
                   onPause={props.onPause}
@@ -97,7 +105,7 @@ function VideoPlayer(props: IVideoProps) {
                   playing={props.playing ?? false}
                   stopOnUnmount={true}
                   loop={true}
-                  width={props.loading ? 0 : `auto`}
+                  width={props.loading ? 0 : `100%`}
                   height="100%"
                   controls
                   onError={(error) => {

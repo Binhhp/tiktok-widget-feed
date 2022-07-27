@@ -68,8 +68,7 @@ export const TemplateImage = styled.div<ITemplateImage>`
             : `${props.imgHeight}`
         }`
       : "auto"};
-  min-height: 300px;
-  height: ${(props) => (props.height ? `${props.height}px` : "auto")};
+  height: ${(props) => (props.height ? `${props.height}px` : "100%")};
   position: relative;
   cursor: pointer;
   background-color: #fafafa;

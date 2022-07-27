@@ -16,6 +16,7 @@ using TiktokWidget.Service.Dtos.Response;
 using TiktokWidget.Service.Dtos.Responses;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Common.HttpLogging.Models;
+using TiktokWidget.Service.Dtos.Requests;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -202,7 +203,7 @@ namespace TiktokWidget.Service.Implements
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
             var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
-            if(widget == null)
+            if (widget == null)
             {
                 return response;
             }
@@ -218,6 +219,36 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<WidgetEntity> GetByIds(IEnumerable<string> widgetIds)
         {
             return _context.Widgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
+        }
+
+        public int GetCounts(string domain)
+        {
+            return _context.Widgets.Include(x => x.Shops).Where(x => x.Shops.Domain.Equals(domain)).Count();
+        }
+
+        public async Task<AddJobResponse> AddJob(AddJobRequest request)
+        {
+            var job = new JobEntity
+            {
+                Data = request.Data,
+                Type = request.Type
+            };
+            
+            await _context.Job.AddAsync(job);
+            await _context.SaveChangesAsync();
+            return new AddJobResponse();
+        }
+
+        public IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request)
+        {
+            var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
+            string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            string urlRequest = $"{HostGetVideos}/{type}/{request.Data}.json";
+            var httpClient = new HttpClient();
+            var res = httpClient.GetAsync(urlRequest).GetAwaiter().GetResult();
+            var JSON = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+            return response;
         }
     }
 }

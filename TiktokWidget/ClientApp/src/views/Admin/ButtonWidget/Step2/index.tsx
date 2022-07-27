@@ -16,6 +16,7 @@ import { ColorRed } from "views/Admin/Widget/Create/CreateWidgetStyle";
 import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
 import { StepAnimationButtonWidget } from "../ButtonWidgetStyle";
+import { IButtonWidgetProps } from "../ButtonWidgetModel";
 
 let schema = Yup.object().shape({
   userName: Yup.string()
@@ -28,7 +29,7 @@ let schema = Yup.object().shape({
     }),
 });
 
-function Step2() {
+function Step2(props: IButtonWidgetProps) {
   const buttonWidget = useSelector(
     (state: RootReducer) => state.buttonWidgetReducer
   );
@@ -42,6 +43,9 @@ function Step2() {
       .catch((err) => {
         setError(err.errors[0]);
       });
+    if (buttonWidget.id) {
+      props.onSaveChanges();
+    }
     dispatch(
       ButtonWidgetActionTS.OnSetOptional({
         step: buttonWidget.id ? 3 : 2,
@@ -51,6 +55,9 @@ function Step2() {
   };
   const setValOnChangeText =
     (type: "top" | "bottom" | "left" | "right") => () => {
+      if (buttonWidget.id) {
+        props.onSaveChanges();
+      }
       switch (type) {
         case "top":
           return dispatch(

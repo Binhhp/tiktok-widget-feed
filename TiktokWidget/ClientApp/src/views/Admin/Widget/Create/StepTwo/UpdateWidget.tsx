@@ -40,7 +40,7 @@ function StepTwoUpdate() {
     <CreateWidgetProvider animation={true}>
       <Container position="relative">
         <ContainerSection
-          width={35}
+          width={32}
           pt={20}
           pl={30}
           pr={20}
@@ -54,14 +54,14 @@ function StepTwoUpdate() {
           <CaptionStep>Step 2: Select a template</CaptionStep>
           <Pattern
             style={{
-              marginItem: 4,
+              marginItem: 8,
               marginTopParent: 10,
               height: 110,
             }}
           ></Pattern>
           <FormSubmit></FormSubmit>
         </ContainerSection>
-        <ContainerSection width={100} pt={20} pl="44%" pr={30} pb={40}>
+        <ContainerSection width={100} pt={20} pl="40%" pr={30} pb={40}>
           <FormConfiguration></FormConfiguration>
         </ContainerSection>
       </Container>

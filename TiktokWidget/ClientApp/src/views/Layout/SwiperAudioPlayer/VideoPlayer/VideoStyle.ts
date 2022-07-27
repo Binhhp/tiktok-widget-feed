@@ -21,22 +21,22 @@ export const DivContainer = styled.div<IVideoWrapperStyle>`
   -webkit-box-pack: center;
   justify-content: center;
   position: relative;
-  padding: 3% 0;
   video {
-    object-fit: contain;
-    max-width: 100%;
-  }
-  @media only screen and (${breakpoints.device.bigLg}) {
-    padding: 6% 0;
+    object-fit: cover;
+    display: block;
   }
 `;
 
 export const DivContent = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  height: 100%;
   margin: auto;
-  width: max-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  max-height: 100%;
 `;
 
 export interface IDivContentVideo {
@@ -46,6 +46,7 @@ export const DivContentVideo = styled.div<IDivContentVideo>`
   padding: 20px 15px 15px 15px;
   background: #ffffff;
   max-width: 550px;
+  min-width: 350px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -103,9 +104,7 @@ export const DivContentHeader = styled.div`
 `;
 
 export const DivVideoPlay = styled.div`
-  width: auto;
-  height: 100%;
-  min-width: 300px;
+  display: block;
   position: relative;
   ${AbsoluteCenter} {
     svg {
@@ -130,10 +129,10 @@ export const DivBasicPlayerWrapper = styled.div<IDivBasicPlayerWrapper>`
 `;
 
 export const ImgPoster = styled.img`
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
+  object-fit: cover;
+  display: block;
+  max-height: 100%;
+  max-width: max-content !important;
 `;
 
 export const ButtonClose = styled.div`
@@ -236,6 +235,10 @@ export const DivVideoWrapper = styled.div<IDivContentVideo>`
     }
   }
   @media only screen and (${breakpoints.device.lg}) {
+    ${ImgPoster} {
+      width: 100%;
+      height: 100%;
+    }
     ${DivContainer} {
       width: 70%;
       margin: auto;

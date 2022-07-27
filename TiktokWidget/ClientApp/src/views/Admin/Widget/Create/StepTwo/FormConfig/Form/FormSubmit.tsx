@@ -88,7 +88,7 @@ function FormSubmit() {
 
   return (
     <FormSubmitWrapper>
-      <ButtonCancel onClick={onCancel}>Cancel</ButtonCancel>
+      <ButtonCancel onClick={onCancel}>Back</ButtonCancel>
       <Button loading={loading} onClick={onSubmit}>
         Save
       </Button>

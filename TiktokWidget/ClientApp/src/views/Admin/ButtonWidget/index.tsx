@@ -105,68 +105,63 @@ function ButtonWidget() {
     "Enabled"
   );
 
-  const onUpdateConfiguration =
-    (isEnabled: boolean = false) =>
-    () => {
-      if (shopReducer.shop?.id) {
-        setIsPending(true);
-        const shopReponsitory = new ShopReponsitory();
-        let statusBtn = true;
-        let loadingTitle = `Enabling configuration for ${shopReducer.shop.domain}`;
-        let successTitle = `Enabled succeed`;
+  const onUpdateConfiguration = () => {
+    if (shopReducer.shop?.id) {
+      setIsPending(true);
+      const shopReponsitory = new ShopReponsitory();
+      let statusBtn = true;
+      let loadingTitle = `Enabling configuration for ${shopReducer.shop.domain}`;
+      let successTitle = `Enabled succeed`;
 
-        if (!isEnabled) {
-          if (status === "Disabled") {
-            statusBtn = false;
-            loadingTitle = `Disabling configuration for ${shopReducer.shop.domain}`;
-            successTitle = `Disabled succeed`;
-          }
-          if (status === "SaveChanges") {
-            statusBtn = buttonWidget.isEnabled;
-            loadingTitle = `Save Changing configuration for ${shopReducer.shop.domain}`;
-            successTitle = `Save changed succeed`;
-          }
-        } else {
-          setStatus("Enabled");
-        }
-
-        toastNotify.promise(
-          shopReponsitory
-            .Update(shopReducer.shop?.domain, {
-              buttonPosition: ButtonPositionProvider.ToDtoV2(
-                buttonWidget.position
-              ),
-              image: buttonWidget.image,
-              tikTokUserName: buttonWidget.userName,
-              theme: buttonWidget.theme,
-              isEnabled: statusBtn,
-            })
-            .then((res) => {
-              if (res.Status) {
-                fetchShopConfiguration();
-              }
-              setShowNotify(false);
-              setIsPending(false);
-              return res;
-            }),
-          {
-            loading: loadingTitle,
-            success: () => successTitle,
-          }
-        );
+      if (status === "Disabled") {
+        statusBtn = false;
+        loadingTitle = `Disabling configuration for ${shopReducer.shop.domain}`;
+        successTitle = `Disabled succeed`;
       }
-    };
+      if (status === "SaveChanges") {
+        statusBtn = buttonWidget.isEnabled;
+        loadingTitle = `Save Changing configuration for ${shopReducer.shop.domain}`;
+        successTitle = `Save changed succeed`;
+      }
+
+      toastNotify.promise(
+        shopReponsitory
+          .Update(shopReducer.shop?.domain, {
+            buttonPosition: ButtonPositionProvider.ToDtoV2(
+              buttonWidget.position
+            ),
+            image: buttonWidget.image,
+            tikTokUserName: buttonWidget.userName,
+            theme: buttonWidget.theme,
+            isEnabled: statusBtn,
+          })
+          .then((res) => {
+            if (res.Status) {
+              fetchShopConfiguration();
+            }
+            setShowNotify(false);
+            setIsPending(false);
+            setStatus("Enabled");
+            return res;
+          }),
+        {
+          loading: loadingTitle,
+          success: () => successTitle,
+        }
+      );
+    }
+  };
 
   const onHandleNotify = () => {
     setShowNotify(!showNotify);
   };
   const onDisable = () => {
-    onHandleNotify();
+    setShowNotify(true);
     setStatus("Disabled");
   };
 
-  const onSaveChange = () => {
-    onHandleNotify();
+  const onSaveChanges = () => {
+    setShowNotify(true);
     setStatus("SaveChanges");
   };
 
@@ -197,13 +192,10 @@ function ButtonWidget() {
                 <Button loading={isPending} onClick={onDisable}>
                   Disable App
                 </Button>
-                <Button loading={isPending} primary onClick={onSaveChange}>
-                  Save
-                </Button>
               </ButtonGroup>
             ) : (
               <Button
-                onClick={onUpdateConfiguration(true)}
+                onClick={onUpdateConfiguration}
                 primary
                 loading={isPending}
                 disabled={buttonWidget.step !== 3}
@@ -224,8 +216,8 @@ function ButtonWidget() {
         >
           <ButtonWidgetContainer>
             <ContainerSection width={50} pr={7} bg="#F6F6F7">
-              <Step1></Step1>
-              <Step2></Step2>
+              <Step1 onSaveChanges={onSaveChanges}></Step1>
+              <Step2 onSaveChanges={onSaveChanges}></Step2>
             </ContainerSection>
             <ContainerSection width={50} pl={7} bg="#F6F6F7">
               <PreviewButtonWidget>
@@ -278,7 +270,7 @@ function ButtonWidget() {
             pb={5}
             bg="#F6F6F7"
           >
-            <Step3></Step3>
+            <Step3 onSaveChanges={onSaveChanges}></Step3>
           </ContainerSection>
         )}
       </Container>
@@ -288,7 +280,7 @@ function ButtonWidget() {
             <ContextualSaveBar
               message="Unsaved changes"
               saveAction={{
-                onAction: onUpdateConfiguration(false),
+                onAction: onUpdateConfiguration,
                 loading: isPending,
                 disabled: false,
               }}
