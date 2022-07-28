@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import workerManager from "stores";
 import GlobalStyles from "GlobalStyles";
 import Loadable from "ui-components/Loadable";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "views/ErrorFallback";
 
 const App = Loadable(lazy(() => import("./App")));
 const root = ReactDOM.createRoot(
@@ -14,9 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={workerManager.store}>
     <GlobalStyles />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundary>
   </Provider>
 );
 
