@@ -19,7 +19,12 @@ const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {
     result = new BaseResponse(true, response.data);
   } catch (err: any) {
     const errors = err.response?.data as IErrorMessage;
-    result = new BaseResponse(false, null, errors.errors[0].errorMessage);
+    if (errors && Array.isArray(errors)) {
+      result = new BaseResponse(false, null, errors.errors[0].errorMessage);
+    } else {
+      const message = `${err.code}: ${err.message}`;
+      result = new BaseResponse(false, null, message);
+    }
   }
   return Promise.resolve(result);
 };

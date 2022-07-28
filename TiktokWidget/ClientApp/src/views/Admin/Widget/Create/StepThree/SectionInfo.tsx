@@ -3,6 +3,7 @@ import { ContainerSection, LinkRouter } from "common/style/Utils.style";
 import config from "config";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/reducers";
 import {
   ButtonWrapper,
@@ -12,13 +13,23 @@ import {
 } from "./StepThreeStyle";
 function SectionInfo() {
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const navigate = useNavigate();
+
+  const onEnableSection = () => {
+    window.open(
+      `https://${shopReducer.shop.domain}/admin/themes/current/editor`
+    );
+    return navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
+  };
   return (
     <ContainerSection width={40} pl={30} pt={30} pr={20}>
       <CardBody>
         <Card sectioned>
           <SectionWrapper>
             <p>Enable the section</p>
-            <Button primary>Enable</Button>
+            <Button onClick={onEnableSection} primary>
+              Enable
+            </Button>
           </SectionWrapper>
         </Card>
       </CardBody>

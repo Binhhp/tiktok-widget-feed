@@ -65,17 +65,19 @@ function StepThree() {
                 Add Code
               </TabItem>
             </TabItemWrapper>
-            <TabItemWrapper
-              onClick={onSetSection}
-              borderColor={!section ? "#FE2C55" : ""}
-            >
-              <TabItem
-                bg={!section ? "#FE2C55" : ""}
-                color={!section ? "#ffffff" : ""}
+            {config.showUseSection && (
+              <TabItemWrapper
+                onClick={onSetSection}
+                borderColor={!section ? "#FE2C55" : ""}
               >
-                Use section
-              </TabItem>
-            </TabItemWrapper>
+                <TabItem
+                  bg={!section ? "#FE2C55" : ""}
+                  color={!section ? "#ffffff" : ""}
+                >
+                  Use section
+                </TabItem>
+              </TabItemWrapper>
+            )}
           </TabMethods>
         </ContainerSection>
         {section ? <CodeInfo></CodeInfo> : <SectionInfo></SectionInfo>}

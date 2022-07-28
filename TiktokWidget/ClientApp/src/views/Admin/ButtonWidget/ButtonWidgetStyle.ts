@@ -1,5 +1,5 @@
 import { IButtonWidgetControl } from "./ButtonWidgetType";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const ButtonWidgetWrapper = styled.div`
   width: 100%;

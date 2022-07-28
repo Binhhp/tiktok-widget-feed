@@ -1,4 +1,5 @@
 ﻿
+using ShopifySharp;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos;
@@ -19,5 +20,6 @@ namespace TiktokWidget.Service.Interfaces
         Task UpdateConfigurationAsync(string domain, CreateShopConfigurationRequest request);
         Task ExternalAuthenticationAsync(string domain, string code);
         Task Test(string domain);
+        IQueryable<Theme> GetThemes(string domain);
     }
 }

@@ -2,6 +2,41 @@ import { IPropListItemButton } from "./NavItem";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const ListItemTagHref = styled.a<IPropListItemButton>`
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: #202223;
+  padding-top: ${(props) => (props?.level && props?.level > 1 ? 6 : 6.25)}px;
+  padding-bottom: ${(props) => (props?.level && props?.level > 1 ? 6 : 6.25)}px;
+  padding-left: 24px;
+  position: relative;
+
+  &:hover {
+    background: #edeeef;
+    color: rgba(255, 11, 83, 1);
+    border-radius: 4px;
+    svg {
+      fill: rgba(255, 11, 83, 1);
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0.0625rem;
+      bottom: 0.0625rem;
+      left: 0;
+      width: 0.1875rem;
+      background-color: red;
+      border-top-right-radius: red;
+      border-bottom-right-radius: red;
+    }
+  }
+`;
+
 export const ListItemButton = styled(Link)<IPropListItemButton>`
   width: 100%;
   display: flex;

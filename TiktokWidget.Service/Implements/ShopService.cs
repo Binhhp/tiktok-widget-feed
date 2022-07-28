@@ -268,5 +268,17 @@ namespace TiktokWidget.Service.Implements
             }
 
         }
+
+        public IQueryable<Theme> GetThemes(string domain)
+        {
+            var response = Enumerable.Empty<Theme>().AsQueryable();
+            var shopObj = GetByDomain(domain).FirstOrDefault();
+            if(shopObj != null)
+            {
+                var themeService = new ThemeService(shopObj.Domain, shopObj.Token);
+                response = themeService.ListAsync().GetAwaiter().GetResult().AsQueryable();
+            }
+            return response;
+        }
     }
 }

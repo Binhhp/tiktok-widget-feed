@@ -3,9 +3,23 @@ import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { UpdateShopConfigurationRequest } from "repositories/dtos/requests/UpdateShopConfigurationRequest";
 import { BaseShop } from "repositories/dtos/responses/BaseShop";
 import { BaseShopConfiguration } from "repositories/dtos/responses/BaseShopConfiguration";
+import { BaseTheme } from "repositories/dtos/responses/BaseTheme";
 import { IShopReponsitory } from "repositories/interfaces/IShopReponsitory";
 
 export class ShopReponsitory implements IShopReponsitory {
+  GetThemes = async (shopDomain: string) => {
+    try {
+      const response = await FetchDataFromServer({
+        method: "GET",
+        url: `${RootURL.ApiBase}/odata/Shops('${shopDomain}')/GetThemes`,
+      });
+      if (response.Status) {
+        return response.Data?.value as BaseTheme[];
+      }
+    } catch {}
+    return [];
+  };
+
   GetConfiguration = async (domain?: string) => {
     try {
       const response = await FetchDataFromServer({

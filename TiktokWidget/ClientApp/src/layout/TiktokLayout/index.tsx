@@ -1,5 +1,5 @@
 import React from "react";
-import { TikTokLayoutWrapper } from "./TikTokLayoutStyle";
+import { TikTokLayoutWrapper } from "./TiktokLayoutStyle";
 
 function TikTokLayout({ children }: any) {
   return <TikTokLayoutWrapper>{children}</TikTokLayoutWrapper>;

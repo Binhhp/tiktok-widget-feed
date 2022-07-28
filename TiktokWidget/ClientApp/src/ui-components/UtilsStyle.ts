@@ -60,12 +60,14 @@ export const LoadingInfiniteWrapper = styled.div`
   ${ButtonViewMore} {
     border: none;
     padding: 0px 20px;
-    color: #fafafa;
+    color: #fafafa !important;
     cursor: pointer;
     h2 {
       letter-spacing: 0px !important;
       text-transform: none !important;
-      margin: 5px 0px;
+      margin: 5px 0px !important;
+      font-size: 1em !important;
+      font-weight: 400 !important;
     }
     &:hover {
       background: #03e5df;

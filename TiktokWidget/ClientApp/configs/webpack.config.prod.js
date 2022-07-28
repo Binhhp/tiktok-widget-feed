@@ -6,6 +6,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 const PATHS = {
   src: path.join(__dirname, "../src/views/Layout/index.tsx"),
+  button: path.join(__dirname, "../src/views/Button/index.tsx"),
   build: path.join(__dirname, "../../wwwroot/"),
   tsConfig: path.join(__dirname, "../tsconfig.json"),
 };
@@ -15,6 +16,7 @@ const config = {
   devtool: "inline-source-map",
   entry: {
     tiktok: PATHS.src,
+    button: PATHS.button,
   },
   output: {
     path: PATHS.build,

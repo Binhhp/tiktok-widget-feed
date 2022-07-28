@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.OData.Builder;
 using Microsoft.OData.Edm;
+using ShopifySharp;
 using System.Collections.Generic;
 using TiktokWidget.ODataEntities.Models;
 using TiktokWidget.Service.Entities;
@@ -27,13 +28,15 @@ namespace TiktokWidget.ODataEntities
             "UpdateShopConfiguration",
             "RegisterWidget",
             "AddJob",
-            "GetWidgetCounts"
+            "GetWidgetCounts",
+            "GetThemes"
         };
         private static void BuildEdmModelShare()
         {
             _builder.EntitySet<ShopWidgetsOdataEntity>("ShopWidgets");
             _builder.EntitySet<WidgetEntity>("Widgets");
-            _builder.EntitySet<ShopEntity>("Shops").EntityType.HasKey(x => new { x.Domain });
+            _builder.EntitySet<ShopOdataEntity>("Shops").EntityType.HasKey(x => new { x.Domain });
+            _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");
             _builder.EntitySet<ShopConfigurationEntity>("ShopConfiguration");
             _builder.EntitySet<VideoTikTokModel>("WidgetVideos");

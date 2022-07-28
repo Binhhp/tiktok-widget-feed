@@ -21,6 +21,7 @@ function Header() {
   const buttonWidgetReducer = useSelector(
     (state: RootReducer) => state.buttonWidgetReducer
   );
+  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
 
   return (
     <HeaderWrapper>
@@ -46,8 +47,12 @@ function Header() {
           ""
         )}
         <Account>
-          <Avatar round={true} size="30" name="Xquenda Andreev"></Avatar>
-          <AccountName>Xquenda Andreev</AccountName>
+          <Avatar
+            round={true}
+            size="30"
+            name={shopReducer.shop.domain}
+          ></Avatar>
+          <AccountName>{shopReducer.shop.domain}</AccountName>
         </Account>
       </FlexBox>
     </HeaderWrapper>

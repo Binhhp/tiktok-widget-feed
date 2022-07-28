@@ -4,6 +4,7 @@ import {
   ListItemButton,
   ListItemButtonMenu,
   ListItemIcon,
+  ListItemTagHref,
   ListItemWrapper,
 } from "./NavItemStyle";
 import React from "react";
@@ -42,19 +43,29 @@ function NavItem(props: INavItemProps) {
   return (
     <ListItemWrapper>
       {!props?.selected ? (
-        <ListItemButton
-          className={
-            appReducer.menuActive === props?.item?.id ||
-            window.location.pathname.includes(props.item.id)
-              ? "active-menu"
-              : ""
-          }
-          to={`${props?.item.url}?shop=${shopReducer.shop.domain}` || "#"}
-          level={props.level}
-          onClick={onHandleMenuItem(props?.item?.id, true)}
-        >
-          {item()}
-        </ListItemButton>
+        props.item.redirect ? (
+          <ListItemTagHref
+            href={`https://${shopReducer.shop.domain}`}
+            level={props.level}
+            target="_blank"
+          >
+            {item()}
+          </ListItemTagHref>
+        ) : (
+          <ListItemButton
+            className={
+              appReducer.menuActive === props?.item?.id ||
+              window.location.pathname.includes(props.item.id)
+                ? "active-menu"
+                : ""
+            }
+            to={`${props?.item.url}?shop=${shopReducer.shop.domain}` ?? "#"}
+            level={props.level}
+            onClick={onHandleMenuItem(props?.item?.id, true)}
+          >
+            {item()}
+          </ListItemButton>
+        )
       ) : (
         <ListItemButtonMenu
           onClick={onHandleMenuItem(props?.item?.id)}

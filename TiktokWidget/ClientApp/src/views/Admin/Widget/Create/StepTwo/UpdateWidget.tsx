@@ -25,7 +25,7 @@ function StepTwoUpdate() {
   const RenderSourceTypeUpdate = (
     <React.Fragment>
       <CaptionStep mb={30}>Step 1: Select source</CaptionStep>
-      <ContainerSection bg="transparent" width={100} pb={20}>
+      <ContainerSection bg="transparent" width={100} pb={15}>
         <FormControlSource
           size="small"
           hiddenSubmit={true}
@@ -54,8 +54,8 @@ function StepTwoUpdate() {
           <CaptionStep>Step 2: Select a template</CaptionStep>
           <Pattern
             style={{
-              marginItem: 8,
-              marginTopParent: 10,
+              marginItem: 6,
+              marginTopParent: 7,
               height: 110,
             }}
           ></Pattern>

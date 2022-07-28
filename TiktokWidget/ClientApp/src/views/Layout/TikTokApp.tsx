@@ -1,5 +1,5 @@
 import LayoutTemplateContextProvider from "Dependencies/LayoutTemplate/LayoutTemplateContext";
-import TikTokLayout from "layout/TikTokLayout";
+import TikTokLayout from "layout/TiktokLayout";
 import React from "react";
 import TikTok from "./Application";
 import { ITikTokAppProps } from "./TikTokModel";

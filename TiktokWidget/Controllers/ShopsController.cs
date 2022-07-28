@@ -38,6 +38,15 @@ namespace TiktokWidget.Controllers
             var result = _widgetService.GetCounts(domain);
             return Ok(result);
         }
+        
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Shops({domain})/GetThemes")]
+        public IActionResult GetThemes([FromODataUri] string domain)
+        {
+            var result = _shopService.GetThemes(domain);
+            return Ok(result);
+        }
 
         [HttpPost]
         [ODataRoute("Shops")]

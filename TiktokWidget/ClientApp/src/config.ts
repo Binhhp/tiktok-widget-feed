@@ -13,6 +13,7 @@ const config = {
   linkButtonWidget: "http://localhost",
   showItems: 15,
   sliderShowItem: 100,
+  showUseSection: false,
 };
 
 export default config;
