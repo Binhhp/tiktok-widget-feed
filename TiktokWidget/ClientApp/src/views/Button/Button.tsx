@@ -18,9 +18,7 @@ function ButtonOption() {
   };
 
   useEffect(() => {
-    if (window.location.hostname) {
-      fetchShopConfiguration();
-    }
+    fetchShopConfiguration();
   }, []);
 
   const classFromPosition = () => {
@@ -35,9 +33,12 @@ function ButtonOption() {
 
   return button?.id ? (
     <ButtonOptionWrapper
+      href={`${window.location.origin}/admin/themes/current/editor`}
+      target="_blank"
       className={classFromPosition()}
-      url={button.image}
-    ></ButtonOptionWrapper>
+    >
+      <img src={button.image} alt="Tiktok Feed Orichi" />
+    </ButtonOptionWrapper>
   ) : (
     <></>
   );
