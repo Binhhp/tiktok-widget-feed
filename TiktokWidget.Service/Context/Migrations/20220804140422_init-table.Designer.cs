@@ -10,8 +10,8 @@ using TiktokWidget.Service.Context;
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(TiktokWidgetDbContext))]
-    [Migration("20220703082256_init_table")]
-    partial class init_table
+    [Migration("20220804140422_init-table")]
+    partial class inittable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,7 +195,7 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ShopID")
+                    b.Property<int>("ShopId")
                         .HasColumnType("int");
 
                     b.Property<string>("SourceType")
@@ -220,10 +220,9 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShopID");
+                    b.HasIndex("ShopId");
 
-                    b.HasIndex("WidgetTitle")
-                        .IsUnique();
+                    b.HasIndex("WidgetTitle");
 
                     b.ToTable("Widget");
                 });
@@ -258,9 +257,11 @@ namespace TiktokWidget.Service.Context.Migrations
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.WidgetEntity", b =>
                 {
-                    b.HasOne("TiktokWidget.Service.Entities.ShopEntity", "Shop")
-                        .WithMany("Widget")
-                        .HasForeignKey("ShopID");
+                    b.HasOne("TiktokWidget.Service.Entities.ShopEntity", "Shops")
+                        .WithMany("Widgets")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("TiktokWidget.Service.Entities.ValueObjects.HeaderValueObject", "Header", b1 =>
                         {
@@ -339,7 +340,7 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.Navigation("Setting");
 
-                    b.Navigation("Shop");
+                    b.Navigation("Shops");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.ShopEntity", b =>
@@ -348,7 +349,7 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.Navigation("ShopConfiguration");
 
-                    b.Navigation("Widget");
+                    b.Navigation("Widgets");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.WidgetEntity", b =>

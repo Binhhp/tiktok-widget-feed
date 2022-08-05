@@ -13,7 +13,8 @@ namespace TiktokWidget.Service.Interfaces
         Task<ResponseBase> AddAsync(AddProductRequest request);
         Task<ResponseBase> RemoveAsync(string key);
         Task<ResponseBase> UpdateAsync(string key, UpdateProductRequest request);
-        IQueryable<ProductEntity> Get(string domain);
+        IQueryable<ProductEntity> Get(string domain, string pageIndex);
+        int GetPageIndex(string domain);
         IQueryable<ProductEntity> GetById(string key);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Dtos.Requests;
@@ -89,12 +90,19 @@ namespace TiktokWidget.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
+        //[EnableQuery]
         [ODataRoute("Shops({domain})/Products")]
-        public IActionResult GetProducts([FromODataUri] string domain)
+        public PageResult<ProductEntity> GetProducts([FromODataUri] string domain)
         {
-            var response = _productService.Get(domain);
-            return Ok(response);
+            var queryString = Request.Query;
+            var pageIndex = "";
+            if (queryString.TryGetValue("page", out var page))
+            {
+                pageIndex = page;
+            }
+            var response = _productService.Get(domain, pageIndex);
+            var pageIndexes = _productService.GetPageIndex(domain);
+            return new PageResult<ProductEntity>(response, null, pageIndexes);
         }
 
         [HttpGet]

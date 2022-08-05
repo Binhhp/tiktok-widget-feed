@@ -37,7 +37,6 @@ function Masonries(props: LayoutPropTypes) {
                   hiddenContent={props.hiddenContent}
                   options={props.options}
                   mb={20}
-                  imgHeight={props.imgHeight ?? "100%"}
                   isHidden={true}
                   bg={props.options?.bg}
                   key={`masonry-${index}`}

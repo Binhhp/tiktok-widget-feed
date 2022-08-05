@@ -19,7 +19,7 @@ namespace TiktokWidget.Service.Interfaces
         Task<CreateWidgetResponse> CreateAsync(string domain, WidgetCreateDto request);
         Task<ResponseBase> UpdateAsync(string key, UpdateWidgetRequest request);
         Task<ResponseBase> DeleteAsync(string key);
-        Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<string> productIds);
+        Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products);
         IQueryable<VideoTikTokModel> GetVideos(string widgetId);
         int GetCounts(string domain);
         Task<AddJobResponse> AddJob(AddJobRequest request);

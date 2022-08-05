@@ -8,7 +8,7 @@ import {
   TextStyle,
 } from "@shopify/polaris";
 import { Container, ContainerSection } from "common/style/Utils.style";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/reducers";
 import * as Yup from "yup";
@@ -17,6 +17,7 @@ import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
 import { StepAnimationButtonWidget } from "../ButtonWidgetStyle";
 import { IButtonWidgetProps } from "../ButtonWidgetModel";
+import { ButtonWidgetContext } from "../ButtonWidgetContext";
 
 let schema = Yup.object().shape({
   userName: Yup.string()
@@ -34,14 +35,14 @@ function Step2(props: IButtonWidgetProps) {
     (state: RootReducer) => state.buttonWidgetReducer
   );
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
 
+  const buttonWidgetContext = useContext(ButtonWidgetContext);
   const onFieldChange = (val: string) => {
     schema
       .validate({ userName: val })
-      .then(() => setError(""))
+      .then(() => buttonWidgetContext.OnSetState(""))
       .catch((err) => {
-        setError(err.errors[0]);
+        buttonWidgetContext.OnSetState(err.errors[0]);
       });
     if (buttonWidget.id) {
       props.onSaveChanges();
@@ -99,7 +100,7 @@ function Step2(props: IButtonWidgetProps) {
     };
 
   const onNextStep = () => {
-    if (buttonWidget.userName !== "" && error === "") {
+    if (buttonWidget.userName !== "" && buttonWidgetContext.state === "") {
       dispatch(
         ButtonWidgetActionTS.OnSetOptional({
           step: 3,
@@ -162,7 +163,7 @@ function Step2(props: IButtonWidgetProps) {
                   onChange={onFieldChange}
                   placeholder="Tiktok Username"
                   autoComplete="off"
-                  error={error}
+                  error={buttonWidgetContext.state}
                 />
               </FormLayout>
             </Form>
@@ -173,7 +174,9 @@ function Step2(props: IButtonWidgetProps) {
             <Button
               onClick={onNextStep}
               primary
-              disabled={buttonWidget.userName === "" || error !== ""}
+              disabled={
+                buttonWidget.userName === "" || buttonWidgetContext.state !== ""
+              }
             >
               Next Step
             </Button>

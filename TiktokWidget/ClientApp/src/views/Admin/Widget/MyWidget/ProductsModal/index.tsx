@@ -2,9 +2,7 @@ import {
   EmptySearchResult,
   Icon,
   Modal,
-  RadioButton,
   Spinner,
-  Stack,
   TextField,
 } from "@shopify/polaris";
 import { SearchMinor } from "@shopify/polaris-icons";
@@ -125,11 +123,14 @@ function ProductModal(props: IProductModalProps) {
           .title.substring(0, 16)}... for ${props.widget.widgetTitle}`
       : `Removed products ${props.widget.widgetTitle}`;
 
+    const products = productId
+      ? widgetReducer.products.filter((x) => x.id === productId)
+      : [];
     toastNotify
       .promise(
         widgetReponsitory.AddTagProducts(
           props.widget.id,
-          new AddTagProductRequest(productId ? [productId] : [])
+          new AddTagProductRequest(products)
         ),
         {
           loading: loadingTitle,
@@ -145,9 +146,7 @@ function ProductModal(props: IProductModalProps) {
       });
   };
 
-  const onClearButtonClick = (id: string) => {
-    onSearchResult("");
-  };
+  const onClearButtonClick = () => onSearchResult("");
 
   const onCloseModal = () => {
     setProductId("");
@@ -240,9 +239,7 @@ function ProductModal(props: IProductModalProps) {
               : RenderEmpty}
           </TagProductSection>
         </TagProductContainer>
-        {widgetReducer.products?.length < page.count &&
-          !keyword &&
-          RenderWaypoint}
+        {page.pageIndex < page.count + 1 && !keyword && RenderWaypoint}
       </ProductModalWrapper>
     </Modal>
   );

@@ -8,7 +8,7 @@ namespace TiktokWidget.Service.Context
         public TiktokWidgetDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TiktokWidgetDbContext>();
-            optionsBuilder.UseSqlServer("Server=14.225.5.25;Database=ShopifyTiktok;User Id=dev;Password=orichi123!@#;Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=14.225.5.62;Database=ShopifyTiktok2022;User Id=tiktok;Password=orichi247!@#;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True;");
             return new TiktokWidgetDbContext(optionsBuilder.Options);
         }
     }

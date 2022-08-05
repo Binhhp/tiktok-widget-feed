@@ -18,6 +18,7 @@ import {
 const LogoSection = () => {
   const dispatch = useDispatch();
   const appReducer = useSelector((state: RootReducer) => state.appReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
   const onMobileView = () => {
     dispatch(
       ApplicationActionTS.OnHandleMenuItemMobile(!appReducer.mobileMenuView)
@@ -33,9 +34,9 @@ const LogoSection = () => {
           color="base"
         />
       </MobileViewMenu>
-      <LogoWrapper>
+      <LogoWrapper href={`https://${shopReducer.shop.domain}/admin`}>
         <ShopifyLogo />
-        <BackToShop href="#">Back to Shopify</BackToShop>
+        <BackToShop>Back to Shopify</BackToShop>
       </LogoWrapper>
     </LogoSectionContext>
   );

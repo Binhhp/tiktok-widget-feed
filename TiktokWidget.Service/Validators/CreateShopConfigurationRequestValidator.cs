@@ -9,7 +9,6 @@ namespace TiktokWidget.Service.Validators
         {
             RuleFor(x => x.Theme).NotEmpty().NotNull();
             RuleFor(x => x.Image).NotEmpty().NotNull();
-            RuleFor(x => x.ButtonPosition).NotEmpty().NotNull();
             RuleFor(x => x.TikTokUserName).NotEmpty().NotNull();
         }
     }

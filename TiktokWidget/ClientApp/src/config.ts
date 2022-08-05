@@ -8,9 +8,10 @@ const config = {
   helperUrl: "http://localhost/",
   videoUrl:
     "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-  youtubeUrl: "https://www.youtube.com/embed/sEusMMkl1vM",
-  learnMoreUrl: "https://youtube.com",
-  linkButtonWidget: "http://localhost",
+  youtubeUrl: "https://www.youtube.com/embed/-b3aYmI7PyA",
+  learnMoreUrl: "https://www.youtube.com/watch?v=-b3aYmI7PyA",
+  linkButtonWidget:
+    "https://orichi.info/2022/02/07/tikify-tiktok-buttons-installation-onboarding",
   showItems: 15,
   sliderShowItem: 100,
   showUseSection: false,

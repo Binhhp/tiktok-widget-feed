@@ -25,7 +25,11 @@ function StepThree() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSetSection = () => setSection(!section);
+  const onSetSection = () => {
+    if (config.showUseSection) {
+      setSection(!section);
+    }
+  };
   const widgetReducer = useSelector(
     (state: RootReducer) => state.widgetReducer
   );
@@ -88,7 +92,7 @@ function StepThree() {
               primaryAction={{
                 content: "Learn more",
                 onAction: () => {
-                  navigate(config.learnMoreUrl);
+                  window.open(config.learnMoreUrl);
                 },
               }}
               description="How to add the code into desired place of your site?"

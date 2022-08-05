@@ -1,6 +1,7 @@
+import { BaseProduct } from "../responses/BaseProduct";
 export class AddTagProductRequest {
-  ProductIds: string[];
-  constructor(productIds?: string[]) {
-    this.ProductIds = productIds ? productIds : [];
+  Products: BaseProduct[];
+  constructor(products?: BaseProduct[]) {
+    this.Products = products ? products : [];
   }
 }

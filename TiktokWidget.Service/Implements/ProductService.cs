@@ -4,12 +4,13 @@ using Newtonsoft.Json;
 using ShopifySharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
 using TiktokWidget.Common.HttpLogging.Models;
+using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests;
 using TiktokWidget.Service.Dtos.Response;
@@ -23,17 +24,14 @@ namespace TiktokWidget.Service.Implements
         private readonly TiktokWidgetDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IShopService _shopService;
-        private readonly AppSettings _appSettings;
         public ProductService(
-            TiktokWidgetDbContext dbContext, 
-            IMapper mapper, 
-            IShopService shopService, 
-            AppSettings appSettings)
+            TiktokWidgetDbContext dbContext,
+            IMapper mapper,
+            IShopService shopService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _shopService = shopService;
-            _appSettings = appSettings;
         }
         public async Task AddAsync(IEnumerable<ProductEntity> products)
         {
@@ -60,12 +58,12 @@ namespace TiktokWidget.Service.Implements
                 return productEntity;
             }).Where(x => x != null);
 
-            if(productEntities.Count() > 0)
+            if (productEntities.Count() > 0)
             {
                 await _dbContext.Product.AddRangeAsync(productEntities);
                 await _dbContext.SaveChangesAsync();
             }
-            if(errors.Count() > 0)
+            if (errors.Count() > 0)
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Errors = errors;
@@ -73,54 +71,39 @@ namespace TiktokWidget.Service.Implements
             return response;
         }
 
-        public IQueryable<ProductEntity> Get(string domain)
+        public IQueryable<ProductEntity> Get(string domain, string pageIndex = "")
         {
             var products = Enumerable.Empty<ProductEntity>().AsQueryable();
             try
             {
-                var shopEntity = _shopService.GetByDomain(domain).FirstOrDefault();
-                if (shopEntity == null)
+                if (!string.IsNullOrEmpty(pageIndex))
                 {
-                    throw new Exception(string.Format(ErrorMessage.NotFound, $"Shop {domain}"));
-                }
-                products = _dbContext.Product.Where(x => x.ShopId == shopEntity.ID);
-                int page = 1;
-                while (page > 0 && products.Count() == 0)
-                {
-                    try
+                    var shopEntity = _shopService.GetByDomain(domain).FirstOrDefault();
+                    if (shopEntity == null)
                     {
-                        var httpClient = new HttpClient();
-                        string urlRequest = $"{_appSettings.ApiBase}/product/{domain}/{page - 1}.json";
-                        var res = httpClient.GetAsync(urlRequest).GetAwaiter().GetResult();
-                        var JSON = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                        var response = JsonConvert.DeserializeObject<IEnumerable<Product>>(JSON).ToList();
-                        if (response != null)
+                        throw new Exception(string.Format(ErrorMessage.NotFound, $"Shop {domain}"));
+                    }
+                    var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Product", domain, $"{int.Parse(pageIndex) - 1}.json");
+                    var JSON = File.ReadAllText(pathFile);
+                    var response = JsonConvert.DeserializeObject<IEnumerable<Product>>(JSON).ToList();
+                    if (response != null)
+                    {
+                        products = response.Select(x => new ProductEntity
                         {
-                            var productEntityNews = response.Select(x => new ProductEntity
-                            {
-                                Handle = x.Handle,
-                                Image = x.Images?.FirstOrDefault()?.Src ?? "",
-                                Title = x.Title,
-                                VariantName = x.Variants?.FirstOrDefault()?.Title ?? "",
-                                Variants = x.Variants?.FirstOrDefault()?.FulfillmentService ?? "",
-                                VariantSku = x.Variants?.FirstOrDefault()?.InventoryManagement ?? "",
-                                ShopId = shopEntity.ID,
-                                Prices = x.Variants?.FirstOrDefault()?.Price.ToString() ?? "",
-                            });
-                            AddAsync(productEntityNews).GetAwaiter().GetResult();
-                            page += 1;
-                            continue;
-                        }
+                            Id = EncodingHelper.Base64Encode($"{domain}-{x.Id}"),
+                            Handle = x.Handle,
+                            Image = x.Images?.FirstOrDefault()?.Src ?? "",
+                            Title = x.Title,
+                            VariantName = x.Variants?.FirstOrDefault()?.Title ?? "",
+                            Variants = x.Variants?.FirstOrDefault()?.FulfillmentService ?? "",
+                            VariantSku = x.Variants?.FirstOrDefault()?.InventoryManagement ?? "",
+                            ShopId = shopEntity.ID,
+                            Prices = x.Variants?.FirstOrDefault()?.Price.ToString() ?? "",
+                        }).AsQueryable();
                     }
-                    catch
-                    {
-
-                    }
-                    products = _dbContext.Product.Where(x => x.ShopId == shopEntity.ID);
-                    page = 0;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
             }
             return products;
@@ -129,6 +112,12 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<ProductEntity> GetById(string key)
         {
             return _dbContext.Product.Where(x => x.Id == key);
+        }
+
+        public int GetPageIndex(string domain)
+        {
+            var pageIndexs = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Product", domain), "*.json");
+            return pageIndexs.Length;
         }
 
         public async Task<ResponseBase> RemoveAsync(string key)

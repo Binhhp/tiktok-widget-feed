@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using TiktokWidget.Common.Constants;
 using System.Collections.Generic;
 using TiktokWidget.Service.Models;
-using System.Net.Http;
 using Newtonsoft.Json;
 using TiktokWidget.Service.Dtos.Response;
 using TiktokWidget.Service.Dtos.Responses;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Dtos.Requests;
+using System.IO;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -24,7 +24,6 @@ namespace TiktokWidget.Service.Implements
     {
         private readonly TiktokWidgetDbContext _context;
         private readonly IMapper _mapper;
-        private const string HostGetVideos = "http://14.225.5.25:888";
         public WidgetService(TiktokWidgetDbContext context, IMapper mapper)
         {
             _context = context;
@@ -54,7 +53,7 @@ namespace TiktokWidget.Service.Implements
                 return response;
             }
             var widget = _context.Widgets.FirstOrDefault(x => x.WidgetTitle == request.WidgetTitle && x.Shops.Domain == domain);
-            if(widget != null)
+            if (widget != null)
             {
                 response.Success = false;
                 response.StatusCode = (int)ResponseCode.Conflict;
@@ -89,7 +88,7 @@ namespace TiktokWidget.Service.Implements
         {
             var response = new ResponseBase();
             var widget = await _context.Widgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == key);
-            if(widget == null)
+            if (widget == null)
             {
                 response.Success = false;
                 response.StatusCode = (int)ResponseCode.NotFound;
@@ -175,25 +174,35 @@ namespace TiktokWidget.Service.Implements
         /// </summary>
         /// <param name="key">Key of widget</param>
         /// <param name="productIds">Keys of tag product</param>
-        public async Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<string> productIds)
+        public async Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products)
         {
-            if(productIds.Count() > 1) throw new Exception(string.Format(ErrorMessage.InvalidMaxLength, "ProductIds"));
             var widget = await _context.Widgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id.Equals(key));
             if (widget == null)
             {
                 throw new Exception(string.Format(ErrorMessage.NotFound, "Widget"));
             }
-            if(productIds.Count() == 0)
+            if(products.Any())
             {
-                widget.Products.Clear();
-            }
-            else
-            {
-                var products = _context.Product.Where(x => productIds.Any(p => p == x.Id)).ToList();
-                if (products != null && products.Count() > 0)
+                var shop = _context.Shop.FirstOrDefault(x => x.ID == products.First().ShopId);
+                if (shop == null) throw new Exception(ErrorMessage.InternalServerError);
+                var productEntities = products.Select(x => new ProductEntity
                 {
-                    widget.Products = products;
-                }
+                    Handle = x.Handle,
+                    Id = x.Id,
+                    Image = x.Image,
+                    Prices = x.Prices,
+                    Title = x.Title,
+                    VariantName = x.VariantName,
+                    Variants = x.Variants,
+                    VariantSku = x.VariantSku,
+                    Shops = shop,
+                    Widget = widget
+                }).ToList();
+                await _context.Product.AddRangeAsync(productEntities);
+            }
+            else if (widget.Products.Any())
+            {
+                _context.Product.RemoveRange(widget.Products);
             }
             await _context.SaveChangesAsync();
             return new ResponseBase();
@@ -202,17 +211,19 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<VideoTikTokModel> GetVideos(string widgetId)
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
-            var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
-            if (widget == null)
+            try
             {
-                return response;
+                var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
+                if (widget == null)
+                {
+                    return response;
+                }
+                string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+                var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+                var JSON = File.ReadAllText(pathFile);
+                response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
             }
-            string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-            string urlRequest = $"{HostGetVideos}/{type}/{widget.ValueSource}.json";
-            var httpClient = new HttpClient();
-            var res = httpClient.GetAsync(urlRequest).GetAwaiter().GetResult();
-            var JSON = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+            catch (Exception ex) { }
             return response;
         }
 
@@ -233,7 +244,7 @@ namespace TiktokWidget.Service.Implements
                 Data = request.Data,
                 Type = request.Type
             };
-            
+
             await _context.Job.AddAsync(job);
             await _context.SaveChangesAsync();
             return new AddJobResponse();
@@ -242,12 +253,14 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request)
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
-            string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-            string urlRequest = $"{HostGetVideos}/{type}/{request.Data}.json";
-            var httpClient = new HttpClient();
-            var res = httpClient.GetAsync(urlRequest).GetAwaiter().GetResult();
-            var JSON = res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+            try
+            {
+                string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+                var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+                var JSON = File.ReadAllText(pathFile);
+                response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+            }
+            catch (Exception ex) { }
             return response;
         }
     }

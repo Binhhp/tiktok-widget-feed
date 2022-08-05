@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    public partial class init_table : Migration
+    public partial class inittable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -96,17 +96,17 @@ namespace TiktokWidget.Service.Context.Migrations
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeUpdateVideo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ShopID = table.Column<int>(type: "int", nullable: true)
+                    ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Widget", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Widget_Shop_ShopID",
-                        column: x => x.ShopID,
+                        name: "FK_Widget_Shop_ShopId",
+                        column: x => x.ShopId,
                         principalTable: "Shop",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,15 +158,14 @@ namespace TiktokWidget.Service.Context.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Widget_ShopID",
+                name: "IX_Widget_ShopId",
                 table: "Widget",
-                column: "ShopID");
+                column: "ShopId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Widget_WidgetTitle",
                 table: "Widget",
-                column: "WidgetTitle",
-                unique: true);
+                column: "WidgetTitle");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

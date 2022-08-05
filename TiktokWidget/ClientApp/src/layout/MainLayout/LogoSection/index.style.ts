@@ -10,18 +10,18 @@ export const LogoSectionContext = styled.div`
   }
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled.a`
   width: auto;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-`;
-
-export const BackToShop = styled.a`
-  width: auto;
   line-break: none;
   text-decoration: none;
+`;
+
+export const BackToShop = styled.span`
+  width: auto;
   font-weight: 600;
   font-size: 14px;
   margin-left: 10px;

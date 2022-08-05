@@ -54,12 +54,13 @@ function FormSubmit() {
         widgetReducer.settings.id,
         new UpdateWidgetRequest(widgetReducer.settings)
       );
-      setLoading(false);
       if (response.Status) {
         dispatch(WidgetActionTS.OnStep(1));
         dispatch(WidgetActionTS.OnSetSetting(true));
+        setLoading(false);
         return navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
       } else {
+        setLoading(false);
         toast.error(response.Error);
       }
     } else {
@@ -70,17 +71,18 @@ function FormSubmit() {
       if (response.Status) {
         dispatch(WidgetActionTS.OnStep(3));
         dispatch(WidgetActionTS.OnSetSetting(true));
-        setLoading(false);
         const shopReponsitory = new ShopReponsitory();
         shopReponsitory
           .GetWidgetsCount(shopReducer.shop.domain ?? "")
           .then((val) => {
             dispatch(WidgetActionTS.OnSetWidgetCount(val));
           });
+        setLoading(false);
         return navigate(
           `/create-widget-step-3/${response.Data?.widgetId}?shop=${shopReducer.shop.domain}`
         );
       } else {
+        setLoading(false);
         toast.error(response.Error);
       }
     }

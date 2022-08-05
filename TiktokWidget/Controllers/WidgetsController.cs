@@ -30,7 +30,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Widgets({key})/UpdateProduct")]
         public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
         {
-            await _widgetService.UpdateProductAsync(key, request.ProductIds);
+            await _widgetService.UpdateProductAsync(key, request.Products);
             return Ok();
         }
 

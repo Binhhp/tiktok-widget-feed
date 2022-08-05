@@ -7,18 +7,14 @@ import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
 import { ButtonWidgetStoreModel } from "stores/ButtonWidget/state";
 import { RootReducer } from "stores/reducers";
-import { IButtonWidgetProps } from "../ButtonWidgetModel";
 
-function Step3(props: IButtonWidgetProps) {
+function Step3() {
   const buttonWidget = useSelector(
     (state: RootReducer) => state.buttonWidgetReducer
   );
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
   const dispatch = useDispatch();
   const handleSelectChange = (value: string) => {
-    if (buttonWidget.id) {
-      props.onSaveChanges();
-    }
     dispatch(
       ButtonWidgetActionTS.OnSetOptional({
         theme: value,
@@ -32,13 +28,22 @@ function Step3(props: IButtonWidgetProps) {
       .GetThemes(shopReducer.shop.domain ?? "")
       .then((res) => {
         let options: SelectOption[] = [];
-        res.forEach((x) => {
+        let defaultValue = "";
+        res.forEach((x, index) => {
+          if (index === 0) defaultValue = String(x.id);
           options.push({
             label: x.name,
             value: String(x.id),
           });
         });
         setThemes(options);
+        if (defaultValue) {
+          dispatch(
+            ButtonWidgetActionTS.OnSetOptional({
+              theme: defaultValue,
+            })
+          );
+        }
       });
   }, []);
 
