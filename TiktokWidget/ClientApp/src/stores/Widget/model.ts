@@ -19,6 +19,7 @@ export interface IOnHandleMobile {
 export interface IGetTagProducts {
   type: typeof WidgetActEnum.GET_TAG_PRODUCTS;
   payload: BaseProduct[];
+  isReplace: boolean;
 }
 
 export interface ISetWidgetCount {

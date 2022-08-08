@@ -52,7 +52,7 @@ function LiveTemplate() {
         ),
         100
       );
-      if (res?.count) {
+      if (res?.count !== undefined) {
         setLoading(false);
         clearInterval(newIntervalId);
         setIntervalId(0);

@@ -33,10 +33,8 @@ export default class DataTableFunc {
         count: result["@odata.count"] ?? result?.value.length ?? 0,
         data: result?.value as T[],
       };
+    } else {
+      return Promise.reject(response.Error);
     }
-    return {
-      count: 0,
-      data: [],
-    };
   }
 }

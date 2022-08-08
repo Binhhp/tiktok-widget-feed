@@ -53,9 +53,11 @@ function StepThree() {
           <CaptionStep mb={40}>
             Step 3: Add the widget to your website
           </CaptionStep>
-          <SupportHelperText mb={40}>
-            There are 2 methods to add widget to your store
-          </SupportHelperText>
+          {config.showUseSection && (
+            <SupportHelperText mb={40}>
+              There are 2 methods to add widget to your store
+            </SupportHelperText>
+          )}
           <TabMethods>
             <TabItemWrapper
               onClick={onSetSection}

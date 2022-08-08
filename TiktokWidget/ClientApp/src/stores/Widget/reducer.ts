@@ -66,9 +66,14 @@ const OnSetSetting = (
   return copyState;
 };
 
-const OnGetTagProducts = (state: WidgetStoreModel, payload: BaseProduct[]) => {
+const OnGetTagProducts = (
+  state: WidgetStoreModel,
+  payload: BaseProduct[],
+  isReplace = false
+) => {
   let copyState = state.Clone();
-  copyState.products = [...copyState.products, ...payload];
+  if (!isReplace) copyState.products = [...copyState.products, ...payload];
+  else copyState.products = payload;
   return copyState;
 };
 
@@ -90,7 +95,7 @@ const WidgetReducer = (
     case WidgetActEnum.MOBILE:
       return OnHandleMobile(state, action.payload);
     case WidgetActEnum.GET_TAG_PRODUCTS:
-      return OnGetTagProducts(state, action.payload);
+      return OnGetTagProducts(state, action.payload, action.isReplace);
     case WidgetActEnum.COUNT:
       return OnSetCount(state, action.payload);
     default:

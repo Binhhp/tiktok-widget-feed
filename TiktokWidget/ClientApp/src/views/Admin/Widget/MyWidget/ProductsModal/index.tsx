@@ -52,6 +52,7 @@ function ProductModal(props: IProductModalProps) {
 
   const dispatch = useDispatch();
 
+  const setupId = (id: string) => `${id}${props.widget.id}`;
   const fetchProducts = () => {
     const productReponsitory = new ProductReponsitory();
     productReponsitory
@@ -66,15 +67,17 @@ function ProductModal(props: IProductModalProps) {
   };
 
   const onSetProductId = (key: string) => () => {
-    if (key === productId) {
+    if (setupId(key) === productId) {
       setProductId("");
     } else {
-      setProductId(key);
+      setProductId(setupId(key));
     }
   };
 
   useEffect(() => {
-    setProductId(props.productId);
+    if (props.productId) {
+      setProductId(`${props.productId}`);
+    } else setProductId("");
   }, [props.productId]);
 
   useEffect(() => {
@@ -89,6 +92,14 @@ function ProductModal(props: IProductModalProps) {
       setLoading(false);
     }
   }, [JSON.stringify(widgetReducer?.products)]);
+
+  useEffect(() => {
+    return () => {
+      setProducts([]);
+      setProductId("");
+      dispatch(WidgetActionTS.OnSetTagProducts([], true));
+    };
+  }, []);
 
   const matchStateToTerm = (item: any, val: string) => {
     const regex = new RegExp(`${val.toLowerCase()}`);
@@ -113,19 +124,25 @@ function ProductModal(props: IProductModalProps) {
     const widgetReponsitory = new WidgetReponsitory();
     const loadingTitle = productId
       ? `Adding ${widgetReducer.products
-          .filter((x) => x.id === productId)[0]
+          .filter((x) => setupId(x.id) === productId)[0]
           .title.substring(0, 16)}... for ${props.widget.widgetTitle}`
       : `Removing products for ${props.widget.widgetTitle}`;
 
     const successTitle = productId
       ? `Added ${widgetReducer.products
-          .filter((x) => x.id === productId)[0]
+          .filter((x) => setupId(x.id) === productId)[0]
           .title.substring(0, 16)}... for ${props.widget.widgetTitle}`
       : `Removed products ${props.widget.widgetTitle}`;
 
-    const products = productId
-      ? widgetReducer.products.filter((x) => x.id === productId)
+    let products = productId
+      ? widgetReducer.products.filter((x) => setupId(x.id) === productId)
       : [];
+
+    if (products.length > 0) {
+      products = products.map((x) => {
+        return { ...x, id: setupId(x.id) };
+      });
+    }
     toastNotify
       .promise(
         widgetReponsitory.AddTagProducts(
@@ -153,11 +170,12 @@ function ProductModal(props: IProductModalProps) {
     props.handleClose();
   };
 
-  const onChangeRadioButton = (newValue: any) => () => setProductId(newValue);
+  const onChangeRadioButton = (newValue: string) => () =>
+    setProductId(setupId(newValue));
 
   const RenderTagProduct = products?.map((item, index) => (
     <ProductWrapper
-      active={item.id === productId}
+      active={setupId(item.id) === productId}
       onClick={onSetProductId(item.id)}
       shadow={(index + 1) % 2 === 0}
       key={index}
@@ -165,7 +183,7 @@ function ProductModal(props: IProductModalProps) {
       <ProductRadio>
         <input
           type="radio"
-          checked={item.id === productId}
+          checked={setupId(item.id) === productId}
           onClick={onChangeRadioButton(item.id)}
         />
       </ProductRadio>

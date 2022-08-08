@@ -27,7 +27,7 @@ const MainRoutes = {
   children: [
     {
       path: "/",
-      element: <Dashboard />,
+      element: <CreateWidget />,
     },
     {
       path: "/create-widget",

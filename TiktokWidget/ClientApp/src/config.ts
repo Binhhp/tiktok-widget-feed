@@ -2,7 +2,7 @@ import { RootURL } from "common/constants/RootURL";
 
 const config = {
   basename: "",
-  defaultPath: "dashboard",
+  defaultPath: "create-widget",
   apiUrl: "http://localhost",
   script: `<script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script><script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script><script src="${RootURL.ApiBase}/tiktok.js"></script>`,
   helperUrl: "http://localhost/",

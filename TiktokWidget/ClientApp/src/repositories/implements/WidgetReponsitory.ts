@@ -42,12 +42,19 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     pageIndex: number,
     showItems?: number
   ): Promise<IVideoTemplateModel> => {
-    return DataTableFunc.BuildPaging<ITikTokVideoDto>(
-      `${RootURL.ApiBase}/odata/widgetVideos('${key}')`,
-      pageIndex,
-      showItems ? showItems : config.showItems,
-      "video,music,challenges"
-    );
+    try {
+      return DataTableFunc.BuildPaging<ITikTokVideoDto>(
+        `${RootURL.ApiBase}/odata/widgetVideos('${key}')`,
+        pageIndex,
+        showItems ? showItems : config.showItems,
+        "video,music,challenges"
+      );
+    } catch {
+      return Promise.resolve({
+        data: [],
+        count: 0,
+      });
+    }
   };
 
   GetVideosByJob = async (

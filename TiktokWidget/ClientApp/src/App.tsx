@@ -33,6 +33,9 @@ function App() {
             );
             shopReponsitory.GetWidgetsCount(res.domain ?? "").then((val) => {
               dispatch(WidgetActionTS.OnSetWidgetCount(val));
+              if (val) {
+                navigate(`/my-widget?shop=${res.domain}`);
+              }
             });
           } else {
             navigate("/not-found");

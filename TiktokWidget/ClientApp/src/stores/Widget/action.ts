@@ -34,10 +34,14 @@ export class WidgetActionTS {
     };
   }
 
-  public static OnSetTagProducts(products: BaseProduct[]): WidgetType {
+  public static OnSetTagProducts(
+    products: BaseProduct[],
+    isReplace: boolean = false
+  ): WidgetType {
     return {
       type: WidgetActEnum.GET_TAG_PRODUCTS,
       payload: products,
+      isReplace: isReplace,
     };
   }
 }
