@@ -1,7 +1,7 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const MainContent = styled.div`
+export const MainContent = styled("div")`
   width: 100%;
   height: 100%;
   display: flex;
@@ -12,12 +12,12 @@ export const MainContent = styled.div`
   position: relative;
 `;
 
-export const ChildrenContent = styled.div`
+export const ChildrenContent = styled("div")`
   width: 100%;
   padding-left: 239px;
 `;
 
-export const MainLayoutWrapper = styled.div`
+export const MainLayoutWrapper = styled("div")`
   width: 100%;
   height: 100%;
   @media only screen and (${breakpoints.device.lg}) {

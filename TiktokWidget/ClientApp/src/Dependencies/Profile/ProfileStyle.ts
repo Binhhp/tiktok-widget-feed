@@ -1,8 +1,8 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 import { IAvatar, IProfileInfo, IProfileWrapper } from "./ProfileType";
 
-export const ProfilePlus = styled.div<IAvatar>`
+export const ProfilePlus = styled("div")<IAvatar>`
   cursor: pointer;
   position: absolute;
   bottom: 0px;
@@ -27,7 +27,7 @@ export const ProfilePlus = styled.div<IAvatar>`
   }
 `;
 
-export const ProfileInfo = styled.div<IProfileInfo>`
+export const ProfileInfo = styled("div")<IProfileInfo>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,7 +49,7 @@ export const ProfileInfo = styled.div<IProfileInfo>`
   }
 `;
 
-export const Contact = styled.div`
+export const Contact = styled("div")`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -58,7 +58,7 @@ export const Contact = styled.div`
   width: 300px;
 `;
 
-export const ContactItem = styled.div<IProfileInfo>`
+export const ContactItem = styled("div")<IProfileInfo>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +81,7 @@ export const ContactItem = styled.div<IProfileInfo>`
   }
 `;
 
-export const ProfileHeader = styled.div`
+export const ProfileHeader = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -115,7 +115,7 @@ export const ProfileHeader = styled.div`
   }
 `;
 
-export const FollowerButton = styled.button`
+export const FollowerButton = styled("button")`
   padding: 0px 40px;
   cursor: pointer;
   font-weight: 600 !important;
@@ -126,7 +126,7 @@ export const FollowerButton = styled.button`
   height: 35px;
 `;
 
-export const AvatarProfile = styled.div<IAvatar>`
+export const AvatarProfile = styled("div")<IAvatar>`
   width: ${(props) => props.imgWidth || 100}px;
   height: ${(props) => props.imgWidth || 100}px;
   border: 3px solid #e4e4e5;
@@ -151,7 +151,7 @@ export const AvatarProfile = styled.div<IAvatar>`
   }
 `;
 
-export const ProfileWrapper = styled.div<IProfileWrapper>`
+export const ProfileWrapper = styled("div")<IProfileWrapper>`
   display: ${(props) => props.display ?? "flex"};
   flex-direction: row;
   flex-wrap: wrap;

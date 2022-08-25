@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const StepThreeWrapper = styled.div`
+export const StepThreeWrapper = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
 
-export const StepThreeSection = styled.div`
+export const StepThreeSection = styled("div")`
   width: 30%;
 `;
 
-export const AlertSuccess = styled.div`
+export const AlertSuccess = styled("div")`
   padding-right: 15px;
   margin-right: 20px;
   display: flex;
@@ -37,7 +37,7 @@ export interface ISupportHelperText {
   mb?: number;
   ml?: number;
 }
-export const SupportHelperText = styled.div<ISupportHelperText>`
+export const SupportHelperText = styled("div")<ISupportHelperText>`
   font-size: ${(props) => props.fontSize || 13}px;
   font-weight: ${(props) => props.fontWeight || 400};
   width: 100%;
@@ -47,7 +47,7 @@ export const SupportHelperText = styled.div<ISupportHelperText>`
   font-style: ${(props) => props.fontStyle || "normal"};
 `;
 
-export const TabMethods = styled.div`
+export const TabMethods = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -64,7 +64,7 @@ export interface ITabItemWrapper {
   pb?: number;
   pl?: number;
 }
-export const TabItemWrapper = styled.div<ITabItemWrapper>`
+export const TabItemWrapper = styled("div")<ITabItemWrapper>`
   padding-left: 10px;
   width: 60%;
   margin: ${(props) => props.mt || 0}px ${(props) => props.mr || 0}px
@@ -75,7 +75,7 @@ export interface ITabItem {
   bg?: string;
   color?: string;
 }
-export const TabItem = styled.div<ITabItem>`
+export const TabItem = styled("div")<ITabItem>`
   background: ${(props) => props.bg || "#DFDFDF"};
   padding: 8px 10px;
   color: ${(props) => props.color || "#000000"};
@@ -84,13 +84,13 @@ export const TabItem = styled.div<ITabItem>`
   cursor: pointer;
 `;
 
-export const CopySelection = styled.div`
+export const CopySelection = styled("div")`
   background: #fafafa;
   padding: 10px;
   margin-bottom: 30px;
 `;
 
-export const CopyContent = styled.div`
+export const CopyContent = styled("div")`
   display: flex;
   justify-content: center;
   padding-top: 40px;
@@ -107,7 +107,7 @@ export const CopyContent = styled.div`
 export interface ICopyButton {
   isCopy?: boolean;
 }
-export const CopyButton = styled.div<ICopyButton>`
+export const CopyButton = styled("div")<ICopyButton>`
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -117,14 +117,14 @@ export const CopyButton = styled.div<ICopyButton>`
   }
 `;
 
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: flex-end;
 `;
 
-export const MediaCardWrapper = styled.div`
+export const MediaCardWrapper = styled("div")`
   .Polaris-MediaCard {
     display: block;
     padding: 15px;
@@ -134,12 +134,12 @@ export const MediaCardWrapper = styled.div`
   }
 `;
 
-export const SectionWrapper = styled.div`
+export const SectionWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const CardBody = styled.div`
+export const CardBody = styled("div")`
   margin-bottom: 30px;
 `;

@@ -1,5 +1,5 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 import {
   ITemplateImage,
   ITemplateType,
@@ -7,7 +7,7 @@ import {
   TemplateProvider,
 } from "./LayoutTemplateType";
 
-export const TemplateContainer = styled.div<ITemplateType>`
+export const TemplateContainer = styled("div")<ITemplateType>`
   width: ${(props: ITemplateType) =>
     props.width
       ? `calc(${props.width}% - ${
@@ -29,7 +29,7 @@ export const TemplateContainer = styled.div<ITemplateType>`
     ${(props) => props.pb || 0}px ${(props) => props.pl || 0}px;
 `;
 
-export const TemplateVideoPlay = styled.div`
+export const TemplateVideoPlay = styled("div")`
   display: none;
   position: absolute;
   top: 10px;
@@ -41,7 +41,7 @@ export const TemplateVideoPlay = styled.div`
   }
 `;
 
-export const DynamicVideo = styled.div`
+export const DynamicVideo = styled("div")`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -57,7 +57,7 @@ export const DynamicVideo = styled.div`
   }
 `;
 
-export const TemplateImage = styled.div<ITemplateImage>`
+export const TemplateImage = styled("div")<ITemplateImage>`
   width: ${(props) => (props.flexDirection === "row" ? 50 : 100)}%;
   min-width: ${(props) => (props.flexDirection === "row" ? 50 : 100)}%;
   max-height: ${(props) =>
@@ -85,7 +85,7 @@ export const TemplateImage = styled.div<ITemplateImage>`
     display: block;
   }
 `;
-export const TemplateContent = styled.div<ITemplateType>`
+export const TemplateContent = styled("div")<ITemplateType>`
   cursor: ${(props) => (props.contentOverflow ? `pointer` : `auto`)};
   &:hover ${TemplateVideoPlay} {
     display: ${(props) => (props.contentOverflow ? `block` : `none`)};
@@ -109,7 +109,7 @@ export const TemplateContent = styled.div<ITemplateType>`
     props.bg && props.contentOverflow ? `${props.bg}00` : props.bg};
 `;
 
-export const TemplateLeftItem = styled.div<ITemplateType>`
+export const TemplateLeftItem = styled("div")<ITemplateType>`
   border-bottom: 1px solid ${(props) => props?.color || `#000000`};
   width: 100%;
   flex: ${(props) => (!props.isHidden ? 1 : 0)};
@@ -121,7 +121,7 @@ export const TemplateLeftItem = styled.div<ITemplateType>`
     props.contentOverflow ? `flex-end` : "space-between"};
 `;
 
-export const TemplateLefItemContext = styled.div<ITextItem>`
+export const TemplateLefItemContext = styled("div")<ITextItem>`
   margin-top: 8px;
   h2 {
     font-family: "SF Pro Display";
@@ -141,7 +141,7 @@ export const TemplateLefItemContext = styled.div<ITextItem>`
   }
 `;
 
-export const TemplateInfiniteItem = styled.div`
+export const TemplateInfiniteItem = styled("div")`
   width: 100%;
   height: 100%;
   z-index: 10;
@@ -150,7 +150,7 @@ export const TemplateInfiniteItem = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Hashtag = styled.div`
+export const Hashtag = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -164,7 +164,7 @@ export interface IHashtagItem {
   color: string;
   showAll?: boolean;
 }
-export const HashtagItem = styled.div<IHashtagItem>`
+export const HashtagItem = styled("div")<IHashtagItem>`
   margin-right: 4px;
   overflow: ${(props) => (props.showAll ? "auto" : "hidden")};
   text-overflow: ${(props) => (props.showAll ? "clip" : "ellipsis")};
@@ -174,19 +174,19 @@ export const HashtagItem = styled.div<IHashtagItem>`
   font-style: normal;
 `;
 
-export const LinkReadMore = styled.span`
+export const LinkReadMore = styled("span")`
   margin: 0px;
   font-size: 14px;
   cursor: pointer;
 `;
 
-export const ReadMoreItem = styled.div`
+export const ReadMoreItem = styled("div")`
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
 `;
 
-export const TimeZone = styled.span`
+export const TimeZone = styled("span")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -198,7 +198,7 @@ export const TimeZone = styled.span`
   font-size: 12px;
 `;
 
-export const UserInfo = styled.div`
+export const UserInfo = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -207,13 +207,13 @@ export const UserInfo = styled.div`
   margin: 5px 0px;
 `;
 
-export const UserName = styled.div`
+export const UserName = styled("div")`
   position: relative;
   display: flex;
   align-items: center;
 `;
 
-export const ItemTitle = styled.span`
+export const ItemTitle = styled("span")`
   width: 100%;
   text-overflow: ellipsis;
   line-height: 18px;
@@ -227,7 +227,7 @@ export const ItemTitle = styled.span`
   font-family: "SF Pro Display";
 `;
 
-export const UserNameTextLink = styled.a<IHashtagItem>`
+export const UserNameTextLink = styled("a")<IHashtagItem>`
   font-family: "SF Pro Display";
   font-style: normal;
   color: ${(props) => props.color};
@@ -238,7 +238,7 @@ export const UserNameTextLink = styled.a<IHashtagItem>`
   text-decoration: none;
   cursor: pointer;
 `;
-export const SocialNetwork = styled.div`
+export const SocialNetwork = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -263,7 +263,7 @@ export const SocialNetwork = styled.div`
   }
 `;
 
-export const CircleTick = styled.div`
+export const CircleTick = styled("div")`
   width: 10px;
   height: 10px;
   svg {
@@ -275,7 +275,7 @@ export interface IUserSocialInfo {
   left?: boolean;
   right?: boolean;
 }
-export const UserSocialInfo = styled.div<IUserSocialInfo>`
+export const UserSocialInfo = styled("div")<IUserSocialInfo>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -307,7 +307,7 @@ export const UserSocialInfo = styled.div<IUserSocialInfo>`
   }
 `;
 
-export const SocialNetworkItem = styled.div`
+export const SocialNetworkItem = styled("div")`
   position: relative;
   margin-right: 2px;
 `;
@@ -316,7 +316,7 @@ type TemplateControlType = Pick<
   ITemplateType,
   "mt" | "mb" | "ml" | "mr" | "pt" | "pb" | "pl" | "pr"
 >;
-export const TemplateControl = styled.div<TemplateControlType>`
+export const TemplateControl = styled("div")<TemplateControlType>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -329,19 +329,19 @@ export const TemplateControl = styled.div<TemplateControlType>`
     ${(props) => props.pb || 0}px ${(props) => props.pl || 0}px;
 `;
 
-export const TemplateControlItem = styled.div`
+export const TemplateControlItem = styled("div")`
   margin: auto;
 `;
 export interface ITemplateSkeleton {
   row?: number;
 }
 
-export const TemplateSkeleton = styled.div`
+export const TemplateSkeleton = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 `;
-export const TemplateSkeletonItem = styled.div<ITemplateSkeleton>`
+export const TemplateSkeletonItem = styled("div")<ITemplateSkeleton>`
   width: calc(${(props) => (props.row ? 100 / props.row : 100)}% - 20px);
   padding: 0 10px;
   position: relative;
@@ -377,7 +377,7 @@ export const TemplateSkeletonItem = styled.div<ITemplateSkeleton>`
   }
 `;
 
-export const TemplateSkeletonItemContent = styled.div`
+export const TemplateSkeletonItemContent = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -388,7 +388,7 @@ export const TemplateSkeletonItemContent = styled.div`
   }
 `;
 
-export const TemplateWrapper = styled.div<ITemplateType>`
+export const TemplateWrapper = styled("div")<ITemplateType>`
   width: 100%;
   min-height: 100%;
   position: relative;

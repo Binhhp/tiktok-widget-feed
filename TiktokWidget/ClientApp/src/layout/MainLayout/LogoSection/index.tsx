@@ -13,7 +13,7 @@ import {
   LogoWrapper,
   LogoSectionContext,
   MobileViewMenu,
-} from "./index.style";
+} from "./LogoSection";
 
 const LogoSection = () => {
   const dispatch = useDispatch();

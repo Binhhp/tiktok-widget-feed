@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 import { IDataTableProvider } from "./DataTablesType";
 
-export const DataTablesProvider = styled.div<IDataTableProvider>`
+export const DataTablesProvider = styled("div")<IDataTableProvider>`
   width: 100%;
   height: 100%;
   .Polaris-IndexTable,
@@ -43,7 +43,7 @@ export const DataTablesProvider = styled.div<IDataTableProvider>`
   }
 `;
 
-export const AlertTitle = styled.h2`
+export const AlertTitle = styled("h2")`
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;

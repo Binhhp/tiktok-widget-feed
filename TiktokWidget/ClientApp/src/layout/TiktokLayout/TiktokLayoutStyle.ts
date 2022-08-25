@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const TikTokLayoutWrapper = styled.div`
+export const TikTokLayoutWrapper = styled("div")`
   width: 100%;
   height: 100%;
   background: #ffffff;

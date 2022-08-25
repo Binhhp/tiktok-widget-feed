@@ -1,5 +1,5 @@
 import { IVideoWrapperStyle } from "./VideoType";
-import styled, { keyframes } from "styled-components";
+import { keyframes } from "styled-components";
 import {
   SocialNetwork,
   TimeZone,
@@ -7,8 +7,9 @@ import {
 } from "Dependencies/LayoutTemplate/LayoutTemplateStype";
 import { AbsoluteCenter } from "ui-components/UtilsStyle";
 import breakpoints from "Dependencies/Devices/breakpoint";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DivContainer = styled.div<IVideoWrapperStyle>`
+export const DivContainer = styled("div")<IVideoWrapperStyle>`
   width: 100%;
   height: 100%;
   background-color: rgba(22, 24, 35, 0.06);
@@ -27,7 +28,7 @@ export const DivContainer = styled.div<IVideoWrapperStyle>`
   }
 `;
 
-export const DivContent = styled.div`
+export const DivContent = styled("div")`
   display: flex;
   flex-direction: row-reverse;
   margin: auto;
@@ -42,7 +43,7 @@ export const DivContent = styled.div`
 export interface IDivContentVideo {
   showProducts?: boolean;
 }
-export const DivContentVideo = styled.div<IDivContentVideo>`
+export const DivContentVideo = styled("div")<IDivContentVideo>`
   padding: 20px 15px 15px 15px;
   background: #ffffff;
   max-width: 550px;
@@ -61,7 +62,7 @@ export const DivContentVideo = styled.div<IDivContentVideo>`
   cursor: auto;
 `;
 
-export const DivContentVideoFooter = styled.div`
+export const DivContentVideoFooter = styled("div")`
   width: 100%;
   padding-bottom: 20px;
   position: relative;
@@ -81,7 +82,7 @@ export const DivContentVideoFooter = styled.div`
   }
 `;
 
-export const DivContentVideoBody = styled.div`
+export const DivContentVideoBody = styled("div")`
   width: 100%;
   .desc {
     max-height: max-content;
@@ -91,7 +92,7 @@ export const DivContentVideoBody = styled.div`
   }
 `;
 
-export const DivContentHeader = styled.div`
+export const DivContentHeader = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -103,7 +104,7 @@ export const DivContentHeader = styled.div`
   }
 `;
 
-export const DivVideoPlay = styled.div`
+export const DivVideoPlay = styled("div")`
   display: block;
   position: relative;
   ${AbsoluteCenter} {
@@ -117,7 +118,7 @@ export const DivVideoPlay = styled.div`
 export interface IDivBasicPlayerWrapper {
   hidden?: boolean;
 }
-export const DivBasicPlayerWrapper = styled.div<IDivBasicPlayerWrapper>`
+export const DivBasicPlayerWrapper = styled("div")<IDivBasicPlayerWrapper>`
   width: ${(props) => (props.hidden ? 0 : 100)}%;
   height: 100%;
   display: block;
@@ -128,14 +129,14 @@ export const DivBasicPlayerWrapper = styled.div<IDivBasicPlayerWrapper>`
   z-index: 10;
 `;
 
-export const ImgPoster = styled.img`
+export const ImgPoster = styled("img")`
   object-fit: cover;
   display: block;
   max-height: 100%;
   max-width: max-content !important;
 `;
 
-export const ButtonClose = styled.div`
+export const ButtonClose = styled("div")`
   cursor: pointer;
   display: none;
 `;
@@ -144,7 +145,7 @@ export interface IDivPlayerIconContainer {
   hidden?: boolean;
 }
 
-export const DivPlayerIconContainer = styled.div<IDivPlayerIconContainer>`
+export const DivPlayerIconContainer = styled("div")<IDivPlayerIconContainer>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -163,7 +164,7 @@ export const DivPlayerIconContainer = styled.div<IDivPlayerIconContainer>`
   }
 `;
 
-export const DivErrorVideo = styled.div<IDivPlayerIconContainer>`
+export const DivErrorVideo = styled("div")<IDivPlayerIconContainer>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -184,7 +185,7 @@ export const DivErrorVideo = styled.div<IDivPlayerIconContainer>`
   }
 `;
 
-export const DivPlayerIcon = styled.div`
+export const DivPlayerIcon = styled("div")`
   width: 62px;
   height: 62px;
   background-size: contain;
@@ -206,7 +207,7 @@ export const AnimationContentBack = keyframes`
   100% { height: 300px }
 `;
 
-export const DivVideoTitle = styled.span`
+export const DivVideoTitle = styled("span")`
   width: 100%;
   text-overflow: ellipsis;
   line-height: 18px;
@@ -220,7 +221,7 @@ export const DivVideoTitle = styled.span`
   font-family: "SF Pro Display";
 `;
 
-export const DivVideoWrapper = styled.div<IDivContentVideo>`
+export const DivVideoWrapper = styled("div")<IDivContentVideo>`
   position: relative;
   width: 100%;
   height: 100%;

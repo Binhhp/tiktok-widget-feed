@@ -1,9 +1,9 @@
 import { IProductWrapper } from "./MyWidgetType";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import breakpoints from "Dependencies/Devices/breakpoint";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const MyWidgetHeader = styled.div`
+export const MyWidgetHeader = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -13,7 +13,7 @@ export const MyWidgetHeader = styled.div`
   }
 `;
 
-export const TagProductSelected = styled.div`
+export const TagProductSelected = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -25,21 +25,21 @@ export const TagProductSelected = styled.div`
   }
 `;
 
-export const TagProductSelectedIcon = styled.div`
+export const TagProductSelectedIcon = styled("div")`
   width: auto;
   svg {
     fill: rgba(44, 110, 203, 1);
   }
 `;
 
-export const TagProductContainer = styled.div`
+export const TagProductContainer = styled("div")`
   padding: 20px;
 `;
-export const TagProductSection = styled.div`
+export const TagProductSection = styled("div")`
   position: relative;
 `;
 
-export const LoadingTagProduct = styled.div`
+export const LoadingTagProduct = styled("div")`
   width: 100%;
   height: auto;
   display: flex;
@@ -49,11 +49,11 @@ export const LoadingTagProduct = styled.div`
     width: 40px;
   }
 `;
-export const TagProductSearch = styled.div`
+export const TagProductSearch = styled("div")`
   margin-bottom: 25px;
 `;
 
-export const ProductWrapper = styled.div<IProductWrapper>`
+export const ProductWrapper = styled("div")<IProductWrapper>`
   background: ${(props) =>
     props.active
       ? props.bg
@@ -77,11 +77,11 @@ export const ProductWrapper = styled.div<IProductWrapper>`
   }
 `;
 
-export const ProductItem = styled.div`
+export const ProductItem = styled("div")`
   border-top: 1px solid;
 `;
 
-export const ProductRadio = styled.div`
+export const ProductRadio = styled("div")`
   padding: 0px 5px;
   width: max-content;
   input[type="radio"] {
@@ -104,7 +104,7 @@ export const ProductRadio = styled.div`
   }
 `;
 
-export const ProductImage = styled.div`
+export const ProductImage = styled("div")`
   border-radius: 2px;
   border: 1px solid #e1e3e5;
   margin: 0px 10px;
@@ -122,7 +122,7 @@ export const ProductImage = styled.div`
   }
 `;
 
-export const ProductDesc = styled.span`
+export const ProductDesc = styled("span")`
   font-size: 13px;
   width: auto;
   height: 40px;
@@ -140,11 +140,11 @@ export const TextLink = styled(Link)`
   color: #000;
 `;
 
-export const ProductModalWrapper = styled.div`
+export const ProductModalWrapper = styled("div")`
   height: 500px;
 `;
 
-export const MyWidgetWrapper = styled.div`
+export const MyWidgetWrapper = styled("div")`
   width: 100%;
   height: 100%;
   background-color: #ffffff;
@@ -159,7 +159,7 @@ export const MyWidgetWrapper = styled.div`
   }
 `;
 
-export const TimeZoneColumn = styled.div`
+export const TimeZoneColumn = styled("div")`
   font-size: 13px;
   word-break: break-word;
 `;

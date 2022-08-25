@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const FormConfiguration = styled.div`
+export const FormConfiguration = styled("div")`
   margin-top: 20px;
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@ export const FormConfiguration = styled.div`
   width: 100%;
 `;
 
-export const FormLeft = styled.div`
+export const FormLeft = styled("div")`
   margin-right: 7px;
   width: calc(50% - 7px);
   .Polaris-Button.Polaris-Button--pressed {
@@ -18,20 +18,20 @@ export const FormLeft = styled.div`
   }
 `;
 
-export const FormRight = styled.div`
+export const FormRight = styled("div")`
   margin-left: 7px;
   width: calc(50% - 7px);
 `;
-export const FormRightWrapper = styled.div`
+export const FormRightWrapper = styled("div")`
   width: 100%;
 `;
 
-export const LabelForm = styled.div`
+export const LabelForm = styled("div")`
   width: 35%;
   align-items: flex-start;
 `;
 
-export const FormControlStep = styled.div`
+export const FormControlStep = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@ export const FormControlStep = styled.div`
   position: relative;
 `;
 
-export const InputForm = styled.div`
+export const InputForm = styled("div")`
   width: calc(100% - 35%);
   z-index: 1;
 `;
@@ -52,7 +52,7 @@ export interface IRadioForm {
   mb?: number;
 }
 
-export const RadioForm = styled.div<IRadioForm>`
+export const RadioForm = styled("div")<IRadioForm>`
   margin: ${(props) => props.mt || 0}px ${(props) => props.mr || 0}px
     ${(props) => props.mb || 0}px ${(props) => props.ml || 0}px;
 `;
@@ -60,14 +60,14 @@ export const RadioForm = styled.div<IRadioForm>`
 export interface ITextFieldColorPicker {
   bg: string;
 }
-export const TextFieldColorPicker = styled.div<ITextFieldColorPicker>`
+export const TextFieldColorPicker = styled("div")<ITextFieldColorPicker>`
   height: 2rem;
   width: 2rem;
   border-radius: 0.3rem;
   background: ${(props) => props.bg};
 `;
 
-export const FormSubmitWrapper = styled.div`
+export const FormSubmitWrapper = styled("div")`
   width: 100%;
   margin: 10px 0px;
   display: flex;
@@ -88,7 +88,7 @@ export const FormSubmitWrapper = styled.div`
   }
 `;
 
-export const ButtonCancel = styled.button`
+export const ButtonCancel = styled("button")`
   border: none;
   background: transparent;
   color: #fe2c55;

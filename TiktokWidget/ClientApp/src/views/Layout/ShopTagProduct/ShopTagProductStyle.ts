@@ -1,7 +1,7 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DivImagePoster = styled.div`
+export const DivImagePoster = styled("div")`
   width: 80px;
   height: 80px;
   border-radius: 2px;
@@ -13,7 +13,7 @@ export const DivImagePoster = styled.div`
   }
 `;
 
-export const DivDescProduct = styled.div`
+export const DivDescProduct = styled("div")`
   padding-left: 10px;
   display: flex;
   flex-direction: column;
@@ -52,14 +52,14 @@ export const DivDescProduct = styled.div`
   }
 `;
 
-export const DivLeftProduct = styled.div`
+export const DivLeftProduct = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-right: 5px;
 `;
 
-export const DivPriceProduct = styled.div`
+export const DivPriceProduct = styled("div")`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -68,7 +68,7 @@ export const DivPriceProduct = styled.div`
   font-style: normal;
 `;
 
-export const DivButtonShop = styled.a`
+export const DivButtonShop = styled("a")`
   text-transform: uppercase;
   background: #01f0ea;
   border-radius: 2px;
@@ -92,7 +92,7 @@ export const DivButtonShop = styled.a`
   }
 `;
 
-export const ShopTagProductWrapper = styled.div`
+export const ShopTagProductWrapper = styled("div")`
   display: flex;
   align-items: center;
   justify-content: space-between;

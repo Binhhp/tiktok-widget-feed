@@ -1,17 +1,17 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
 export class ProfileItem {
   public static item1: number = 45;
 }
 
-export const StepTwoMain = styled.div`
+export const StepTwoMain = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 `;
 
-export const TemplateMajor = styled.div`
+export const TemplateMajor = styled("div")`
   width: ${ProfileItem.item1}%;
   padding-top: 40px;
   padding-left: 30px;
@@ -19,7 +19,7 @@ export const TemplateMajor = styled.div`
   position: sticky;
 `;
 
-export const TitleTemplateMajor = styled.h2`
+export const TitleTemplateMajor = styled("h2")`
   font-weight: 700;
   font-size: 20px;
   line-height: 29px;
@@ -30,7 +30,7 @@ export const TitleTemplateMajor = styled.h2`
 
 //Hashtag
 
-export const HashtagWrapper = styled.div`
+export const HashtagWrapper = styled("div")`
   position: relative;
   background: #63d1db;
   display: flex;
@@ -51,7 +51,7 @@ export const HashtagWrapper = styled.div`
   }
 `;
 
-export const IconTikTok = styled.div`
+export const IconTikTok = styled("div")`
   position: absolute;
   top: -0.4rem;
   right: -0.4rem;

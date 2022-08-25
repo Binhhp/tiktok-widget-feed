@@ -1,5 +1,5 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
 export interface ITemplateItemImage {
   width?: number;
@@ -14,7 +14,7 @@ export interface ITemplateTem {
 interface ITemplateSettingWrapper {
   marginTop?: number;
 }
-export const TemplateSettingWrapper = styled.div<ITemplateSettingWrapper>`
+export const TemplateSettingWrapper = styled("div")<ITemplateSettingWrapper>`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -24,7 +24,7 @@ export const TemplateSettingWrapper = styled.div<ITemplateSettingWrapper>`
   justify-content: space-between;
 `;
 
-export const TemplateItem = styled.div<ITemplateTem>`
+export const TemplateItem = styled("div")<ITemplateTem>`
   width: calc(50% - 10px);
   height: ${(props) => props.height ?? 150}px;
   margin: ${(props) => props.margin ?? 10}px 0px;
@@ -39,7 +39,7 @@ export const TemplateItem = styled.div<ITemplateTem>`
   }
 `;
 
-export const TemplateItemImage = styled.div<ITemplateItemImage>`
+export const TemplateItemImage = styled("div")<ITemplateItemImage>`
   height: calc(100% - 50px);
   position: relative;
   margin: 10px 0px;
@@ -59,7 +59,7 @@ export const TemplateItemImage = styled.div<ITemplateItemImage>`
     margin: auto;
   }
 `;
-export const TextTemplate = styled.div`
+export const TextTemplate = styled("div")`
   width: 100%;
   margin-top: auto;
   display: flex;

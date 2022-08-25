@@ -1,8 +1,8 @@
 import { IPropListItemButton } from "./NavItem";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const ListItemTagHref = styled.a<IPropListItemButton>`
+export const ListItemTagHref = styled("a")<IPropListItemButton>`
   width: 100%;
   display: flex;
   cursor: pointer;
@@ -72,7 +72,7 @@ export const ListItemButton = styled(Link)<IPropListItemButton>`
   }
 `;
 
-export const ListItemButtonMenu = styled.div<IPropListItemButton>`
+export const ListItemButtonMenu = styled("div")<IPropListItemButton>`
   width: 100%;
   display: flex;
   cursor: pointer;
@@ -105,7 +105,7 @@ export const ListItemButtonMenu = styled.div<IPropListItemButton>`
   }
 `;
 
-export const BorderLineLeft = styled.div`
+export const BorderLineLeft = styled("div")`
   background: #ff0b53;
   width: 3px;
   border-radius: 0px 4px 4px 0px;
@@ -114,13 +114,13 @@ export const BorderLineLeft = styled.div`
   left: 0;
 `;
 
-export const ListItemIcon = styled.div`
+export const ListItemIcon = styled("div")`
   width: 20px;
   height: 20px;
   margin-right: 18px;
 `;
 
-export const Chip = styled.div`
+export const Chip = styled("div")`
   border-radius: 50%;
   font-weight: 500;
   font-size: 12px;
@@ -133,6 +133,6 @@ export const Chip = styled.div`
   padding: 1px 6px;
 `;
 
-export const ListItemWrapper = styled.div`
+export const ListItemWrapper = styled("div")`
   padding: 0px 5px;
 `;

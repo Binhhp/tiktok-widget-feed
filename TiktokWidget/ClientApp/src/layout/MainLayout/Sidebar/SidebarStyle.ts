@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
 export interface ISidebarWrapper {
   active: boolean;
 }
 
-export const SidebarWrapper = styled.div<ISidebarWrapper>`
+export const SidebarWrapper = styled("div")<ISidebarWrapper>`
   width: 239px;
   height: 100%;
   position: fixed;

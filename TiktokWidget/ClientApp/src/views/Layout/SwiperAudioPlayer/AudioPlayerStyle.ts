@@ -1,8 +1,8 @@
 import breakpoints from "Dependencies/Devices/breakpoint";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 import { IImageCoverStyle, IAudioPlayerWrapper } from "./AudioPlayerType";
 
-export const DivVideoContainer = styled.div`
+export const DivVideoContainer = styled("div")`
   background: rgb(0, 0, 0);
   position: relative;
   overflow: hidden;
@@ -10,7 +10,7 @@ export const DivVideoContainer = styled.div`
   height: 100%;
 `;
 
-export const DivBlurBackground = styled.div<IImageCoverStyle>`
+export const DivBlurBackground = styled("div")<IImageCoverStyle>`
   position: absolute;
   width: 100%;
   max-height: 100%;
@@ -21,7 +21,7 @@ export const DivBlurBackground = styled.div<IImageCoverStyle>`
   overflow: hidden;
 `;
 
-export const ButtonBasicClose = styled.button`
+export const ButtonBasicClose = styled("button")`
   position: absolute;
   z-index: 1;
   display: flex;
@@ -50,7 +50,7 @@ export const ButtonBasicClose = styled.button`
   }
 `;
 
-export const VideoScrollWrapper = styled.div<IAudioPlayerWrapper>`
+export const VideoScrollWrapper = styled("div")<IAudioPlayerWrapper>`
   display: ${(props) => (props.active ? "block" : "none")};
   position: fixed;
   inset: 0;

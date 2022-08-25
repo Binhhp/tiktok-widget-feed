@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const ErrorBoundaryWrapper = styled.div`
+export const ErrorBoundaryWrapper = styled("div")`
   width: 100%;
   height: 100%;
   position: relative;

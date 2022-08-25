@@ -1,7 +1,7 @@
+import styled from "Dependencies/StyledComponents/Container";
 import { IButtonWidgetControl } from "./ButtonWidgetType";
-import styled from "styled-components";
 
-export const ButtonWidgetWrapper = styled.div`
+export const ButtonWidgetWrapper = styled("div")`
   width: 100%;
   height: 100%;
   .Polaris-SkeletonPage__Page {
@@ -9,7 +9,7 @@ export const ButtonWidgetWrapper = styled.div`
   }
 `;
 
-export const ButtonWidgetControl = styled.div<IButtonWidgetControl>`
+export const ButtonWidgetControl = styled("div")<IButtonWidgetControl>`
   cursor: pointer;
   background: ${(props) => props.bg || "#ffffff"};
   border-radius: 4px;
@@ -27,13 +27,13 @@ export const ButtonWidgetControl = styled.div<IButtonWidgetControl>`
   }
 `;
 
-export const SetupStepButtonWidget = styled.div`
+export const SetupStepButtonWidget = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const ButtonWidgetContainer = styled.div`
+export const ButtonWidgetContainer = styled("div")`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -44,7 +44,7 @@ export const ButtonWidgetContainer = styled.div`
   }
 `;
 
-export const PreviewButtonWidget = styled.div`
+export const PreviewButtonWidget = styled("div")`
   width: 100%;
   height: 100%;
   flex: 1;
@@ -72,7 +72,7 @@ export const PreviewButtonWidget = styled.div`
   }
 `;
 
-export const ButtonWidgetTiktok = styled.div`
+export const ButtonWidgetTiktok = styled("div")`
   position: absolute;
   width: 60px;
   height: 60px;
@@ -85,13 +85,13 @@ export const ButtonWidgetTiktok = styled.div`
   }
 `;
 
-export const StepAnimationButtonWidget = styled.div`
+export const StepAnimationButtonWidget = styled("div")`
   transition: transform 2s ease-in-out;
   margin-top: 30px;
   transform: translateY(-130%);
 `;
 
-export const ShowNotification = styled.div`
+export const ShowNotification = styled("div")`
   position: absolute;
   top: 0;
 `;

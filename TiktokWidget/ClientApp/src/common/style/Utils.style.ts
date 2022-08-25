@@ -1,5 +1,5 @@
+import styled from "Dependencies/StyledComponents/Container";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 export interface IButtonCustom {
   size?: "small" | "medium" | "large";
@@ -10,7 +10,7 @@ export interface IButtonCustom {
   display?: "flex" | "none" | "block";
 }
 
-export const FlexBox = styled.div`
+export const FlexBox = styled("div")`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -18,7 +18,7 @@ export const FlexBox = styled.div`
   align-items: center;
 `;
 
-export const ButtonCustom = styled.button<IButtonCustom>`
+export const ButtonCustom = styled("button")<IButtonCustom>`
   display: ${(props) => props.display || "flex"};
   flex-direction: row;
   justify-content: center;
@@ -95,7 +95,7 @@ export interface IContainer {
     | "space-between"
     | "space-around";
 }
-export const Container = styled.div<IContainer>`
+export const Container = styled("div")<IContainer>`
   display: flex;
   flex-direction: ${(props) => props.flexDirection || "row"};
   justify-content: ${(props) => props.justifyContent || "baseline"};
@@ -109,7 +109,7 @@ export const Container = styled.div<IContainer>`
   position: ${(props) => props.position ?? "relative"};
 `;
 
-export const ContainerSection = styled.div<IContainerSection>`
+export const ContainerSection = styled("div")<IContainerSection>`
   width: ${(props) => props.width}%;
   height: ${(props) =>
     props.height

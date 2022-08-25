@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DashboardWrapper = styled.div`
+export const DashboardWrapper = styled("div")`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -8,7 +8,7 @@ export const DashboardWrapper = styled.div`
   background-color: #ffffff;
 `;
 
-export const DashboardContent = styled.div`
+export const DashboardContent = styled("div")`
   width: auto;
   height: auto;
   margin: auto;

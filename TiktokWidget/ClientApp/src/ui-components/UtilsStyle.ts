@@ -1,6 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
+import { keyframes } from "styled-components";
 
-export const LoaderBackground = styled.div`
+export const LoaderBackground = styled("div")`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -9,7 +10,7 @@ export const LoaderBackground = styled.div`
   z-index: 999999;
 `;
 
-export const LoaderWrapper = styled.div`
+export const LoaderWrapper = styled("div")`
   display: flex;
   background: #fafafa;
   align-items: center;
@@ -22,7 +23,7 @@ export const LoaderWrapper = styled.div`
   }
 `;
 
-export const SnipperLoader = styled.div`
+export const SnipperLoader = styled("div")`
   width: 36px !important;
   height: 36px !important;
   max-width: 36px !important;
@@ -35,14 +36,14 @@ export const SnipperLoader = styled.div`
   }
 `;
 
-export const ImageStyle = styled.img`
+export const ImageStyle = styled("img")`
   width: 100%;
   max-width: 100%;
   height: 100%;
   display: block;
 `;
 
-export const ButtonViewMore = styled.button`
+export const ButtonViewMore = styled("button")`
   background: #01f0ea;
   span svg {
     width: 23px;
@@ -51,7 +52,7 @@ export const ButtonViewMore = styled.button`
   }
 `;
 
-export const LoadingInfiniteWrapper = styled.div`
+export const LoadingInfiniteWrapper = styled("div")`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -86,7 +87,7 @@ export interface IIconNetworkWrapper {
   padding?: number;
 }
 
-export const IconNetworkWrapper = styled.div<IIconNetworkWrapper>`
+export const IconNetworkWrapper = styled("div")<IIconNetworkWrapper>`
   display: ${(props) =>
     props.status && props.status === "disable" ? "none" : "flex"};
   align-items: center;
@@ -105,7 +106,7 @@ export const IconNetworkWrapper = styled.div<IIconNetworkWrapper>`
   background: #000000;
 `;
 
-export const LogoTikTok = styled.img`
+export const LogoTikTok = styled("img")`
   width: 10px !important;
   height: 10px !important;
   display: block;
@@ -116,7 +117,7 @@ interface IAbsoluteCenter {
   width?: number | string;
   zIndex?: number;
 }
-export const AbsoluteCenter = styled.div<IAbsoluteCenter>`
+export const AbsoluteCenter = styled("div")<IAbsoluteCenter>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -170,13 +171,13 @@ const AnimationLoaderRightToLeft = keyframes`
   }
 `;
 
-export const DivTikTokLoaderContainer = styled.div`
+export const DivTikTokLoaderContainer = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const DivTikTokLoader1 = styled.div`
+export const DivTikTokLoader1 = styled("div")`
   position: relative;
   width: 20px;
   height: 20px;
@@ -187,7 +188,7 @@ export const DivTikTokLoader1 = styled.div`
   transform: scale(1);
 `;
 
-export const DivTikTokLoader2 = styled.div`
+export const DivTikTokLoader2 = styled("div")`
   position: relative;
   width: 20px;
   height: 20px;

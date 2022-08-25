@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const ColorPickerMain = styled.div`
+export const ColorPickerMain = styled("div")`
   position: relative;
   width: 100%;
 `;
 
-export const ColorPickerWrapper = styled.div`
+export const ColorPickerWrapper = styled("div")`
   position: absolute;
   z-index: 25;
   top: -280px;
@@ -41,14 +41,14 @@ export const ColorPickerWrapper = styled.div`
   }
 `;
 
-export const ColorPickerSection = styled.div`
+export const ColorPickerSection = styled("div")`
   padding: 0.5rem;
 `;
 
 export interface IExpandColor {
   bg?: string;
 }
-export const ExpandColor = styled.div<IExpandColor>`
+export const ExpandColor = styled("div")<IExpandColor>`
   width: 1rem;
   height: 1rem;
   border-radius: 3px;

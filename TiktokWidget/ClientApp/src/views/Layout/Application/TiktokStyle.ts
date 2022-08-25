@@ -1,13 +1,13 @@
 import { ContainerSection } from "common/style/Utils.style";
 import breakpoints from "Dependencies/Devices/breakpoint";
 import { ProfileWrapper } from "Dependencies/Profile/ProfileStyle";
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DivTiKTokenizer = styled.div`
+export const DivTiKTokenizer = styled("div")`
   width: auto;
 `;
 
-export const TikTokWrapper = styled.div`
+export const TikTokWrapper = styled("div")`
   width: 100%;
   background-color: #ffffff;
   font-family: "SF Pro Display";
@@ -17,11 +17,11 @@ export const TikTokWrapper = styled.div`
 export interface ITikTokContent {
   hidden: boolean;
 }
-export const TikTokContent = styled.div<ITikTokContent>`
+export const TikTokContent = styled("div")<ITikTokContent>`
   visibility: ${(props) => (props.hidden ? "hidden" : "visible")};
 `;
 
-export const DivTikTok = styled.div`
+export const DivTikTok = styled("div")`
   padding: 50px 100px 0px 100px;
   position: relative;
   display: flex;

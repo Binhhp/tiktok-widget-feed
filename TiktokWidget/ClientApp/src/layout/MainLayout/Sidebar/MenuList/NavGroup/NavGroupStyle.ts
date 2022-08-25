@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const NavGroupWrapper = styled.div`
+export const NavGroupWrapper = styled("div")`
   width: auto;
 `;
 
-export const NavGroupText = styled.div`
+export const NavGroupText = styled("div")`
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
@@ -14,6 +14,6 @@ export const NavGroupText = styled.div`
   margin: 52px 0px 16px 0px;
 `;
 
-export const NavGroupMenuItem = styled.div`
+export const NavGroupMenuItem = styled("div")`
   width: auto;
 `;

@@ -1,5 +1,6 @@
-import styled from "styled-components";
-export const HeaderWrapper = styled.div`
+import styled from "Dependencies/StyledComponents/Container";
+
+export const HeaderWrapper = styled("div")`
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +16,7 @@ export const HeaderWrapper = styled.div`
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
 `;
 
-export const FlagStyle = styled.div`
+export const FlagStyle = styled("div")`
   background: rgba(69, 241, 237, 0.19);
   border-radius: 50%;
   width: 24px;
@@ -24,27 +25,27 @@ export const FlagStyle = styled.div`
   margin-right: 6px;
 `;
 
-export const FlagText = styled.div`
+export const FlagText = styled("div")`
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   color: #202223;
 `;
 
-export const HeaderRight = styled.div`
+export const HeaderRight = styled("div")`
   display: flex;
   flex-wrap: wrap;
   width: max-content;
 `;
 
-export const Account = styled.div`
+export const Account = styled("div")`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin-left: 27px;
 `;
 
-export const AccountName = styled.div`
+export const AccountName = styled("div")`
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;

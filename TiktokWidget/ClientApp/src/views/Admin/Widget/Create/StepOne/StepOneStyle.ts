@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const TittleStepOne = styled.h2`
+export const TittleStepOne = styled("h2")`
   width: 300px;
   font-weight: 700;
   font-size: 20px;
@@ -9,7 +9,7 @@ export const TittleStepOne = styled.h2`
   margin-bottom: 62px;
 `;
 
-export const FormControlStepOne = styled.div`
+export const FormControlStepOne = styled("div")`
   width: 100%;
   margin-top: 70px;
   display: flex;
@@ -25,12 +25,12 @@ export const FormControlStepOne = styled.div`
   }
 `;
 
-export const FormContentStepOne = styled.div`
+export const FormContentStepOne = styled("div")`
   width: 50%;
   margin: 0 auto;
 `;
 
-export const FormStackRadio = styled.div`
+export const FormStackRadio = styled("div")`
   .Polaris-Stack__Item {
     margin-top: 6px;
   }
@@ -42,7 +42,7 @@ export interface IFormControlWidget {
   paddingLeftAndRight?: number;
 }
 
-export const FormControlWidget = styled.div<IFormControlWidget>`
+export const FormControlWidget = styled("div")<IFormControlWidget>`
   width: ${(props: IFormControlWidget) => props.width}%;
   margin: auto;
   background: #fafafa;
@@ -61,7 +61,7 @@ export const FormControlWidget = styled.div<IFormControlWidget>`
 export interface IFormSubmitStep {
   size?: "small" | "large";
 }
-export const FormSubmitStep = styled.div<IFormSubmitStep>`
+export const FormSubmitStep = styled("div")<IFormSubmitStep>`
   .Polaris-Stack .Polaris-Stack__Item {
     margin-top: ${(props) =>
       props.size === "small" ? `4px` : `var(--pc-stack-spacing)`};
