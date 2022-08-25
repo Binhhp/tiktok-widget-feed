@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const LoaderBackground = styled.div`
   width: 100%;
@@ -83,14 +83,16 @@ export interface IIconNetworkWrapper {
   width?: number;
   topPosition?: boolean;
   children: any;
+  padding?: number;
 }
 
 export const IconNetworkWrapper = styled.div<IIconNetworkWrapper>`
   display: ${(props) =>
     props.status && props.status === "disable" ? "none" : "flex"};
+  align-items: center;
   width: ${(props) => props.width || 15}px;
   height: ${(props) => props.width || 15}px;
-  justify-content: stretch;
+  justify-content: center;
   border-radius: 5px;
   position: ${(props) => (props.topPosition ? "absolute" : "relative")};
   top: ${(props) => (props.topPosition ? "10px" : "none")};
@@ -99,8 +101,15 @@ export const IconNetworkWrapper = styled.div<IIconNetworkWrapper>`
     height: 100%;
     object-fit: contain;
   }
-  padding: 3px;
+  padding: ${(props) => props.padding ?? 3}px;
   background: #000000;
+`;
+
+export const LogoTikTok = styled.img`
+  width: 10px !important;
+  height: 10px !important;
+  display: block;
+  object-fit: contain;
 `;
 
 interface IAbsoluteCenter {
@@ -121,4 +130,70 @@ export const AbsoluteCenter = styled.div<IAbsoluteCenter>`
             : `${props.width}`
         }`
       : "auto"};
+`;
+
+//TikTok Loading
+
+const AnimationLoaderLeftToRight = keyframes`
+0% {
+    left: 0;
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    left: 22px;
+  }
+  75% {
+    transform: scale(0.8);
+  }
+  100% {
+    left: 0;
+  }
+`;
+
+const AnimationLoaderRightToLeft = keyframes`
+0% {
+    right: 0;
+  }
+  25% {
+    transform: scale(0.8);
+  }
+  50% {
+    right: 22px;
+  }
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    right: 0;
+  }
+`;
+
+export const DivTikTokLoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DivTikTokLoader1 = styled.div`
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: rgb(77, 232, 244);
+  border-radius: 50%;
+  animation: ${AnimationLoaderLeftToRight} 0.8s ease-in-out infinite;
+  mix-blend-mode: darken;
+  transform: scale(1);
+`;
+
+export const DivTikTokLoader2 = styled.div`
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  mix-blend-mode: darken;
+  transform: scale(1);
+  background: rgb(253, 62, 62);
+  animation: ${AnimationLoaderRightToLeft} 0.8s ease-in-out infinite;
 `;

@@ -13,13 +13,13 @@ import {
   ISettingProviderWidget,
   SettingProviderWidget,
 } from "stores/Widget/state";
-import ApplicationContainer from "ui-components/ApplicationContainer";
 import { ShopActionTS } from "stores/Shop/action";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
 import { ITikTokAppProps } from "../TikTokModel";
 import AudioPlayerContainer from "../SwiperAudioPlayer";
 import { AudioPlayerProvider } from "../SwiperAudioPlayer/AudioPlayerContext";
+import ApplicationContainer from "../ApplicationContainer";
 
 function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);

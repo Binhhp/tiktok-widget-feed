@@ -33,6 +33,7 @@ import Image from "ui-components/Image";
 import IconNetwork from "ui-components/IconNetwork";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
 import { NumberFormatter } from "common/functions/NumberFormatter";
+import { LogoTikTok } from "ui-components/UtilsStyle";
 
 function Item(props: ITemplateItem) {
   const onMouseEnter =
@@ -108,10 +109,11 @@ function Item(props: ITemplateItem) {
                 {props.options?.readMore}
               </LinkReadMore>
               <IconNetwork
+                padding={1}
                 topPosition={props.type === TemplateType.List}
                 status={props.options?.showNetworkIcon}
               >
-                <img
+                <LogoTikTok
                   src="https://i.imgur.com/I6rfRMu.png"
                   alt="Logo TikTok Widget Feed"
                 />

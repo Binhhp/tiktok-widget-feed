@@ -28,7 +28,6 @@ export const ProfilePlus = styled.div<IAvatar>`
 `;
 
 export const ProfileInfo = styled.div<IProfileInfo>`
-  width: calc(100% - ${(props) => props.imgWidth || 100}px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,8 +54,8 @@ export const Contact = styled.div`
   flex-wrap: wrap;
   width: 100%;
   flex-direction: row;
-  margin-bottom: 7px;
   justify-content: space-between;
+  width: 300px;
 `;
 
 export const ContactItem = styled.div<IProfileInfo>`
@@ -69,6 +68,7 @@ export const ContactItem = styled.div<IProfileInfo>`
     font-size: ${(props) => props.fontSize || 16}px !important;
     font-family: "SF Pro Display";
     font-style: normal;
+    margin: 0px 0px 5px 0px;
     text-transform: none !important;
   }
   span {
@@ -116,13 +116,14 @@ export const ProfileHeader = styled.div`
 `;
 
 export const FollowerButton = styled.button`
-  padding: 6px 40px;
+  padding: 0px 40px;
   cursor: pointer;
   font-weight: 600 !important;
   margin-bottom: 5px;
-  margin-left: 10px;
+  margin-left: 40px;
   font-size: 14px !important;
-  line-height: normal !important;
+  line-height: 14px !important;
+  height: 35px;
 `;
 
 export const AvatarProfile = styled.div<IAvatar>`
@@ -166,7 +167,7 @@ export const ProfileWrapper = styled.div<IProfileWrapper>`
             ? `${props.maxWidth}px`
             : `${props.maxWidth}`
         }`
-      : `380px`};
+      : `calc(100% - 100px)`};
   @media only screen and (${breakpoints.device.lg}) {
     width: 100%;
     margin: 0;

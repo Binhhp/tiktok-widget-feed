@@ -17,7 +17,7 @@ export const TemplateContainer = styled.div<ITemplateType>`
             ? props.pr + props.pl
             : 0
         }px)`
-      : `100%`};
+      : `auto`};
   flex-direction: ${(props: ITemplateType) =>
     props.flexDirection === "row" ? "row-reverse" : "column"};
   display: flex;
@@ -91,7 +91,7 @@ export const TemplateContent = styled.div<ITemplateType>`
     display: ${(props) => (props.contentOverflow ? `block` : `none`)};
   }
   width: ${(props: ITemplateType) =>
-    props.widthItem ? props.widthItem : 100}%;
+    props.widthItem ? `${props.widthItem}%` : "auto"};
   display: flex;
   z-index: ${(props) => props.zIndex ?? 10};
   flex-direction: column;
@@ -342,7 +342,7 @@ export const TemplateSkeleton = styled.div`
   flex-wrap: wrap;
 `;
 export const TemplateSkeletonItem = styled.div<ITemplateSkeleton>`
-  width: ${(props) => (props.row ? 100 / props.row : 100)}%;
+  width: calc(${(props) => (props.row ? 100 / props.row : 100)}% - 20px);
   padding: 0 10px;
   position: relative;
   cursor: pointer;

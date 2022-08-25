@@ -16,8 +16,11 @@
     [
       "babel-plugin-styled-components",
       {
+        "namespace": "orichi-tiktok",
         "ssr": false,
-        "displayName": false
+        "minify": true,
+        "transpileTemplateLiterals": true,
+        "displayName": true
       }
     ],
     [

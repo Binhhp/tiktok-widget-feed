@@ -1,5 +1,5 @@
 import { Icon } from "@shopify/polaris";
-import { MobileCancelMajor } from "@shopify/polaris-icons";
+import { CancelSmallMinor } from "@shopify/polaris-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import VideoPlayer from "./VideoPlayer";
@@ -15,6 +15,7 @@ import { IErrorPlayer } from "./VideoPlayer/VideoType";
 import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
 import { IAudioPlayerSliderProps } from "./AudioPlayerType";
 import { AudioPlayerContext } from "./AudioPlayerContext";
+import IconClose from "assets/svg/Close";
 
 SwiperCore.use([Pagination, Mousewheel]);
 
@@ -136,7 +137,7 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
         ))}
       </Swiper>
       <ButtonBasicClose onClick={onHandleClose}>
-        <Icon source={MobileCancelMajor} />
+        <IconClose />
       </ButtonBasicClose>
     </VideoScrollWrapper>
   ) : (

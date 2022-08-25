@@ -1,4 +1,4 @@
-import { Icon, Spinner } from "@shopify/polaris";
+import { Icon } from "@shopify/polaris";
 import {
   CircleTickMajor,
   ConversationMinor,
@@ -25,7 +25,7 @@ import {
 } from "Dependencies/LayoutTemplate/LayoutTemplateStype";
 import ShopTagProduct from "views/Layout/ShopTagProduct";
 import IconNetwork from "ui-components/IconNetwork";
-import { AbsoluteCenter } from "ui-components/UtilsStyle";
+import { AbsoluteCenter, LogoTikTok } from "ui-components/UtilsStyle";
 import {
   ButtonClose,
   DivBasicPlayerWrapper,
@@ -46,6 +46,7 @@ import {
 import { IVideoProps } from "./VideoType";
 import Loader from "ui-components/Loader";
 import breakpoints from "Dependencies/Devices/breakpoint";
+import TikTokLoader from "ui-components/TikTokLoader";
 
 function VideoPlayer(props: IVideoProps) {
   const video = props.item.video?.playAddr;
@@ -80,7 +81,7 @@ function VideoPlayer(props: IVideoProps) {
               alt={props.item.desc}
             ></ImgPoster>
             <AbsoluteCenter width={40}>
-              <Spinner size="large" />
+              <TikTokLoader></TikTokLoader>
             </AbsoluteCenter>
             <DivErrorVideo
               hidden={!props.error?.active}
@@ -194,8 +195,8 @@ function VideoPlayer(props: IVideoProps) {
                     true
                   )}
                 </span>
-                <IconNetwork status="enable">
-                  <img
+                <IconNetwork padding={1} status="enable">
+                  <LogoTikTok
                     src="https://i.imgur.com/I6rfRMu.png"
                     alt="Logo TikTok Widget Feed"
                   />

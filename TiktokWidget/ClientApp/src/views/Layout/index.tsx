@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import GlobalStyle from "./GlobalStyle";
 import workerTikTokManager from "stores/TikTok";
 import TikTokApp from "./TikTokApp";
+import { StyleSheetManager } from "styled-components";
 
 const elements = document.querySelectorAll("div[name='orichi']");
 
@@ -14,12 +15,14 @@ if (elements && elements.length > 0) {
     const root = ReactDOM.createRoot(element);
     const widgetId = element.getAttribute("data-id");
     root.render(
-      <Provider store={workerTikTokManager.store}>
-        <BrowserRouter>
-          <GlobalStyle />
-          <TikTokApp widgetId={widgetId} />
-        </BrowserRouter>
-      </Provider>
+      <StyleSheetManager disableVendorPrefixes>
+        <Provider store={workerTikTokManager.store}>
+          <BrowserRouter>
+            <GlobalStyle />
+            <TikTokApp widgetId={widgetId} />
+          </BrowserRouter>
+        </Provider>
+      </StyleSheetManager>
     );
   });
 }
