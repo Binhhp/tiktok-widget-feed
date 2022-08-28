@@ -1,5 +1,5 @@
-import _styled from "styled-components";
-const PREFIX = "orichi-tiktok";
+import _styled, { StyledConfig } from "styled-components";
+export const PREFIX = "orichi-tiktok";
 type domElements =
   | "a"
   | "abbr"
@@ -138,8 +138,15 @@ type domElements =
   | "tspan"
   | any;
 
-const styled = (tag: domElements) => {
-  return _styled(tag as any).withConfig({ displayName: PREFIX });
+const styled = (tag: domElements, componentId: string = "") => {
+  let option: StyledConfig = {
+    displayName: PREFIX,
+    componentId: componentId,
+  };
+  return _styled(tag as any).withConfig(option);
 };
 
+export function BuildClassName(prefix: string = "") {
+  return `.${PREFIX}-${prefix}`;
+}
 export default styled;

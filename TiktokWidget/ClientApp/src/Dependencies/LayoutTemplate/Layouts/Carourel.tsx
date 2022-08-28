@@ -40,7 +40,6 @@ function Carousel(props: LayoutPropTypes) {
               enableHover={props.enableHover}
               clickRender={props.onClickLayoutRender}
               hiddenContent={props.hiddenContent}
-              widthItem={100}
               options={props.options}
               bg={props.options?.bg}
               key={`carousel-${index}`}
@@ -50,7 +49,13 @@ function Carousel(props: LayoutPropTypes) {
               type={props.type}
               pr={props.style && props.style.pr === 0 ? props.style.pr : 5}
               pl={props.style && props.style.pl === 0 ? props.style.pl : 5}
-              pb={props.style && props.style.pb === 0 ? props.style.pb : 5}
+              pb={
+                props.showAll
+                  ? 0
+                  : props.style && props.style.pb === 0
+                  ? props.style.pb
+                  : 5
+              }
             ></Item>
           </SwiperSlide>
         ))}

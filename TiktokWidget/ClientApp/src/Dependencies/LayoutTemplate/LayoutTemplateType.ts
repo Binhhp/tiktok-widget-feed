@@ -35,6 +35,7 @@ export interface ITemplateProps {
   enableHover?: boolean;
   style?: ITemplateStyle;
   disableContext?: boolean;
+  showAll?: boolean;
 }
 
 interface ITemplateStyle {
@@ -73,7 +74,7 @@ export interface ITemplateImage {
 export interface ITemplateType {
   type: TemplateType;
   width?: number;
-  widthItem?: number;
+  widthItem?: string;
   contentOverflow?: boolean;
   bg?: string;
   imgHeight?: number | string;
@@ -104,7 +105,7 @@ export interface ITemplateItem {
   type: TemplateType;
   contentOverflow?: boolean;
   width?: number;
-  widthItem?: number;
+  widthItem?: string;
   grid?: boolean;
   imgHeight?: number | string;
   flexDirection?: "row" | "column";
@@ -133,6 +134,23 @@ interface ILayoutProps {
   onClickLayoutRender: (index: number) => () => void;
   fetchData: () => void;
   loadingButton: boolean;
+  showAll?: boolean;
+}
+export interface IHashtagItem {
+  color: string;
+  showAll?: boolean;
 }
 
+export interface IUserSocialInfo {
+  left?: boolean;
+  right?: boolean;
+}
+
+export type TemplateControlType = Pick<
+  ITemplateType,
+  "mt" | "mb" | "ml" | "mr" | "pt" | "pb" | "pl" | "pr"
+>;
+export interface ITemplateSkeleton {
+  row?: number;
+}
 export type LayoutPropTypes = ILayoutProps & ITemplateProps;

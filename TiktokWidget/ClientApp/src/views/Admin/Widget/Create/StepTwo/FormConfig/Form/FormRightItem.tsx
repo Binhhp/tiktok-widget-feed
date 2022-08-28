@@ -176,24 +176,27 @@ function FormRightItem() {
             />
           </InputForm>
         </FormControlStep>
-        <FormControlStep style={{ alignItems: "flex-start" }}>
-          <LabelForm>
-            <TextStyle>Number item per row</TextStyle>
-          </LabelForm>
-          <InputForm>
-            <TextField
-              name="number-item"
-              id="number-item"
-              label=""
-              helpText="Max number item per row is 15 and min is 0"
-              type="number"
-              value={String(widgetReducer.settings.numberItemPerRow)}
-              onChange={onSetNumberRow}
-              placeholder="Number item"
-              autoComplete="off"
-            />
-          </InputForm>
-        </FormControlStep>
+        {widgetReducer.settings.layout !== TemplateType.Slider &&
+          widgetReducer.settings.layout !== TemplateType.Carousel && (
+            <FormControlStep style={{ alignItems: "flex-start" }}>
+              <LabelForm>
+                <TextStyle>Number item per row</TextStyle>
+              </LabelForm>
+              <InputForm>
+                <TextField
+                  name="number-item"
+                  id="number-item"
+                  label=""
+                  helpText="Max number item per row is 15 and min is 0"
+                  type="number"
+                  value={String(widgetReducer.settings.numberItemPerRow)}
+                  onChange={onSetNumberRow}
+                  placeholder="Number item"
+                  autoComplete="off"
+                />
+              </InputForm>
+            </FormControlStep>
+          )}
       </FormRightWrapper>
     </FormRight>
   );

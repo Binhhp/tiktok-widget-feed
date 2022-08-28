@@ -18,6 +18,7 @@ function LayoutList(props: LayoutPropTypes) {
               .slice(0, props.showItems || templateContext.state.items.length)
               .map((item, index) => (
                 <Item
+                  widthItem="100%"
                   enableHover={props.enableHover}
                   clickRender={props.onClickLayoutRender}
                   hiddenContent={props.hiddenContent}

@@ -99,9 +99,9 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
         onActiveIndexChange={onActiveIndexChangeSwiper}
         onSwiper={setSwiperController}
         initialSlide={templateContext.state.index.realIndex}
-        slideNextClass="button-next"
-        slidePrevClass="button-prev"
-        className="swiper-video-scroll"
+        slideNextClass="orichi-tiktok-player-next"
+        slidePrevClass="orichi-tiktok-player-prev"
+        className="orichi-tiktok-slider"
         direction={"vertical"}
         slidesPerView={1}
         mousewheel={true}

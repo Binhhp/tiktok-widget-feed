@@ -1,3 +1,6 @@
+export const StyledConfig = {
+  MARGIN_CONTENT: 5,
+};
 export interface IVideoTemplateModel {
   data: ITikTokVideoDto[];
   count: number;

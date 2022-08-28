@@ -42,10 +42,12 @@ function Slider(props: LayoutPropTypes) {
               enableHover={props.enableHover}
               clickRender={props.onClickLayoutRender}
               hiddenContent={props.hiddenContent}
-              flexDirection={`${props.flexDirection ?? "row"}`}
-              widthItem={50}
+              flexDirection={
+                props.showAll ? `column` : `${props.flexDirection ?? "row"}`
+              }
+              widthItem={props.showAll ? "100%" : "50%"}
               options={props.options}
-              imgHeight={props.imgHeight ?? 0}
+              imgHeight={props.imgHeight ?? "100%"}
               bg={props.options?.bg}
               key={`slider-${props.type}-${index}`}
               contentOverflow={props.contentOverflow}
@@ -54,7 +56,7 @@ function Slider(props: LayoutPropTypes) {
               type={props.type}
               pr={0}
               pl={0}
-              pb={10}
+              pb={props.showAll ? 0 : 10}
             ></Item>
           </SwiperSlide>
         ))}

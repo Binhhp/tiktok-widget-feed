@@ -13,7 +13,7 @@ function LoadingInfinite(props: ILoadingInfiniteProps) {
       {props.viewMore ? (
         !props.loading ? (
           <ButtonViewMore onClick={props.onClickViewMore}>
-            <h2>{props.viewMore}</h2>
+            <h2 className="viewmore">{props.viewMore}</h2>
           </ButtonViewMore>
         ) : (
           <SnipperLoading></SnipperLoading>

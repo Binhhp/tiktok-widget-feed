@@ -43,12 +43,24 @@ export const ImageStyle = styled("img")`
   display: block;
 `;
 
-export const ButtonViewMore = styled("button")`
-  background: #01f0ea;
-  span svg {
-    width: 23px;
-    height: 23px;
-    margin: 1px 20px;
+export const ButtonViewMore = styled("button", "btn-viewmore")`
+  &.orichi-tiktok-btn-viewmore {
+    background: #01f0ea;
+    outline: none;
+    border: none;
+    span svg {
+      width: 23px;
+      height: 23px;
+      margin: 1px 20px;
+    }
+    h2.viewmore {
+      font-family: "SF Pro Display";
+      font-style: normal;
+      font-size: 14px;
+      margin: 5px 7px;
+      color: #fff;
+      font-weight: 400;
+    }
   }
 `;
 
@@ -87,50 +99,56 @@ export interface IIconNetworkWrapper {
   padding?: number;
 }
 
-export const IconNetworkWrapper = styled("div")<IIconNetworkWrapper>`
-  display: ${(props) =>
-    props.status && props.status === "disable" ? "none" : "flex"};
-  align-items: center;
-  width: ${(props) => props.width || 15}px;
-  height: ${(props) => props.width || 15}px;
-  justify-content: center;
-  border-radius: 5px;
-  position: ${(props) => (props.topPosition ? "absolute" : "relative")};
-  top: ${(props) => (props.topPosition ? "10px" : "none")};
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+export const IconNetworkWrapper = styled("div", "icon")<IIconNetworkWrapper>`
+  &.orichi-tiktok-icon {
+    display: ${(props) =>
+      props.status && props.status === "disable" ? "none" : "flex"};
+    align-items: center;
+    width: ${(props) => props.width || 15}px;
+    height: ${(props) => props.width || 15}px;
+    justify-content: center;
+    border-radius: 5px;
+    position: ${(props) => (props.topPosition ? "absolute" : "relative")};
+    top: ${(props) => (props.topPosition ? "10px" : "none")};
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    padding: ${(props) => props.padding ?? 3}px;
+    background: #000000;
   }
-  padding: ${(props) => props.padding ?? 3}px;
-  background: #000000;
 `;
 
-export const LogoTikTok = styled("img")`
-  width: 10px !important;
-  height: 10px !important;
-  display: block;
-  object-fit: contain;
+export const LogoTikTok = styled("img", "logo")`
+  &.orichi-tiktok-logo {
+    width: 10px !important;
+    height: 10px !important;
+    display: block;
+    object-fit: contain;
+  }
 `;
 
 interface IAbsoluteCenter {
   width?: number | string;
   zIndex?: number;
 }
-export const AbsoluteCenter = styled("div")<IAbsoluteCenter>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: ${(props) => props.zIndex ?? 1};
-  width: ${(props) =>
-    props.width
-      ? `${
-          typeof props.width === "number"
-            ? `${props.width}px`
-            : `${props.width}`
-        }`
-      : "auto"};
+export const AbsoluteCenter = styled("div", "video-loader")<IAbsoluteCenter>`
+  &.orichi-tiktok-video-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: ${(props) => props.zIndex ?? 1};
+    width: ${(props) =>
+      props.width
+        ? `${
+            typeof props.width === "number"
+              ? `${props.width}px`
+              : `${props.width}`
+          }`
+        : "auto"};
+  }
 `;
 
 //TikTok Loading

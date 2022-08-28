@@ -109,45 +109,47 @@ export const Container = styled("div")<IContainer>`
   position: ${(props) => props.position ?? "relative"};
 `;
 
-export const ContainerSection = styled("div")<IContainerSection>`
-  width: ${(props) => props.width}%;
-  height: ${(props) =>
-    props.height
-      ? typeof props.height === "number"
-        ? `${props.height}%`
-        : `${props.height}`
-      : "auto"};
-  background: ${(props) => props.bg || "#ffffff"};
-  margin: ${(props) => props.mt || 0}px ${(props) => props.mr || 0}px
-    ${(props) => props.mb || 0}px ${(props) => props.ml || 0}px;
-  position: ${(props) => props.position ?? "relative"};
-  z-index: ${(props) => props.zIndex ?? 0};
-  top: ${(props) => `${props.top}px` ?? "none"};
-  left: ${(props) => `${props.left}px` ?? "none"};
-  right: ${(props) => `${props.right}px` ?? "none"};
-  bottom: ${(props) => `${props.bottom}px` ?? "none"};
-  padding: ${(props) =>
-      props.pt
-        ? typeof props.pt === "number"
-          ? `${props.pt}px`
-          : `${props.pt}`
-        : 0}
-    ${(props) =>
-      props.pr
-        ? typeof props.pr === "number"
-          ? `${props.pr}px`
-          : `${props.pr}`
-        : 0}
-    ${(props) =>
-      props.pb
-        ? typeof props.pb === "number"
-          ? `${props.pb}px`
-          : `${props.pb}`
-        : 0}
-    ${(props) =>
-      props.pl
-        ? typeof props.pl === "number"
-          ? `${props.pl}px`
-          : `${props.pl}`
-        : 0};
+export const ContainerSection = styled("div", "section")<IContainerSection>`
+  &.orichi-tiktok-section {
+    width: ${(props) => props.width}%;
+    height: ${(props) =>
+      props.height
+        ? typeof props.height === "number"
+          ? `${props.height}%`
+          : `${props.height}`
+        : "auto"};
+    background: ${(props) => props.bg || "#ffffff"};
+    margin: ${(props) => props.mt || 0}px ${(props) => props.mr || 0}px
+      ${(props) => props.mb || 0}px ${(props) => props.ml || 0}px;
+    position: ${(props) => props.position ?? "relative"};
+    z-index: ${(props) => props.zIndex ?? 0};
+    top: ${(props) => `${props.top}px` ?? "none"};
+    left: ${(props) => `${props.left}px` ?? "none"};
+    right: ${(props) => `${props.right}px` ?? "none"};
+    bottom: ${(props) => `${props.bottom}px` ?? "none"};
+    padding: ${(props) =>
+        props.pt
+          ? typeof props.pt === "number"
+            ? `${props.pt}px`
+            : `${props.pt}`
+          : 0}
+      ${(props) =>
+        props.pr
+          ? typeof props.pr === "number"
+            ? `${props.pr}px`
+            : `${props.pr}`
+          : 0}
+      ${(props) =>
+        props.pb
+          ? typeof props.pb === "number"
+            ? `${props.pb}px`
+            : `${props.pb}`
+          : 0}
+      ${(props) =>
+        props.pl
+          ? typeof props.pl === "number"
+            ? `${props.pl}px`
+            : `${props.pl}`
+          : 0};
+  }
 `;

@@ -167,7 +167,7 @@ export const ProfileWrapper = styled("div")<IProfileWrapper>`
             ? `${props.maxWidth}px`
             : `${props.maxWidth}`
         }`
-      : `calc(100% - 100px)`};
+      : `100%`};
   @media only screen and (${breakpoints.device.lg}) {
     width: 100%;
     margin: 0;

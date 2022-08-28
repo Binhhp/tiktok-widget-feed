@@ -85,6 +85,10 @@ function LiveTemplate() {
         accentColor: widgetReducer.settings.accentColor,
         viewMore: widgetReducer.settings.labelView,
       }}
+      showAll={
+        widgetReducer.mobile &&
+        widgetReducer.settings.layout === TemplateType.Slider
+      }
       contentOverflow={
         widgetReducer.settings.layout === TemplateType.List ??
         (widgetReducer.mobile &&
