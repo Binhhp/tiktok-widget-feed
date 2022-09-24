@@ -16,4 +16,9 @@ export const NavGroupText = styled("div")`
 
 export const NavGroupMenuItem = styled("div")`
   width: auto;
+  h2 {
+    color: #6d7175;
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;

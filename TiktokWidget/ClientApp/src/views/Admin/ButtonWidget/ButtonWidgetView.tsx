@@ -97,6 +97,7 @@ function ButtonWidgetView() {
           step: 0,
         })
       );
+      dispatch(WidgetActionTS.OnChangStatus());
     };
   }, []);
 

@@ -141,8 +141,9 @@ type domElements =
 const styled = (tag: domElements, componentId: string = "") => {
   let option: StyledConfig = {
     displayName: PREFIX,
-    componentId: componentId,
   };
+
+  if (componentId) option["componentId"] = componentId;
   return _styled(tag as any).withConfig(option);
 };
 

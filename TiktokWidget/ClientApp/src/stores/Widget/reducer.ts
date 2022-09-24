@@ -4,6 +4,7 @@ import { WidgetActEnum } from "./enum";
 import { WidgetType } from "./model";
 import {
   ISettingProviderWidget,
+  WidgetStatus,
   WidgetStoreModel,
   WidgetStoreModelDto,
 } from "./state";
@@ -83,6 +84,12 @@ const OnSetCount = (state: WidgetStoreModel, payload: number | undefined) => {
   return copyState;
 };
 
+const OnChangeStatus = (state: WidgetStoreModel, status: WidgetStatus) => {
+  let copyState = state.Clone();
+  copyState.status = status;
+  return copyState;
+};
+
 const WidgetReducer = (
   state: WidgetStoreModel = new WidgetStoreModel(),
   action: WidgetType
@@ -98,6 +105,8 @@ const WidgetReducer = (
       return OnGetTagProducts(state, action.payload, action.isReplace);
     case WidgetActEnum.COUNT:
       return OnSetCount(state, action.payload);
+    case WidgetActEnum.CHANGE_STATUS:
+      return OnChangeStatus(state, action.payload);
     default:
       return state;
   }

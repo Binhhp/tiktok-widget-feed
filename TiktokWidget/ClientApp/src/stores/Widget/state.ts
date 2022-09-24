@@ -64,17 +64,21 @@ export class SettingProviderWidget implements ISettingProviderWidget {
     return this as ISettingProviderWidget;
   };
 }
+
+export type WidgetStatus = "FirstCreated" | "Undefined";
 export class WidgetStoreModelDto {
   step: number;
   mobile: boolean;
   settings: ISettingProviderWidget;
   products: BaseProduct[] | undefined;
   count: number | undefined;
+  status: WidgetStatus;
   constructor() {
     this.step = 0;
     this.mobile = false;
     this.products = [];
     this.count = undefined;
+    this.status = "FirstCreated";
     this.settings = {
       id: "",
       title: "",
@@ -103,11 +107,13 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
   protected _products: BaseProduct[];
   protected _settings: ISettingProviderWidget;
   protected _count: number | undefined;
+  protected _status: WidgetStatus;
   constructor(_dto?: WidgetStoreModelDto) {
     this._step = _dto?.step || -1;
     this._mobile = _dto?.mobile || false;
     this._products = _dto?.products || [];
     this._count = _dto?.count ?? -1;
+    this._status = _dto?.status ?? "FirstCreated";
     this._settings = _dto?.settings || {
       id: "",
       title: "",
@@ -127,6 +133,13 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
       numberItemPerRow: 3,
       products: [],
     };
+  }
+  public get status(): WidgetStatus {
+    return this._status;
+  }
+
+  public set status(v: WidgetStatus) {
+    this._status = v;
   }
 
   public get count(): number | undefined {
@@ -180,6 +193,7 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
       mobile: this._mobile,
       products: this._products,
       count: this._count,
+      status: this._status,
     };
   }
 }

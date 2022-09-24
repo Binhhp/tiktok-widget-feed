@@ -43,7 +43,7 @@ export const LinkRouter = styled(Link)<IButtonCustom>`
   position: relative;
   text-decoration: none;
   background: ${(props: IButtonCustom) => props.bg || "rgba(254, 44, 85, 1)"};
-  color: ${(props: IButtonCustom) => props.color || "#ffffff"};
+  color: ${(props: IButtonCustom) => props.color || "#ffffff"} !important;
   padding: 7px 23px;
   border-radius: 2px;
   font-weight: 400;

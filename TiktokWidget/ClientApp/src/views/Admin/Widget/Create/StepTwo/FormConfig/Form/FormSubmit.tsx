@@ -70,11 +70,15 @@ function FormSubmit() {
       );
       if (response.Status) {
         dispatch(WidgetActionTS.OnStep(3));
-        dispatch(WidgetActionTS.OnSetSetting(true));
+        // dispatch(WidgetActionTS.OnSetSetting(true));
         const shopReponsitory = new ShopReponsitory();
         shopReponsitory
           .GetWidgetsCount(shopReducer.shop.domain ?? "")
           .then((val) => {
+            if (val === 1) {
+              dispatch(WidgetActionTS.OnChangStatus("FirstCreated"));
+            }
+
             dispatch(WidgetActionTS.OnSetWidgetCount(val));
           });
         setLoading(false);

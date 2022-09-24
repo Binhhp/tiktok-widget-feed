@@ -76,6 +76,7 @@ export const VideoScrollWrapper = styled(
       height: 100%;
     }
     .swiper-button-next {
+      display: block;
       position: absolute;
       z-index: 1000;
       display: flex;
@@ -107,6 +108,7 @@ export const VideoScrollWrapper = styled(
       display: none !important;
     }
     .swiper-button-prev {
+      display: block;
       position: absolute;
       z-index: 1000;
       display: flex;

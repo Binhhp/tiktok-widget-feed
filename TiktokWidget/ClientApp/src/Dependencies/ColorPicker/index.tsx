@@ -3,6 +3,7 @@ import { ButtonCustom } from "common/style/Utils.style";
 import { useOutsideAlerter } from "hooks";
 import React, { useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import { IColorPickerWidget } from "./ColorPickerModel";
 import {
   ColorPickerMain,
   ColorPickerSection,
@@ -10,14 +11,6 @@ import {
   ExpandColor,
 } from "./ColorPickerStyle";
 
-export interface IColorPickerWidget {
-  color?: string;
-  type: "accentColor" | "itemColor" | "itemBackground";
-  onChange: (
-    color: string,
-    type: "accentColor" | "itemColor" | "itemBackground"
-  ) => void;
-}
 function ColorPickerWidget(props: IColorPickerWidget) {
   const [active, setActive] = useState(false);
   const type = props.type;

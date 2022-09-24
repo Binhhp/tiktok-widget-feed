@@ -1,11 +1,7 @@
 import { Icon } from "@shopify/polaris";
 import { ProductsMinor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import {
-  Container,
-  ContainerSection,
-  LinkRouter,
-} from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/Utils.style";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
 import { toastNotify } from "Dependencies/Toast";
@@ -148,19 +144,25 @@ function MyWidget() {
     dispatch(ApplicationActionTS.OnHandleMenuItem("create-widget", true));
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(WidgetActionTS.OnChangStatus());
+    };
+  }, []);
+
   return (
     <MyWidgetWrapper>
       <Container flexDirection="column">
         <ContainerSection width={100} mb={30}>
           <MyWidgetHeader>
             <h2>My Widgets</h2>
-            <LinkRouter
+            {/* <LinkRouter
               onClick={onClickToCreateWidget}
               size="small"
               to={`/create-widget-step-1?shop=${shopReducer.shop.domain}`}
             >
               Create new widget
-            </LinkRouter>
+            </LinkRouter> */}
           </MyWidgetHeader>
         </ContainerSection>
         <ContainerSection height={100} width={100}>

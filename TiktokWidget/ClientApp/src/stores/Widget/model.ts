@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "./state";
+import { ISettingProviderWidget, WidgetStatus } from "./state";
 import { WidgetActEnum } from "./enum";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 
@@ -27,9 +27,15 @@ export interface ISetWidgetCount {
   payload: number | undefined;
 }
 
+export interface IChangeStatus {
+  type: typeof WidgetActEnum.CHANGE_STATUS;
+  payload: WidgetStatus;
+}
+
 export type WidgetType =
   | IOnStep
   | IOnSetting
   | IOnHandleMobile
   | IGetTagProducts
-  | ISetWidgetCount;
+  | ISetWidgetCount
+  | IChangeStatus;

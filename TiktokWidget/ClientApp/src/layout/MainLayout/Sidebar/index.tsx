@@ -1,10 +1,12 @@
-import { SidebarWrapper } from "./SidebarStyle";
+import { SidebarWrapper, SupportLink } from "./SidebarStyle";
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import MenuList from "./MenuList";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/reducers";
+import { ChatMajor } from "@shopify/polaris-icons";
+import { Icon } from "@shopify/polaris";
 
 function Sidebar() {
   const appReducer = useSelector((state: RootReducer) => state.appReducer);
@@ -23,6 +25,12 @@ function Sidebar() {
       <MobileView>
         <MenuList></MenuList>
       </MobileView>
+      <SupportLink>
+        <div>
+          <Icon source={ChatMajor} color="base" />
+          <span>Live Chat Support</span>
+        </div>
+      </SupportLink>
     </SidebarWrapper>
   );
 }

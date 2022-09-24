@@ -28,7 +28,8 @@ function Header() {
       <LogoSection></LogoSection>
       <FlexBox>
         {window.location.pathname.includes("create-widget") &&
-        widgetReducer.count === 0 &&
+        (widgetReducer.status === "FirstCreated" ||
+          widgetReducer.count === 0) &&
         widgetReducer.step ? (
           <FlexBox>
             <FlagStyle>
