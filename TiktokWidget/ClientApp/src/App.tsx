@@ -8,11 +8,11 @@ import "@fancyapps/ui/dist/fancybox.css";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ShopActionTS } from "stores/Shop/action";
+import { ShopActionTS } from "stores/Admin/Shop/action";
 import Loader from "ui-components/Loader";
 import withAppProvider from "Dependencies/ApplicationProvider";
 import { useQuery } from "hooks";
-import { WidgetActionTS } from "stores/Widget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 
 function App() {
   const navigate = useNavigate();

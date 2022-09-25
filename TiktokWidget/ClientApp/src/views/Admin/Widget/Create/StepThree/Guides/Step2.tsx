@@ -14,7 +14,7 @@ import Guides2 from "assets/images/Guides/guides2.png";
 import { IGuidesStepProps } from "./GuidesModel";
 import { LinkRouter } from "common/style/Utils.style";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 
 function GuidesStep2(props: IGuidesStepProps) {
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);

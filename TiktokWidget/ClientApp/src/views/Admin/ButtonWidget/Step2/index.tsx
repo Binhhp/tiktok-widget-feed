@@ -10,10 +10,10 @@ import {
 import { Container, ContainerSection } from "common/style/Utils.style";
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import * as Yup from "yup";
 import { ColorRed } from "views/Admin/Widget/Create/CreateWidgetStyle";
-import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
+import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
 import { StepAnimationButtonWidget } from "../ButtonWidgetStyle";
 import { IButtonWidgetProps } from "../ButtonWidgetModel";

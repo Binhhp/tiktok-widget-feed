@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "stores/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 export class UpdateWidgetRequest {
   public widgetTitle: string;
   public sourceType: number;

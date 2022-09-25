@@ -9,17 +9,17 @@ import {
 } from "./TiktokStyle";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
-import {
-  ISettingProviderWidget,
-  SettingProviderWidget,
-} from "stores/Widget/state";
-import { ShopActionTS } from "stores/Shop/action";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
 import { ITikTokAppProps } from "../TikTokModel";
 import AudioPlayerContainer from "../SwiperAudioPlayer";
 import { AudioPlayerProvider } from "../SwiperAudioPlayer/AudioPlayerContext";
 import ApplicationContainer from "../ApplicationContainer";
+import {
+  ISettingProviderWidget,
+  SettingProviderWidget,
+} from "stores/Admin/Widget/state";
+import { ShopActionTS } from "stores/Admin/Shop/action";
 
 function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);

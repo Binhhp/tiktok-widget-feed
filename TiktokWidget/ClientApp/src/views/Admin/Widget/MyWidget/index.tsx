@@ -12,10 +12,10 @@ import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { ApplicationActionTS } from "stores/Application/action";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
-import { SettingProviderWidget } from "stores/Widget/state";
+import { ApplicationActionTS } from "stores/Admin/Application/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { SettingProviderWidget } from "stores/Admin/Widget/state";
 import {
   MyWidgetHeader,
   MyWidgetWrapper,

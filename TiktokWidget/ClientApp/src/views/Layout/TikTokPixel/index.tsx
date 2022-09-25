@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import GlobalStyle from "./GlobalStyle";
-import workerTikTokManager from "stores/TikTok";
+import workerTikTokManager from "stores/Layout/TikTok";
 import TikTokApp from "./TikTokApp";
 import { StyleSheetManager } from "styled-components";
 

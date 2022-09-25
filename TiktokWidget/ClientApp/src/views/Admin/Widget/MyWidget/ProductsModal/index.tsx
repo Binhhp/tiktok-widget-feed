@@ -21,15 +21,15 @@ import {
 import { IProductModalProps } from "../MyWidgetType";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
-import { RootReducer } from "stores/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { toastNotify } from "Dependencies/Toast";
 import Image from "ui-components/Image";
 import LoadingInfinite from "ui-components/LoadingInfinite";
 import { ProductReponsitory } from "repositories/implements/ProductReponsitory";
-import { WidgetActionTS } from "stores/Widget/action";
 import { Waypoint } from "react-waypoint";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 
 function ProductModal(props: IProductModalProps) {
   const [keyword, setKeyword] = useState("");

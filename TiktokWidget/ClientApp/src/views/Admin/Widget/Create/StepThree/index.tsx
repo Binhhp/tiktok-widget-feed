@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { IGuidesState } from "./Guides/GuidesModel";
 import {
   GuidesHeader,

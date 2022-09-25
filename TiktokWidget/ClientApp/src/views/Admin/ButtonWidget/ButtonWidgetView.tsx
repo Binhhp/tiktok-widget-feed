@@ -22,10 +22,10 @@ import {
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import Step3 from "./Step3";
-import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
-import { WidgetActionTS } from "stores/Widget/action";
+import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { ButtonPositionProvider } from "./ButtonWidgetType";
 import { toastNotify } from "Dependencies/Toast";

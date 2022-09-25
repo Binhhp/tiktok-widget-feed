@@ -4,8 +4,8 @@ import LiveTemplate from "./LiveTemplate";
 import { DeviceManagement, FormConfiguration } from "./FormConfigStyle";
 import { Icon } from "@shopify/polaris";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { DesktopMajor, MobileMajor } from "@shopify/polaris-icons";
 
 function FormConfig() {

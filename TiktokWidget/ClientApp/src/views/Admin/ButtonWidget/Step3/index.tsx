@@ -4,9 +4,9 @@ import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
-import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
-import { ButtonWidgetStoreModel } from "stores/ButtonWidget/state";
-import { RootReducer } from "stores/reducers";
+import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
+import { ButtonWidgetStoreModel } from "stores/Admin/ButtonWidget/state";
+import { RootReducer } from "stores/Admin/reducers";
 
 function Step3() {
   const buttonWidget = useSelector(

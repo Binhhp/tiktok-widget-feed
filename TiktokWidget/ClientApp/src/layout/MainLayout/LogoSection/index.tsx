@@ -6,8 +6,8 @@ import {
 import ShopifyLogo from "assets/svg/ShopifyIcon";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ApplicationActionTS } from "stores/Application/action";
-import { RootReducer } from "stores/reducers";
+import { ApplicationActionTS } from "stores/Admin/Application/action";
+import { RootReducer } from "stores/Admin/reducers";
 import {
   BackToShop,
   LogoWrapper,

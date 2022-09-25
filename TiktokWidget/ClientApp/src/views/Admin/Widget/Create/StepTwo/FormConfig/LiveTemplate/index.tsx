@@ -1,6 +1,6 @@
 import Template from "Dependencies/LayoutTemplate";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import {
   CaptionConfig,

@@ -6,13 +6,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CaptionStep } from "../CreateWidgetStyle";
-import { WidgetActionTS } from "stores/Widget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { FormControlWidget } from "./StepOneStyle";
 import { useNavigate } from "react-router-dom";
 import CreateWidgetProvider from "../CreateWidgetProvider";
 import FormControlSource from "./FormControl";
 import { Container } from "common/style/Utils.style";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import toast from "react-hot-toast";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";

@@ -23,7 +23,6 @@ import {
   UserNameTextLink,
   UserSocialInfo,
 } from "Dependencies/LayoutTemplate/LayoutTemplateStype";
-import ShopTagProduct from "views/Layout/ShopTagProduct";
 import IconNetwork from "ui-components/IconNetwork";
 import { AbsoluteCenter, LogoTikTok } from "ui-components/UtilsStyle";
 import {
@@ -47,6 +46,7 @@ import { IVideoProps } from "./VideoType";
 import Loader from "ui-components/Loader";
 import breakpoints from "Dependencies/Devices/breakpoint";
 import TikTokLoader from "ui-components/TikTokLoader";
+import ShopTagProduct from "../../ShopTagProduct";
 
 function VideoPlayer(props: IVideoProps) {
   const video = props.item.video?.playAddr;

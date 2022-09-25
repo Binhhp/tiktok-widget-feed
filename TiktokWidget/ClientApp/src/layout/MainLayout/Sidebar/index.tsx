@@ -4,7 +4,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import MenuList from "./MenuList";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { ChatMajor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
 

@@ -2,8 +2,8 @@ import { LinkRouter } from "common/style/Utils.style";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import Loader from "ui-components/Loader";
 import CreateWidgetProvider from "./CreateWidgetProvider";
 import {

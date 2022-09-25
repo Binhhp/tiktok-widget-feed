@@ -10,8 +10,8 @@ import {
 import React from "react";
 import { Heading, Icon } from "@shopify/polaris";
 import { useDispatch, useSelector } from "react-redux";
-import { ApplicationActionTS } from "stores/Application/action";
-import { RootReducer } from "stores/reducers";
+import { ApplicationActionTS } from "stores/Admin/Application/action";
+import { RootReducer } from "stores/Admin/reducers";
 
 function NavItem(props: INavItemProps) {
   const widgetReducer = useSelector(

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 // third party
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import workerManager from "stores";
+import workerManager from "stores/Admin";
 import GlobalStyles from "GlobalStyles";
 import Loadable from "ui-components/Loadable";
 import { ErrorBoundary } from "react-error-boundary";

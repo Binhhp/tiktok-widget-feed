@@ -4,7 +4,7 @@ import config from "config";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import {
   ButtonWrapper,
   CardBody,

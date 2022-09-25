@@ -5,8 +5,8 @@ import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ApplicationActionTS } from "stores/Application/action";
-import { RootReducer } from "stores/reducers";
+import { ApplicationActionTS } from "stores/Admin/Application/action";
+import { RootReducer } from "stores/Admin/reducers";
 import {
   ButtonWrapper,
   CopyButton,

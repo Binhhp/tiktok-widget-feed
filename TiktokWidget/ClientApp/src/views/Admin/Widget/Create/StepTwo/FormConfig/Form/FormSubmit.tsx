@@ -8,8 +8,8 @@ import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequ
 import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequest";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { ButtonCancel, FormSubmitWrapper } from "./FormConfigStyle";
 
 function FormSubmit() {

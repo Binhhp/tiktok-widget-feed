@@ -11,7 +11,7 @@ import {
   HeaderWrapper,
 } from "./HeaderStyle";
 import Avatar from "react-avatar";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { useSelector } from "react-redux";
 
 function Header() {

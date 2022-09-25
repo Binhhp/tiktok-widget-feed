@@ -10,7 +10,7 @@ import { ContainerSection } from "common/style/Utils.style";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Waypoint } from "react-waypoint";
-import { WidgetActionTS } from "stores/Widget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import LoadingInfinite from "ui-components/LoadingInfinite";
 import { AbsoluteCenter } from "ui-components/UtilsStyle";
 import Actions from "./Actions";

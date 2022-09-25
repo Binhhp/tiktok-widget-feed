@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { CaptionStep } from "../CreateWidgetStyle";
 import Pattern from "./Patterns";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import FormConfiguration from "./FormConfig";
 import { Container, ContainerSection } from "common/style/Utils.style";
 import CreateWidgetProvider from "../CreateWidgetProvider";

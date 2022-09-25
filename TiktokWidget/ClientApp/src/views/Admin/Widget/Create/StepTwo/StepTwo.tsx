@@ -4,7 +4,7 @@ import { CaptionStep } from "../CreateWidgetStyle";
 import { TitleTemplateMajor } from "./StepTwoStyle";
 import Pattern from "./Patterns";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import FormConfiguration from "./FormConfig";
 import Hashtag from "./Hashtag";
 import { Container, ContainerSection } from "common/style/Utils.style";

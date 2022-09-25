@@ -3,8 +3,8 @@ import { ImageStorage } from "assets/images/ImageStorage";
 import { Container, ContainerSection } from "common/style/Utils.style";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonWidgetActionTS } from "stores/ButtonWidget/action";
-import { RootReducer } from "stores/reducers";
+import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
+import { RootReducer } from "stores/Admin/reducers";
 import { IButtonWidgetProps } from "../ButtonWidgetModel";
 import { ButtonWidgetControl } from "../ButtonWidgetStyle";
 

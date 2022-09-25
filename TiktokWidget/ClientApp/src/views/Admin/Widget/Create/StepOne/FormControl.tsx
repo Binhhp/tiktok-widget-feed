@@ -12,11 +12,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { ColorRed } from "../CreateWidgetStyle";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { WidgetActionTS } from "stores/Widget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { FormStackRadio, FormSubmitStep } from "./StepOneStyle";
-import { ISettingProviderWidget } from "stores/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 
 export interface IFormControlSource {
   onSubmit: (values: any, resetForm: any) => void;

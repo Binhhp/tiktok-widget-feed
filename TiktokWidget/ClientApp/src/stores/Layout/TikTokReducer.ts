@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import ButtonWidgetReducer from "./ButtonWidget/reducer";
-import ShopReducer from "./Shop/reducer";
+import ButtonWidgetReducer from "stores/Admin/ButtonWidget/reducer";
+import ShopReducer from "stores/Admin/Shop/reducer";
 
 const rootStateProvider = {
   buttonWidgetReducer: ButtonWidgetReducer,

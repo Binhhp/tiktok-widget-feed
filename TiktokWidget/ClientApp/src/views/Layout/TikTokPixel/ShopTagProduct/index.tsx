@@ -9,8 +9,8 @@ import {
   ShopTagProductWrapper,
 } from "./ShopTagProductStyle";
 import { useSelector } from "react-redux";
-import { RootTikTokReducer } from "stores/TikTokReducer";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { RootTikTokReducer } from "stores/Layout/TikTokReducer";
 
 export interface IShopTagProduct {
   product?: BaseProduct | false | undefined;

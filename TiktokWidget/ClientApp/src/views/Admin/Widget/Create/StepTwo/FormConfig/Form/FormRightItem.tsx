@@ -3,8 +3,8 @@ import ColorPickerWidget from "Dependencies/ColorPicker";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
-import { WidgetActionTS } from "stores/Widget/action";
+import { RootReducer } from "stores/Admin/reducers";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import {
   FormControlStep,
   FormRight,

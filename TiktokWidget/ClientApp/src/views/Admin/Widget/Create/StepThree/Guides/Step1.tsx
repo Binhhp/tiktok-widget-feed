@@ -8,7 +8,7 @@ import React from "react";
 import Guides1 from "assets/images/Guides/guides1.png";
 import { ImageStyle } from "ui-components/UtilsStyle";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { IGuidesStepProps } from "./GuidesModel";
 import { ImageStorage } from "assets/images/ImageStorage";
 

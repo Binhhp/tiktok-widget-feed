@@ -6,7 +6,7 @@ import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import CodeInfo from "./CodeInfo";
 import SectionInfo from "./SectionInfo";
 import {
@@ -17,7 +17,7 @@ import {
   TabItemWrapper,
   TabMethods,
 } from "./StepThreeStyle";
-import { WidgetActionTS } from "stores/Widget/action";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 import CreateWidgetProvider from "../../CreateWidgetProvider";
 import { CaptionStep } from "../../CreateWidgetStyle";
 function StepThree() {

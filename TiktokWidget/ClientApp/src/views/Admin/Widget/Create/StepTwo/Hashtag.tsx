@@ -2,7 +2,7 @@ import { Icon } from "@shopify/polaris";
 import { HashtagMajor } from "@shopify/polaris-icons";
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootReducer } from "stores/reducers";
+import { RootReducer } from "stores/Admin/reducers";
 import { HashtagWrapper, IconTikTok } from "./StepTwoStyle";
 import IconNetwork from "ui-components/IconNetwork";
 import { ImageStorage } from "assets/images/ImageStorage";
