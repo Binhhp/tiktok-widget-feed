@@ -29,14 +29,14 @@ export const GuidesContainerItem = styled("div")<GuidesContainerItemType>`
   color: #000000;
   h2 {
     font-style: normal;
-    font-weight: 450;
-    font-size: 18px;
+    font-weight: 400;
+    font-size: 20px;
     line-height: 23px;
     text-decoration-line: underline;
   }
   p {
     font-style: normal;
-    font-weight: 450;
+    font-weight: 400;
     font-size: 20px;
     line-height: 23px;
   }
@@ -95,7 +95,7 @@ interface IButtonItem {
 }
 
 export const ButtonItem = styled("div")<IButtonItem>`
-  margin: ${(props: IButtonItem) => props.top ?? 0}px
+  margin: ${(props) => props.top ?? 0}px
     ${(props: IButtonItem) => props.right ?? 0}px
     ${(props: IButtonItem) => props.bottom ?? 0}px
     ${(props: IButtonItem) => props.left ?? 0}px;
@@ -117,10 +117,10 @@ export const ButtonItemDiv = styled("div")<IButtonItem>`
 export const GuidesContent = styled("div")`
   color: #000000;
   margin-right: 24px;
-  padding-top: 25px;
+  margin-top: 25px;
   background: #63d1db;
   p {
-    font-size: 17px;
+    font-size: 20px;
     line-height: 23px;
   }
   max-width: 40%;
@@ -139,7 +139,7 @@ export const GuidesDivFooter = styled("div")`
     font-weight: 400;
   }
   .link-help {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 450;
     text-decoration-line: underline;
   }
