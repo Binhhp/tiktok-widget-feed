@@ -8,19 +8,19 @@ export interface IVideoTemplateModel {
 
 export interface ITikTokVideoDto {
   id?: string;
-  desc?: string;
-  createTime?: string;
+  desc?: string; // Show title of video
+  createTime?: string; // Show time created
   scheduleTime?: number;
-  video: IVideoDetail;
-  author?: string;
+  video: IVideoDetail; //Show Properties
+  author?: string; // Show user name
   music?: IMusic;
   challenges?: Array<IChallenges>;
-  stats?: IStats;
+  stats?: IStats; // Show Description Video
   duetInfo?: IDuetInfo;
   warnInfo?: Array<any>;
   originalItem?: boolean;
-  officalItem?: boolean;
-  textExtra?: ITextExtra[];
+  officalItem?: boolean; // Show offical user
+  textExtra?: ITextExtra[]; // Show hashtag
   secret?: boolean;
   forFriend?: boolean;
   digged?: boolean;
@@ -57,8 +57,8 @@ export interface IVideoDetail {
   duration?: number;
   ratio?: string;
   cover?: string;
-  originCover?: string;
-  dynamicCover?: string;
+  originCover?: string; // Show image
+  dynamicCover?: string; // Show hover image
   playAddr?: string;
   downloadAddr?: string;
   shareCover?: Array<string>;
@@ -107,9 +107,9 @@ export interface IStatChallenges {
 }
 
 export interface IStats {
-  diggCount?: number;
+  diggCount?: number; // Show likes
   shareCount?: number;
-  commentCount?: number;
+  commentCount?: number; // Show number of comments
   playCount?: number;
 }
 
@@ -122,7 +122,7 @@ export interface ITextExtra {
   start?: number;
   end?: number;
   hashtagId?: string;
-  hashtagName?: string;
+  hashtagName?: string; //Show hashtag name
   type?: number;
   subType?: number;
   userId?: string;

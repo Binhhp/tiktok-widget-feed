@@ -23,11 +23,8 @@ function GuidesStep2(props: IGuidesStepProps) {
       <GuidesContainerItem pb={18} pt={29}>
         <h2>Step 2</h2>
         <ButtonItemDiv bottom={24} right={-15}>
-          <ButtonItem onClick={props.setStep(1)} right={18}>
+          <ButtonItem onClick={props.setStep(1)}>
             <img src={ImageStorage.ButtonBasic.ButtonPrev} alt="Button Prev" />
-          </ButtonItem>
-          <ButtonItem>
-            <img src={ImageStorage.ButtonBasic.ButtonNext} alt="Button Next" />
           </ButtonItem>
         </ButtonItemDiv>
         <GuidesFlexDiv>

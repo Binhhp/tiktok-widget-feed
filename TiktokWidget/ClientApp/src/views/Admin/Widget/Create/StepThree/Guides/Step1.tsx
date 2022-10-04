@@ -18,9 +18,6 @@ function GuidesStep1(props: IGuidesStepProps) {
     <GuidesContainer>
       <GuidesContainerItem pt={12}>
         <ButtonItemDiv right={-15}>
-          <ButtonItem right={18}>
-            <img src={ImageStorage.ButtonBasic.ButtonPrev} alt="Button Prev" />
-          </ButtonItem>
           <ButtonItem onClick={props.setStep(2)}>
             <img src={ImageStorage.ButtonBasic.ButtonNext} alt="Button Next" />
           </ButtonItem>
