@@ -1,5 +1,5 @@
 import { Button, Card, Select, SelectOption } from "@shopify/polaris";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

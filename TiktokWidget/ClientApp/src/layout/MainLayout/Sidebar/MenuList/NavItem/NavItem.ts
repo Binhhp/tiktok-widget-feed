@@ -1,8 +1,10 @@
+import { IMenuChildrens } from "menu-items/MenuModel";
+
 export interface INavItemProps {
   level: number;
-  disabled: boolean;
+  disabled?: boolean;
   key: string;
-  item?: any;
+  item?: IMenuChildrens;
   icon?: any;
   chip?: string;
   selected?: boolean;

@@ -1,5 +1,5 @@
 import { Button, Card } from "@shopify/polaris";
-import { ContainerSection, LinkRouter } from "common/style/Utils.style";
+import { ContainerSection, LinkRouter } from "common/style/UtilStyles";
 import config from "config";
 import React from "react";
 import { useSelector } from "react-redux";

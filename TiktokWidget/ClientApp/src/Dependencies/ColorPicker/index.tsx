@@ -1,5 +1,5 @@
 import { TextField } from "@shopify/polaris";
-import { ButtonCustom } from "common/style/Utils.style";
+import { ButtonCustom } from "common/style/UtilStyles";
 import { useOutsideAlerter } from "hooks";
 import React, { useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";

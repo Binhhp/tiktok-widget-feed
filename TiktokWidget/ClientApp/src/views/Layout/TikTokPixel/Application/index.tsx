@@ -1,4 +1,4 @@
-import { ContainerSection } from "common/style/Utils.style";
+import { ContainerSection } from "common/style/UtilStyles";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {

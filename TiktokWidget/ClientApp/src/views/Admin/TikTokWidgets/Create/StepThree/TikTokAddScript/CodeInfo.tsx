@@ -1,6 +1,6 @@
 import { Icon } from "@shopify/polaris";
 import { TickMinor, DuplicateMinor } from "@shopify/polaris-icons";
-import { ContainerSection, LinkRouter } from "common/style/Utils.style";
+import { ContainerSection, LinkRouter } from "common/style/UtilStyles";
 import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

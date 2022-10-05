@@ -1,5 +1,5 @@
 import styled from "Dependencies/StyledComponents/Container";
-import { IButtonWidgetControl } from "./ButtonWidgetType";
+import { IButtonWidgetControl } from "./ButtonWidgetModel";
 
 export const ButtonWidgetWrapper = styled("div")`
   width: 100%;

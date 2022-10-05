@@ -7,12 +7,12 @@ import {
   TextField,
   TextStyle,
 } from "@shopify/polaris";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import * as Yup from "yup";
-import { ColorRed } from "views/Admin/Widget/Create/CreateWidgetStyle";
+import { ColorRed } from "views/Admin/TikTokWidgets/Create/CreateWidgetStyle";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
 import { StepAnimationButtonWidget } from "../ButtonWidgetStyle";

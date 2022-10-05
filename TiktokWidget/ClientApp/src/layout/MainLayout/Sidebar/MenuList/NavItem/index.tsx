@@ -25,8 +25,8 @@ function NavItem(props: INavItemProps) {
             {props?.icon && <Icon source={props.icon} color="base" />}
           </ListItemIcon>
         }
-        <Heading>{props.item.title}</Heading>
-        {props?.item?.chip && <Chip>{widgetReducer.count}</Chip>}
+        <Heading>{props.item?.title}</Heading>
+        {props?.item?.chip && <Chip>{widgetReducer[props.item.chip]}</Chip>}
       </>
     );
   };
@@ -34,7 +34,7 @@ function NavItem(props: INavItemProps) {
   const appReducer = useSelector((state: RootReducer) => state.appReducer);
   const dispatch = useDispatch();
   const onHandleMenuItem =
-    (key: string, active: boolean = false) =>
+    (key?: string, active: boolean = false) =>
     () => {
       key && dispatch(ApplicationActionTS.OnHandleMenuItem(key, active));
     };
@@ -43,7 +43,7 @@ function NavItem(props: INavItemProps) {
   return (
     <ListItemWrapper>
       {!props?.selected ? (
-        props.item.redirect ? (
+        props.item?.redirect ? (
           <ListItemTagHref
             href={`https://${shopReducer.shop.domain}`}
             level={props.level}
@@ -55,20 +55,23 @@ function NavItem(props: INavItemProps) {
           <ListItemButton
             className={
               appReducer.menuActive === props?.item?.id ||
-              window.location.pathname.includes(props.item.id)
+              window.location.pathname.substring(
+                1,
+                window.location.pathname.length
+              ) === props.item?.id
                 ? "active-menu"
                 : ""
             }
-            to={`${props?.item.url}?shop=${shopReducer.shop.domain}` ?? "#"}
+            to={`${props.item?.url}?shop=${shopReducer.shop.domain}` ?? "#"}
             level={props.level}
-            onClick={onHandleMenuItem(props?.item?.id, true)}
+            onClick={onHandleMenuItem(props.item?.id, true)}
           >
             {item()}
           </ListItemButton>
         )
       ) : (
         <ListItemButtonMenu
-          onClick={onHandleMenuItem(props?.item?.id)}
+          onClick={onHandleMenuItem(props.item?.id)}
           level={props.level}
         >
           {item()}

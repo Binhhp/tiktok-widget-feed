@@ -1,6 +1,6 @@
 import { Button, Card } from "@shopify/polaris";
 import { ImageStorage } from "assets/images/ImageStorage";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";

@@ -1,12 +1,13 @@
-import { HomeMajor } from "@shopify/polaris-icons";
+import { StoreMajor } from "@shopify/polaris-icons";
+import { IMenuItems, MenuItemType } from "./MenuModel";
 
-const apps = {
+const apps: IMenuItems = {
   id: "apps",
-  type: "group",
+  type: MenuItemType.Item,
   title: "Apps",
   label: "Integrations",
-  icon: HomeMajor,
-  redirect: true,
+  icon: StoreMajor,
+  url: "/apps",
 };
 
 export default apps;

@@ -1,22 +1,23 @@
 import { MobileHamburgerMajor } from "@shopify/polaris-icons";
-const widget = {
+import { IMenuItems, MenuItemType } from "./MenuModel";
+const widget: IMenuItems = {
   id: "widget",
   title: "Widget",
-  type: "group",
+  type: MenuItemType.Group,
   icon: MobileHamburgerMajor,
   children: [
     {
       id: "create-widget",
       title: "Create widget",
-      type: "item",
+      type: MenuItemType.Group,
       url: "/create-widget",
     },
     {
       id: "my-widget",
       title: "My widget",
-      type: "item",
+      type: MenuItemType.Group,
       url: "/my-widget",
-      chip: true,
+      chip: "count",
     },
   ],
 };

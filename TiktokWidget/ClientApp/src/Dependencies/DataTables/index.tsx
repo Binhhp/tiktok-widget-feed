@@ -6,7 +6,7 @@ import {
 } from "@shopify/polaris";
 import { IndexTableHeading } from "@shopify/polaris/build/ts/latest/src/components/IndexTable";
 import { NonEmptyArray } from "@shopify/polaris/build/ts/latest/src/types";
-import { ContainerSection } from "common/style/Utils.style";
+import { ContainerSection } from "common/style/UtilStyles";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Waypoint } from "react-waypoint";

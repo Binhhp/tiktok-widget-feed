@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import FormConfiguration from "./FormConfig";
 import Hashtag from "./Hashtag";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import CreateWidgetProvider from "../CreateWidgetProvider";
 import { useNavigate } from "react-router-dom";
 import FormSubmit from "./FormConfig/Form/FormSubmit";

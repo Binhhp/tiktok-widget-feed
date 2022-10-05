@@ -1,4 +1,4 @@
-import { LinkRouter } from "common/style/Utils.style";
+import { LinkRouter } from "common/style/UtilStyles";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

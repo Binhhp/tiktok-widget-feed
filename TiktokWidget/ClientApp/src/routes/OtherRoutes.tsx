@@ -1,9 +1,15 @@
 import React from "react";
 import NotFoundShop from "views/NotFound";
 
-const OtherRoutes = {
+const NotFoundRoutes = {
   path: "/not-found",
   element: <NotFoundShop />,
 };
 
-export default OtherRoutes;
+const NotFoundUrlRoutes = {
+  path: "*",
+  element: <NotFoundShop />,
+};
+
+const EndpointManager = { NotFoundRoutes, NotFoundUrlRoutes };
+export default EndpointManager;

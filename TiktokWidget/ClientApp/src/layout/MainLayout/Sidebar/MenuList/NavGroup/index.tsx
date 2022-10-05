@@ -1,4 +1,5 @@
 import { TextStyle } from "@shopify/polaris";
+import { IMenuChildrens, MenuItemType } from "menu-items/MenuModel";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
@@ -12,9 +13,20 @@ import {
 } from "./NavGroupStyle";
 function NavGroup({ item, index }: any) {
   const appReducer = useSelector((state: RootReducer) => state.appReducer);
-  const items = item?.children?.map((menu: any) => {
+  const items = item?.children?.map((menu: IMenuChildrens) => {
     switch (menu.type) {
-      case "item":
+      case MenuItemType.Item:
+        return (
+          <NavItem
+            icon={menu.icon}
+            key={menu.id}
+            disabled={menu?.disabled}
+            level={2}
+            item={menu}
+          ></NavItem>
+        );
+
+      case MenuItemType.Group:
         return (
           <NavItem
             icon={menu.icon}

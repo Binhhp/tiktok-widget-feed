@@ -10,7 +10,7 @@ import {
   SkeletonPage,
   TextContainer,
 } from "@shopify/polaris";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import React, { useContext, useEffect, useState } from "react";
 import {
   ButtonWidgetContainer,
@@ -27,7 +27,7 @@ import Step3 from "./Step3";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
-import { ButtonPositionProvider } from "./ButtonWidgetType";
+import { ButtonPositionProvider } from "./ButtonWidgetModel";
 import { toastNotify } from "Dependencies/Toast";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { ButtonWidgetContext } from "./ButtonWidgetContext";

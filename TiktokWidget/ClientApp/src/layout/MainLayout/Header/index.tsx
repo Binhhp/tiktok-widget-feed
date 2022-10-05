@@ -1,6 +1,6 @@
 import { Icon } from "@shopify/polaris";
 import { FlagMajor } from "@shopify/polaris-icons";
-import { FlexBox } from "common/style/Utils.style";
+import { FlexBox } from "common/style/UtilStyles";
 import React from "react";
 import LogoSection from "../LogoSection";
 import {

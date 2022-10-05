@@ -1,7 +1,7 @@
 import { Icon } from "@shopify/polaris";
 import { ProductsMinor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
 import { toastNotify } from "Dependencies/Toast";

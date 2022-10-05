@@ -1,6 +1,6 @@
 import { Icon, MediaCard, VideoThumbnail } from "@shopify/polaris";
 import { CircleTickMajor } from "@shopify/polaris-icons";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import FancyBox from "Dependencies/FancyBoxProvider";
 import config from "config";
 import React, { useEffect, useState } from "react";

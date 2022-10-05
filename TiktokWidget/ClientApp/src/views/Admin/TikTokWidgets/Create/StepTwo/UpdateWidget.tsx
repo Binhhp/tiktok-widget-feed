@@ -4,7 +4,7 @@ import Pattern from "./Patterns";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import FormConfiguration from "./FormConfig";
-import { Container, ContainerSection } from "common/style/Utils.style";
+import { Container, ContainerSection } from "common/style/UtilStyles";
 import CreateWidgetProvider from "../CreateWidgetProvider";
 import { useNavigate } from "react-router-dom";
 import FormControlSource from "../StepOne/FormControl";

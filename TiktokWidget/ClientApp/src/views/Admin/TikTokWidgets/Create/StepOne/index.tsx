@@ -11,7 +11,7 @@ import { FormControlWidget } from "./StepOneStyle";
 import { useNavigate } from "react-router-dom";
 import CreateWidgetProvider from "../CreateWidgetProvider";
 import FormControlSource from "./FormControl";
-import { Container } from "common/style/Utils.style";
+import { Container } from "common/style/UtilStyles";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import toast from "react-hot-toast";

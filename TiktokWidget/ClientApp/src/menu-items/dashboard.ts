@@ -1,11 +1,12 @@
-import { HomeMajor } from '@shopify/polaris-icons';
+import { HomeMajor } from "@shopify/polaris-icons";
+import { IMenuItems, MenuItemType } from "./MenuModel";
 
-const dashboard = {
-    id: 'dashboard',
-    type: 'group',
-    title: 'Dashboard',
-    url: "/",
-    icon: HomeMajor
-}
+const dashboard: IMenuItems = {
+  id: "dashboard",
+  type: MenuItemType.Group,
+  title: "Dashboard",
+  url: "/",
+  icon: HomeMajor,
+};
 
 export default dashboard;
