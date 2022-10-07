@@ -185,6 +185,14 @@ namespace TiktokWidget.Service.Implements
             {
                 var shop = _context.Shop.FirstOrDefault(x => x.ID == products.First().ShopId);
                 if (shop == null) throw new Exception(ErrorMessage.InternalServerError);
+
+                var productOfWidget = _context.Product.Where(x => x.Widget.Id == widget.Id).ToList();
+                if (productOfWidget.Any())
+                {
+                    _context.Product.RemoveRange(productOfWidget);
+                    await _context.SaveChangesAsync();
+                }
+                
                 var productEntities = products.Select(x => new ProductEntity
                 {
                     Handle = x.Handle,
@@ -211,19 +219,18 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<VideoTikTokModel> GetVideos(string widgetId)
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
-            try
+            var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
+            if (widget == null)
             {
-                var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
-                if (widget == null)
-                {
-                    return response;
-                }
-                string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-                var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
-                var JSON = File.ReadAllText(pathFile);
+                return response;
+            }
+            string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+            var JSON = File.ReadAllText(pathFile);
+            if (!string.IsNullOrEmpty(JSON))
+            {
                 response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
             }
-            catch (Exception ex) { }
             return response;
         }
 
@@ -253,14 +260,13 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request)
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
-            try
+            string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+            var JSON = File.ReadAllText(pathFile);
+            if (!string.IsNullOrEmpty(JSON))
             {
-                string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-                var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
-                var JSON = File.ReadAllText(pathFile);
                 response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
             }
-            catch (Exception ex) { }
             return response;
         }
     }
