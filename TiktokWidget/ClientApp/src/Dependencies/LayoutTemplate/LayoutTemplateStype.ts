@@ -466,11 +466,11 @@ export const TemplateWrapper = styled("div", "parent")<ITemplateType>`
       }
     }
     .swiper-button-next {
-      display: block;
+      display: flex;
       right: 0;
     }
     .swiper-button-prev {
-      display: block;
+      display: flex;
       left: 0;
     }
 
