@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Template from "Dependencies/LayoutTemplate";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { ISettingProviderWidget } from "stores/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
 import { AudioPlayerContext } from "../SwiperAudioPlayer/AudioPlayerContext";
 

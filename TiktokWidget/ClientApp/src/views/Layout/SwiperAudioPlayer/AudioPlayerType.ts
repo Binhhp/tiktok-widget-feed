@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "stores/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 
 export interface IAudioPlayerWrapper {
   active: boolean;

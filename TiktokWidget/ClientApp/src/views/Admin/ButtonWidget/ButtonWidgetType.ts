@@ -1,6 +1,6 @@
 import { ButtonPositionEnumRequest } from "repositories/dtos/requests/UpdateShopConfigurationRequest";
 import { ButtonPositionEnum } from "repositories/dtos/responses/BaseShopConfiguration";
-import { IButtonPositionInit } from "stores/ButtonWidget/state";
+import { IButtonPositionInit } from "stores/Admin/ButtonWidget/state";
 
 export interface IButtonWidgetControl {
   borderColor?: string;

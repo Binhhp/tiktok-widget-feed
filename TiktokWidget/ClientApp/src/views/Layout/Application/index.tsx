@@ -12,8 +12,8 @@ import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
 import {
   ISettingProviderWidget,
   SettingProviderWidget,
-} from "stores/Widget/state";
-import { ShopActionTS } from "stores/Shop/action";
+} from "stores/Admin/Widget/state";
+import { ShopActionTS } from "stores/Admin/Shop/action";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
 import { ITikTokAppProps } from "../TikTokModel";
