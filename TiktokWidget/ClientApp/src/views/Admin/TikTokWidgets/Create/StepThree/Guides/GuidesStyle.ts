@@ -138,9 +138,10 @@ export const GuidesDivFooter = styled("div")`
   a {
     font-weight: 400;
   }
-  .link-help {
+  .orichi-tiktok-link-help {
     font-size: 20px;
     font-weight: 450;
     text-decoration-line: underline;
+    cursor: pointer;
   }
 `;

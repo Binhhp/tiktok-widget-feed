@@ -12,7 +12,7 @@ export const SupportLink = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
-  div {
+  div.orichi-tiktok-chat-plugin {
     display: flex;
     cursor: pointer;
     align-items: center;

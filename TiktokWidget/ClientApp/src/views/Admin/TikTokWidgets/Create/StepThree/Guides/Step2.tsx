@@ -15,6 +15,7 @@ import { IGuidesStepProps } from "./GuidesModel";
 import { LinkRouter } from "common/style/UtilStyles";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
+import { ChatPlugin } from "common/functions/ChatPlugin";
 
 function GuidesStep2(props: IGuidesStepProps) {
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
@@ -51,9 +52,9 @@ function GuidesStep2(props: IGuidesStepProps) {
           </div>
         </GuidesFlexDiv>
         <GuidesDivFooter>
-          <a className="link-help" href="#" target="_blank">
+          <div className="orichi-tiktok-link-help" onClick={ChatPlugin.Open}>
             Need help?
-          </a>
+          </div>
           <LinkRouter
             size="small"
             to={`/my-widget?shop=${shopReducer.shop.domain}`}

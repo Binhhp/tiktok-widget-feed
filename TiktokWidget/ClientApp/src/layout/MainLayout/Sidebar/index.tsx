@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { ChatMajor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
+import { ChatPlugin } from "common/functions/ChatPlugin";
 
 function Sidebar() {
   const appReducer = useSelector((state: RootReducer) => state.appReducer);
@@ -26,7 +27,7 @@ function Sidebar() {
         <MenuList></MenuList>
       </MobileView>
       <SupportLink>
-        <div>
+        <div onClick={ChatPlugin.Open} className="orichi-tiktok-chat-plugin">
           <Icon source={ChatMajor} color="base" />
           <span>Live Chat Support</span>
         </div>

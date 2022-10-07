@@ -44,7 +44,10 @@ function TikTok(props: ITikTokAppProps) {
   };
 
   const fetchWidgetsFromDomain = () => {
-    const domain = window.location.host;
+    const domain = window.Shopify
+      ? window.Shopify["shop"]
+      : window.location.host;
+
     new WidgetReponsitory().Get(0, domain).then((res) => {
       const widgetDto = res.data.map((item) => {
         return new SettingProviderWidget(item).ToDto();
@@ -59,6 +62,7 @@ function TikTok(props: ITikTokAppProps) {
       setPending(false);
     });
   };
+
   useEffect(() => {
     if (props.widgetId) {
       fetchWidget(props.widgetId);
