@@ -9,11 +9,10 @@ export const SupportLink = styled('div')`
   bottom: 80px;
   right: 0;
   width: 100%;
-
-  // display: flex;
-  //
-  // align-items: center;
-  div.link-sp {
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  div {
     margin-top: 20px;
     display: flex;
     cursor: pointer;
