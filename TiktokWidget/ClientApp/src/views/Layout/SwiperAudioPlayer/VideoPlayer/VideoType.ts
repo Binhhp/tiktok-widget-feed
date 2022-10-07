@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "stores/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 import { ITikTokVideoDto } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
 
 export interface IVideoWrapperStyle {
