@@ -1,8 +1,7 @@
 var path = require("path");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-
-const isProd = process.env.NODE_ENV === "production";
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const PATHS = {
   src: path.join(__dirname, "../src/views/Layout/index.tsx"),
@@ -10,11 +9,11 @@ const PATHS = {
   tsConfig: path.join(__dirname, "../tsconfig.json"),
 };
 
-const config = {
+module.exports = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
   devtool: "inline-source-map",
   entry: {
-    tiktok: PATHS.src
+    tiktok: PATHS.src,
   },
   output: {
     path: PATHS.build,
@@ -53,30 +52,33 @@ const config = {
       },
     ],
   },
-};
-
-if (isProd) {
-  config.optimization = {
+  optimization: {
     chunkIds: "named",
     concatenateModules: true,
     flagIncludedChunks: true,
     mangleWasmImports: true,
     mergeDuplicateChunks: true,
     minimize: true,
-    minimizer: [new TerserWebpackPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        minify: TerserPlugin.uglifyJsMinify,
+      }),
+      new TerserPlugin({
+        minify: TerserPlugin.terserMinify,
+      }),
+      new UglifyJsPlugin({
+        extractComments: false,
+        sourceMap: true,
+        uglifyOptions: {
+          output: {
+            comments: false,
+          },
+        },
+      }),
+    ],
     moduleIds: false,
     portableRecords: true,
     removeAvailableModules: true,
-  };
-} else {
-  config.devServer = {
-    port: 9000,
-    open: true,
-    hot: true,
-    compress: true,
-    stats: "errors-only",
-    overlay: true,
-  };
-}
-
-module.exports = config;
+  },
+  plugins: [new UglifyJsPlugin(), new TerserPlugin()],
+};
