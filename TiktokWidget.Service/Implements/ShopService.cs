@@ -9,10 +9,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
+using TiktokWidget.Common.HttpLogging.Models;
+using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos;
-using TiktokWidget.Service.Dtos.Requests;
-using TiktokWidget.Service.Dtos.Response;
+using TiktokWidget.Service.Dtos.Requests.Shops;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
@@ -20,19 +22,19 @@ namespace TiktokWidget.Service.Implements
 {
     public class ShopService : IShopService
     {
-        private readonly TiktokWidgetDbContext _context;
+        private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
-        public ShopService(TiktokWidgetDbContext context, IMapper mapper, AppSettings appSettings)
+        public ShopService(WidgetFeedDbContext context, IMapper mapper, AppSettings appSettings)
         {
             _context = context;
             _mapper = mapper;
             _appSettings = appSettings;
         }
 
-        public async Task<AddShopResponseBase> CreateAsync(ShopCreateDto request)
+        public async Task<AddShopResponse> CreateAsync(ShopCreateDto request)
         {
-            var result = new AddShopResponseBase();
+            var result = new AddShopResponse();
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
@@ -263,7 +265,7 @@ namespace TiktokWidget.Service.Implements
                 };
                 var webHook = await service_webhook.CreateAsync(hook);
             }
-            catch (Exception ex)
+            catch 
             {
             }
 

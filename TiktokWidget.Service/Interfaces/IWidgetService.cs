@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Dtos;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.Widget;
-using TiktokWidget.Service.Dtos.Response;
-using TiktokWidget.Service.Dtos.Responses;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Models;
 
@@ -13,9 +13,9 @@ namespace TiktokWidget.Service.Interfaces
 {
     public interface IWidgetService
     {
-        IQueryable<WidgetEntity> Get(string domain);
-        IQueryable<WidgetEntity> GetById(string key);
-        IQueryable<WidgetEntity> GetByIds(IEnumerable<string> widgetIds);
+        IQueryable<TikTokWidgetEntity> Get(string domain);
+        IQueryable<TikTokWidgetEntity> GetById(string key);
+        IQueryable<TikTokWidgetEntity> GetByIds(IEnumerable<string> widgetIds);
         Task<CreateWidgetResponse> CreateAsync(string domain, WidgetCreateDto request);
         Task<ResponseBase> UpdateAsync(string key, UpdateWidgetRequest request);
         Task<ResponseBase> DeleteAsync(string key);

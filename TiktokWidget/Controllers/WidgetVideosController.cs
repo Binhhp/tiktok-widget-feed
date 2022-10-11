@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using TiktokWidget.Common.Enums;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers

@@ -11,20 +11,20 @@ using TiktokWidget.Common.Constants;
 using System.Collections.Generic;
 using TiktokWidget.Service.Models;
 using Newtonsoft.Json;
-using TiktokWidget.Service.Dtos.Response;
-using TiktokWidget.Service.Dtos.Responses;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Common.HttpLogging.Models;
-using TiktokWidget.Service.Dtos.Requests;
 using System.IO;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
+using TiktokWidget.Service.BusinessExceptions;
 
 namespace TiktokWidget.Service.Implements
 {
     public class WidgetService : IWidgetService
     {
-        private readonly TiktokWidgetDbContext _context;
+        private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
-        public WidgetService(TiktokWidgetDbContext context, IMapper mapper)
+        public WidgetService(WidgetFeedDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -40,34 +40,14 @@ namespace TiktokWidget.Service.Implements
             var shop = _context.Shop.FirstOrDefault(x => x.Domain == domain);
             if (shop == null)
             {
-                response.Success = false;
-                response.StatusCode = (int)ResponseCode.NotFound;
-                response.Errors = new List<ErrorDetail>
-                {
-                    new ErrorDetail
-                    {
-                        ErrorCode = ResponseCode.NotFound,
-                        ErrorMessage = string.Format(ErrorMessage.NotFound)
-                    }
-                };
-                return response;
+                throw new NotFoundException(domain);
             }
             var widget = _context.Widgets.FirstOrDefault(x => x.WidgetTitle == request.WidgetTitle && x.Shops.Domain == domain);
             if (widget != null)
             {
-                response.Success = false;
-                response.StatusCode = (int)ResponseCode.Conflict;
-                response.Errors = new List<ErrorDetail>
-                {
-                    new ErrorDetail
-                    {
-                        ErrorCode = ResponseCode.Conflict,
-                        ErrorMessage = string.Format(ErrorMessage.Conflict, "Widget")
-                    }
-                };
-                return response;
+                throw new ConflictException(request.WidgetTitle);
             }
-            var widgetEntity = _mapper.Map<WidgetEntity>(request);
+            var widgetEntity = _mapper.Map<TikTokWidgetEntity>(request);
             var job = new JobEntity
             {
                 Data = widgetEntity.ValueSource,
@@ -90,17 +70,7 @@ namespace TiktokWidget.Service.Implements
             var widget = await _context.Widgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == key);
             if (widget == null)
             {
-                response.Success = false;
-                response.StatusCode = (int)ResponseCode.NotFound;
-                response.Errors = new List<ErrorDetail>
-                {
-                    new ErrorDetail
-                    {
-                        ErrorCode = ResponseCode.NotFound,
-                        ErrorMessage = string.Format(ErrorMessage.NotFound, key)
-                    }
-                };
-                return response;
+                throw new NotFoundException(key);
             }
             widget.Products.Clear();
             _context.Widgets.Remove(widget);
@@ -114,7 +84,7 @@ namespace TiktokWidget.Service.Implements
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public IQueryable<WidgetEntity> GetById(string key)
+        public IQueryable<TikTokWidgetEntity> GetById(string key)
         {
             return _context.Widgets.Where(x => x.Id.Equals(key));
         }
@@ -123,7 +93,7 @@ namespace TiktokWidget.Service.Implements
         /// Hàm lấy danh sách
         /// </summary>
         /// <returns></returns>
-        public IQueryable<WidgetEntity> Get(string domain)
+        public IQueryable<TikTokWidgetEntity> Get(string domain)
         {
             var response = _context.Widgets.Where(x => x.Shops != null && x.Shops.Domain == domain).AsQueryable();
             return response;
@@ -140,19 +110,9 @@ namespace TiktokWidget.Service.Implements
             var widget = await _context.Widgets.FirstOrDefaultAsync(x => x.Id == key);
             if (widget == null)
             {
-                response.Success = false;
-                response.StatusCode = (int)ResponseCode.NotFound;
-                response.Errors = new List<ErrorDetail>
-                {
-                    new ErrorDetail
-                    {
-                        ErrorCode = ResponseCode.NotFound,
-                        ErrorMessage = string.Format(ErrorMessage.NotFound, key)
-                    }
-                };
-                return response;
+                throw new NotFoundException(key);
             }
-            var widgetEntity = _mapper.Map<WidgetEntity>(request);
+            var widgetEntity = _mapper.Map<TikTokWidgetEntity>(request);
             widget.SourceType = widgetEntity.SourceType;
             widget.ValueSource = widgetEntity.ValueSource;
             widget.ModifyDate = DateTime.Now;
@@ -179,7 +139,7 @@ namespace TiktokWidget.Service.Implements
             var widget = await _context.Widgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id.Equals(key));
             if (widget == null)
             {
-                throw new Exception(string.Format(ErrorMessage.NotFound, "Widget"));
+                throw new NotFoundException("Widget");
             }
             if(products.Any())
             {
@@ -234,7 +194,7 @@ namespace TiktokWidget.Service.Implements
             return response;
         }
 
-        public IQueryable<WidgetEntity> GetByIds(IEnumerable<string> widgetIds)
+        public IQueryable<TikTokWidgetEntity> GetByIds(IEnumerable<string> widgetIds)
         {
             return _context.Widgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
         }

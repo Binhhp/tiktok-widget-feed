@@ -8,6 +8,7 @@ namespace TiktokWidget.Features
     {
         public static void AddServicesModules(this IServiceCollection services)
         {
+            services.AddScoped<IInstagramWidgetService, InstagramWidgetService>();
             services.AddScoped<IWidgetService, WidgetService>();
             services.AddScoped<IShopService, ShopService>();
             services.AddScoped<IProductService, ProductService>();

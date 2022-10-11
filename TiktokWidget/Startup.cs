@@ -14,8 +14,9 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiktokWidget.Features;
+using TiktokWidget.Middlewares.GlobalExceptionHandler;
 using TiktokWidget.ODataEntities;
-using TiktokWidget.Service;
+using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Validators;
 
@@ -36,7 +37,7 @@ namespace TiktokWidget
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("TiktokWidget");
-            services.AddDbContext<TiktokWidgetDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<WidgetFeedDbContext>(options => options.UseSqlServer(connectionString));
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             if(appSettings != null)
@@ -106,7 +107,7 @@ namespace TiktokWidget
                     template: "{controller}/{action=Index}/{id?}");
 
             });
-            //app.GlobalExceptionMiddleware();
+            app.GlobalExceptionMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

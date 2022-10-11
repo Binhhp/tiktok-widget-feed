@@ -9,7 +9,7 @@ using TiktokWidget.Service.Context;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    [DbContext(typeof(TiktokWidgetDbContext))]
+    [DbContext(typeof(WidgetFeedDbContext))]
     [Migration("20220804140422_init-table")]
     partial class inittable
     {

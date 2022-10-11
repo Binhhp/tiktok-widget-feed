@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using TiktokWidget.Service;
+using TiktokWidget.Common.HttpLogging;
+using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
@@ -10,11 +12,13 @@ namespace TiktokWidget.Controllers
     public class HomeController : Controller
     {
         private readonly IShopService _shopService;
+        private readonly IHttpLogProvider _logger;
         private readonly AppSettings _appSettings;
-        public HomeController(IShopService shopService, AppSettings appSettings)
+        public HomeController(IShopService shopService, AppSettings appSettings, IHttpLogProvider logger)
         {
             _shopService = shopService;
             _appSettings = appSettings;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -44,8 +48,9 @@ namespace TiktokWidget.Controllers
                 await _shopService.ExternalAuthenticationAsync(shop, code);
                 return Redirect($"~/?shop={shop}");
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogInfo(ex);
                return Redirect($"~/");
             }
         }

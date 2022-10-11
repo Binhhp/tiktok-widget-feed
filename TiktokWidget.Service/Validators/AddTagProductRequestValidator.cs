@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using System.Linq;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 
 namespace TiktokWidget.Service.Validators
 {

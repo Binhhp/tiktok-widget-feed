@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
+using TiktokWidget.Service.Dtos.Requests.Shops;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
@@ -15,11 +16,13 @@ namespace TiktokWidget.Controllers
         private readonly IShopService _shopService;
         private readonly IProductService _productService;
         private readonly IWidgetService _widgetService;
-        public ShopsController(IShopService shopService, IProductService productService, IWidgetService widgetService)
+        private readonly IInstagramWidgetService _instagramWidgetService;
+        public ShopsController(IShopService shopService, IProductService productService, IWidgetService widgetService, IInstagramWidgetService instagramWidgetService)
         {
             _shopService = shopService;
             _productService = productService;
             _widgetService = widgetService;
+            _instagramWidgetService = instagramWidgetService;
         }
 
         [HttpGet]
@@ -39,7 +42,16 @@ namespace TiktokWidget.Controllers
             var result = _widgetService.GetCounts(domain);
             return Ok(result);
         }
-        
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Shops({domain})/GetInstagramWidgetCounts")]
+        public IActionResult GetInstagramWidgetCounts([FromODataUri] string domain)
+        {
+            var result = _instagramWidgetService.GetCounts(domain);
+            return Ok(result);
+        }
+
         [HttpGet]
         [EnableQuery]
         [ODataRoute("Shops({domain})/GetThemes")]
@@ -119,13 +131,16 @@ namespace TiktokWidget.Controllers
         public async Task<IActionResult> RegisterWidget([FromODataUri] string domain, [FromBody] WidgetCreateDto request)
         {
             var response = await _widgetService.CreateAsync(domain, request);
-            if (!response.Success)
-            {
-                return NotFound(response);
-            }
             return Ok(response);
         }
 
+        [HttpPost]
+        [ODataRoute("Shops({domain})/RegisterInstagramWidgets")]
+        public async Task<IActionResult> RegisterInstagramWidgets([FromODataUri] string domain, [FromBody] CreateInstagramWidgetRequest request)
+        {
+            var response = await _instagramWidgetService.CreateWidgetsAsync(domain, request);
+            return Ok(response);
+        }
 
         [HttpPost]
         [ODataRoute("Shops({domain})/AddJob")]
