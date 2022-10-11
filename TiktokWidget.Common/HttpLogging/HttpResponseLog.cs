@@ -12,13 +12,13 @@ namespace TiktokWidget.Common.HttpLogging
 
         public int StatusCode { get; }
 
-        public object? Body { get; set; }
+        public object Body { get; set; }
 
-        public string? ContentType { get; }
+        public string ContentType { get; }
 
         public List<KeyValuePair<string, string>> Headers { get; }
 
-        internal void SetBody(object? body)
+        internal void SetBody(object body)
         {
             Body = body;
         }

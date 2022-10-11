@@ -18,17 +18,11 @@ namespace TiktokWidget.Middlewares.GlobalExceptionHandler
         {
             try
             {
-                //Log request
-                await _logProvider.LogAsync(httpContext);
                 await _next(httpContext);
-                //Log response
-                await _logProvider.LogAsync(httpContext);
             }
             catch (Exception ex)
             {
-                //Log exception and return response
-                await _logProvider.LogAsync(ex);
-                await _logProvider.LogAsync(httpContext, ex);
+                _logProvider.LogException(httpContext, ex);
             }
         }
     }

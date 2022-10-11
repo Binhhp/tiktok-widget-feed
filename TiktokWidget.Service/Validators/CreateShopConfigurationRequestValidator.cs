@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.Shops;
 
 namespace TiktokWidget.Service.Validators
 {

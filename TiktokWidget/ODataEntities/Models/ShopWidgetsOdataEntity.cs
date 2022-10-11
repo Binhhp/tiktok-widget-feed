@@ -2,7 +2,7 @@
 
 namespace TiktokWidget.ODataEntities.Models
 {
-    public class ShopWidgetsOdataEntity : WidgetEntity
+    public class ShopWidgetsOdataEntity : TikTokWidgetEntity
     {
     }
 }

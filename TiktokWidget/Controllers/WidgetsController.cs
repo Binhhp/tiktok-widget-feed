@@ -2,7 +2,7 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TiktokWidget.Service.Dtos.Requests;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
@@ -21,7 +21,7 @@ namespace TiktokWidget.Controllers
         [HttpGet]
         [EnableQuery]
         [ODataRoute("Widgets({key})")]
-        public SingleResult<WidgetEntity> Get([FromODataUri] string key)
+        public SingleResult<TikTokWidgetEntity> Get([FromODataUri] string key)
         {
             var result = _widgetService.GetById(key);
             return SingleResult.Create(result);
@@ -39,10 +39,6 @@ namespace TiktokWidget.Controllers
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] UpdateWidgetRequest request)
         {
             var response = await _widgetService.UpdateAsync(key, request);
-            if (!response.Success)
-            {
-                return NotFound(response);
-            }
             return Ok(response);
         }
 
@@ -51,11 +47,7 @@ namespace TiktokWidget.Controllers
         public async Task<IActionResult> Delete([FromODataUri] string key)
         {
             var response = await _widgetService.DeleteAsync(key);
-            if (!response.Success)
-            {
-                return NotFound(response);
-            }
-            return Ok();
+            return Ok(response);
         }
     }
 }

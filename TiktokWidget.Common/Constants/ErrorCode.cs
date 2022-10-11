@@ -25,7 +25,7 @@ namespace TiktokWidget.Common.Constants
         public const string RequireFieldNullEmpty = "{0} cannot be empty";
         public const string Conflict = "{0} already exists";
         public const string InvalidDataFormat = " {0} invalid format";
-        public const string NotFound = "Data not found";
+        public const string NotFound = "{0} not found";
         public const string InvalidMaxLength = "{0} text length exceeds maximum allowed text (string)";
         public const string CannotDelete = "Cannot delete {0}";
         public const string InvalidMinLength = "{0} Text length (string) is smaller than minimum allowed text";

@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace TiktokWidget.Service.Context
 {
-    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<TiktokWidgetDbContext>
+    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<WidgetFeedDbContext>
     {
-        public TiktokWidgetDbContext CreateDbContext(string[] args)
+        private string Server = "Server=14.225.5.62;Database=ShopifyTiktok2022;User Id=tiktok;Password=orichi247!@#;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True;";
+        private string Localhost = "Server=.;Database=ShopifyTiktok2022;User Id=sa;Password=binhhp20;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True;";
+        public WidgetFeedDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<TiktokWidgetDbContext>();
-            optionsBuilder.UseSqlServer("Server=14.225.5.62;Database=ShopifyTiktok2022;User Id=tiktok;Password=orichi247!@#;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=True;");
-            return new TiktokWidgetDbContext(optionsBuilder.Options);
+            var optionsBuilder = new DbContextOptionsBuilder<WidgetFeedDbContext>();
+            optionsBuilder.UseSqlServer(Localhost);
+            return new WidgetFeedDbContext(optionsBuilder.Options);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TiktokWidget.Common.HttpLogging.Handlers
             _loggerFactory = new HttpLogMessageFactory();
         }
 
-        public async ValueTask<string> Handle(HttpResponse response, CancellationToken cancellationToken = default)
+        public string Handle(HttpResponse response, CancellationToken cancellationToken = default)
         {
             if (response == null) throw new NullReferenceException();
 

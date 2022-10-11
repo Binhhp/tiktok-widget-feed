@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Service.Dtos.Requests;
-using TiktokWidget.Service.Dtos.Response;
+using TiktokWidget.Common.HttpLogging.Models;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Interfaces

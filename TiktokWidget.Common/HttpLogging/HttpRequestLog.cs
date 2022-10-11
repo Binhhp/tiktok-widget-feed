@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TiktokWidget.Common.HttpLogging
 {
     public class HttpRequestLog
     {
-        public HttpRequestLog(UrlLog url, string method, string? contentType)
+        public HttpRequestLog(UrlLog url, string method, string contentType)
         {
             Url = url;
             Method = method;
@@ -18,15 +16,15 @@ namespace TiktokWidget.Common.HttpLogging
 
         public string Method { get; }
 
-        public object? Body { get; set; }
+        public object Body { get; set; }
 
-        public string? ContentType { get; }
+        public string ContentType { get; }
 
         public IReadOnlyList<KeyValuePair<string, string>> Headers { get; set; }
 
         public IReadOnlyList<KeyValuePair<string, string>> Cookies { get; }
 
-        internal void SetBody(object? body)
+        internal void SetBody(object body)
         {
             Body = body;
         }

@@ -9,11 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
+using TiktokWidget.Common.HttpLogging;
 using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.Context;
-using TiktokWidget.Service.Dtos.Requests;
-using TiktokWidget.Service.Dtos.Response;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
@@ -21,17 +21,20 @@ namespace TiktokWidget.Service.Implements
 {
     public class ProductService : IProductService
     {
-        private readonly TiktokWidgetDbContext _dbContext;
+        private readonly WidgetFeedDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IShopService _shopService;
+        private readonly IHttpLogProvider _logger;
         public ProductService(
-            TiktokWidgetDbContext dbContext,
+            WidgetFeedDbContext dbContext,
             IMapper mapper,
-            IShopService shopService)
+            IShopService shopService,
+            IHttpLogProvider logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _shopService = shopService;
+            _logger = logger;
         }
         public async Task AddAsync(IEnumerable<ProductEntity> products)
         {
@@ -103,8 +106,9 @@ namespace TiktokWidget.Service.Implements
                     }
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
+                _logger.LogInfo(ex);
             }
             return products;
         }
