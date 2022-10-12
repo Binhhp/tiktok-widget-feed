@@ -1,6 +1,6 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 
 export interface ISettingProviderWidget {
@@ -20,6 +20,7 @@ export interface ISettingProviderWidget {
   itemBackground?: string;
   itemColor?: string;
   numberItemPerRow?: number;
+  limitItem?: number;
   products?: BaseProduct[];
 }
 
@@ -40,8 +41,9 @@ export class SettingProviderWidget implements ISettingProviderWidget {
   itemBackground?: string;
   itemColor?: string;
   numberItemPerRow?: number;
+  limitItem?: number;
   products?: BaseProduct[];
-  constructor(dto?: IWidgetResponse) {
+  constructor(dto?: BaseTikTokWidget) {
     this.id = dto?.id;
     this.title = dto?.widgetTitle || "";
     this.source = dto?.sourceType.toLowerCase() === "hashtag" ? 0 : 1;
@@ -59,6 +61,7 @@ export class SettingProviderWidget implements ISettingProviderWidget {
     this.itemColor = dto?.setting.color || "";
     this.numberItemPerRow = dto?.setting.numberPerRow || 3;
     this.products = dto?.products || [];
+    this.limitItem = dto?.setting.limitItem || 10;
   }
   ToDto = (): ISettingProviderWidget => {
     return this as ISettingProviderWidget;
