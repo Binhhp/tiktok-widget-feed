@@ -3,8 +3,8 @@ using ShopifySharp;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Common.HttpLogging.Models;
-using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Dtos.Requests.Shops;
+using TiktokWidget.Service.Dtos.Responses.Shop;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 

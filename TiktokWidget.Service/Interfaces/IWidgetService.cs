@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Common.HttpLogging.Models;
-using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;

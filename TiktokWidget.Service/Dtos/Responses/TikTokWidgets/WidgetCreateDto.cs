@@ -1,7 +1,6 @@
-﻿
-using TiktokWidget.Common.Enums;
+﻿using TiktokWidget.Common.Enums;
 
-namespace TiktokWidget.Service.Dtos
+namespace TiktokWidget.Service.Dtos.Responses.TikTokWidgets
 {
     public class WidgetCreateDto
     {
