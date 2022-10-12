@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using TiktokWidget.Service.Context.Entities;
 using TiktokWidget.Service.Context.Entities.ValueObjects;
-using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.Widget;
+using TiktokWidget.Service.Dtos.Responses.Shop;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Entities.ValueObjects;
 

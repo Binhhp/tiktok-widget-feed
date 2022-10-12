@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Context;
-using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 using System.Linq;
