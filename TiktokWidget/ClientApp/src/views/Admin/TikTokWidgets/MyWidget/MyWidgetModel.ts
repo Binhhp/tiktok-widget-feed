@@ -1,8 +1,8 @@
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 
 export class DataService {
-  public static ToDto = (obj: IWidgetResponse[], renderTag: any): any[] => {
+  public static ToDto = (obj: BaseTikTokWidget[], renderTag: any): any[] => {
     return obj.map((item) => {
       var dt = new Date(item.modifyDate);
       if (dt.getFullYear() < new Date().getFullYear()) {

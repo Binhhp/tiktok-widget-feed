@@ -10,7 +10,7 @@ import {
 } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
 import { ODataQuery } from "common/functions/ODataQuery";
 import DataTableFunc from "Dependencies/DataTables/DataTableModel";
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequest";
 import config from "config";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
@@ -100,7 +100,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     });
     if (response.Status) {
       const result = response.Data;
-      const data = result?.value as IWidgetResponse[];
+      const data = result?.value as BaseTikTokWidget[];
       return {
         count: result["@odata.count"] || result?.value.length || 0,
         data: data,

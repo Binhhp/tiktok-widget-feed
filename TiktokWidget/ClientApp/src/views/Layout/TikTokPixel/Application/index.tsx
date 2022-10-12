@@ -8,7 +8,7 @@ import {
   TikTokWrapper,
 } from "./TiktokStyle";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
 import { ITikTokAppProps } from "../TikTokModel";
@@ -30,7 +30,7 @@ function TikTok(props: ITikTokAppProps) {
   const fetchWidget = (id: string) => {
     new WidgetReponsitory().GetById(id).then((res) => {
       if (res.Status) {
-        const result = res.Data as IWidgetResponse;
+        const result = res.Data as BaseTikTokWidget;
         const dto = new SettingProviderWidget(result).ToDto();
         setWidgets([...widgets, dto]);
         dispatch(

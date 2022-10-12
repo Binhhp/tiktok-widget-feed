@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
@@ -34,7 +34,7 @@ function MyWidget() {
 
   const [reload, setReload] = useState<number>(0);
   const handleChange =
-    (products: BaseProduct[], widget: IWidgetResponse) => () => {
+    (products: BaseProduct[], widget: BaseTikTokWidget) => () => {
       setModal({
         ...modal,
         active: !modal.active,
@@ -55,7 +55,7 @@ function MyWidget() {
   const onUpdate = (item: any) => {
     return new WidgetReponsitory().GetById(item?.id).then((res) => {
       if (res?.Status) {
-        const result = res.Data as IWidgetResponse;
+        const result = res.Data as BaseTikTokWidget;
         const dto = new SettingProviderWidget(result).ToDto();
         dispatch(WidgetActionTS.OnStep(2));
         dispatch(WidgetActionTS.OnSetSetting(dto));
@@ -99,7 +99,7 @@ function MyWidget() {
 
   const RenderTagProduct = (
     products: BaseProduct[],
-    widget: IWidgetResponse
+    widget: BaseTikTokWidget
   ) => (
     <TagProductSelected onClick={handleChange(products, widget)}>
       <span>{products.length} selected</span>
@@ -180,7 +180,7 @@ function MyWidget() {
       <ProductModal
         productId={modal.productId}
         active={modal.active}
-        widget={modal.widget as IWidgetResponse}
+        widget={modal.widget as BaseTikTokWidget}
         handleClose={handleClose}
         onReloadData={onReloadData}
       ></ProductModal>

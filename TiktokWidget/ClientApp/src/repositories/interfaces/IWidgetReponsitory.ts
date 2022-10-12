@@ -10,7 +10,10 @@ import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 export interface IWidgetReponsitory {
   AddJob: (domain?: string, req?: AddJobRequest) => Promise<BaseResponse>;
   Create: (request: CreateWidgetRequest) => Promise<BaseResponse>;
-  Get: (pageIndex: number) => Promise<NonNullable<IQueryDataTable<any>>>;
+  Get: (
+    pageIndex?: number,
+    domain?: string
+  ) => Promise<NonNullable<IQueryDataTable<any>>>;
   GetByIds: (widgetIds: Array<string>) => Promise<BaseResponse>;
   Delete: (key: string) => Promise<BaseResponse>;
   GetById: (key: string) => Promise<BaseResponse>;

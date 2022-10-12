@@ -1,9 +1,9 @@
-import { IWidgetResponse } from "repositories/dtos/responses/WidgetResponse";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 
 export interface IProductModalProps {
   productId: string;
   active: boolean;
-  widget: IWidgetResponse;
+  widget: BaseTikTokWidget;
   handleClose: () => void;
   onReloadData: () => void;
 }

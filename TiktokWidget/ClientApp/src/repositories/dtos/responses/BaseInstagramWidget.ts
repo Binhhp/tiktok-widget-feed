@@ -1,7 +1,7 @@
 import { BaseProduct } from "./BaseProduct";
 import { BaseShop } from "./BaseShop";
 
-export interface IWidgetResponse {
+export interface BaseInstagramWidget {
   id: string;
   shopId: string;
   widgetTitle: string;
@@ -9,26 +9,23 @@ export interface IWidgetResponse {
   valueSource: string;
   products: BaseProduct[];
   shops: BaseShop;
-  setting: ISettingValueObject;
-  header: IHeaderValueObject;
+  setting: IOptionOwner;
+  header: IHeaderOwner;
   createDate: string;
   modifyDate: string;
 }
 
-export interface ISettingValueObject {
+export interface IOptionOwner {
   layoutType: number;
   labelReadMore: string;
-  labelViewMore: string;
-  showProfile: boolean;
   showNetworkIcon: boolean;
-  accentColor: string;
   backGround: string;
   color: string;
   numberPerRow: number;
+  limitItem: number;
 }
 
-export interface IHeaderValueObject {
+export interface IHeaderOwner {
   enable: boolean;
   title: string;
-  caption: string;
 }
