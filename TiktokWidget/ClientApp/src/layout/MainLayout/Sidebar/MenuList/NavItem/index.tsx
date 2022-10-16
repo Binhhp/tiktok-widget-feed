@@ -14,9 +14,24 @@ import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
 
 function NavItem(props: INavItemProps) {
-  const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+  const nameReducer = props.item?.chip && props.item?.chip.nameReducer;
+  const TikTokWidgetReducer = useSelector(
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
+  const InstagramWidgetReducer = useSelector(
+    (state: RootReducer) => state.InstagramWidgetReducer
+  );
+
+  const RenderCount = () => {
+    switch (nameReducer) {
+      case "InstagramWidgetReducer":
+        return InstagramWidgetReducer.count;
+      case "TiktokWidgetReducer":
+        return TikTokWidgetReducer.count;
+      default:
+        return 0;
+    }
+  };
   const item = () => {
     return (
       <>
@@ -26,12 +41,12 @@ function NavItem(props: INavItemProps) {
           </ListItemIcon>
         }
         <Heading>{props.item?.title}</Heading>
-        {props?.item?.chip && <Chip>{widgetReducer[props.item.chip]}</Chip>}
+        {props?.item?.chip && <Chip>{RenderCount()}</Chip>}
       </>
     );
   };
 
-  const appReducer = useSelector((state: RootReducer) => state.appReducer);
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
   const dispatch = useDispatch();
   const onHandleMenuItem =
     (key?: string, active: boolean = false) =>
@@ -39,7 +54,13 @@ function NavItem(props: INavItemProps) {
       key && dispatch(ApplicationActionTS.OnHandleMenuItem(key, active));
     };
 
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
+
+  const activeMenu =
+    appReducer.menuActive === props?.item?.id ||
+    window.location.pathname.substring(1, window.location.pathname.length) ===
+      props.item?.id ||
+    (window.location.pathname === "/" ? props.active : false);
   return (
     <ListItemWrapper>
       {!props?.selected ? (
@@ -53,15 +74,7 @@ function NavItem(props: INavItemProps) {
           </ListItemTagHref>
         ) : (
           <ListItemButton
-            className={
-              appReducer.menuActive === props?.item?.id ||
-              window.location.pathname.substring(
-                1,
-                window.location.pathname.length
-              ) === props.item?.id
-                ? "active-menu"
-                : ""
-            }
+            className={activeMenu ? "active-menu" : ""}
             to={`${props.item?.url}?shop=${shopReducer.shop.domain}` ?? "#"}
             level={props.level}
             onClick={onHandleMenuItem(props.item?.id, true)}

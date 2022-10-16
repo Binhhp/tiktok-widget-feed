@@ -1,4 +1,4 @@
-import { ContainerSection } from "common/style/Utils.style";
+import { ContainerSection } from "common/style/UtilStyles";
 import breakpoints from "Dependencies/Devices/breakpoint";
 import { ProfileWrapper } from "Dependencies/Profile/ProfileStyle";
 import styled from "Dependencies/StyledComponents/Container";

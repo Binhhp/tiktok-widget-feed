@@ -31,9 +31,9 @@ function StepThree() {
     }
   };
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const { widgetId } = useParams();
   useEffect(() => {

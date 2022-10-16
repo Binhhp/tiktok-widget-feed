@@ -1,4 +1,4 @@
-import { ContainerSection } from "common/style/Utils.style";
+import { ContainerSection } from "common/style/UtilStyles";
 import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
 import Profile from "Dependencies/Profile";
 import React, { useContext } from "react";

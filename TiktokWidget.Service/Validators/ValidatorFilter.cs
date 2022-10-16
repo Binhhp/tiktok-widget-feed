@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Orichi.IoC.Constants;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Common.Constants;
 
 namespace TiktokWidget.Service.Validators
 {

@@ -15,7 +15,7 @@ import GuidesStep2 from "./Guides/Step2";
 
 function StepThree() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
 
   const [state, setState] = useState<IGuidesState>({

@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Orichi.IoC.Constants;
+using Orichi.IoC.Logging;
+using Orichi.IoC.Logging.Models;
+using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
 using System;
 using System.Collections.Generic;
@@ -9,8 +13,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
-using TiktokWidget.Common.HttpLogging;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -24,12 +26,12 @@ namespace TiktokWidget.Service.Implements
         private readonly WidgetFeedDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IShopService _shopService;
-        private readonly IHttpLogProvider _logger;
+        private readonly ILoggerProvider _logger;
         public ProductService(
             WidgetFeedDbContext dbContext,
             IMapper mapper,
             IShopService shopService,
-            IHttpLogProvider logger)
+            ILoggerProvider logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;

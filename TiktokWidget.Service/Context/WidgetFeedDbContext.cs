@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TiktokWidget.Common.Enums;
-using TiktokWidget.Service.Context.Entities;
 using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Context
@@ -21,7 +20,7 @@ namespace TiktokWidget.Service.Context
             base.OnModelCreating(modelBuilder);
 
             //Config tiktok widget entity
-            var tiktokWidget = modelBuilder.Entity<TikTokWidgetEntity>().ToTable("Widgets");
+            var tiktokWidget = modelBuilder.Entity<TikTokWidgetEntity>().ToTable("Widget");
             tiktokWidget.OwnsOne(x => x.Setting);
             tiktokWidget.OwnsOne(x => x.Header);
             tiktokWidget.HasIndex(p => p.WidgetTitle);
@@ -58,7 +57,7 @@ namespace TiktokWidget.Service.Context
             modelBuilder.Entity<ShopEntity>().HasOne(x => x.ShopConfiguration).WithOne(x => x.Shops).HasForeignKey<ShopConfigurationEntity>(x => x.ShopId);
 
             //Config instagram widget entity
-            var instagramWidget = modelBuilder.Entity<InstagramWidgetEntity>().ToTable("InstagramWidgets");
+            var instagramWidget = modelBuilder.Entity<InstagramWidgetEntity>().ToTable("InstagramWidget");
             instagramWidget.OwnsOne(x => x.Setting);
             instagramWidget.OwnsOne(x => x.Header);
             instagramWidget.HasIndex(p => p.WidgetTitle);

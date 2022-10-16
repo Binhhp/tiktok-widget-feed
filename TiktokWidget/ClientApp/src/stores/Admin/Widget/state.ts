@@ -61,7 +61,6 @@ export class SettingProviderWidget implements ISettingProviderWidget {
     this.itemColor = dto?.setting.color || "";
     this.numberItemPerRow = dto?.setting.numberPerRow || 3;
     this.products = dto?.products || [];
-    this.limitItem = dto?.setting.limitItem || 10;
   }
   ToDto = (): ISettingProviderWidget => {
     return this as ISettingProviderWidget;
@@ -99,6 +98,7 @@ export class WidgetStoreModelDto {
       itemBackground: "#fafafa",
       itemColor: "#000000",
       numberItemPerRow: 3,
+      limitItem: 10,
       products: [],
     };
   }
@@ -134,6 +134,7 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
       itemColor: "#000000",
       itemBackground: "#fafafa",
       numberItemPerRow: 3,
+      limitItem: 10,
       products: [],
     };
   }

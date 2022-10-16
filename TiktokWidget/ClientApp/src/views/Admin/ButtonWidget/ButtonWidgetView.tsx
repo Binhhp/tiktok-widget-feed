@@ -35,10 +35,10 @@ import { ErrorMessage } from "common/constants/Validator";
 
 function ButtonWidgetView() {
   const buttonWidget = useSelector(
-    (state: RootReducer) => state.buttonWidgetReducer
+    (state: RootReducer) => state.ButtonWidgetReducer
   );
 
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const classFromPosition = () => {
     if (buttonWidget.position.top && buttonWidget.position.left)

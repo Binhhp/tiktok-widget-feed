@@ -34,12 +34,4 @@ namespace TiktokWidget.Common.Constants
         public const string InternalServerError = "Internal server error";
         public const string ServiceUnavailable = "Service Unavailable";
     }
-    public static class InfoMessage
-    {
-        public const string HandleSuccess = "Handle Success";
-        public const string Start = "Start => {0}";
-        public const string End = "End => {0}";
-        public const string InvalidInput = "Invalid Input";
-        public const string ObjectIsNull = "{0} is null!";
-    }
 }

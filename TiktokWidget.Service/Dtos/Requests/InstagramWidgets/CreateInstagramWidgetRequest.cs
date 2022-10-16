@@ -21,9 +21,11 @@ namespace TiktokWidget.Service.Dtos.Requests.InstagramWidgets
     {
         public int LayoutType { get; set; }
         public string LabelReadMore { get; set; }
+        public string LabelLoadMore { get; set; }
         public bool ShowNetworkIcon { get; set; }
-        public string BackGround { get; set; }
-        public string Color { get; set; }
+        public string LoadMoreBackGround { get; set; }
+        public string ItemBackGround { get; set; }
+        public string ItemColor { get; set; }
         public int NumberPerRow { get; set; }
         public int LimitItems { get; set; }
     }

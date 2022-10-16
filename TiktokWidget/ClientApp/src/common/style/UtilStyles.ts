@@ -57,7 +57,7 @@ export const LinkRouter = styled(Link)<IButtonCustom>`
 
 //Container Section
 export interface IContainerSection {
-  width: number;
+  width: number | string;
   height?: number | string;
   bg?: string;
   position?: "sticky" | "absolute" | "relative" | "fixed";
@@ -111,7 +111,8 @@ export const Container = styled("div")<IContainer>`
 
 export const ContainerSection = styled("div", "section")<IContainerSection>`
   &.orichi-tiktok-section {
-    width: ${(props) => props.width}%;
+    width: ${(props) =>
+      typeof props.width === "number" ? `${props.width}%` : props.width};
     height: ${(props) =>
       props.height
         ? typeof props.height === "number"
@@ -151,5 +152,40 @@ export const ContainerSection = styled("div", "section")<IContainerSection>`
             ? `${props.pl}px`
             : `${props.pl}`
           : 0};
+  }
+`;
+
+//Button Coppy
+
+export const CopySelection = styled("div")`
+  background: #fafafa;
+  padding: 10px;
+  margin-bottom: 30px;
+`;
+
+export const CopyContent = styled("div")`
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 5px;
+  position: relative;
+  div {
+    color: #a4a4a4;
+  }
+  svg {
+    fill: #5c5f62;
+  }
+`;
+
+export interface ICopyButton {
+  isCopy?: boolean;
+}
+export const CopyButton = styled("div")<ICopyButton>`
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  svg {
+    fill: ${(props) => (!props.isCopy ? "#5c5f62" : "rgba(0, 127, 95, 1)")};
   }
 `;

@@ -16,7 +16,7 @@ import {
 
 function FormRightItem() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
   const dispatch = useDispatch();
   const onSetNumberRow = (val: string) => {
@@ -49,10 +49,7 @@ function FormRightItem() {
     }
   };
 
-  const handleColorChange = (
-    color: string,
-    type: "accentColor" | "itemColor" | "itemBackground"
-  ) => {
+  const handleColorChange = (color: string, type: string) => {
     const val = color === undefined ? "#ffffff" : color;
     if (type === "accentColor")
       return dispatch(

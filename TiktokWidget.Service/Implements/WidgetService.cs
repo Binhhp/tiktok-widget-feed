@@ -11,11 +11,11 @@ using System.Collections.Generic;
 using TiktokWidget.Service.Models;
 using Newtonsoft.Json;
 using TiktokWidget.Service.Dtos.Requests.Widget;
-using TiktokWidget.Common.HttpLogging.Models;
 using System.IO;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.BusinessExceptions;
+using Orichi.IoC.Logging.Models.Models;
 
 namespace TiktokWidget.Service.Implements
 {

@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Orichi.IoC.Bases;
 using System;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using TiktokWidget.Features;
 using TiktokWidget.Middlewares.GlobalExceptionHandler;
 using TiktokWidget.ODataEntities;
 using TiktokWidget.Service.Configurations;
@@ -45,9 +45,6 @@ namespace TiktokWidget
                 AppSettings appConfig = appSettings;
                 services.AddSingleton(appConfig);
             }
-            services.AddServicesModules();
-
-            services.AddDefaultModules();
 
             services.AddOData();
 
@@ -89,6 +86,8 @@ namespace TiktokWidget
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.InitCoreComponents();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

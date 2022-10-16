@@ -15,7 +15,7 @@ import { FormControlStep, FormLeft, LabelForm } from "./FormConfigStyle";
 
 function FormLeftItem() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
   const dispatch = useDispatch();
   const onSetConfig = (val: ISettingProviderWidget) => {

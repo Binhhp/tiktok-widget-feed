@@ -27,7 +27,7 @@ export interface IFormControlSource {
 }
 function FormControlSource(props: IFormControlSource) {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
 
   const dispatch = useDispatch();

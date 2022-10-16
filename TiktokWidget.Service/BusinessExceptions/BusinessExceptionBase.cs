@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Orichi.IoC.Constants;
+using Orichi.IoC.Logging.Models;
 using System;
 using System.IO;
-using TiktokWidget.Common.Constants;
-using TiktokWidget.Common.HttpLogging.Models;
 
 namespace TiktokWidget.Service.BusinessExceptions
 {

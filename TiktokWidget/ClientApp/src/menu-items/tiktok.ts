@@ -17,7 +17,9 @@ const widget: IMenuItems = {
       title: "My widget",
       type: MenuItemType.Group,
       url: "/my-widget",
-      chip: "count",
+      chip: {
+        nameReducer: "TiktokWidgetReducer",
+      },
     },
   ],
 };

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Orichi.IoC.Logging;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Interfaces;
 
@@ -12,9 +12,9 @@ namespace TiktokWidget.Controllers
     public class HomeController : Controller
     {
         private readonly IShopService _shopService;
-        private readonly IHttpLogProvider _logger;
+        private readonly ILoggerProvider _logger;
         private readonly AppSettings _appSettings;
-        public HomeController(IShopService shopService, AppSettings appSettings, IHttpLogProvider logger)
+        public HomeController(IShopService shopService, AppSettings appSettings, ILoggerProvider logger)
         {
             _shopService = shopService;
             _appSettings = appSettings;

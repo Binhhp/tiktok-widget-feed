@@ -15,11 +15,11 @@ import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplat
 
 function StepTwo() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
 
   const templateContext = useContext(LayoutTemplateContext);
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {

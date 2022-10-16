@@ -10,7 +10,7 @@ import Image from "ui-components/Image";
 
 function Hashtag() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
   return (
     <HashtagWrapper>

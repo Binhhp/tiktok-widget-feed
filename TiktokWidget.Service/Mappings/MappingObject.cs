@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using TiktokWidget.Service.Context.Entities;
-using TiktokWidget.Service.Context.Entities.ValueObjects;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -67,8 +65,10 @@ namespace TiktokWidget.Service.Mappings
                 .ForMember(x => x.Setting, opt => opt.MapFrom(src => new InstagramOptions
                 {
                     LabelReadMore = src.Options.LabelReadMore,
-                    BackGround = src.Options.BackGround,
-                    Color = src.Options.Color,
+                    LabelLoadMore = src.Options.LabelLoadMore,
+                    LoadMoreBackGround = src.Options.LoadMoreBackGround,
+                    ItemBackGround = src.Options.ItemBackGround,
+                    ItemColor = src.Options.ItemColor,
                     LayoutType = src.Options.LayoutType,
                     NumberPerRow = src.Options.NumberPerRow,
                     ShowNetworkIcon = src.Options.ShowNetworkIcon,

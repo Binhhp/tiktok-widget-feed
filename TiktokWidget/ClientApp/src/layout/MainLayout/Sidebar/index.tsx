@@ -11,7 +11,7 @@ import { ChatPlugin } from "common/functions/ChatPlugin";
 import FeedBack from './FeedBack';
 
 function Sidebar() {
-  const appReducer = useSelector((state: RootReducer) => state.appReducer);
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
   return (
     <SidebarWrapper active={appReducer.mobileMenuView}>
       <BrowserView>

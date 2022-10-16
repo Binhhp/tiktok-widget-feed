@@ -20,7 +20,7 @@ interface ITemplateSettingsProps {
 }
 function TemplateSettings(props: ITemplateSettingsProps) {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
   const dispatch = useDispatch();
   const onSetLayout = (key: TemplateType) => () => {

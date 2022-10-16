@@ -19,7 +19,7 @@ function CodeInfo() {
   const { widgetId } = useParams();
   const script = `<div name="orichi" data-id="${widgetId}"></div>${config.script}`;
 
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const [isCopy, setCopy] = useState(false);
   const onCopy = () => {
     if (isCopy) return;

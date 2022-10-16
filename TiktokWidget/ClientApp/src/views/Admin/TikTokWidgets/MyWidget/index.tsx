@@ -51,7 +51,7 @@ function MyWidget() {
       widget: {},
       productId: "",
     });
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const onUpdate = (item: any) => {
     return new WidgetReponsitory().GetById(item?.id).then((res) => {
       if (res?.Status) {
