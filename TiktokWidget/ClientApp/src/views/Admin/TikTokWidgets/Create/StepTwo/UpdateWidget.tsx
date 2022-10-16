@@ -12,9 +12,9 @@ import FormSubmit from "./FormConfig/Form/FormSubmit";
 
 function StepTwoUpdate() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {

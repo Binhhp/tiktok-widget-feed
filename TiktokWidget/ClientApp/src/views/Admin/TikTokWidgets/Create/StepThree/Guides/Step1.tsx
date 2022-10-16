@@ -13,7 +13,7 @@ import { IGuidesStepProps } from "./GuidesModel";
 import { ImageStorage } from "assets/images/ImageStorage";
 
 function GuidesStep1(props: IGuidesStepProps) {
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   return (
     <GuidesContainer>
       <GuidesContainerItem pt={12}>

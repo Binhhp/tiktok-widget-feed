@@ -10,9 +10,9 @@ import { RootReducer } from "stores/Admin/reducers";
 
 function Step3() {
   const buttonWidget = useSelector(
-    (state: RootReducer) => state.buttonWidgetReducer
+    (state: RootReducer) => state.ButtonWidgetReducer
   );
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const dispatch = useDispatch();
   const handleSelectChange = (value: string) => {
     dispatch(

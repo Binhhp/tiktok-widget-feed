@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Orichi.IoC.Logging;
 using System;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging;
 
 namespace TiktokWidget.Middlewares.GlobalExceptionHandler
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IHttpLogProvider _logProvider;
-        public ExceptionMiddleware(RequestDelegate next, IHttpLogProvider logProvider)
+        private readonly ILoggerProvider _logProvider;
+        public ExceptionMiddleware(RequestDelegate next, ILoggerProvider logProvider)
         {
             _next = next;
             _logProvider = logProvider;

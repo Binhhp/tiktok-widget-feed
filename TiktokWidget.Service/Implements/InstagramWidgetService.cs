@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Orichi.IoC.Logging.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
-using TiktokWidget.Service.Context.Entities;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
 using TiktokWidget.Service.Entities;

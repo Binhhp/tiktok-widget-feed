@@ -32,7 +32,7 @@ let schema = Yup.object().shape({
 
 function Step2(props: IButtonWidgetProps) {
   const buttonWidget = useSelector(
-    (state: RootReducer) => state.buttonWidgetReducer
+    (state: RootReducer) => state.ButtonWidgetReducer
   );
   const dispatch = useDispatch();
 

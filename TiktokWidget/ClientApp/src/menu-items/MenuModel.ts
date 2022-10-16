@@ -1,4 +1,4 @@
-import { WidgetStoreModel } from "stores/Admin/Widget/state";
+import { RootReducer } from "stores/Admin/reducers";
 
 export enum MenuItemType {
   Group,
@@ -12,7 +12,10 @@ export interface IMenuChildrens {
   redirect?: boolean;
   icon?: any;
   disabled?: boolean;
-  chip?: keyof WidgetStoreModel;
+  active?: boolean;
+  chip?: {
+    nameReducer: keyof RootReducer;
+  };
 }
 export interface IMenuItems {
   id: string;
@@ -21,5 +24,6 @@ export interface IMenuItems {
   icon: any;
   url?: string;
   label?: string;
+  active?: boolean;
   children?: IMenuChildrens[];
 }

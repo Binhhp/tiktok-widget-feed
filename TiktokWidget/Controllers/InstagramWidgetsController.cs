@@ -2,9 +2,9 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TiktokWidget.Service.Context.Entities;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
+using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Implements;
 
 namespace TiktokWidget.Controllers

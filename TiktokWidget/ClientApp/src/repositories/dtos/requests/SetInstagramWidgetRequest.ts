@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "stores/Admin/Widget/state";
+import { IInstagramWidget } from "stores/Admin/InstagramWidget/state";
 
 interface HeaderInstagramOwner {
   enable: boolean;
@@ -8,9 +8,11 @@ interface HeaderInstagramOwner {
 interface InstagramOptionOwner {
   LayoutType: number;
   LabelReadMore: string;
+  LabelLoadMore: string;
   ShowNetworkIcon: boolean;
-  BackGround: string;
-  Color: string;
+  LoadMoreBackGround: string;
+  ItemBackGround: string;
+  ItemColor: string;
   NumberPerRow: number;
   LimitItems: number;
 }
@@ -22,7 +24,7 @@ export class SetInstagramWidgetRequest {
   public Header: HeaderInstagramOwner;
   public Options: InstagramOptionOwner;
 
-  constructor(dto?: ISettingProviderWidget) {
+  constructor(dto?: IInstagramWidget) {
     this.WidgetTitle = dto?.title || "";
     this.SourceType = dto?.source || 0;
     this.ValueSource = dto?.valueSource || "";
@@ -31,11 +33,13 @@ export class SetInstagramWidgetRequest {
       title: dto?.titleHeader || "",
     };
     this.Options = {
-      BackGround: dto?.itemBackground || "",
-      Color: dto?.itemColor || "",
+      LabelLoadMore: dto?.labelLoadMore || "",
+      LoadMoreBackGround: dto?.loadMoreBackground || "",
+      ItemBackGround: dto?.itemBackground || "",
+      ItemColor: dto?.itemColor || "",
       LabelReadMore: dto?.labelReadMore || "",
       LayoutType: dto?.layout || 0,
-      LimitItems: dto?.limitItem || 0,
+      LimitItems: dto?.limitItems || 0,
       NumberPerRow: dto?.numberItemPerRow || 0,
       ShowNetworkIcon: dto?.showNetworkIcon === "enable",
     };

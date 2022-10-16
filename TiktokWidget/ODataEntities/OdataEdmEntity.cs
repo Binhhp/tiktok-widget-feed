@@ -3,7 +3,6 @@ using Microsoft.OData.Edm;
 using ShopifySharp;
 using System.Collections.Generic;
 using TiktokWidget.ODataEntities.Models;
-using TiktokWidget.Service.Context.Entities;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Models;
 

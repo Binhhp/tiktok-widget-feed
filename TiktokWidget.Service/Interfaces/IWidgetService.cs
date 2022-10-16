@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Orichi.IoC.Containers.LifeScoped;
+using Orichi.IoC.Logging.Models.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
@@ -10,7 +11,7 @@ using TiktokWidget.Service.Models;
 
 namespace TiktokWidget.Service.Interfaces
 {
-    public interface IWidgetService
+    public interface IWidgetService : IScopedDependency
     {
         IQueryable<TikTokWidgetEntity> Get(string domain);
         IQueryable<TikTokWidgetEntity> GetById(string key);

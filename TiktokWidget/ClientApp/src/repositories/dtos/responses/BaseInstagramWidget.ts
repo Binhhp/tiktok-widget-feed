@@ -18,11 +18,13 @@ export interface BaseInstagramWidget {
 export interface IOptionOwner {
   layoutType: number;
   labelReadMore: string;
+  labelLoadMore: string;
   showNetworkIcon: boolean;
-  backGround: string;
-  color: string;
+  loddMoreBackGround: string;
+  itemBackGround: string;
+  itemColor: string;
   numberPerRow: number;
-  limitItem: number;
+  limitItems: number;
 }
 
 export interface IHeaderOwner {

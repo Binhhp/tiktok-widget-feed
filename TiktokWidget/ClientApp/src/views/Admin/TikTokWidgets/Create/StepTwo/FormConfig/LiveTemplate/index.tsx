@@ -26,7 +26,7 @@ import { IVideoTemplateModel } from "Dependencies/LayoutTemplate/LayoutTemplateM
 
 function LiveTemplate() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
 
   const [intervalId, setIntervalId] = useState(0);

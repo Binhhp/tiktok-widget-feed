@@ -10,7 +10,7 @@ import { Icon } from "@shopify/polaris";
 import { ChatPlugin } from "common/functions/ChatPlugin";
 
 function Sidebar() {
-  const appReducer = useSelector((state: RootReducer) => state.appReducer);
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
   return (
     <SidebarWrapper active={appReducer.mobileMenuView}>
       <BrowserView>

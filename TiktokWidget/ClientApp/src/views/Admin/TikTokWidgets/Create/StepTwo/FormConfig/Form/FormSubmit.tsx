@@ -16,7 +16,7 @@ function FormSubmit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const onCancel = () => {
     dispatch(WidgetActionTS.OnStep(0));
@@ -43,7 +43,7 @@ function FormSubmit() {
   };
   const [loading, setLoading] = useState(false);
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
 
   const onSubmit = async () => {

@@ -7,17 +7,19 @@ const instagram: IMenuItems = {
   icon: ProductsMajor,
   children: [
     {
-      id: "create-instagram-widget",
+      id: "instagram-step-1",
       title: "Create widget",
       type: MenuItemType.Item,
-      url: "/create-instagram-widget",
+      url: "/instagram-step-1",
     },
     {
       id: "my-instagram-widget",
       title: "My widget",
       type: MenuItemType.Item,
       url: "/my-instagram-widget",
-      chip: "count",
+      chip: {
+        nameReducer: "InstagramWidgetReducer",
+      },
     },
   ],
 };

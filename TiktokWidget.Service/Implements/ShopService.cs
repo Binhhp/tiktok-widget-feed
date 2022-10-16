@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
 using System;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.Shops;

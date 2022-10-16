@@ -1,5 +1,4 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
-import config from "config";
 
 export class ApplicationStoreModelDto {
   menuItems: string[];
@@ -8,7 +7,7 @@ export class ApplicationStoreModelDto {
   step: number;
   constructor() {
     this.menuItems = [];
-    this.menuActive = config.defaultPath;
+    this.menuActive = "";
     this.mobileMenuView = false;
     this.step = 0;
   }
@@ -24,9 +23,7 @@ export class ApplicationStoreModel
   constructor(_dto?: ApplicationStoreModelDto) {
     this._menuItems = _dto?.menuItems || [];
     this._menuActive =
-      _dto?.menuActive ||
-      window.location.pathname.replace("/", "") ||
-      config.defaultPath;
+      _dto?.menuActive || window.location.pathname.replace("/", "");
     this._mobileMenuView = _dto?.mobileMenuView || false;
     this._step = _dto?.step || 0;
   }

@@ -18,7 +18,7 @@ import { RootReducer } from "stores/Admin/reducers";
 import { ChatPlugin } from "common/functions/ChatPlugin";
 
 function GuidesStep2(props: IGuidesStepProps) {
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   return (
     <GuidesContainer>
       <GuidesContainerItem pb={18} pt={29}>

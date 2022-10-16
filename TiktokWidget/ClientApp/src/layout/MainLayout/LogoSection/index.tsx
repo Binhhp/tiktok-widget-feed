@@ -17,8 +17,8 @@ import {
 
 const LogoSection = () => {
   const dispatch = useDispatch();
-  const appReducer = useSelector((state: RootReducer) => state.appReducer);
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const onMobileView = () => {
     dispatch(
       ApplicationActionTS.OnHandleMenuItemMobile(!appReducer.mobileMenuView)

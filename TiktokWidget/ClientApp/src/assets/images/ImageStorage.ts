@@ -5,6 +5,8 @@ import Template4 from "./Templates/Template4.png";
 import Template5 from "./Templates/Template5.png";
 import Background from "./bg.png";
 
+import InsSlider from "./Templates/ins-slider.png";
+import InsList from "./Templates/ins-list.png";
 import Slider from "./Templates/slider.png";
 import Carousel from "./Templates/carousel.png";
 import List from "./Templates/list.png";
@@ -18,6 +20,7 @@ import LogoTikTok2 from "./tiktok2.png";
 import ButtonNext from "./Buttons/button-next.png";
 import ButtonPrev from "./Buttons/button-prev.png";
 
+import VideoBackgroundGuides from "./Guides/video-guides.png";
 export const ImageStorage = {
   Background,
   ButtonTikTok: [
@@ -30,6 +33,8 @@ export const ImageStorage = {
   LogoTikTok,
   LogoTikTok2,
   Templates: {
+    InsSlider,
+    InsList,
     Slider,
     Carousel,
     List,
@@ -48,4 +53,5 @@ export const ImageStorage = {
     ButtonNext,
     ButtonPrev,
   },
+  VideoBackgroundGuides,
 };

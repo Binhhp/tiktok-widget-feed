@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orichi.IoC.Constants;
+using System;
 using TiktokWidget.Common.Constants;
 
 namespace TiktokWidget.Service.BusinessExceptions

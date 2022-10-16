@@ -6,8 +6,8 @@ export interface INavItemProps {
   key: string;
   item?: IMenuChildrens;
   icon?: any;
-  chip?: string;
   selected?: boolean;
+  active?: boolean;
 }
 
 export interface IPropListItemButton {

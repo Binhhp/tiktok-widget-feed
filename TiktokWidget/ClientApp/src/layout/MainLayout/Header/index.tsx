@@ -16,12 +16,12 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const widgetReducer = useSelector(
-    (state: RootReducer) => state.widgetReducer
+    (state: RootReducer) => state.TiktokWidgetReducer
   );
   const buttonWidgetReducer = useSelector(
-    (state: RootReducer) => state.buttonWidgetReducer
+    (state: RootReducer) => state.ButtonWidgetReducer
   );
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   return (
     <HeaderWrapper>

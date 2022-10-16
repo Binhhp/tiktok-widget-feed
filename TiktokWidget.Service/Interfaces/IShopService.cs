@@ -1,8 +1,9 @@
 ﻿
+using Orichi.IoC.Containers.LifeScoped;
+using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Responses.Shop;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
@@ -10,7 +11,7 @@ using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Interfaces
 {
-    public interface IShopService
+    public interface IShopService : IScopedDependency
     {
         IQueryable<ShopEntity> Get();
         IQueryable<ShopEntity> GetByDomain(string domain);

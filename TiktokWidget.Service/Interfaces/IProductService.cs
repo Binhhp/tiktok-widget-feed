@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Orichi.IoC.Containers.LifeScoped;
+using Orichi.IoC.Logging.Models.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TiktokWidget.Common.HttpLogging.Models;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Interfaces
 {
-    public interface IProductService
+    public interface IProductService : IScopedDependency
     {
         Task AddAsync(IEnumerable<ProductEntity> products);
         Task<ResponseBase> AddAsync(AddProductRequest request);

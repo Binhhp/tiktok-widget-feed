@@ -1,4 +1,3 @@
-import { ContainerSection } from "common/style/Utils.style";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -20,6 +19,7 @@ import { ITikTokAppProps } from "../TikTokModel";
 import AudioPlayerContainer from "../SwiperAudioPlayer";
 import { AudioPlayerProvider } from "../SwiperAudioPlayer/AudioPlayerContext";
 import ApplicationContainer from "../ApplicationContainer";
+import { ContainerSection } from "common/style/UtilStyles";
 
 function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);

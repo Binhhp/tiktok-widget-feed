@@ -1,14 +1,16 @@
 import { combineReducers } from "redux";
 import ApplicationReducer from "./Application/reducer";
 import ButtonWidgetReducer from "./ButtonWidget/reducer";
+import InstagramWidgetReducer from "./InstagramWidget/reducer";
 import ShopReducer from "./Shop/reducer";
 import WidgetReducer from "./Widget/reducer";
 
 const rootStateProvider = {
-  appReducer: ApplicationReducer,
-  widgetReducer: WidgetReducer,
-  buttonWidgetReducer: ButtonWidgetReducer,
-  shopReducer: ShopReducer,
+  AppReducer: ApplicationReducer,
+  TiktokWidgetReducer: WidgetReducer,
+  InstagramWidgetReducer: InstagramWidgetReducer,
+  ButtonWidgetReducer: ButtonWidgetReducer,
+  ShopReducer: ShopReducer,
 };
 
 const reducer = combineReducers(rootStateProvider);

@@ -12,7 +12,7 @@ import {
   SupportHelperText,
 } from "./StepThreeStyle";
 function SectionInfo() {
-  const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const navigate = useNavigate();
 
   const onEnableSection = () => {

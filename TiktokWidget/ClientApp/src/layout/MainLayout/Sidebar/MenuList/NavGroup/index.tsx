@@ -1,5 +1,5 @@
 import { TextStyle } from "@shopify/polaris";
-import { IMenuChildrens, MenuItemType } from "menu-items/MenuModel";
+import { IMenuChildrens, IMenuItems, MenuItemType } from "menu-items/MenuModel";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
@@ -11,9 +11,15 @@ import {
   NavGroupText,
   NavGroupWrapper,
 } from "./NavGroupStyle";
-function NavGroup({ item, index }: any) {
-  const appReducer = useSelector((state: RootReducer) => state.appReducer);
-  const items = item?.children?.map((menu: IMenuChildrens) => {
+
+interface INavGroupProps {
+  item: IMenuItems;
+  index: number;
+}
+
+function NavGroup(props: INavGroupProps) {
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
+  const items = props.item?.children?.map((menu: IMenuChildrens) => {
     switch (menu.type) {
       case MenuItemType.Item:
         return (
@@ -23,6 +29,7 @@ function NavGroup({ item, index }: any) {
             disabled={menu?.disabled}
             level={2}
             item={menu}
+            active={menu.active}
           ></NavItem>
         );
 
@@ -34,6 +41,7 @@ function NavGroup({ item, index }: any) {
             disabled={menu?.disabled}
             level={2}
             item={menu}
+            active={menu.active}
           ></NavItem>
         );
       default:
@@ -44,27 +52,31 @@ function NavGroup({ item, index }: any) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (
-      item?.children?.length > 0 &&
-      item?.children.filter((x: any) => appReducer?.menuActive.includes(x.id))
-        .length > 0
+      props.item?.children &&
+      props.item?.children?.length > 0 &&
+      props.item?.children.filter((x: any) =>
+        appReducer?.menuActive.includes(x.id)
+      ).length > 0
     ) {
-      dispatch(ApplicationActionTS.OnHandleMenuItem(item?.id));
+      dispatch(ApplicationActionTS.OnHandleMenuItem(props.item?.id));
     }
   }, []);
 
   return (
     <NavGroupWrapper>
-      {item?.label && index > 0 && <NavGroupText>{item.label}</NavGroupText>}
+      {props.item?.label && props.index > 0 && (
+        <NavGroupText>{props.item.label}</NavGroupText>
+      )}
       <NavItem
-        selected={item?.children ? true : false}
-        icon={item.icon}
-        key={item.id}
-        disabled={item?.disabled}
+        selected={props.item?.children ? true : false}
+        icon={props.item.icon}
+        key={props.item.id}
         level={1}
-        item={item}
+        item={props.item}
+        active={props.item.active}
       ></NavItem>
-      {item?.children &&
-        appReducer.menuItems.filter((x) => x === item?.id).length > 0 && (
+      {props.item?.children &&
+        appReducer.menuItems.filter((x) => x === props.item?.id).length > 0 && (
           <NavGroupMenuItem>{items}</NavGroupMenuItem>
         )}
     </NavGroupWrapper>

@@ -1,4 +1,4 @@
-﻿using TiktokWidget.Common.HttpLogging.Models;
+﻿using Orichi.IoC.Logging.Models.Models;
 
 namespace TiktokWidget.Service.Dtos.Responses.InstagramWidgets
 {
