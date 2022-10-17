@@ -2,7 +2,6 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TiktokWidget.Service.Dtos;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -125,6 +124,15 @@ namespace TiktokWidget.Controllers
         public IActionResult GetWidgets([FromODataUri] string domain)
         {
             var result = _widgetService.Get(domain);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Shops({domain})/InstagramWidgets")]
+        public IActionResult GetInstagramWidgets([FromODataUri] string domain)
+        {
+            var result = _instagramWidgetService.Get(domain);
             return Ok(result);
         }
 
