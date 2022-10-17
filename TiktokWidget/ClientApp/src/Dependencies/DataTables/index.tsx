@@ -8,9 +8,7 @@ import { IndexTableHeading } from "@shopify/polaris/build/ts/latest/src/componen
 import { NonEmptyArray } from "@shopify/polaris/build/ts/latest/src/types";
 import { ContainerSection } from "common/style/UtilStyles";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Waypoint } from "react-waypoint";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
 import LoadingInfinite from "ui-components/LoadingInfinite";
 import { AbsoluteCenter } from "ui-components/UtilsStyle";
 import Actions from "./Actions";
@@ -25,7 +23,6 @@ function DataTables(props: IDataTableProps) {
   });
   const [loading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
   const fetchData = (isReload = false) => {
     setLoading(true);
     props
@@ -45,7 +42,7 @@ function DataTables(props: IDataTableProps) {
           });
         }
         setLoading(false);
-        dispatch(WidgetActionTS.OnSetWidgetCount(res.count));
+        if (props.onSetCount) props.onSetCount(res.count);
       })
       .catch((err) => {
         console.log(err.message);

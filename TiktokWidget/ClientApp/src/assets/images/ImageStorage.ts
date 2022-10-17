@@ -21,6 +21,9 @@ import ButtonNext from "./Buttons/button-next.png";
 import ButtonPrev from "./Buttons/button-prev.png";
 
 import VideoBackgroundGuides from "./Guides/video-guides.png";
+import InstagramGuides from "./Instagram/ins-guides.png";
+import InstagramGuides2 from "./Instagram/ins-guides-2.png";
+
 export const ImageStorage = {
   Background,
   ButtonTikTok: [
@@ -54,4 +57,8 @@ export const ImageStorage = {
     ButtonPrev,
   },
   VideoBackgroundGuides,
+  Instagram: {
+    InstagramGuides,
+    InstagramGuides2,
+  },
 };

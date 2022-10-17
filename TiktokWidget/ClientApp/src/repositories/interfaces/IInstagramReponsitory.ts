@@ -1,4 +1,5 @@
 import { IQueryDataTable } from "Dependencies/DataTables/DataTablesType";
+import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 
@@ -14,5 +15,9 @@ export interface IInstagramReponsitory {
   Update: (
     key: string,
     req: SetInstagramWidgetRequest
+  ) => Promise<BaseResponse>;
+  AddTagProducts: (
+    key: string,
+    req: AddTagProductRequest
   ) => Promise<BaseResponse>;
 }

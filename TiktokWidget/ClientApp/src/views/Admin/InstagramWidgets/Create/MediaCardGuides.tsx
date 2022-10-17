@@ -1,14 +1,13 @@
 import { MediaCard, VideoThumbnail } from "@shopify/polaris";
 import { ImageStorage } from "assets/images/ImageStorage";
-import { ContainerSection } from "common/style/UtilStyles";
 import config from "config";
 import FancyBox from "Dependencies/FancyBoxProvider";
 import React from "react";
-import { MediaCardWrapper } from "./CreateWidgetStyle";
+import { MediaCardGuidesDiv, MediaCardWrapper } from "./CreateWidgetStyle";
 
 function MediaCardGuides() {
   return (
-    <ContainerSection width="calc(35% - 39px)" ml={29} mr={10}>
+    <MediaCardGuidesDiv>
       <MediaCardWrapper>
         <MediaCard
           title="How to embed the Instagram Feed to the website"
@@ -29,7 +28,7 @@ function MediaCardGuides() {
           </FancyBox>
         </MediaCard>
       </MediaCardWrapper>
-    </ContainerSection>
+    </MediaCardGuidesDiv>
   );
 }
 

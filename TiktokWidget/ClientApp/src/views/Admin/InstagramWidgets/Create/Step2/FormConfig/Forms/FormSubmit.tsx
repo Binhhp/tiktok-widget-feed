@@ -2,11 +2,14 @@ import { Button } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import { RootReducer } from "stores/Admin/reducers";
 import { FormSubmitWrapper } from "../../Patterns/PatternStyle";
-
+import toast from "react-hot-toast";
+import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
+import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
+import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 export default function FormSubmit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,34 +22,72 @@ export default function FormSubmit() {
   const [loading, setLoading] = useState(false);
 
   const onCancel = () => {
-    dispatch(WidgetActionTS.OnStep(0));
+    dispatch(InstagramWidgetActionTS.OnStep(1));
     dispatch(
-      WidgetActionTS.OnSetSetting({
+      InstagramWidgetActionTS.OnSetSetting({
         layout: TemplateType.Slider,
         header: "enable",
         titleHeader: "My TikTok Feed",
-        caption: "caption",
         labelReadMore: "Read more",
-        labelView: "View more",
-        showProfile: "enable",
+        labelLoadMore: "Load more",
         showNetworkIcon: "enable",
-        accentColor: "#000000",
+        loadMoreBackground: "#fafafa",
         itemBackground: "#fafafa",
         itemColor: "#000000",
-        numberItemPerRow: 3,
+        numberItemPerRow: 10,
+        limitItems: 10,
         products: [],
       })
     );
 
-    if (widgetReducer.settings.id)
-      navigate(`/my-instagram-widget?shop=${shopReducer.shop.domain}`);
-    else navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+    return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setLoading(true);
-    navigate(`/instagram-step-3?shop=${shopReducer.shop.domain}`);
+    const widgetReponsitory = new InstagramReponsitory();
+    if (widgetReducer.settings.id) {
+      const response = await widgetReponsitory.Update(
+        widgetReducer.settings.id,
+        new SetInstagramWidgetRequest(widgetReducer.settings)
+      );
+      if (response.Status) {
+        dispatch(InstagramWidgetActionTS.OnStep(1));
+        dispatch(InstagramWidgetActionTS.OnSetSetting(true));
+        setLoading(false);
+        return navigate(`/my-instagram-widget?shop=${shopReducer.shop.domain}`);
+      } else {
+        setLoading(false);
+        toast.error(response.Error);
+      }
+    } else {
+      const response = await widgetReponsitory.Create(
+        new SetInstagramWidgetRequest(widgetReducer.settings),
+        shopReducer.shop.domain
+      );
+      if (response.Status) {
+        dispatch(InstagramWidgetActionTS.OnStep(3));
+        dispatch(InstagramWidgetActionTS.OnSetSetting(true));
+        const shopReponsitory = new ShopReponsitory();
+        shopReponsitory
+          .GetInstagramCount(shopReducer.shop.domain ?? "")
+          .then((val) => {
+            if (val === 1) {
+              dispatch(InstagramWidgetActionTS.OnChangStatus("FirstCreated"));
+            }
+
+            dispatch(InstagramWidgetActionTS.OnSetWidgetCount(val));
+          });
+        setLoading(false);
+
+        return navigate(`/instagram-step-3?shop=${shopReducer.shop.domain}`);
+      } else {
+        setLoading(false);
+        toast.error(response.Error);
+      }
+    }
   };
+
   return (
     <FormSubmitWrapper>
       <Button onClick={onCancel} outline>

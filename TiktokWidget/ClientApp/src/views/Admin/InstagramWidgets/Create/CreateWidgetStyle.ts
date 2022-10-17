@@ -39,3 +39,9 @@ export const MediaCardWrapper = styled("div")`
     padding-left: 0px;
   }
 `;
+
+export const MediaCardGuidesDiv = styled("div")`
+  width: 28%;
+  height: max-content;
+  margin-left: 4%;
+`;

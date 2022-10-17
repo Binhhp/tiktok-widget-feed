@@ -55,6 +55,17 @@ export class ShopReponsitory implements IShopReponsitory {
     return 0;
   };
 
+  GetInstagramCount = async (shopDomain: string) => {
+    const response = await FetchDataFromServer({
+      method: "GET",
+      url: `${RootURL.ApiBase}/odata/Shops('${shopDomain}')/GetInstagramWidgetCounts`,
+    });
+    if (response.Status) {
+      return response.Data?.value;
+    }
+    return 0;
+  };
+
   Update = async (domain?: string, req?: UpdateShopConfigurationRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",

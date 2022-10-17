@@ -1,8 +1,8 @@
 import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { Caption } from "../../CreateWidgetStyle";
 import FormSubmit from "../FormConfig/Forms/FormSubmit";
 import { TemplateModel } from "../Step2Model";
@@ -23,8 +23,9 @@ function TemplateSelect() {
 
   const onSetLayout = (key: TemplateType) => () => {
     dispatch(
-      WidgetActionTS.OnSetSetting({
-        layout: key,
+      InstagramWidgetActionTS.OnSetSetting({
+        layout:
+          key === TemplateType.Slider ? TemplateType.Slider : TemplateType.List,
       })
     );
   };

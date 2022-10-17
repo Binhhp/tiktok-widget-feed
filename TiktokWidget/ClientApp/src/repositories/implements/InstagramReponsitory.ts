@@ -1,6 +1,7 @@
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { ODataQuery } from "common/functions/ODataQuery";
+import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
@@ -37,10 +38,10 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   };
 
   Get = async (pageIndex?: number, domain?: string) => {
-    let url = `${RootURL.ApiBase}/odata/shops('${domain}')/widgets?$expand=products,shops&$count=true`;
+    let url = `${RootURL.ApiBase}/odata/shops('${domain}')/InstagramWidgets?$expand=products,shops&$count=true`;
     if (pageIndex) {
       url = ODataQuery.BuildODataQuery(
-        `${RootURL.ApiBase}/odata/shops('${domain}')/instagramWidgets`,
+        `${RootURL.ApiBase}/odata/shops('${domain}')/InstagramWidgets`,
         {
           pageIndex: pageIndex,
           pageNumber: 10,
@@ -76,6 +77,18 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     const response = await FetchDataFromServer({
       method: "PUT",
       url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')`,
+      body: req,
+    });
+    return response;
+  };
+
+  AddTagProducts = async (
+    key: string,
+    req: AddTagProductRequest
+  ): Promise<BaseResponse> => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')/UpdateProduct`,
       body: req,
     });
     return response;

@@ -1,8 +1,8 @@
 export enum WidgetActEnum {
-  STEP = "@widget/STEP",
-  MOBILE = "@widget/MOBILE",
-  SETTING = "@widget/SETTING",
-  GET_TAG_PRODUCTS = "@widget/TAG_PRODUCTS",
-  COUNT = "@widget/COUNT",
-  CHANGE_STATUS = "@widget/CHANGE_STATUS",
+  STEP = "@tiktok/STEP",
+  MOBILE = "@tiktok/MOBILE",
+  SETTING = "@tiktok/SETTING",
+  GET_TAG_PRODUCTS = "@tiktok/TAG_PRODUCTS",
+  COUNT = "@tiktok/COUNT",
+  CHANGE_STATUS = "@tiktok/CHANGE_STATUS",
 }
