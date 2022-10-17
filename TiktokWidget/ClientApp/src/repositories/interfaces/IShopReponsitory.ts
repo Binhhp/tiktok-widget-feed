@@ -8,6 +8,7 @@ export interface IShopReponsitory {
   Get: (shopDomain: string) => Promise<BaseShop | null>;
   GetConfiguration: (domain: string) => Promise<BaseShopConfiguration | null>;
   GetWidgetsCount: (shopDomain: string) => Promise<number>;
+  GetInstagramCount: (shopDomain: string) => Promise<number>;
   GetThemes: (shopDomain: string) => Promise<BaseTheme[]>;
   Update: (
     domain?: string,

@@ -6,6 +6,7 @@ export interface IDataTableProps {
   reload?: number;
   onUpdate: (item: any) => any;
   onDelete: (item: any) => any;
+  onSetCount?: (count: number) => void;
 }
 
 export interface IColumnProvider {

@@ -17,5 +17,5 @@ export const FormContentFooterDiv = styled("div")`
 export const SectionWrapper = styled("div")`
   background: #ffffff;
   padding: 16px 16px 18px 16px;
-  width: 65%;
+  width: 68%;
 `;

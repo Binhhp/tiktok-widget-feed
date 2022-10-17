@@ -84,6 +84,8 @@ const OnSetCount = (
 ) => {
   let copyState = state.Clone();
   copyState.count = payload;
+  if (payload) copyState.status = "Undefined";
+  else copyState.status = "FirstCreated";
   return copyState;
 };
 

@@ -144,12 +144,8 @@ function MyWidget() {
     dispatch(ApplicationActionTS.OnHandleMenuItem("create-widget", true));
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(WidgetActionTS.OnChangStatus());
-    };
-  }, []);
-
+  const onSetCount = (count: number) =>
+    dispatch(WidgetActionTS.OnSetWidgetCount(count));
   return (
     <MyWidgetWrapper>
       <Container flexDirection="column">
@@ -173,6 +169,7 @@ function MyWidget() {
               onDelete={onDelete}
               onUpdate={onUpdate}
               reload={reload}
+              onSetCount={onSetCount}
             ></DataTables>
           )}
         </ContainerSection>

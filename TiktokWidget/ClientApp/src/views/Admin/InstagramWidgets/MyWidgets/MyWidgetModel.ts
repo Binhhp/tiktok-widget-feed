@@ -1,8 +1,8 @@
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 
 export class DataService {
-  public static ToDto = (obj: BaseInstagramWidget[], renderTag: any): any[] => {
+  public static ToDto = (obj: BaseTikTokWidget[], renderTag: any): any[] => {
     return obj.map((item) => {
       var dt = new Date(item.modifyDate);
       if (dt.getFullYear() < new Date().getFullYear()) {

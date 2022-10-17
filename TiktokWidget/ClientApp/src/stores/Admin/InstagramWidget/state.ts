@@ -70,7 +70,7 @@ export class InstagramWidgetStoreModelDto {
   count: number | undefined;
   status: InstagramWidgetStatus;
   constructor() {
-    this.step = 0;
+    this.step = 1;
     this.mobile = false;
     this.products = [];
     this.count = undefined;
@@ -106,10 +106,10 @@ export class InstagramWidgetStoreModel
   protected _count: number | undefined;
   protected _status: InstagramWidgetStatus;
   constructor(_dto?: InstagramWidgetStoreModelDto) {
-    this._step = _dto?.step || -1;
+    this._step = _dto?.step || 1;
     this._mobile = _dto?.mobile || false;
     this._products = _dto?.products || [];
-    this._count = _dto?.count ?? -1;
+    this._count = _dto?.count ?? 0;
     this._status = _dto?.status ?? "FirstCreated";
     this._settings = _dto?.settings || {
       id: "",

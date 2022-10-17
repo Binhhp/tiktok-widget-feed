@@ -18,24 +18,44 @@ function Header() {
   const widgetReducer = useSelector(
     (state: RootReducer) => state.TiktokWidgetReducer
   );
+
+  const instagramWidgetReducer = useSelector(
+    (state: RootReducer) => state.InstagramWidgetReducer
+  );
+
   const buttonWidgetReducer = useSelector(
     (state: RootReducer) => state.ButtonWidgetReducer
   );
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
+  const showGettingStart = () => {
+    if (window.location.pathname.includes("create-widget")) {
+      if (
+        widgetReducer.status === "FirstCreated" ||
+        widgetReducer.count === 0
+      ) {
+        return widgetReducer.step;
+      }
+    } else if (window.location.pathname.includes("instagram-step")) {
+      if (
+        instagramWidgetReducer.status === "FirstCreated" &&
+        instagramWidgetReducer.step
+      ) {
+        return instagramWidgetReducer.step;
+      }
+    }
+    return undefined;
+  };
   return (
     <HeaderWrapper>
       <LogoSection></LogoSection>
       <FlexBox>
-        {window.location.pathname.includes("create-widget") &&
-        (widgetReducer.status === "FirstCreated" ||
-          widgetReducer.count === 0) &&
-        widgetReducer.step ? (
+        {showGettingStart() ? (
           <FlexBox>
             <FlagStyle>
               <Icon source={FlagMajor} color="highlight" />
             </FlagStyle>
-            <FlagText>Getting Started: {widgetReducer.step}/3</FlagText>
+            <FlagText>Getting Started: {showGettingStart()}/3</FlagText>
           </FlexBox>
         ) : buttonWidgetReducer.step && !buttonWidgetReducer.id ? (
           <FlexBox>
