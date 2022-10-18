@@ -5,7 +5,7 @@ export default createGlobalStyle`
   font-style: normal;
   font-weight: 400;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYREGULAR.woff")
+    url("../src/assets/fonts/SFPRODISPLAYREGULAR.woff")
       format("woff");
 }
 @font-face {
@@ -13,7 +13,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 100;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYULTRALIGHTITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.woff")
       format("woff");
 }
 @font-face {
@@ -21,7 +21,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 200;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYTHINITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYTHINITALIC.woff")
       format("woff");
 }
 @font-face {
@@ -29,7 +29,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 300;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYLIGHTITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYLIGHTITALIC.woff")
       format("woff");
 }
 @font-face {
@@ -37,7 +37,7 @@ export default createGlobalStyle`
   font-style: normal;
   font-weight: 500;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYMEDIUM.woff")
+    url("../src/assets/fonts/SFPRODISPLAYMEDIUM.woff")
       format("woff");
 }
 @font-face {
@@ -45,7 +45,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 600;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYSEMIBOLDITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYSEMIBOLDITALIC.woff")
       format("woff");
 }
 @font-face {
@@ -53,7 +53,7 @@ export default createGlobalStyle`
   font-style: normal;
   font-weight: 700;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBOLD.woff")
+    url("../src/assets/fonts/SFPRODISPLAYBOLD.woff")
       format("woff");
 }
 @font-face {
@@ -61,7 +61,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 800;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYHEAVYITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYHEAVYITALIC.woff")
       format("woff");
 }
 @font-face {
@@ -69,7 +69,7 @@ export default createGlobalStyle`
   font-style: italic;
   font-weight: 900;
   src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBLACKITALIC.woff")
+    url("../src/assets/fonts/SFPRODISPLAYBLACKITALIC.woff")
       format("woff");
 }
 

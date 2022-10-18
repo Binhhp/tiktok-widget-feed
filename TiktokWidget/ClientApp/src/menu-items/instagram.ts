@@ -5,9 +5,10 @@ const instagram: IMenuItems = {
   title: "Instagram Widget",
   type: MenuItemType.Group,
   icon: ProductsMajor,
+  url: "instagram",
   children: [
     {
-      id: "instagram-step-1",
+      id: "instagram-step",
       title: "Create widget",
       type: MenuItemType.Item,
       url: "/instagram-step-1",

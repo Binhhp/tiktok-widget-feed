@@ -14,7 +14,7 @@ import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
 
 function NavItem(props: INavItemProps) {
-  const nameReducer = props.item?.chip && props.item?.chip.nameReducer;
+  const nameReducer = props.chip && props.chip.nameReducer;
   const TikTokWidgetReducer = useSelector(
     (state: RootReducer) => state.TiktokWidgetReducer
   );
@@ -40,13 +40,12 @@ function NavItem(props: INavItemProps) {
             {props?.icon && <Icon source={props.icon} color="base" />}
           </ListItemIcon>
         }
-        <Heading>{props.item?.title}</Heading>
-        {props?.item?.chip && <Chip>{RenderCount()}</Chip>}
+        <Heading>{props.title}</Heading>
+        {props?.chip && <Chip>{RenderCount()}</Chip>}
       </>
     );
   };
 
-  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
   const dispatch = useDispatch();
   const onHandleMenuItem =
     (key?: string, active: boolean = false) =>
@@ -57,14 +56,18 @@ function NavItem(props: INavItemProps) {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const activeMenu =
-    appReducer.menuActive === props?.item?.id ||
-    window.location.pathname.substring(1, window.location.pathname.length) ===
-      props.item?.id ||
-    (window.location.pathname === "/" ? props.active : false);
-  return (
+    props.level === 1
+      ? window.location.pathname === props.url
+      : window.location.pathname.includes(props.id);
+
+  return (!InstagramWidgetReducer.count ||
+    InstagramWidgetReducer.count === 0) &&
+    props.id === "my-instagram-widget" ? (
+    <></>
+  ) : (
     <ListItemWrapper>
       {!props?.selected ? (
-        props.item?.redirect ? (
+        props?.redirect ? (
           <ListItemTagHref
             href={`https://${shopReducer.shop.domain}`}
             level={props.level}
@@ -75,16 +78,16 @@ function NavItem(props: INavItemProps) {
         ) : (
           <ListItemButton
             className={activeMenu ? "active-menu" : ""}
-            to={`${props.item?.url}?shop=${shopReducer.shop.domain}` ?? "#"}
+            to={`${props.url}?shop=${shopReducer.shop.domain}` ?? "#"}
             level={props.level}
-            onClick={onHandleMenuItem(props.item?.id, true)}
+            onClick={onHandleMenuItem(props.id, true)}
           >
             {item()}
           </ListItemButton>
         )
       ) : (
         <ListItemButtonMenu
-          onClick={onHandleMenuItem(props.item?.id)}
+          onClick={onHandleMenuItem(props.id)}
           level={props.level}
         >
           {item()}

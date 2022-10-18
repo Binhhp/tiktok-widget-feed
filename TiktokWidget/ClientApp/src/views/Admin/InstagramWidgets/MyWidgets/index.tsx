@@ -27,6 +27,10 @@ import {
 import ProductModal from "./ProductsModal";
 
 function MyWidget() {
+  const widgetReducer = useSelector(
+    (state: RootReducer) => state.InstagramWidgetReducer
+  );
+
   const [modal, setModal] = useState({
     active: false,
     widget: {},
@@ -93,6 +97,10 @@ function MyWidget() {
     dispatch(InstagramWidgetActionTS.OnSetSetting(true));
   }, []);
 
+  useEffect(() => {
+    if (!widgetReducer.count) return navigate("/instagram-step-1");
+  }, [widgetReducer.count]);
+
   const onReloadData = () => {
     handleClose();
     setReload(Math.floor(Math.random() * 1000));
@@ -156,10 +164,10 @@ function MyWidget() {
 
   return (
     <MyWidgetWrapper>
-      <Container flexDirection="column">
-        <ContainerSection width={100} mb={30}>
+      <Container bg="transparent" flexDirection="column">
+        <ContainerSection bg="transparent" width={100} mb={30}>
           <MyWidgetHeader>
-            <h2>My Widgets</h2>
+            <h2>My Widget</h2>
           </MyWidgetHeader>
         </ContainerSection>
         <ContainerSection height={100} width={100}>

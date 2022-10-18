@@ -1,13 +1,17 @@
-import { IMenuChildrens } from "menu-items/MenuModel";
+import { RootReducer } from "stores/Admin/reducers";
 
 export interface INavItemProps {
   level: number;
   disabled?: boolean;
-  key: string;
-  item?: IMenuChildrens;
+  id: string;
+  title: string;
+  chip?: {
+    nameReducer: keyof RootReducer;
+  };
   icon?: any;
   selected?: boolean;
-  active?: boolean;
+  redirect?: boolean;
+  url: string;
 }
 
 export interface IPropListItemButton {

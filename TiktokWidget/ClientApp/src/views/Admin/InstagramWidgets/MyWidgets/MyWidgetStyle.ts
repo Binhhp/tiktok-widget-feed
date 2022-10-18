@@ -146,8 +146,7 @@ export const ProductModalWrapper = styled("div")`
 
 export const MyWidgetWrapper = styled("div")`
   width: 100%;
-  height: 100%;
-  background-color: #ffffff;
+  max-height: 100%;
   padding: 50px;
   @media only screen and (${breakpoints.device.lg}) {
     padding: 20px 10px;
@@ -156,6 +155,23 @@ export const MyWidgetWrapper = styled("div")`
         font-size: 20px;
       }
     }
+  }
+  thead {
+    border-bottom: 1px solid #e1e3e5;
+  }
+  .Polaris-IndexTable,
+  .Polaris-IndexTable-ScrollContainer {
+    height: max-content !important;
+    max-height: 96%;
+  }
+
+  .Polaris-IndexTable__TableHeading,
+  .Polaris-IndexTable__TableCell {
+    padding-left: 1rem !important;
+  }
+
+  .Polaris-IndexTable__ScrollBarContainer {
+    display: none !important;
   }
 `;
 
