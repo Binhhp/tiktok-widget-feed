@@ -30,9 +30,9 @@ export const DataTablesProvider = styled("div")<IDataTableProvider>`
   tbody {
     height: ${(props) => `${props.maxHeight}px` || `100%`};
   }
-  thead {
+  /* thead {
     width: calc(100% - 1em);
-  }
+  } */
   thead th {
     font-weight: 700;
     height: 50px;

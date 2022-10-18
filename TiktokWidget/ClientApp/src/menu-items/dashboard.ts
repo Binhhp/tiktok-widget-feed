@@ -7,7 +7,6 @@ const dashboard: IMenuItems = {
   title: "Dashboard",
   url: "/",
   icon: HomeMajor,
-  active: true,
 };
 
 export default dashboard;

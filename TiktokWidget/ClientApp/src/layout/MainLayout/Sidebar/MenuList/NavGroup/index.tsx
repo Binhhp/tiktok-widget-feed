@@ -1,8 +1,11 @@
 import { TextStyle } from "@shopify/polaris";
-import { IMenuChildrens, IMenuItems, MenuItemType } from "menu-items/MenuModel";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ApplicationActionTS } from "stores/Admin/Application/action";
+import {
+  IMenuChildrents,
+  IMenuItems,
+  MenuItemType,
+} from "menu-items/MenuModel";
+import React from "react";
+import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import NavItem from "../NavItem";
 
@@ -19,17 +22,19 @@ interface INavGroupProps {
 
 function NavGroup(props: INavGroupProps) {
   const appReducer = useSelector((state: RootReducer) => state.AppReducer);
-  const items = props.item?.children?.map((menu: IMenuChildrens) => {
+  const items = props.item?.children?.map((menu: IMenuChildrents) => {
     switch (menu.type) {
       case MenuItemType.Item:
         return (
           <NavItem
             icon={menu.icon}
-            key={menu.id}
+            id={menu.id}
             disabled={menu?.disabled}
             level={2}
-            item={menu}
-            active={menu.active}
+            title={menu.title}
+            chip={menu.chip}
+            redirect={menu.redirect}
+            url={menu.url}
           ></NavItem>
         );
 
@@ -37,30 +42,19 @@ function NavGroup(props: INavGroupProps) {
         return (
           <NavItem
             icon={menu.icon}
-            key={menu.id}
+            id={menu.id}
             disabled={menu?.disabled}
             level={2}
-            item={menu}
-            active={menu.active}
+            title={menu.title}
+            chip={menu.chip}
+            redirect={menu.redirect}
+            url={menu.url}
           ></NavItem>
         );
       default:
         return <TextStyle variation="negative">Menu Items Error</TextStyle>;
     }
   });
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (
-      props.item?.children &&
-      props.item?.children?.length > 0 &&
-      props.item?.children.filter((x: any) =>
-        appReducer?.menuActive.includes(x.id)
-      ).length > 0
-    ) {
-      dispatch(ApplicationActionTS.OnHandleMenuItem(props.item?.id));
-    }
-  }, []);
 
   return (
     <NavGroupWrapper>
@@ -70,15 +64,16 @@ function NavGroup(props: INavGroupProps) {
       <NavItem
         selected={props.item?.children ? true : false}
         icon={props.item.icon}
-        key={props.item.id}
+        id={props.item.id}
+        title={props.item.title}
+        url={props.item.url}
         level={1}
-        item={props.item}
-        active={props.item.active}
       ></NavItem>
       {props.item?.children &&
-        appReducer.menuItems.filter((x) => x === props.item?.id).length > 0 && (
-          <NavGroupMenuItem>{items}</NavGroupMenuItem>
-        )}
+        (appReducer.menuItems.some((x) => x === props.item?.id) ||
+          props.item.children.some((x) =>
+            window.location.pathname.includes(x.id)
+          )) && <NavGroupMenuItem>{items}</NavGroupMenuItem>}
     </NavGroupWrapper>
   );
 }

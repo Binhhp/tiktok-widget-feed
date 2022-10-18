@@ -4,11 +4,11 @@ export enum MenuItemType {
   Group,
   Item,
 }
-export interface IMenuChildrens {
+export interface IMenuChildrents {
   id: string;
   title: string;
   type: MenuItemType;
-  url?: string;
+  url: string;
   redirect?: boolean;
   icon?: any;
   disabled?: boolean;
@@ -22,8 +22,8 @@ export interface IMenuItems {
   title: string;
   type: MenuItemType;
   icon: any;
-  url?: string;
+  url: string;
   label?: string;
   active?: boolean;
-  children?: IMenuChildrens[];
+  children?: IMenuChildrents[];
 }
