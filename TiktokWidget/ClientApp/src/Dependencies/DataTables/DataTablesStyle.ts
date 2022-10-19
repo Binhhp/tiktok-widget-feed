@@ -6,7 +6,7 @@ export const DataTablesProvider = styled("div")<IDataTableProvider>`
   height: 100%;
   .Polaris-IndexTable,
   .Polaris-IndexTable-ScrollContainer {
-    height: 96%;
+    height: 100%;
   }
   .Polaris-IndexTable__TableCell,
   .Polaris-IndexTable__TableHeading {

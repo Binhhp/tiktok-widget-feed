@@ -189,18 +189,26 @@ function DataTables(props: IDataTableProps) {
           </>
         )}
         {loading && (
-          <AbsoluteCenter>
-            <Spinner size="large" />
-          </AbsoluteCenter>
+          <tr>
+            <td>
+              <AbsoluteCenter>
+                <Spinner size="large" />
+              </AbsoluteCenter>
+            </td>
+          </tr>
         )}
         {!loading && dataTable?.length === 0 && (
-          <AbsoluteCenter>
-            <EmptySearchResult
-              title="No data available"
-              description="You can create a new widget above"
-              withIllustration
-            />
-          </AbsoluteCenter>
+          <tr>
+            <td>
+              <AbsoluteCenter>
+                <EmptySearchResult
+                  title="No data available"
+                  description="You can create a new widget above"
+                  withIllustration
+                />
+              </AbsoluteCenter>
+            </td>
+          </tr>
         )}
       </IndexTable>
     </DataTablesProvider>

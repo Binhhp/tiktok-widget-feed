@@ -170,7 +170,7 @@ function MyWidget() {
             <h2>My Widget</h2>
           </MyWidgetHeader>
         </ContainerSection>
-        <ContainerSection height={100} width={100}>
+        <ContainerSection bg="transparent" height={100} width={100}>
           {shopReducer.shop.domain && (
             <DataTables
               columns={WidgetColumns}
