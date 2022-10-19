@@ -35,6 +35,7 @@ function NavGroup(props: INavGroupProps) {
             chip={menu.chip}
             redirect={menu.redirect}
             url={menu.url}
+            key={menu?.id}
           ></NavItem>
         );
 
@@ -49,6 +50,7 @@ function NavGroup(props: INavGroupProps) {
             chip={menu.chip}
             redirect={menu.redirect}
             url={menu.url}
+            key={menu?.id}
           ></NavItem>
         );
       default:
