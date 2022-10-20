@@ -1,7 +1,7 @@
 import styled from "Dependencies/StyledComponents/Container";
 
 export const TittleStepOne = styled("h2")`
-  width: 300px;
+  width: 100%;
   font-weight: 700;
   font-size: 20px;
   line-height: 29px;

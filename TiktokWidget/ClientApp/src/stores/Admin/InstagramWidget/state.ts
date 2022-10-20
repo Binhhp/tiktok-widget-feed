@@ -74,7 +74,7 @@ export class InstagramWidgetStoreModelDto {
     this.mobile = false;
     this.products = [];
     this.count = undefined;
-    this.status = "FirstCreated";
+    this.status = "Undefined";
     this.settings = {
       id: "",
       title: "",
@@ -110,7 +110,7 @@ export class InstagramWidgetStoreModel
     this._mobile = _dto?.mobile || false;
     this._products = _dto?.products || [];
     this._count = _dto?.count ?? 0;
-    this._status = _dto?.status ?? "FirstCreated";
+    this._status = _dto?.status ?? "Undefined";
     this._settings = _dto?.settings || {
       id: "",
       title: "",

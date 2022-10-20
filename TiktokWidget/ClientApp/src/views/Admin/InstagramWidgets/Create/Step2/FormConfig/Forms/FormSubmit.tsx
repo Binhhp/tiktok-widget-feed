@@ -69,15 +69,13 @@ export default function FormSubmit() {
         dispatch(InstagramWidgetActionTS.OnStep(3));
         dispatch(InstagramWidgetActionTS.OnSetSetting(true));
         const shopReponsitory = new ShopReponsitory();
-        shopReponsitory
-          .GetInstagramCount(shopReducer.shop.domain ?? "")
-          .then((val) => {
-            if (val === 1) {
-              dispatch(InstagramWidgetActionTS.OnChangStatus("FirstCreated"));
-            }
-
-            dispatch(InstagramWidgetActionTS.OnSetWidgetCount(val));
-          });
+        const result = await shopReponsitory.GetInstagramCount(
+          shopReducer.shop.domain ?? ""
+        );
+        if (result === 1) {
+          dispatch(InstagramWidgetActionTS.OnChangStatus("FirstCreated"));
+        }
+        dispatch(InstagramWidgetActionTS.OnSetWidgetCount(result));
         setLoading(false);
 
         return navigate(`/instagram-step-3?shop=${shopReducer.shop.domain}`);

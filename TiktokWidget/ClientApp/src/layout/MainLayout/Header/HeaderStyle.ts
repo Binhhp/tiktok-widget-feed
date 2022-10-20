@@ -46,7 +46,9 @@ export const Account = styled("div")`
 `;
 
 export const AccountName = styled("div")`
-  font-weight: 500;
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   color: #202223;

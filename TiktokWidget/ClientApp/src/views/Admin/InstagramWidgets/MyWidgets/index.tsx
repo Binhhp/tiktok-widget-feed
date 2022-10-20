@@ -98,7 +98,8 @@ function MyWidget() {
   }, []);
 
   useEffect(() => {
-    if (!widgetReducer.count) return navigate("/instagram-step-1");
+    if (!widgetReducer.count)
+      return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
   }, [widgetReducer.count]);
 
   const onReloadData = () => {

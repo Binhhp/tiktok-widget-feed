@@ -18,7 +18,7 @@ export const ListItemTagHref = styled("a")<IPropListItemButton>`
 
   &:hover {
     background: #edeeef;
-    color: rgba(255, 11, 83, 1);
+    color: rgba(255, 11, 83, 1) !important;
     border-radius: 4px;
     svg {
       fill: rgba(255, 11, 83, 1);
@@ -53,7 +53,9 @@ export const ListItemButton = styled(Link)<IPropListItemButton>`
 
   &:hover {
     background: #edeeef;
-    color: rgba(255, 11, 83, 1);
+    h2 {
+      color: rgba(255, 11, 83, 1) !important;
+    }
     border-radius: 4px;
     svg {
       fill: rgba(255, 11, 83, 1);

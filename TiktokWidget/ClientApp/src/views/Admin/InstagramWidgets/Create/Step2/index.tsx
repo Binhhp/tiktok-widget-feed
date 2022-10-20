@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
-import { FlexboxDiv, InstagramWidgetWrapper } from "../CreateWidgetStyle";
+import { FlexboxDiv } from "../CreateWidgetStyle";
+import InstagramCreateHOC from "../InstagramCreateHOC";
 import FormConfigs from "./FormConfig/Forms";
 import LiveTemplates from "./FormConfig/LiveTemplates";
 import TemplateSelect from "./Patterns";
@@ -26,7 +27,7 @@ function Step2() {
   }, []);
 
   return (
-    <InstagramWidgetWrapper>
+    <InstagramCreateHOC>
       {widgetReducer.step === 2 && (
         <FlexboxDiv>
           <TemplateSelect></TemplateSelect>
@@ -36,7 +37,7 @@ function Step2() {
           </FormLayoutContainer>
         </FlexboxDiv>
       )}
-    </InstagramWidgetWrapper>
+    </InstagramCreateHOC>
   );
 }
 

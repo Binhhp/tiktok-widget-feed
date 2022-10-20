@@ -1,78 +1,13 @@
 import { createGlobalStyle } from "styled-components";
+import FontUrl from "assets/fonts/SFProText-Regular.ttf";
+
 export default createGlobalStyle`
     @font-face {
   font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 400;
   src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYREGULAR.woff")
-      format("woff");
+    url(${FontUrl})
+      format("truetype");
 }
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 100;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 200;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYTHINITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 300;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYLIGHTITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 500;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYMEDIUM.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 600;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYSEMIBOLDITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 700;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYBOLD.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 800;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYHEAVYITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 900;
-  src: local("SF Pro Display"),
-    url("./assets/fonts/SFPRODISPLAYBLACKITALIC.woff")
-      format("woff");
-}
-
 html,
 body {
   font-family: "SF Pro Display";

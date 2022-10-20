@@ -86,7 +86,11 @@ const OnSetCount = (state: WidgetStoreModel, payload: number | undefined) => {
 
 const OnChangeStatus = (state: WidgetStoreModel, status: WidgetStatus) => {
   let copyState = state.Clone();
-  copyState.status = status;
+  if (copyState.count === 0) {
+    copyState.status = status;
+  } else {
+    copyState.status = "Undefined";
+  }
   return copyState;
 };
 
