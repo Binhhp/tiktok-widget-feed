@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { IGuidesState } from "./Guides/GuidesModel";
@@ -18,6 +19,7 @@ function StepThree() {
     (state: RootReducer) => state.TiktokWidgetReducer
   );
 
+  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const [state, setState] = useState<IGuidesState>({
     step: 1,
   });
@@ -36,6 +38,13 @@ function StepThree() {
       });
     };
   }, [dispatch]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!widgetReducer.settings.valueSource) {
+      return navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
+    }
+  }, []);
 
   return (
     <GuidesWrapper>

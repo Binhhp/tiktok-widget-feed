@@ -1,12 +1,12 @@
-import { Button, Pagination } from "@shopify/polaris";
+import { Pagination } from "@shopify/polaris";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { ChatPlugin } from "common/functions/ChatPlugin";
-import { LinkRouter } from "common/style/UtilStyles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/Admin/reducers";
 import { FlexboxDiv, InstagramWidgetWrapper } from "../CreateWidgetStyle";
+import InstagramCreateHOC from "../InstagramCreateHOC";
 import MediaCardGuides from "../MediaCardGuides";
 import {
   DivActionStep,
@@ -25,13 +25,25 @@ import {
 
 function Step3() {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
+  const widgetReducer = useSelector(
+    (state: RootReducer) => state.InstagramWidgetReducer
+  );
 
   const [step, setStep] = useState(1);
   const onNext = () => setStep(2);
   const onPrevious = () => setStep(1);
 
-  return (
-    <InstagramWidgetWrapper>
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (widgetReducer.step !== 3) {
+      return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+    }
+  }, []);
+
+  return widgetReducer.step !== 3 ? (
+    <></>
+  ) : (
+    <InstagramCreateHOC>
       <FlexboxDiv>
         {step === 1 ? (
           <Step3Wrapper>
@@ -105,7 +117,7 @@ function Step3() {
         )}
         <MediaCardGuides></MediaCardGuides>
       </FlexboxDiv>
-    </InstagramWidgetWrapper>
+    </InstagramCreateHOC>
   );
 }
 

@@ -38,8 +38,8 @@ function Header() {
       }
     } else if (window.location.pathname.includes("instagram-step")) {
       if (
-        instagramWidgetReducer.status === "FirstCreated" &&
-        instagramWidgetReducer.step
+        instagramWidgetReducer.status === "FirstCreated" ||
+        instagramWidgetReducer.count === 0
       ) {
         return instagramWidgetReducer.step;
       }
