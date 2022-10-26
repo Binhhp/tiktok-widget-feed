@@ -2,6 +2,7 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -18,12 +19,14 @@ namespace TiktokWidget.Controllers
         private readonly IProductService _productService;
         private readonly IWidgetService _widgetService;
         private readonly IInstagramWidgetService _instagramWidgetService;
-        public ShopsController(IShopService shopService, IProductService productService, IWidgetService widgetService, IInstagramWidgetService instagramWidgetService)
+        private readonly IPerformancesService _performancesService;
+        public ShopsController(IShopService shopService, IProductService productService, IWidgetService widgetService, IInstagramWidgetService instagramWidgetService, IPerformancesService performancesService)
         {
             _shopService = shopService;
             _productService = productService;
             _widgetService = widgetService;
             _instagramWidgetService = instagramWidgetService;
+            _performancesService = performancesService;
         }
 
         [HttpGet]
@@ -120,7 +123,7 @@ namespace TiktokWidget.Controllers
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("Shops({domain})/Widgets")]
+        [ODataRoute("Shops({domain})/TikTokWidgets")]
         public IActionResult GetWidgets([FromODataUri] string domain)
         {
             var result = _widgetService.Get(domain);
@@ -137,15 +140,15 @@ namespace TiktokWidget.Controllers
         }
 
         [HttpPost]
-        [ODataRoute("Shops({domain})/RegisterWidget")]
-        public async Task<IActionResult> RegisterWidget([FromODataUri] string domain, [FromBody] WidgetCreateDto request)
+        [ODataRoute("Shops({domain})/RegisterTikTokWidget")]
+        public async Task<IActionResult> RegisterTikTokWidget([FromODataUri] string domain, [FromBody] WidgetCreateDto request)
         {
             var response = await _widgetService.CreateAsync(domain, request);
             return Ok(response);
         }
 
         [HttpPost]
-        [ODataRoute("Shops({domain})/RegisterInstagramWidgets")]
+        [ODataRoute("Shops({domain})/RegisterInstagramWidget")]
         public async Task<IActionResult> RegisterInstagramWidgets([FromODataUri] string domain, [FromBody] CreateInstagramWidgetRequest request)
         {
             var response = await _instagramWidgetService.CreateWidgetsAsync(domain, request);
@@ -158,6 +161,15 @@ namespace TiktokWidget.Controllers
         {
             var response = await _widgetService.AddJob(request);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Shops({domain})/Traffic")]
+        public IActionResult GetTraffic([FromODataUri] string domain)
+        {
+            var result = _performancesService.Get(domain);
+            return Ok(result);
         }
     }
 }

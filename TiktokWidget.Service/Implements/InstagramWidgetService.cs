@@ -1,16 +1,21 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Orichi.IoC.Logging.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
+using TiktokWidget.Service.Models;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -153,7 +158,7 @@ namespace TiktokWidget.Service.Implements
                     throw new NotFoundException(products.First().ShopId.ToString());
                 }
 
-                var productOfWidget = _widgetDbContext.Product.Where(x => x.Widget.Id == widget.Id).ToList();
+                var productOfWidget = _widgetDbContext.Product.Where(x => x.InstagramWidget.Id == widget.Id).ToList();
                 if (productOfWidget.Any())
                 {
                     _widgetDbContext.Product.RemoveRange(productOfWidget);
@@ -163,7 +168,7 @@ namespace TiktokWidget.Service.Implements
                 var productEntities = products.Select(x => new ProductEntity
                 {
                     Handle = x.Handle,
-                    Id = x.Id,
+                    ProductId = x.Id,
                     Image = x.Image,
                     Prices = x.Prices,
                     Title = x.Title,
@@ -181,6 +186,33 @@ namespace TiktokWidget.Service.Implements
             }
             await _widgetDbContext.SaveChangesAsync();
             return response;
+        }
+
+        public IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request)
+        {
+            //var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
+            //string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+            //var JSON = File.ReadAllText(pathFile);
+            //if (!string.IsNullOrEmpty(JSON))
+            //{
+            //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+            //}
+            //return response;
+            return InstagramVideoSeedData.Seed();
+        }
+        public IQueryable<InstagramViewModel> GetVideos(string widgetId)
+        {
+            //var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
+            //string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+            //var JSON = File.ReadAllText(pathFile);
+            //if (!string.IsNullOrEmpty(JSON))
+            //{
+            //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+            //}
+            //return response;
+            return InstagramVideoSeedData.Seed();
         }
     }
 }

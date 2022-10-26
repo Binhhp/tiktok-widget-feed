@@ -155,7 +155,7 @@ namespace TiktokWidget.Service.Implements
                 var productEntities = products.Select(x => new ProductEntity
                 {
                     Handle = x.Handle,
-                    Id = x.Id,
+                    ProductId = x.Id,
                     Image = x.Image,
                     Prices = x.Prices,
                     Title = x.Title,
