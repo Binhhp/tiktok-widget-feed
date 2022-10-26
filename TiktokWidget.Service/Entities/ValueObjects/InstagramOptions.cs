@@ -10,7 +10,6 @@ namespace TiktokWidget.Service.Entities.ValueObjects
         [MaxLength(155)]
         public string LabelLoadMore { get; set; }
         public bool ShowNetworkIcon { get; set; }
-        [MaxLength(18)]
         public string LoadMoreBackGround { get; set; }
         [MaxLength(18)]
         public string ItemBackGround { get; set; }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
+using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
 using TiktokWidget.Service.Entities;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Interfaces
 {
@@ -19,5 +21,7 @@ namespace TiktokWidget.Service.Interfaces
         Task<ResponseBase> DeleteAsync(string key);
         Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products);
         int GetCounts(string domain);
+        IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request);
+        IQueryable<InstagramViewModel> GetVideos(string widgetId);
     }
 }

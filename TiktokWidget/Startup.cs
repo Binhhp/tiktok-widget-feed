@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNet.OData.Batch;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Query;
@@ -16,6 +17,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiktokWidget.Middlewares.GlobalExceptionHandler;
 using TiktokWidget.ODataEntities;
+using TiktokWidget.Service;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Validators;
@@ -25,10 +27,12 @@ namespace TiktokWidget
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup()
+        public IWebHostEnvironment Environment { get; set; }
+        public Startup(IWebHostEnvironment env)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true).Build();
             Configuration = configuration;
+            Environment = env;
         }
 
         private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -81,13 +85,17 @@ namespace TiktokWidget
                     builder.SetIsOriginAllowed(isOriginAllowed: _ => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
             });
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            if (Environment.EnvironmentName != "Development")
             {
-                configuration.RootPath = "ClientApp/build";
-            });
+                // In production, the React files will be served from this directory
+                services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "ClientApp/build";
+                });
+            }
 
             services.InitCoreComponents();
+            services.AddMediatR(typeof(MediatREntrypoint).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,7 +104,8 @@ namespace TiktokWidget
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            if (env.EnvironmentName != "Development")
+                app.UseSpaStaticFiles();
             //SPA
             app.UseRouting();
             app.UseMvc(routes =>
@@ -115,14 +124,17 @@ namespace TiktokWidget
                 endpoints.MapODataRoute(routeName: "odata", routePrefix: "odata", OdataEdmEntity.GetEdmModel(), new DefaultODataBatchHandler());
             });
 
-            app.UseSpa(spa =>
+            if(env.EnvironmentName != "Development")
             {
-                spa.Options.SourcePath = "ClientApp";
-                if(env.EnvironmentName == "Development")
+                app.UseSpa(spa =>
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                    spa.Options.SourcePath = "ClientApp";
+                    if (env.EnvironmentName == "Testing")
+                    {
+                        spa.UseReactDevelopmentServer(npmScript: "start");
+                    }
+                });
+            }
         }
     }
 }

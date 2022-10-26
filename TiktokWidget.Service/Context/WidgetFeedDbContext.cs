@@ -15,6 +15,7 @@ namespace TiktokWidget.Service.Context
         public DbSet<ShopEntity> Shop { get; set; }
         public DbSet<ShopConfigurationEntity> ShopConfiguration { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
+        public DbSet<PerformancesEntity> Performances { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,9 +45,9 @@ namespace TiktokWidget.Service.Context
                 v => v == "hashtag" ? SourceTypeEnum.HashTag : v == "product" ? SourceTypeEnum.Product : SourceTypeEnum.UserName);
 
             //Config Product
-            modelBuilder.Entity<ProductEntity>().ToTable("Product");
+            modelBuilder.Entity<ProductEntity>().ToTable("Product").HasKey(x => new { x.Id, x.ShopId });
             
-            //Config Shop Configuration
+            //Config Shop Configuration 
             modelBuilder.Entity<ShopConfigurationEntity>().ToTable("ShopConfiguration");
             
             //Config Shop
@@ -63,8 +64,8 @@ namespace TiktokWidget.Service.Context
             instagramWidget.HasIndex(p => p.WidgetTitle);
             instagramWidget.HasKey(p => p.Id);
             instagramWidget.Property(x => x.Id).HasMaxLength(100);
-            instagramWidget.Property(p => p.WidgetTitle).IsRequired().IsUnicode(true).HasMaxLength(150);
-            instagramWidget.Property(p => p.ValueSource).IsRequired().IsUnicode(true).HasMaxLength(255);
+            instagramWidget.Property(p => p.WidgetTitle).IsRequired().HasMaxLength(150);
+            instagramWidget.Property(p => p.ValueSource).IsRequired().HasMaxLength(255);
             instagramWidget.Property(g => g.SourceType).HasMaxLength(50);
             instagramWidget.Property(g => g.SourceType)
                 .HasConversion(
@@ -72,6 +73,10 @@ namespace TiktokWidget.Service.Context
                 v => v == "hashtag" ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName);
             instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
+
+            //Config performances of shop
+            var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
+            performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
         }
 
 
