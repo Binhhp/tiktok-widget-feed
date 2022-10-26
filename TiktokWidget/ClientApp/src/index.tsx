@@ -78,3 +78,54 @@ String.prototype.format = function () {
     return typeof args[index] == 'undefined' ? match : args[index];
   });
 };
+
+// import React from "react";
+// import ReactDOM from "react-dom/client";
+// // third party
+// import { BrowserRouter } from "react-router-dom";
+// import { Provider } from "react-redux";
+// import GlobalStyle from "./views/Layout/GlobalStyle";
+// import workerTikTokManager from "stores/Layout/TikTok";
+// import TikTokApp from "./views/Layout/TikTok/TikTokApp";
+// import { StyleSheetManager } from "styled-components";
+// import Instagram from "./views/Layout/Instagram";
+
+// const elements = document.querySelectorAll("div[name='orichi']");
+
+// const elementInstagram = document.querySelectorAll(
+//   "div[name='orichi'][data-type='ins']"
+// );
+
+// if (elements && elements.length > 0) {
+//   elements.forEach((element) => {
+//     const root = ReactDOM.createRoot(element);
+//     const widgetId = element.getAttribute("data-id");
+//     root.render(
+//       <StyleSheetManager disableVendorPrefixes>
+//         <Provider store={workerTikTokManager.store}>
+//           <BrowserRouter>
+//             <GlobalStyle />
+//             <TikTokApp widgetId={widgetId} />
+//           </BrowserRouter>
+//         </Provider>
+//       </StyleSheetManager>
+//     );
+//   });
+// }
+
+// if (elementInstagram && elementInstagram.length > 0) {
+//   elementInstagram.forEach((element) => {
+//     const root = ReactDOM.createRoot(element);
+//     const widgetId = element.getAttribute("data-id");
+//     root.render(
+//       <StyleSheetManager disableVendorPrefixes>
+//         <Provider store={workerTikTokManager.store}>
+//           <BrowserRouter>
+//             <GlobalStyle />
+//             <Instagram widgetId={widgetId} />
+//           </BrowserRouter>
+//         </Provider>
+//       </StyleSheetManager>
+//     );
+//   });
+// }

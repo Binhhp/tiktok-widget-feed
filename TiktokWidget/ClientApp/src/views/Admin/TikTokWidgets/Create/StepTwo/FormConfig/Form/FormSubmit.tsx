@@ -1,5 +1,5 @@
 import { Button } from "@shopify/polaris";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";

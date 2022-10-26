@@ -67,17 +67,18 @@ function Header() {
         ) : (
           ""
         )}
-        <Account>
-          <Avatar
-            round={true}
-            size="30"
-            name={shopReducer.shop.domain}
-          ></Avatar>
-          <AccountName>{shopReducer.shop.domain}</AccountName>
-        </Account>
+        <AvatarDisplay name={shopReducer.shop.domain} />
       </FlexBox>
     </HeaderWrapper>
   );
 }
 
-export default Header;
+const AvatarDisplay = React.memo(({ name }: any) => {
+  return (
+    <Account>
+      <Avatar round={true} size="30" name={name}></Avatar>
+      <AccountName>{name}</AccountName>
+    </Account>
+  );
+});
+export default React.memo(Header);

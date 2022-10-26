@@ -66,7 +66,7 @@ function ColorPickerWidget(props: IColorPickerWidget) {
         onClick={onActive}
       >
         <ExpandColor bg={props.color}></ExpandColor>
-        <span>{props.color}</span>
+        <span>{props.color?.substring(0, 15)}</span>
       </ButtonCustom>
     </ColorPickerMain>
   );

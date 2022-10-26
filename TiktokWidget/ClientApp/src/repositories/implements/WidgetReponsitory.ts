@@ -7,7 +7,7 @@ import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import {
   ITikTokVideoDto,
   IVideoTemplateModel,
-} from "Dependencies/LayoutTemplate/LayoutTemplateModel";
+} from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { ODataQuery } from "common/functions/ODataQuery";
 import DataTableFunc from "Dependencies/DataTables/DataTableModel";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
@@ -44,7 +44,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   ): Promise<IVideoTemplateModel> => {
     try {
       return DataTableFunc.BuildPaging<ITikTokVideoDto>(
-        `${RootURL.ApiBase}/odata/widgetVideos('${key}')`,
+        `${RootURL.ApiBase}/odata/TikTokVideos('${key}')`,
         pageIndex,
         showItems ? showItems : config.showItems,
         "video,music,challenges"
@@ -62,7 +62,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     showItems?: number
   ): Promise<IVideoTemplateModel> => {
     return DataTableFunc.BuildPaging<ITikTokVideoDto>(
-      `${RootURL.ApiBase}/odata/widgetVideos('')`,
+      `${RootURL.ApiBase}/odata/TikTokVideos`,
       1,
       showItems ? showItems : config.showItems,
       "video,music,challenges",
@@ -76,17 +76,17 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   ): Promise<BaseResponse> => {
     const response = await FetchDataFromServer({
       method: "POST",
-      url: `${RootURL.ApiBase}/odata/shops('${domain}')/RegisterWidget`,
+      url: `${RootURL.ApiBase}/odata/shops('${domain}')/RegisterTikTokWidget`,
       body: req,
     });
     return response;
   };
 
   Get = async (pageIndex?: number, domain?: string) => {
-    let url = `${RootURL.ApiBase}/odata/shops('${domain}')/widgets?$expand=products,shops&$count=true`;
+    let url = `${RootURL.ApiBase}/odata/shops('${domain}')/TikTokWidgets?$expand=products,shops&$count=true`;
     if (pageIndex) {
       url = ODataQuery.BuildODataQuery(
-        `${RootURL.ApiBase}/odata/shops('${domain}')/widgets`,
+        `${RootURL.ApiBase}/odata/shops('${domain}')/TikTokWidgets`,
         {
           pageIndex: pageIndex,
           pageNumber: 10,
@@ -115,7 +115,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   Delete = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "DELETE",
-      url: `${RootURL.ApiBase}/odata/widgets('${key}')`,
+      url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')`,
     });
     return response;
   };
@@ -123,7 +123,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   GetById = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
-      url: `${RootURL.ApiBase}/odata/widgets('${key}')?$expand=products,shops`,
+      url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')?$expand=products,shops`,
     });
     return response;
   };
@@ -131,7 +131,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   Update = async (key: string, req: UpdateWidgetRequest) => {
     const response = await FetchDataFromServer({
       method: "PUT",
-      url: `${RootURL.ApiBase}/odata/widgets('${key}')`,
+      url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')`,
       body: req,
     });
     return response;
@@ -143,7 +143,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
   ): Promise<BaseResponse> => {
     const response = await FetchDataFromServer({
       method: "POST",
-      url: `${RootURL.ApiBase}/odata/widgets('${key}')/UpdateProduct`,
+      url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')/UpdateProduct`,
       body: req,
     });
     return response;

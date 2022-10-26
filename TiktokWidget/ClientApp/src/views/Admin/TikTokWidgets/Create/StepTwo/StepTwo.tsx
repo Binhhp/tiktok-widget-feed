@@ -11,7 +11,7 @@ import { Container, ContainerSection } from "common/style/UtilStyles";
 import CreateWidgetProvider from "../CreateWidgetProvider";
 import { useNavigate } from "react-router-dom";
 import FormSubmit from "./FormConfig/Form/FormSubmit";
-import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 
 function StepTwo() {
   const widgetReducer = useSelector(

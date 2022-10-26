@@ -1,6 +1,5 @@
 import { IWidget } from "common/interfaces/IWidget";
-import { IItemState } from "Dependencies/LayoutTemplate/LayoutTemplateType";
-
+import { IItemState } from "Dependencies/TikTokLayout/LayoutTemplateType";
 export class DefaultItemProvider {
   public items: IItemState[];
   public widget: IWidget[];

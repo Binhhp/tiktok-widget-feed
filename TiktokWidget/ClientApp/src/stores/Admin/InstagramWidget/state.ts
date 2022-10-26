@@ -1,6 +1,6 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 
 export interface IInstagramWidget {
@@ -52,8 +52,8 @@ export class InstagramWidget implements IInstagramWidget {
     this.showNetworkIcon = dto?.setting.showNetworkIcon ? "enable" : "disable";
     this.itemBackground = dto?.setting.itemBackGround || "";
     this.itemColor = dto?.setting.itemColor || "";
-    this.numberItemPerRow = dto?.setting.numberPerRow || 3;
-    this.limitItem = dto?.setting.limitItems || 10;
+    this.numberItemPerRow = dto?.setting.numberPerRow || 4;
+    this.limitItem = dto?.setting.limitItems || 16;
     this.products = dto?.products || [];
   }
   ToDto = (): IInstagramWidget => {
@@ -83,14 +83,15 @@ export class InstagramWidgetStoreModelDto {
       layout: TemplateType.Slider,
       header: "enable",
       titleHeader: "Follow us on Instagram",
-      labelReadMore: "Read more",
+      labelReadMore: "readmore",
       labelLoadMore: "Load more",
       showNetworkIcon: "enable",
-      loadMoreBackground: "#000000",
-      itemBackground: "#fafafa",
-      itemColor: "#000000",
-      numberItemPerRow: 12,
-      limitItems: 12,
+      loadMoreBackground:
+        "linear-gradient(90.43deg, #1877F2 -127.39%, #CE00F2 -41.29%, #FF5656 86.62%, #FF6C00 210.4%)",
+      itemBackground: "#000000",
+      itemColor: "#fafafa",
+      numberItemPerRow: 4,
+      limitItems: 16,
       products: [],
     };
   }
@@ -119,14 +120,15 @@ export class InstagramWidgetStoreModel
       layout: TemplateType.Slider,
       header: "enable",
       titleHeader: "Follow us on Instagram",
-      labelReadMore: "Read more",
+      labelReadMore: "readmore",
       labelLoadMore: "Load more",
       showNetworkIcon: "enable",
-      loadMoreBackground: "#000000",
-      itemBackground: "#fafafa",
-      itemColor: "#000000",
-      numberItemPerRow: 12,
-      limitItems: 12,
+      loadMoreBackground:
+        "linear-gradient(90.43deg, #1877F2 -127.39%, #CE00F2 -41.29%, #FF5656 86.62%, #FF6C00 210.4%)",
+      itemBackground: "#000000",
+      itemColor: "#fafafa",
+      numberItemPerRow: 4,
+      limitItems: 16,
       products: [],
     };
   }

@@ -1,5 +1,5 @@
 import { ImageStorage } from "assets/images/ImageStorage";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 
 interface ITemplateLayout {
   key: TemplateType;

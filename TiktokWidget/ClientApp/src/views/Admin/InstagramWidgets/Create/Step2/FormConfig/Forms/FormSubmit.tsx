@@ -2,7 +2,6 @@ import { Button } from "@shopify/polaris";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
 import { RootReducer } from "stores/Admin/reducers";
 import { FormSubmitWrapper } from "../../Patterns/PatternStyle";
 import toast from "react-hot-toast";
@@ -21,25 +20,8 @@ export default function FormSubmit() {
 
   const [loading, setLoading] = useState(false);
 
-  const onCancel = () => {
+  const onBackStep = () => {
     dispatch(InstagramWidgetActionTS.OnStep(1));
-    dispatch(
-      InstagramWidgetActionTS.OnSetSetting({
-        layout: TemplateType.Slider,
-        header: "enable",
-        titleHeader: "My TikTok Feed",
-        labelReadMore: "Read more",
-        labelLoadMore: "Load more",
-        showNetworkIcon: "enable",
-        loadMoreBackground: "#fafafa",
-        itemBackground: "#fafafa",
-        itemColor: "#000000",
-        numberItemPerRow: 10,
-        limitItems: 10,
-        products: [],
-      })
-    );
-
     return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
   };
 
@@ -88,7 +70,7 @@ export default function FormSubmit() {
 
   return (
     <FormSubmitWrapper>
-      <Button onClick={onCancel} outline>
+      <Button onClick={onBackStep} outline>
         &lt; Back
       </Button>
       <Button loading={loading} primary onClick={onSubmit}>
