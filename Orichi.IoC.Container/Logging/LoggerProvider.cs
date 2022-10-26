@@ -82,7 +82,7 @@ namespace Orichi.IoC.Logging
                 errorDetails.Add(new ErrorDetail
                 {
                     ErrorCode = ResponseCode.InternalServerError,
-                    ErrorMessage = exception.Message
+                    ErrorMessage = exception.Message.Length > 150 ? "Internal Server Error" :  exception.Message
                 });
             }
             responseBase.Errors = errorDetails;

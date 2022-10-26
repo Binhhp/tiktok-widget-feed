@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNet.OData.Builder;
 using Microsoft.OData.Edm;
-using ShopifySharp;
 using System.Collections.Generic;
 using TiktokWidget.ODataEntities.Models;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Models;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.ODataEntities
 {
@@ -32,8 +32,8 @@ namespace TiktokWidget.ODataEntities
         private static List<string> ShopEntityActions = new List<string>
         {
             "UpdateShopConfiguration",
-            "RegisterWidget",
-            "RegisterInstagramWidgets",
+            "RegisterTikTokWidget",
+            "RegisterInstagramWidget",
             "AddJob",
             "GetWidgetCounts",
             "GetInstagramWidgetCounts",
@@ -42,13 +42,15 @@ namespace TiktokWidget.ODataEntities
         private static void BuildEdmModelShare()
         {
             _builder.EntitySet<ShopWidgetsOdataEntity>("ShopWidgets");
-            _builder.EntitySet<TikTokWidgetEntity>("Widgets");
+            _builder.EntitySet<TikTokWidgetEntity>("TikTokWidgets");
             _builder.EntitySet<InstagramWidgetEntity>("InstagramWidgets");
             _builder.EntitySet<ShopOdataEntity>("Shops").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");
             _builder.EntitySet<ShopConfigurationEntity>("ShopConfiguration");
-            _builder.EntitySet<VideoTikTokModel>("WidgetVideos");
+            _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
+            _builder.EntitySet<InstagramViewModel>("InstagramVideos");
+            _builder.EntitySet<PerformancesEntity>("Traffic");
             BuildEdmModel<TikTokWidgetEntity>(TikTokWidgetActions);
             BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
             BuildEdmModel<ShopEntity>(ShopEntityActions);

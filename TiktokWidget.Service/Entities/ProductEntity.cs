@@ -5,11 +5,14 @@ namespace TiktokWidget.Service.Entities
 {
     public class ProductEntity : BaseEntity<string>
     {
+        [Key]
+        public int ShopId { get; set; }
+        public string ProductId { get; set; }
+
         [StringLength(500)]
         public string Title { get; set; }
         [StringLength(500)]
         public string Handle { get; set; }
-        public int ShopId { get; set; }
         public string Variants { get; set; }
         public string Prices { get; set; }
         public string VariantSku { get; set; }

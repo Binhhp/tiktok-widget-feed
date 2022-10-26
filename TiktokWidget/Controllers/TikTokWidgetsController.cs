@@ -9,25 +9,25 @@ using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
 {
-    public class WidgetsController : ODataController
+    public class TikTokWidgetsController : ODataController
     {
         private readonly IWidgetService _widgetService;
 
-        public WidgetsController(IWidgetService widgetService)
+        public TikTokWidgetsController(IWidgetService widgetService)
         {
             _widgetService = widgetService;
         }
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("Widgets({key})")]
+        [ODataRoute("TikTokWidgets({key})")]
         public SingleResult<TikTokWidgetEntity> Get([FromODataUri] string key)
         {
             var result = _widgetService.GetById(key);
             return SingleResult.Create(result);
         }
         [HttpPost]
-        [ODataRoute("Widgets({key})/UpdateProduct")]
+        [ODataRoute("TikTokWidgets({key})/UpdateProduct")]
         public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
         {
             await _widgetService.UpdateProductAsync(key, request.Products);
@@ -35,7 +35,7 @@ namespace TiktokWidget.Controllers
         }
 
         [HttpPut]
-        [ODataRoute("Widgets({key})")]
+        [ODataRoute("TikTokWidgets({key})")]
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] UpdateWidgetRequest request)
         {
             var response = await _widgetService.UpdateAsync(key, request);
@@ -43,7 +43,7 @@ namespace TiktokWidget.Controllers
         }
 
         [HttpDelete]
-        [ODataRoute("Widgets({key})")]
+        [ODataRoute("TikTokWidgets({key})")]
         public async Task<IActionResult> Delete([FromODataUri] string key)
         {
             var response = await _widgetService.DeleteAsync(key);
