@@ -1,7 +1,7 @@
-import Template from "Dependencies/LayoutTemplate";
+import Template from "Dependencies/TikTokLayout";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import {
   CaptionConfig,
   FormConfigurationWrapper,
@@ -20,9 +20,9 @@ import Profile from "Dependencies/Profile";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import LoadingInfinite from "ui-components/LoadingInfinite";
-import { LayoutTemplateContext } from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
-import { IVideoTemplateModel } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
+import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 
 function LiveTemplate() {
   const widgetReducer = useSelector(

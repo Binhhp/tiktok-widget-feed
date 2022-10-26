@@ -1,4 +1,4 @@
-import LayoutTemplateContextProvider from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import LayoutTemplateContextProvider from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import React from "react";
 import StepTwoUpdate from "./UpdateWidget";
 function StepTwoUpdateMain() {

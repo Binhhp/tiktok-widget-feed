@@ -1,4 +1,4 @@
-import LayoutTemplateContextProvider from "Dependencies/LayoutTemplate/LayoutTemplateContext";
+import LayoutTemplateContextProvider from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import StepTwo from "./StepTwo";
 import React from "react";
 function StepTwoMain() {

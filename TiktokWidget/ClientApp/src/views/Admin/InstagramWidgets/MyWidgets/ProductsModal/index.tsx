@@ -98,7 +98,7 @@ function ProductModal(props: IProductModalProps) {
     return () => {
       setProducts([]);
       setProductId("");
-      dispatch(WidgetActionTS.OnSetTagProducts([], true));
+      dispatch(InstagramWidgetActionTS.OnSetTagProducts([], true));
     };
   }, []);
 

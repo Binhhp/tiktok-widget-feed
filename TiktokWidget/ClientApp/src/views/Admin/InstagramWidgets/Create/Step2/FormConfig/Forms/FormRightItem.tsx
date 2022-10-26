@@ -5,11 +5,11 @@ import {
   TextStyle,
 } from "@shopify/polaris";
 import ColorPickerWidget from "Dependencies/ColorPicker";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
 import {
   FormControlStep,
   FormRight,
@@ -104,18 +104,20 @@ function FormRightItem() {
               </RadioForm>
             </FormControlStep>
           </FormControlStep>
-          <FormControlStep>
-            <LabelForm>
-              <TextStyle>"Load more" background</TextStyle>
-            </LabelForm>
-            <InputForm>
-              <ColorPickerWidget
-                type="loadMoreBackGround"
-                onChange={handleColorChange}
-                color={widgetReducer.settings.loadMoreBackground}
-              />
-            </InputForm>
-          </FormControlStep>
+          {widgetReducer.settings.layout === TemplateType.List && (
+            <FormControlStep>
+              <LabelForm>
+                <TextStyle>"Load more" background</TextStyle>
+              </LabelForm>
+              <InputForm>
+                <ColorPickerWidget
+                  type="loadMoreBackGround"
+                  onChange={handleColorChange}
+                  color={widgetReducer.settings.loadMoreBackground}
+                />
+              </InputForm>
+            </FormControlStep>
+          )}
           <FormControlStep>
             <LabelForm>
               <TextStyle>Item Background</TextStyle>

@@ -32,6 +32,9 @@ export class SetInstagramWidgetRequest {
       enable: dto?.header === "enable",
       title: dto?.titleHeader || "",
     };
+    if (!dto?.titleHeader) {
+      this.Header.enable = false;
+    }
     this.Options = {
       LabelLoadMore: dto?.labelLoadMore || "",
       LoadMoreBackGround: dto?.loadMoreBackground || "",

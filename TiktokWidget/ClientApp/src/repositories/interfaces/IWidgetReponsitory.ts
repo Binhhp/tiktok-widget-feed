@@ -4,7 +4,7 @@ import { IQueryDataTable } from "Dependencies/DataTables/DataTablesType";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequest";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
-import { IVideoTemplateModel } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
+import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 
 export interface IWidgetReponsitory {

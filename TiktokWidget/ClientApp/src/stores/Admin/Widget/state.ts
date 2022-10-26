@@ -1,7 +1,7 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 
 export interface ISettingProviderWidget {
   id?: string;

@@ -1,7 +1,18 @@
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { ODataQuery } from "common/functions/ODataQuery";
+import config from "config";
+import DataTableFunc from "Dependencies/DataTables/DataTableModel";
+import {
+  IInstagramDto,
+  IInstagramTemplateModel,
+} from "Dependencies/InstagramLayout/InstagramLayoutModel";
+import {
+  ITikTokVideoDto,
+  IVideoTemplateModel,
+} from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
+import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
@@ -11,7 +22,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   Delete = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "DELETE",
-      url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')`,
+      url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')`,
     });
     return response;
   };
@@ -19,7 +30,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   GetById = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
-      url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')?$expand=products,shops`,
+      url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')?$expand=products,shops`,
     });
     return response;
   };
@@ -67,7 +78,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   ): Promise<BaseResponse> => {
     const response = await FetchDataFromServer({
       method: "POST",
-      url: `${RootURL.ApiBase}/odata/shops('${domain}')/RegisterInstagramWidgets`,
+      url: `${RootURL.ApiBase}/odata/shops('${domain}')/RegisterInstagramWidget`,
       body: req,
     });
     return response;
@@ -76,7 +87,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   Update = async (key: string, req: SetInstagramWidgetRequest) => {
     const response = await FetchDataFromServer({
       method: "PUT",
-      url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')`,
+      url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')`,
       body: req,
     });
     return response;
@@ -88,9 +99,40 @@ export class InstagramReponsitory implements IInstagramReponsitory {
   ): Promise<BaseResponse> => {
     const response = await FetchDataFromServer({
       method: "POST",
-      url: `${RootURL.ApiBase}/odata/instagramWidgets('${key}')/UpdateProduct`,
+      url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')/UpdateProduct`,
       body: req,
     });
     return response;
+  };
+  GetVideos = async (
+    key: string,
+    pageIndex: number,
+    showItems?: number
+  ): Promise<IInstagramTemplateModel> => {
+    try {
+      return DataTableFunc.BuildPaging<IInstagramDto>(
+        `${RootURL.ApiBase}/odata/InstagramVideos('${key}')`,
+        pageIndex,
+        showItems ? showItems : config.showItems
+      );
+    } catch {
+      return Promise.resolve({
+        data: [],
+        count: 0,
+      });
+    }
+  };
+
+  GetVideosByJob = async (
+    req: GetVideoByJobRequest,
+    showItems?: number
+  ): Promise<IInstagramTemplateModel> => {
+    return DataTableFunc.BuildPaging<IInstagramDto>(
+      `${RootURL.ApiBase}/odata/InstagramVideos`,
+      1,
+      showItems ? showItems : config.showItems,
+      "",
+      `data=${req.data}&type=${req.type}`
+    );
   };
 }

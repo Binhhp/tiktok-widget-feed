@@ -5,6 +5,7 @@ import {
   TextField,
   TextStyle,
 } from "@shopify/polaris";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
@@ -42,15 +43,17 @@ function FormLeftItem() {
             </Button>
           </ButtonGroup>
         </FormControlStep>
-        <TextField
-          name="title"
-          id="title"
-          label="Title"
-          value={widgetReducer.settings.titleHeader}
-          onChange={(val) => onSetConfig({ titleHeader: val })}
-          placeholder="Title"
-          autoComplete="off"
-        />
+        {widgetReducer.settings.header === "enable" && (
+          <TextField
+            name="title"
+            id="title"
+            label="Title"
+            value={widgetReducer.settings.titleHeader}
+            onChange={(val) => onSetConfig({ titleHeader: val })}
+            placeholder="Title"
+            autoComplete="off"
+          />
+        )}
         <TextField
           name="read-more"
           id="read-more"
@@ -60,15 +63,17 @@ function FormLeftItem() {
           placeholder="Label Read more"
           autoComplete="off"
         />
-        <TextField
-          name="load-more"
-          id="load-more"
-          label={'Label "Load more"'}
-          value={widgetReducer.settings.labelLoadMore}
-          onChange={(val) => onSetConfig({ labelLoadMore: val })}
-          placeholder="Label Load more"
-          autoComplete="off"
-        />
+        {widgetReducer.settings.layout === TemplateType.List && (
+          <TextField
+            name="load-more"
+            id="load-more"
+            label={'Label "Load more"'}
+            value={widgetReducer.settings.labelLoadMore}
+            onChange={(val) => onSetConfig({ labelLoadMore: val })}
+            placeholder="Label Load more"
+            autoComplete="off"
+          />
+        )}
       </FormLayout>
     </FormLeft>
   );

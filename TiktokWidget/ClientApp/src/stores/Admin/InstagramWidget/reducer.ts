@@ -1,5 +1,5 @@
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { TemplateType } from "Dependencies/LayoutTemplate/LayoutTemplateType";
+import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { InstagramWidgetActEnum } from "./enum";
 import { InstagramWidgetType } from "./model";
 import {

@@ -1,4 +1,4 @@
-import { ITikTokVideoDto } from "Dependencies/LayoutTemplate/LayoutTemplateModel";
+import { ITikTokVideoDto } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 
 const dataSeeder = [
   {

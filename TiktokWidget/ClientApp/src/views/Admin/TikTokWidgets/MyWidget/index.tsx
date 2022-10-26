@@ -39,7 +39,7 @@ function MyWidget() {
         ...modal,
         active: !modal.active,
         widget: widget,
-        productId: products[0]?.id ?? "",
+        productId: products[0]?.productId ?? "",
       });
     };
 
