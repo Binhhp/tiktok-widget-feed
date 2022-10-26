@@ -1,10 +1,14 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
 interface IItemContent {
   bg?: string;
   color?: string;
 }
-export const DivItemContent = styled.div<IItemContent>`
+export const DivItemContent = styled(
+  "div",
+  "",
+  "orichi-instagram"
+)<IItemContent>`
   position: absolute;
   top: 0;
   left: 0;
@@ -17,7 +21,9 @@ export const DivItemContent = styled.div<IItemContent>`
   background: ${(props) => (props.bg ? `${props.bg}50` : "transpent")};
 `;
 
-export const DivItemDesc = styled.div<Pick<IItemContent, "color">>`
+export const DivItemDesc = styled("div", "", "orichi-instagram")<
+  Pick<IItemContent, "color">
+>`
   margin: 20px 7%;
   span.orichi-instagram-readmore {
     cursor: pointer;
@@ -44,13 +50,13 @@ export const DivItemDesc = styled.div<Pick<IItemContent, "color">>`
   }
 `;
 
-export const DivItemContentContract = styled.div`
+export const DivItemContentContract = styled("div", "", "orichi-instagram")`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 `;
 
-export const DivItemContentContractItem = styled.div<
+export const DivItemContentContractItem = styled("div", "", "orichi-instagram")<
   Pick<IItemContent, "color">
 >`
   display: flex;
@@ -64,7 +70,7 @@ export const DivItemContentContractItem = styled.div<
   }
 `;
 
-export const DivItemIcon = styled.div`
+export const DivItemIcon = styled("div", "", "orichi-instagram")`
   height: 23px;
   margin-right: 7px;
 `;
@@ -72,7 +78,7 @@ export const DivItemIcon = styled.div`
 interface IItemWrapper {
   width: number;
 }
-export const ItemWrapper = styled.div<IItemWrapper>`
+export const ItemWrapper = styled("div", "", "orichi-instagram")<IItemWrapper>`
   width: ${(props) => props.width}%;
   height: auto;
   position: relative;
@@ -83,17 +89,17 @@ export const ItemWrapper = styled.div<IItemWrapper>`
   }
 `;
 
-export const DivItemOrginal = styled.div`
+export const DivItemOrginal = styled("div", "", "orichi-instagram")`
   width: 100%;
   display: block;
 `;
-export const DivItemImage = styled.img`
+export const DivItemImage = styled("img", "", "orichi-instagram")`
   width: 100%;
   object-fit: contain;
   display: block;
 `;
 
-export const ItemIcon = styled.div`
+export const ItemIcon = styled("div", "", "orichi-instagram")`
   position: absolute;
   top: 10px;
   right: 10px;

@@ -27,7 +27,6 @@ function SliderInstagram(props: SliderProps) {
 
   const [page, setPage] = useState(0);
 
-  const [swiperController, setSwiperController] = useState<SwiperCore>();
   const onActiveIndexChangeSwiper = (swiper: SwiperCore) => {
     const pageIndex =
       swiper.activeIndex > 0 ? swiper.activeIndex - 1 : swiper.activeIndex;
@@ -38,7 +37,6 @@ function SliderInstagram(props: SliderProps) {
       {sliderNumber && sliderNumber.length > 1 ? (
         <Swiper
           onActiveIndexChange={onActiveIndexChangeSwiper}
-          onSwiper={setSwiperController}
           observer={true}
           observeParents={true}
           parallax={true}

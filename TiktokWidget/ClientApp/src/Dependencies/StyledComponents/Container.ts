@@ -138,9 +138,13 @@ type domElements =
   | "tspan"
   | any;
 
-const styled = (tag: domElements, componentId: string = "") => {
+const styled = (
+  tag: domElements,
+  componentId: string = "",
+  displayName: string = ""
+) => {
   let option: StyledConfig = {
-    displayName: PREFIX,
+    displayName: displayName ? displayName : PREFIX,
   };
 
   if (componentId) option["componentId"] = componentId;

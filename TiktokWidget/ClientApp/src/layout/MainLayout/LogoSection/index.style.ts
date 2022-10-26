@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const LogoSectionContext = styled.div`
+export const LogoSectionContext = styled("div")`
   display: block;
   align-items: center;
   @media (max-width: 768px) {
@@ -10,7 +10,7 @@ export const LogoSectionContext = styled.div`
   }
 `;
 
-export const LogoWrapper = styled.a`
+export const LogoWrapper = styled("a")`
   width: auto;
   align-items: center;
   display: flex;
@@ -20,7 +20,7 @@ export const LogoWrapper = styled.a`
   text-decoration: none;
 `;
 
-export const BackToShop = styled.span`
+export const BackToShop = styled("span")`
   width: auto;
   font-weight: 600;
   font-size: 14px;
@@ -32,7 +32,7 @@ export const BackToShop = styled.span`
   }
 `;
 
-export const MobileViewMenu = styled.div`
+export const MobileViewMenu = styled("div")`
   display: none;
   margin-right: 10px;
   @media (max-width: 768px) {

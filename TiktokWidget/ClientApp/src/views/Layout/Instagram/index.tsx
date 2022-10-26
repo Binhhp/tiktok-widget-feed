@@ -59,7 +59,10 @@ function Instagram(props: IInstagramLayoutProps) {
 
   return (
     <InstagramLayoutContextProvider>
-      {!isPending && widgets.map((item) => <Layout widget={item}></Layout>)}
+      {!isPending &&
+        widgets.map((item, index) => (
+          <Layout key={`instagram-${index}`} widget={item}></Layout>
+        ))}
     </InstagramLayoutContextProvider>
   );
 }

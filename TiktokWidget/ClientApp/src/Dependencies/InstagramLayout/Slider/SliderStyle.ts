@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DivSliderWrapper = styled.div`
+export const DivSliderWrapper = styled("div", "", "orichi-instagram")`
   width: 100%;
   height: auto;
   overflow: hidden;

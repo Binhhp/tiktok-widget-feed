@@ -115,14 +115,14 @@ String.prototype.format = function () {
 
 // if (elementInstagram && elementInstagram.length > 0) {
 //   elementInstagram.forEach((element) => {
-//     const root = ReactDOM.createRoot(element);
-//     const widgetId = element.getAttribute("data-id");
-//     root.render(
+//     const rootInstagram = ReactDOM.createRoot(element);
+//     const widgetIdInstagram = element.getAttribute("data-id");
+//     rootInstagram.render(
 //       <StyleSheetManager disableVendorPrefixes>
 //         <Provider store={workerTikTokManager.store}>
 //           <BrowserRouter>
 //             <GlobalStyle />
-//             <Instagram widgetId={widgetId} />
+//             <Instagram widgetId={widgetIdInstagram} />
 //           </BrowserRouter>
 //         </Provider>
 //       </StyleSheetManager>

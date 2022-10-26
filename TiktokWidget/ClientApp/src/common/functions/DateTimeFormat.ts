@@ -47,9 +47,9 @@ export class DateTimeFormatter {
     return time.toLocaleString("en-US", options);
   };
 
-  public static onFormatDateUTC = (time?: string): string => {
+  public static onFormatDateUTC = (time?: string, culture?: string): string => {
     if (time) {
-      return new Date(time).toLocaleDateString();
+      return new Date(time).toLocaleDateString("");
     }
     return "Invalid Date";
   };

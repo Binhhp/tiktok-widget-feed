@@ -80,14 +80,14 @@ export interface IInstagramTemplateModel {
 }
 
 export interface IInstagramDto {
-  id?: string;
+  id: string;
   showAs: ItemShowAs;
-  desc?: string; // Show title of video
-  createTime?: Date; // Show time created
-  author?: string; // Show user name
-  officalItem?: boolean; // Show offical user
+  desc: string; // Show title of video
+  createTime: string; // Show time created
+  author: string; // Show user name
+  officalItem: boolean; // Show offical user
   stats?: IStats;
-  image?: string;
+  image: string;
 }
 
 export interface IStats {

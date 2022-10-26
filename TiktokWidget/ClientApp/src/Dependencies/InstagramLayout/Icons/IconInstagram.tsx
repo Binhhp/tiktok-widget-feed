@@ -30,9 +30,9 @@ export default function IconInstagram() {
           y2="2.68374"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F2B361" />
-          <stop offset="0.5" stop-color="#D4475E" />
-          <stop offset="1" stop-color="#9E2CAB" />
+          <stop stopColor="#F2B361" />
+          <stop offset="0.5" stopColor="#D4475E" />
+          <stop offset="1" stopColor="#9E2CAB" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_33564_35401"
@@ -42,9 +42,9 @@ export default function IconInstagram() {
           y2="7.93453"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#E98052" />
-          <stop offset="0.5" stop-color="#D85060" />
-          <stop offset="1" stop-color="#C5336D" />
+          <stop stopColor="#E98052" />
+          <stop offset="0.5" stopColor="#D85060" />
+          <stop offset="1" stopColor="#C5336D" />
         </linearGradient>
       </defs>
     </svg>

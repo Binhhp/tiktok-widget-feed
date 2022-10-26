@@ -1,5 +1,3 @@
-import { Icon } from "@shopify/polaris";
-import { CancelSmallMinor } from "@shopify/polaris-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import VideoPlayer from "./VideoPlayer";
