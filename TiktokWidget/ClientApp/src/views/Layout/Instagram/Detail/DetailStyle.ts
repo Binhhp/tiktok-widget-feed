@@ -1,0 +1,113 @@
+import styled from "Dependencies/StyledComponents/Container";
+
+export const DivDetailWrapper = styled("div", "", "orichi-instagram")`
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+`;
+
+export const DivContainer = styled("div", "", "orichi-instagram")`
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  max-width: 100%;
+  align-items: stretch;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const DivContent = styled("div", "", "orichi-instagram")`
+  background: #000000;
+  max-width: 50%;
+  max-height: 100%;
+  overflow: hidden;
+`;
+
+export const DivDesc = styled("div", "", "orichi-instagram")`
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  justify-content: space-between;
+  padding: 15px 11px;
+  p.orichi-instagram-desc {
+    margin: 32px 0px;
+    font-family: "SF Pro Display";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+  }
+`;
+
+export const DivUserName = styled("div", "", "orichi-instagram")`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  align-items: center;
+  border-bottom: 1px solid rgba(213, 213, 213, 0.53);
+  h2 {
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+    margin-left: 5px;
+    color: #000000;
+  }
+  a {
+    text-decoration: none;
+    color: #0095f6;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+  }
+`;
+
+export const DivTimezone = styled("div", "", "orichi-instagram")`
+  padding-top: 22px;
+`;
+
+export const DivTimezoneContent = styled("div", "", "orichi-instagram")`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid rgba(213, 213, 213, 0.53);
+  h2 {
+    text-transform: uppercase;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #888888;
+  }
+  h3 {
+    color: #888888;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    font-style: italic;
+  }
+`;
+
+interface IDivDot {
+  bg?: string;
+}
+export const DivDot = styled("div", "", "orichi-instagram")<IDivDot>`
+  background: ${(props) => props.bg ?? "#000000"};
+  margin: 0px 8px;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+`;

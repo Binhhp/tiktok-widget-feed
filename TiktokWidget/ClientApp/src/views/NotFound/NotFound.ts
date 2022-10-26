@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from "Dependencies/StyledComponents/Container";
 
-export const NotFoundShopWrapper = styled.div`
+export const NotFoundShopWrapper = styled("div")`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
 `;
 
-export const NotFoundShopContent = styled.div`
+export const NotFoundShopContent = styled("div")`
   width: auto;
   margin: auto;
   display: flex;
