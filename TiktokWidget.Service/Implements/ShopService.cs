@@ -296,14 +296,19 @@ namespace TiktokWidget.Service.Implements
             await _context.SaveChangesAsync();
         }
 
-        public IQueryable<PostsEntity> GetPosts()
+        public IQueryable<CoursesEntity> GetCources()
         {
-            return _context.Posts.Where(x => x.Status);
+            return _context.Cources.Where(x => x.Status);
         }
 
         public IQueryable<BannerEnitty> GetBanners()
         {
             return _context.Banner.Where(x => x.Status);
+        }
+
+        public IQueryable<PostsEntity> GetPosts()
+        {
+            return _context.Posts.Where(x => x.Status);
         }
     }
 }

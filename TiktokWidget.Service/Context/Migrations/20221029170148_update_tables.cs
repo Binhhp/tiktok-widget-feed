@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    public partial class implement_instagram : Migration
+    public partial class update_tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,24 @@ namespace TiktokWidget.Service.Context.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banner", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cources",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Ordering = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cources", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,12 +120,15 @@ namespace TiktokWidget.Service.Context.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
-                    Ordering = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Clicks = table.Column<long>(type: "bigint", nullable: false),
+                    Categories = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,6 +197,9 @@ namespace TiktokWidget.Service.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "Banner");
+
+            migrationBuilder.DropTable(
+                name: "Cources");
 
             migrationBuilder.DropTable(
                 name: "InstagramWidget");

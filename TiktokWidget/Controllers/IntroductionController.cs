@@ -16,11 +16,11 @@ namespace TiktokWidget.Controllers
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("Posts")]
-        public IActionResult GetPosts()
+        [ODataRoute("Cources")]
+        public IActionResult GetCources()
         {
-            var posts = _shopService.GetPosts();
-            return Ok(posts);
+            var courses = _shopService.GetCources();
+            return Ok(courses);
         }
 
         [HttpGet]
@@ -30,6 +30,15 @@ namespace TiktokWidget.Controllers
         {
             var banners = _shopService.GetBanners();
             return Ok(banners);
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("Posts")]
+        public IActionResult GetPosts()
+        {
+            var posts = _shopService.GetPosts();
+            return Ok(posts);
         }
     }
 }
