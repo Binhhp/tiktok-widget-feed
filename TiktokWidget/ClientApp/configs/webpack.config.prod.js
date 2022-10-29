@@ -10,8 +10,7 @@ const PATHS = {
 };
 
 module.exports = {
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool: "inline-source-map",
+  mode: "production",
   entry: {
     tiktok: PATHS.src,
   },

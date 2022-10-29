@@ -24,5 +24,7 @@ namespace TiktokWidget.Service.Interfaces
         Task Test(string domain);
         IQueryable<Theme> GetThemes(string domain);
         Task FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest);
+        IQueryable<PostsEntity> GetPosts();
+        IQueryable<BannerEnitty> GetBanners();
     }
 }

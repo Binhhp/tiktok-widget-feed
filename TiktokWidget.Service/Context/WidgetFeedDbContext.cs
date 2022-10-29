@@ -17,6 +17,8 @@ namespace TiktokWidget.Service.Context
         public DbSet<ProductEntity> Product { get; set; }
         public DbSet<PerformancesEntity> Performances { get; set; }
         public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
+        public DbSet<PostsEntity> Posts { get; set; }
+        public DbSet<BannerEnitty> Banner { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,8 +30,8 @@ namespace TiktokWidget.Service.Context
             tiktokWidget.HasIndex(p => p.WidgetTitle);
             tiktokWidget.HasKey(p => p.Id);
             tiktokWidget.Property(x => x.Id).HasMaxLength(100);
-            tiktokWidget.Property(p => p.WidgetTitle).IsRequired().IsUnicode(true).HasMaxLength(150);
-            tiktokWidget.Property(p => p.ValueSource).IsRequired().IsUnicode(true).HasMaxLength(255);
+            tiktokWidget.Property(p => p.WidgetTitle).IsRequired().HasMaxLength(150);
+            tiktokWidget.Property(p => p.ValueSource).IsRequired().HasMaxLength(255);
             tiktokWidget.Property(g => g.SourceType).HasMaxLength(50);
             tiktokWidget.Property(g => g.SourceType)
                 .HasConversion(
@@ -82,8 +84,12 @@ namespace TiktokWidget.Service.Context
             //Shop description
             var shopDescriptor = modelBuilder.Entity<ShopDescriptorEntity>().ToTable("ShopDescriptor");
             shopDescriptor.HasOne(c => c.Shops).WithOne(e => e.ShopDescriptor).HasForeignKey<ShopDescriptorEntity>(x => x.ShopId);
-        }
 
+            //Posts
+            modelBuilder.Entity<PostsEntity>().ToTable("Posts");
+            //Banner
+            modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
