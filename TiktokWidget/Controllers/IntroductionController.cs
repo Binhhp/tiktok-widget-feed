@@ -16,8 +16,8 @@ namespace TiktokWidget.Controllers
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("Cources")]
-        public IActionResult GetCources()
+        [ODataRoute("Courses")]
+        public IActionResult GetCourses()
         {
             var courses = _shopService.GetCources();
             return Ok(courses);
