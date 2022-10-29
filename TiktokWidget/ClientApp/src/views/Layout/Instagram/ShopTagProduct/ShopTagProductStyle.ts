@@ -14,7 +14,7 @@ export const DivImagePoster = styled("div", "", "orichi-instagram")`
 `;
 
 export const DivDescProduct = styled("div", "", "orichi-instagram")`
-  padding-left: 10px;
+  padding: 0px 20px 0px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -9,7 +9,10 @@ import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
-import { IInstagramWidget } from "stores/Admin/InstagramWidget/state";
+import {
+  IInstagramWidget,
+  TemplateInstagramType,
+} from "stores/Admin/InstagramWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
 import { FormControlStep, FormLeft, LabelForm } from "./FormConfigStyle";
 
@@ -63,7 +66,7 @@ function FormLeftItem() {
           placeholder="Label Read more"
           autoComplete="off"
         />
-        {widgetReducer.settings.layout === TemplateType.List && (
+        {widgetReducer.settings.layout === TemplateInstagramType.List && (
           <TextField
             name="load-more"
             id="load-more"

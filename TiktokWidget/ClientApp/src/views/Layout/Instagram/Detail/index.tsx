@@ -1,5 +1,4 @@
-import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import SliderImage from "Dependencies/InstagramLayout/Components/SliderImage";
+import SliderImage from "Dependencies/SliderImage";
 import { IconInstagram } from "Dependencies/InstagramLayout/Icons";
 import { IInstagramDto } from "Dependencies/InstagramLayout/InstagramLayoutModel";
 import { useOutsideAlerter } from "hooks";
@@ -16,6 +15,7 @@ import {
   DivTimezoneContent,
   DivUserName,
 } from "./DetailStyle";
+import VideoPlayer from "Dependencies/VideoPlayer";
 
 interface IDetailProps {
   item: IInstagramDto;
@@ -29,7 +29,15 @@ function Detail(props: IDetailProps) {
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
         <DivContent>
-          <SliderImage desc={props.item.desc} images={[props.item.image]} />
+          {props.item.video ? (
+            <VideoPlayer
+              muted
+              image={props.item.images[0]}
+              playSrc={props.item.video ?? ""}
+            />
+          ) : (
+            <SliderImage desc={props.item.desc} images={props.item.images} />
+          )}
         </DivContent>
         <DivDesc>
           <div className="orichi-instagram-item">
@@ -46,7 +54,11 @@ function Detail(props: IDetailProps) {
             <DivTimezone>
               <DivTimezoneContent color={props.widget.setting.itemColor}>
                 <h2>
-                  {DateTimeFormatter.onFormatDateUTC(props.item.createTime)}
+                  {new Date(props.item.createTime).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </h2>
                 <DivDot bg="#888888"></DivDot>
                 <h3>View on Instagram</h3>

@@ -23,5 +23,6 @@ namespace TiktokWidget.Service.Interfaces
         Task ExternalAuthenticationAsync(string domain, string code);
         Task Test(string domain);
         IQueryable<Theme> GetThemes(string domain);
+        Task FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest);
     }
 }

@@ -1,5 +1,8 @@
 import InstagramLayout from "Dependencies/InstagramLayout";
-import { InstagramOption } from "Dependencies/InstagramLayout/InstagramLayoutModel";
+import {
+  IInstagramDto,
+  InstagramOption,
+} from "Dependencies/InstagramLayout/InstagramLayoutModel";
 import React from "react";
 import { useSelector } from "react-redux";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
@@ -22,6 +25,8 @@ function LiveTemplates() {
       widgetReducer.settings.limitItems
     );
   };
+
+  const onClick = (item: IInstagramDto) => () => {};
   return (
     <LiveTemplateWrapper>
       <InstagramLayout
@@ -31,6 +36,10 @@ function LiveTemplates() {
         option={new InstagramOption().ToDo(widgetReducer.settings)}
         _queryData={getInstagramStories}
         customLoader={<CircleLoading />}
+        onClickItem={onClick}
+        notLoadmore
+        showLoadInfinite
+        showPageFirst
       ></InstagramLayout>
     </LiveTemplateWrapper>
   );

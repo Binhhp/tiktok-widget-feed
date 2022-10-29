@@ -12,24 +12,24 @@ import {
   ItemWrapper,
 } from "./ItemStyle";
 import { NumberFormatter } from "common/functions/NumberFormatter";
-import { ItemShowAs } from "../InstagramLayoutModel";
 import { IconComment, IconGalarey, IconHeart, IconMedia } from "../Icons";
 
 function Item(props: IItemProps) {
   return (
     <ItemWrapper width={props.width}>
-      {props.option.showNetworkIcon &&
-        props.showAs !== ItemShowAs.SingleImage && (
-          <ItemIcon>
-            {props.showAs === ItemShowAs.MultipleImage ? (
-              <IconGalarey />
-            ) : (
-              <IconMedia />
-            )}
-          </ItemIcon>
-        )}
+      {props.option.showNetworkIcon && (
+        <ItemIcon>
+          {props.item.video ? (
+            <IconMedia />
+          ) : props.item.images.length > 1 ? (
+            <IconGalarey />
+          ) : (
+            <></>
+          )}
+        </ItemIcon>
+      )}
       <DivItemOrginal>
-        <DivItemImage src={props.item.image} alt={props.item.desc} />
+        <DivItemImage src={props.item.images[0]} alt={props.item.desc} />
       </DivItemOrginal>
       <DivItemContent
         onClick={props.onClick && props.onClick(props.item)}

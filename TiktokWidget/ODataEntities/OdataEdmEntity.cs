@@ -37,7 +37,8 @@ namespace TiktokWidget.ODataEntities
             "AddJob",
             "GetWidgetCounts",
             "GetInstagramWidgetCounts",
-            "GetThemes"
+            "GetThemes",
+            "Feedback"
         };
         private static void BuildEdmModelShare()
         {
@@ -51,6 +52,7 @@ namespace TiktokWidget.ODataEntities
             _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
             _builder.EntitySet<InstagramViewModel>("InstagramVideos");
             _builder.EntitySet<PerformancesEntity>("Traffic");
+            _builder.EntitySet<ShopDescriptorEntity>("ShopDescriptor");
             BuildEdmModel<TikTokWidgetEntity>(TikTokWidgetActions);
             BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
             BuildEdmModel<ShopEntity>(ShopEntityActions);

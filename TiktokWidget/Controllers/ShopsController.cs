@@ -2,7 +2,6 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -170,6 +169,14 @@ namespace TiktokWidget.Controllers
         {
             var result = _performancesService.Get(domain);
             return Ok(result);
+        }
+
+        [HttpPost]
+        [ODataRoute("Shops({domain})/Feedback")]
+        public async Task<IActionResult> PostFeedback([FromODataUri] string domain, [FromBody] PostFeedbackRequest request)
+        {
+            await _shopService.FeedbackAsync(domain, request);
+            return Ok();
         }
     }
 }

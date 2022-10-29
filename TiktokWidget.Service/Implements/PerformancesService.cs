@@ -27,7 +27,7 @@ namespace TiktokWidget.Service.Implements
                 var shop = _dbContext.Shop.FirstOrDefault(x => x.Domain.ToLower().Equals(domain.ToLower()));
                 if(shop != null)
                 {
-                    response = _dbContext.Performances.Where(x => x.ShopId.Equals(shop.Domain));
+                    response = _dbContext.Performances.Where(x => x.ShopId.Equals(shop.ID));
                 }
             }
             catch(Exception ex)

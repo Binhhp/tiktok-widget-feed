@@ -1,11 +1,11 @@
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { InstagramWidgetActEnum } from "./enum";
 import { InstagramWidgetType } from "./model";
 import {
   IInstagramWidget,
   InstagramWidgetStatus,
   InstagramWidgetStoreModel,
+  TemplateInstagramType,
 } from "./state";
 
 const OnStep = (state: InstagramWidgetStoreModel, payload: number = 0) => {
@@ -36,7 +36,8 @@ const OnSetSetting = (
       if (payload.valueSource !== undefined)
         copyState.settings.valueSource = payload.valueSource;
       if (payload.layout !== undefined)
-        copyState.settings.layout = payload.layout || TemplateType.Slider;
+        copyState.settings.layout =
+          payload.layout || TemplateInstagramType.Slider;
       if (payload.header !== undefined)
         copyState.settings.header = payload.header;
       if (payload.titleHeader !== undefined)

@@ -1,30 +1,30 @@
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
-import { IInstagramWidget } from "stores/Admin/InstagramWidget/state";
+import {
+  IInstagramWidget,
+  TemplateInstagramType,
+} from "stores/Admin/InstagramWidget/state";
 
 export interface IInstagramLayoutView {
   disableContext?: boolean;
   option: InstagramOption;
   style?: IStyleInstagram;
   customLoader?: any;
+  notLoadmore?: boolean;
+  showLoadInfinite?: boolean;
+  showPageFirst?: boolean;
   _queryData: (
     pageIndex: number,
     showItems?: number
   ) => Promise<IInstagramTemplateModel>;
-  onClickItem?: (item: IInstagramDto) => () => void;
+  onClickItem: (item: IInstagramDto) => () => void;
   onLoadmore?: () => void;
 }
 
 export interface IStyleInstagram {
   height?: string;
 }
-
-export enum TemplateTypeEnum {
-  Slider,
-  List,
-}
-
 export class InstagramOption {
-  type: TemplateTypeEnum.List | TemplateTypeEnum.Slider;
+  type: TemplateInstagramType.List | TemplateInstagramType.Slider;
   title?: string;
   numberPerRow: number;
   showNetworkIcon: boolean;
@@ -38,13 +38,13 @@ export class InstagramOption {
     this.title = dto?.header.title ?? "";
     this.type =
       dto?.setting.layoutType === 0
-        ? TemplateTypeEnum.Slider
-        : TemplateTypeEnum.List;
+        ? TemplateInstagramType.Slider
+        : TemplateInstagramType.List;
     this.itemBackground = dto?.setting.itemBackGround ?? "";
     this.numberPerRow = dto?.setting.numberPerRow ?? 0;
     this.showNetworkIcon = dto?.setting.showNetworkIcon ?? false;
     this.labelReadMore = dto?.setting.labelReadMore ?? "";
-    this.loadMoreBackground = dto?.setting.loddMoreBackGround ?? "";
+    this.loadMoreBackground = dto?.setting.loadMoreBackGround ?? "";
     this.itemColor = dto?.setting.itemColor ?? "";
     this.header = dto?.header.enable ?? true;
     this.labelLoadmore = dto?.setting.labelLoadMore ?? "Load more";
@@ -52,7 +52,9 @@ export class InstagramOption {
   ToDo = (dto: IInstagramWidget): InstagramOption => {
     this.title = dto.titleHeader;
     this.type =
-      dto?.layout === 0 ? TemplateTypeEnum.Slider : TemplateTypeEnum.List;
+      dto?.layout === 1
+        ? TemplateInstagramType.Slider
+        : TemplateInstagramType.List;
     this.itemBackground = dto.itemBackground ?? "";
     this.numberPerRow = dto.numberItemPerRow ?? 0;
     this.showNetworkIcon = dto.showNetworkIcon === "enable";
@@ -65,12 +67,6 @@ export class InstagramOption {
   };
 }
 
-export enum ItemShowAs {
-  SingleImage,
-  MultipleImage,
-  Video,
-}
-
 export const StyledConfig = {
   MARGIN_CONTENT: 5,
 };
@@ -81,13 +77,13 @@ export interface IInstagramTemplateModel {
 
 export interface IInstagramDto {
   id: string;
-  showAs: ItemShowAs;
   desc: string; // Show title of video
   createTime: string; // Show time created
   author: string; // Show user name
   officalItem: boolean; // Show offical user
   stats?: IStats;
-  image: string;
+  images: string[];
+  video?: string;
 }
 
 export interface IStats {

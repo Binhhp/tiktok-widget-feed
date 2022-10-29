@@ -14,10 +14,14 @@ interface ILayoutProps {
 }
 function Layout(props: ILayoutProps) {
   const getInstagramStories = (pageIndex: number, showItems?: number) => {
+    const showAsItems =
+      props.widget.setting.layoutType === 2
+        ? showItems
+        : props.widget.setting.limitItems;
     return new InstagramReponsitory().GetVideos(
       props.widget.id ?? "",
       pageIndex,
-      showItems
+      showAsItems
     );
   };
 

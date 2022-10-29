@@ -3,7 +3,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { SliderImageWrapper } from "./SliderImageStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-SwiperCore.use([Autoplay, Navigation]);
+SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 interface SliderImageProps {
   images: string[];
@@ -21,15 +21,16 @@ function SliderImage(props: SliderImageProps) {
         watchOverflow={true}
         slidesPerView={1}
         pagination
-        slideNextClass="orichi-instagram-player-next"
-        slidePrevClass="orichi-instagram-player-prev"
-        className="orichi-instagram-slider"
+        navigation
+        slideNextClass="orichi-slider-player-next"
+        slidePrevClass="orichi-slider-player-prev"
+        className="orichi-slider-slider"
       >
         {props.images.map((item, index) => (
           <SwiperSlide key={`image-${index}`}>
             <img
               loading="lazy"
-              className="orichi-instagram-img"
+              className="orichi-slider-img"
               src={item}
               alt={props.desc}
             />

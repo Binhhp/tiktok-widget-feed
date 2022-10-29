@@ -20,7 +20,7 @@ export interface IOptionOwner {
   labelReadMore: string;
   labelLoadMore: string;
   showNetworkIcon: boolean;
-  loddMoreBackGround: string;
+  loadMoreBackGround: string;
   itemBackGround: string;
   itemColor: string;
   numberPerRow: number;

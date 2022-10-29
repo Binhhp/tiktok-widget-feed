@@ -29,11 +29,10 @@ namespace TiktokWidget.Controllers
         public async Task<IActionResult> GetTikTokVideos([FromODataUri] string key)
         {
             var result = _widgetService.GetVideos(key);
-            await Task.Run(() => _mediator.Publish(new WidgetImpressionCommand
+            await Task.Run(() => _mediator.Publish(new TikTokImpressionCommand
             {
                 Time = DateTime.UtcNow,
-                WidgetId = key,
-                Type = PerformanceTypeEnum.TikTok
+                WidgetId = key
             }));
             return Ok(result);
         }
@@ -78,11 +77,10 @@ namespace TiktokWidget.Controllers
         public async Task<IActionResult> GetInstagramVideos([FromODataUri] string key)
         {
             var result = _instagramWidgetService.GetVideos(key);
-            await Task.Run(() => _mediator.Publish(new WidgetImpressionCommand
+            await Task.Run(() => _mediator.Publish(new InstagramImpressionCommand
             {
                 Time = DateTime.UtcNow,
-                WidgetId = key,
-                Type = PerformanceTypeEnum.Instagram
+                WidgetId = key
             }));
             return Ok(result);
         }
