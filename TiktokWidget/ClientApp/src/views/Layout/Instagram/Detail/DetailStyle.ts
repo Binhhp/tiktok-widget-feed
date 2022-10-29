@@ -7,7 +7,7 @@ export const DivDetailWrapper = styled("div", "", "orichi-instagram")`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
   z-index: 999999;
@@ -84,10 +84,11 @@ export const DivTimezoneContent = styled("div", "", "orichi-instagram")`
   padding-top: 10px;
   border-top: 1px solid rgba(213, 213, 213, 0.53);
   h2 {
+    font-style: italic;
     text-transform: uppercase;
     font-family: "SF Pro Display";
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 16px;
     color: #888888;
   }

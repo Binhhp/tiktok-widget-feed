@@ -6,68 +6,377 @@ namespace TiktokWidget.Service.ViewModels
 {
     public static class InstagramVideoSeedData
     {
-        public static List<string> Images = new List<string>
-        {
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle1.png?alt=media&token=7e7c8beb-aedc-4b6b-b5fb-09e76f979580",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle2.png?alt=media&token=56a74a94-b6a3-45f2-9331-d64f4ef64fc5",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle3.png?alt=media&token=7ae26410-6d12-4d65-83cc-bcbe532c5bb2",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle4.png?alt=media&token=47f0f761-43d4-4cba-8f2d-499661ff14e7",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle5.png?alt=media&token=3b754450-c13a-42f7-b5d2-80dabdd60525",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle6.png?alt=media&token=23eb4c84-4bf4-4d78-964b-5d77fe4d8db2",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle7.png?alt=media&token=366297b3-cb32-47e6-9992-a514ffeecda7",
-            "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/Rectangle8.png?alt=media&token=c7c1371a-4bd5-4d33-a9e8-0bc5a8b1f42b"
-        };
         public static IQueryable<InstagramViewModel> Seed()
         {
             var result = new List<InstagramViewModel>();
-            for(var i = 0; i < 16; i++)
+            result.Add(new InstagramViewModel
             {
-                var entity = new InstagramViewModel
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "begin again @dior #dior #denisdang #springsummer",
+                images = new List<string> 
                 {
-                    author = "lq.haitu",
-                    stats = new Stats
-                    {
-                        commentCount = (new Random()).Next(0, 100000),
-                        diggCount = (new Random()).Next(0, 100000),
-                        playCount = (new Random()).Next(0, 100000),
-                        shareCount = (new Random()).Next(0, 100000),
-                    },
-                    id = Guid.NewGuid().ToString(),
-                    officalItem = true,
-                    showAs = i % 2 == 0 ? ItemShowAs.MultipleImage : i % 3 == 0 ? ItemShowAs.Video : ItemShowAs.SingleImage,
-                    createTime = DateTime.Now,
-                    desc = "The NOMATIC x @petermckinnon Everyday Camera Line Kickstarter campaign officially ends TONIGHT at 7:00 PM MDT! Just a few hours left to pre-order the all new McKinnon Everyday Camera Line with our Kickstarter-exclusive pricing. Link in bio or send us a DM with any questions."
-                };
-                if (i < 8)
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F1.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
                 {
-                    entity.image = Images[i];
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
                 }
-                else
+            });
+
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "for @lofficielvietnamofficial with @labels.men.official @jw_anderson",
+                images = new List<string>
                 {
-                    entity.image = Images[i - 8];
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F2.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
                 }
-                result.Add(entity);
-            }
+            });
+
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "một chín hồi đó",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F3.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+                video = "https://v16-webapp.tiktok.com/f8ba78b9e60fa84f637bf2570d785c03/635cdd5d/video/tos/useast2a/tos-useast2a-pve-0037-aiso/8804b987488e4c1a904693d9de564088/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3958&bt=1979&cs=0&ds=3&ft=WgGbvNM6VQ9wUm04l1W.CIpxatk3hdxwiPG_hkl8eC_O&mime_type=video_mp4&qs=0&rc=NzUzOmc8NTs1aWk8NDg1OkBpajd2cWg6Zms3ZjMzZjgzM0AuLzJjYzE1XmAxYC9gLi8vYSNhMDQucjRfXy5gLS1kL2Nzcw%3D%3D&l=20221029015910010244029188014FAF0C&btag=80000"
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "khi về nhà vẫn là em bé",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F4.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+                video = "https://v16-webapp.tiktok.com/f8ba78b9e60fa84f637bf2570d785c03/635cdd5d/video/tos/useast2a/tos-useast2a-pve-0037-aiso/8804b987488e4c1a904693d9de564088/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3958&bt=1979&cs=0&ds=3&ft=WgGbvNM6VQ9wUm04l1W.CIpxatk3hdxwiPG_hkl8eC_O&mime_type=video_mp4&qs=0&rc=NzUzOmc8NTs1aWk8NDg1OkBpajd2cWg6Zms3ZjMzZjgzM0AuLzJjYzE1XmAxYC9gLi8vYSNhMDQucjRfXy5gLS1kL2Nzcw%3D%3D&l=20221029015910010244029188014FAF0C&btag=80000"
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "🍑",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F5.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F6.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F3.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F2.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F7.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F7.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F8.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F9.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+                video = "https://v16-webapp.tiktok.com/f8ba78b9e60fa84f637bf2570d785c03/635cdd5d/video/tos/useast2a/tos-useast2a-pve-0037-aiso/8804b987488e4c1a904693d9de564088/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3958&bt=1979&cs=0&ds=3&ft=WgGbvNM6VQ9wUm04l1W.CIpxatk3hdxwiPG_hkl8eC_O&mime_type=video_mp4&qs=0&rc=NzUzOmc8NTs1aWk8NDg1OkBpajd2cWg6Zms3ZjMzZjgzM0AuLzJjYzE1XmAxYC9gLi8vYSNhMDQucjRfXy5gLS1kL2Nzcw%3D%3D&l=20221029015910010244029188014FAF0C&btag=80000"
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F10.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F2.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F3.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F11.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F1.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5",
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F2.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F12.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F13.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F14.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F15.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F16.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                },
+                video = "https://v16-webapp.tiktok.com/f8ba78b9e60fa84f637bf2570d785c03/635cdd5d/video/tos/useast2a/tos-useast2a-pve-0037-aiso/8804b987488e4c1a904693d9de564088/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3958&bt=1979&cs=0&ds=3&ft=WgGbvNM6VQ9wUm04l1W.CIpxatk3hdxwiPG_hkl8eC_O&mime_type=video_mp4&qs=0&rc=NzUzOmc8NTs1aWk8NDg1OkBpajd2cWg6Zms3ZjMzZjgzM0AuLzJjYzE1XmAxYC9gLi8vYSNhMDQucjRfXy5gLS1kL2Nzcw%3D%3D&l=20221029015910010244029188014FAF0C&btag=80000"
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F17.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
+            result.Add(new InstagramViewModel
+            {
+                author = "imdenisdang",
+                createTime = DateTime.Now,
+                desc = "with @labels.men.official @jw_anderson at #tiktokfilmfestival",
+                images = new List<string>
+                {
+                    "https://firebasestorage.googleapis.com/v0/b/tiktok-widget.appspot.com/o/test%2F18.jpg?alt=media&token=0689aa9f-24f7-460c-ba05-7860e45007a5"
+                },
+                officalItem = true,
+                id = Guid.NewGuid().ToString(),
+                stats = new Stats
+                {
+                    commentCount = (new Random()).Next(0, 10000000),
+                    diggCount = (new Random()).Next(0, 10000000),
+                    playCount = (new Random()).Next(0, 10000000),
+                    shareCount = (new Random()).Next(0, 10000000)
+                }
+            });
             return result.AsQueryable();
         }
     }
     public class InstagramViewModel
     {
         public string id { get; set; }
-        public ItemShowAs showAs { get; set; }
         public string desc { get; set; }
         public DateTime createTime { get; set; }
         public string author { get; set; }
         public bool officalItem { get; set; }
         public Stats stats { get; set; }
-        public string image { get; set; }
-    }
-
-    public enum ItemShowAs
-    {
-        SingleImage,
-        MultipleImage,
-        Video
+        public List<string> images { get; set; }
+        public string video { get; set; }
     }
 
     public class Stats

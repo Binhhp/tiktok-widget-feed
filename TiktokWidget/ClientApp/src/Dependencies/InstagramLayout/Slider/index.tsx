@@ -6,6 +6,7 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Item from "../Item";
 import { DivLayoutFlexbox } from "../InstagramLayoutStyle";
+import { IInstagramDto } from "../InstagramLayoutModel";
 
 SwiperCore.use([Autoplay, Navigation]);
 function SliderInstagram(props: SliderProps) {
@@ -25,18 +26,15 @@ function SliderInstagram(props: SliderProps) {
     ).keys()
   );
 
-  const [page, setPage] = useState(0);
-
-  const onActiveIndexChangeSwiper = (swiper: SwiperCore) => {
-    const pageIndex =
-      swiper.activeIndex > 0 ? swiper.activeIndex - 1 : swiper.activeIndex;
-    setPage(pageIndex);
-  };
+  const RenderData = (number: number): IInstagramDto[] =>
+    props.items.slice(
+      number * props.option.numberPerRow * 2,
+      props.option.numberPerRow * 2 * (number + 1)
+    );
   return (
     <DivSliderWrapper>
       {sliderNumber && sliderNumber.length > 1 ? (
         <Swiper
-          onActiveIndexChange={onActiveIndexChangeSwiper}
           observer={true}
           observeParents={true}
           parallax={true}
@@ -51,24 +49,18 @@ function SliderInstagram(props: SliderProps) {
           slidePrevClass="orichi-instagram-player-prev"
           className="orichi-instagram-slider"
         >
-          {sliderNumber.map((number, index) => (
-            <SwiperSlide key={`slider-${index}`}>
+          {sliderNumber.map((number) => (
+            <SwiperSlide key={`slider-${number}`}>
               <DivLayoutFlexbox>
-                {props.items
-                  .slice(
-                    page * props.option.numberPerRow * 2,
-                    props.option.numberPerRow * 2 * (page + 1)
-                  )
-                  .map((item, index) => (
-                    <Item
-                      key={`slider-${index}`}
-                      onClick={props.onClick}
-                      option={props.option}
-                      item={item}
-                      showAs={item.showAs}
-                      width={100 / props.option.numberPerRow}
-                    ></Item>
-                  ))}
+                {RenderData(number).map((item, index) => (
+                  <Item
+                    key={`slider-${index}`}
+                    onClick={props.onClick}
+                    option={props.option}
+                    item={item}
+                    width={100 / props.option.numberPerRow}
+                  ></Item>
+                ))}
               </DivLayoutFlexbox>
             </SwiperSlide>
           ))}
@@ -81,7 +73,6 @@ function SliderInstagram(props: SliderProps) {
               onClick={props.onClick}
               option={props.option}
               item={item}
-              showAs={item.showAs}
               width={100 / props.option.numberPerRow}
             ></Item>
           ))}

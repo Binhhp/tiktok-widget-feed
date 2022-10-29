@@ -1,7 +1,7 @@
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
+import { TemplateInstagramType } from "stores/Admin/InstagramWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
 import { Caption } from "../../CreateWidgetStyle";
 import FormSubmit from "../FormConfig/Forms/FormSubmit";
@@ -21,11 +21,13 @@ function TemplateSelect() {
   );
   const dispatch = useDispatch();
 
-  const onSetLayout = (key: TemplateType) => () => {
+  const onSetLayout = (key: TemplateInstagramType) => () => {
     dispatch(
       InstagramWidgetActionTS.OnSetSetting({
         layout:
-          key === TemplateType.Slider ? TemplateType.Slider : TemplateType.List,
+          key === TemplateInstagramType.Slider
+            ? TemplateInstagramType.Slider
+            : TemplateInstagramType.List,
       })
     );
   };

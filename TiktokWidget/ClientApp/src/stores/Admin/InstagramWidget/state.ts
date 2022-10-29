@@ -1,14 +1,17 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 
+export enum TemplateInstagramType {
+  Slider = 1,
+  List = 2,
+}
 export interface IInstagramWidget {
   id?: string;
   title?: string;
   source?: number;
   valueSource?: string;
-  layout?: TemplateType.Slider | TemplateType.List;
+  layout?: TemplateInstagramType.Slider | TemplateInstagramType.List;
   header?: "enable" | "disable";
   titleHeader?: string;
   labelReadMore?: string;
@@ -27,7 +30,7 @@ export class InstagramWidget implements IInstagramWidget {
   title?: string;
   source?: number;
   valueSource?: string;
-  layout?: TemplateType.Slider | TemplateType.List;
+  layout?: TemplateInstagramType.Slider | TemplateInstagramType.List;
   header?: "enable" | "disable";
   titleHeader?: string;
   labelReadMore?: string;
@@ -80,7 +83,7 @@ export class InstagramWidgetStoreModelDto {
       title: "",
       source: 0,
       valueSource: "",
-      layout: TemplateType.Slider,
+      layout: TemplateInstagramType.Slider,
       header: "enable",
       titleHeader: "Follow us on Instagram",
       labelReadMore: "readmore",
@@ -117,7 +120,7 @@ export class InstagramWidgetStoreModel
       title: "",
       source: 0,
       valueSource: "",
-      layout: TemplateType.Slider,
+      layout: TemplateInstagramType.Slider,
       header: "enable",
       titleHeader: "Follow us on Instagram",
       labelReadMore: "readmore",

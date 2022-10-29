@@ -16,6 +16,7 @@ namespace TiktokWidget.Service.Context
         public DbSet<ShopConfigurationEntity> ShopConfiguration { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
         public DbSet<PerformancesEntity> Performances { get; set; }
+        public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -77,6 +78,10 @@ namespace TiktokWidget.Service.Context
             //Config performances of shop
             var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
             performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
+
+            //Shop description
+            var shopDescriptor = modelBuilder.Entity<ShopDescriptorEntity>().ToTable("ShopDescriptor");
+            shopDescriptor.HasOne(c => c.Shops).WithOne(e => e.ShopDescriptor).HasForeignKey<ShopDescriptorEntity>(x => x.ShopId);
         }
 
 

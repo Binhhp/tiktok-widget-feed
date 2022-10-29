@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
+using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.Shops;
@@ -281,6 +282,18 @@ namespace TiktokWidget.Service.Implements
                 response = themeService.ListAsync().GetAwaiter().GetResult().AsQueryable();
             }
             return response;
+        }
+
+        public async Task FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest)
+        {
+            var shop = _context.Shop.FirstOrDefault(x => x.Domain.ToLower().Equals(domain));
+            if (shop == null) throw new NotFoundException(domain);
+
+            shop.ShopDescriptor = new ShopDescriptorEntity
+            {
+                Feedback = postFeedbackRequest?.Feedback ?? string.Empty
+            };
+            await _context.SaveChangesAsync();
         }
     }
 }

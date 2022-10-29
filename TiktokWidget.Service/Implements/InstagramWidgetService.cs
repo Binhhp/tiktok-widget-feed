@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using Orichi.IoC.Logging;
 using Orichi.IoC.Logging.Models.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.BusinessExceptions;
@@ -14,7 +13,6 @@ using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
-using TiktokWidget.Service.Models;
 using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Implements
@@ -23,11 +21,13 @@ namespace TiktokWidget.Service.Implements
     {
         private readonly WidgetFeedDbContext _widgetDbContext;
         private readonly IMapper _mapper;
+        private readonly ILoggerProvider _logger;
 
-        public InstagramWidgetService(WidgetFeedDbContext widgetDbContext, IMapper mapper)
+        public InstagramWidgetService(WidgetFeedDbContext widgetDbContext, IMapper mapper, ILoggerProvider logger)
         {
             _widgetDbContext = widgetDbContext;
             _mapper = mapper;
+            _logger = logger;
         }
         /// <summary>
         /// get list widget
@@ -203,16 +203,27 @@ namespace TiktokWidget.Service.Implements
         }
         public IQueryable<InstagramViewModel> GetVideos(string widgetId)
         {
-            //var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
-            //string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-            //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
-            //var JSON = File.ReadAllText(pathFile);
-            //if (!string.IsNullOrEmpty(JSON))
-            //{
-            //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
-            //}
-            //return response;
-            return InstagramVideoSeedData.Seed();
+            var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
+            try
+            {
+                var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
+                if (widget != null)
+                {
+                    response = InstagramVideoSeedData.Seed();
+                }
+                //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+                //var JSON = File.ReadAllText(pathFile);
+                //if (!string.IsNullOrEmpty(JSON))
+                //{
+                //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+                //}
+                //return response;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogInfo(ex);
+            }
+            return response;
         }
     }
 }

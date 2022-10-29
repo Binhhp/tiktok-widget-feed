@@ -16,6 +16,7 @@ using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.BusinessExceptions;
 using Orichi.IoC.Logging.Models.Models;
+using Orichi.IoC.Logging;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -23,10 +24,12 @@ namespace TiktokWidget.Service.Implements
     {
         private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
-        public WidgetService(WidgetFeedDbContext context, IMapper mapper)
+        private readonly ILoggerProvider _logger;
+        public WidgetService(WidgetFeedDbContext context, IMapper mapper, ILoggerProvider logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -178,17 +181,24 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<VideoTikTokModel> GetVideos(string widgetId)
         {
             var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
-            var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
-            if (widget == null)
+            try
             {
-                return response;
+                var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
+                if (widget == null)
+                {
+                    return response;
+                }
+                string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+                var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+                var JSON = File.ReadAllText(pathFile);
+                if (!string.IsNullOrEmpty(JSON))
+                {
+                    response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+                }
             }
-            string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-            var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
-            var JSON = File.ReadAllText(pathFile);
-            if (!string.IsNullOrEmpty(JSON))
+            catch(Exception ex)
             {
-                response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+                _logger.LogInfo(ex);
             }
             return response;
         }

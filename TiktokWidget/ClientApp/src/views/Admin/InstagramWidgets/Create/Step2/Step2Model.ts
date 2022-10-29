@@ -1,20 +1,21 @@
 import { ImageStorage } from "assets/images/ImageStorage";
 import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
+import { TemplateInstagramType } from "stores/Admin/InstagramWidget/state";
 
 interface ITemplateLayout {
-  key: TemplateType;
+  key: TemplateInstagramType;
   title: "Slider" | "List" | string;
   image: any;
   width?: number;
 }
 const templates: ITemplateLayout[] = [
   {
-    key: TemplateType.Slider,
+    key: TemplateInstagramType.Slider,
     title: "Slider",
     image: ImageStorage.Templates.InsSlider,
   },
   {
-    key: TemplateType.List,
+    key: TemplateInstagramType.List,
     title: "List",
     image: ImageStorage.Templates.InsList,
   },

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import { TemplateInstagramType } from "stores/Admin/InstagramWidget/state";
 import { IconInstagram } from "./Icons";
 import { InstagramLayoutContext } from "./InstagramLayoutContext";
-import { IInstagramLayoutView, TemplateTypeEnum } from "./InstagramLayoutModel";
+import { IInstagramLayoutView } from "./InstagramLayoutModel";
 import {
   DivIcon,
   DivTitle,
@@ -13,21 +14,23 @@ import SliderInstagram from "./Slider";
 
 function InstagramLayoutView(props: IInstagramLayoutView) {
   const [loading, setLoading] = useState(true);
-
   const templateContext = useContext(InstagramLayoutContext);
-
   const fetchData = () => {
-    let showItems = 0;
-    let page = templateContext.state.pageIndex;
-    props._queryData(page, showItems).then((res) => {
-      if (res?.data.length > 0) {
-        templateContext.OnSetItems({
-          count: res.count,
-          items: res.data,
-        });
-      }
-      setLoading(false);
-    });
+    if (props.notLoadmore && templateContext.state.pageIndex > 1) return;
+    props
+      ._queryData(
+        templateContext.state.pageIndex,
+        props.option.numberPerRow * 2
+      )
+      .then((res) => {
+        if (res?.data.length > 0) {
+          templateContext.OnSetItems({
+            count: res.count,
+            items: res.data,
+          });
+        }
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -50,7 +53,7 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
           <DivTitleContent>{props.option.title}</DivTitleContent>
         </DivTitle>
       )}
-      {props.option.type === TemplateTypeEnum.Slider ? (
+      {props.option.type === TemplateInstagramType.Slider ? (
         <SliderInstagram
           items={templateContext.state.items}
           onClick={props.onClickItem}
@@ -61,6 +64,9 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
           items={templateContext.state.items}
           onClick={props.onClickItem}
           option={props.option}
+          onLoadmore={fetchData}
+          showLoadInfinite={props.showLoadInfinite}
+          showPageFirst={props.showPageFirst}
         />
       )}
     </InstagramLayoutContainer>

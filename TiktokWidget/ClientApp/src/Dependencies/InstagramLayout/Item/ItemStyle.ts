@@ -44,7 +44,7 @@ export const DivItemDesc = styled("div", "", "orichi-instagram")<
     overflow: hidden;
     line-height: 18px;
     -webkit-line-clamp: 3;
-    height: 54px;
+    max-height: 54px;
     display: -webkit-box;
     color: ${(props) => props.color ?? "#ffffff"};
   }
@@ -91,11 +91,13 @@ export const ItemWrapper = styled("div", "", "orichi-instagram")<IItemWrapper>`
 
 export const DivItemOrginal = styled("div", "", "orichi-instagram")`
   width: 100%;
+  height: 100%;
   display: block;
 `;
 export const DivItemImage = styled("img", "", "orichi-instagram")`
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   display: block;
 `;
 

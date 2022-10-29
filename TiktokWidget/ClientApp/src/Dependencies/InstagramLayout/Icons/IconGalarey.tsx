@@ -13,8 +13,8 @@ function IconGalarey() {
       <path
         d="M7.6521 21.9999H19.2173C20.7541 21.9999 21.9999 20.7541 21.9999 19.2173V7.6521"
         stroke="white"
-        stroke-width="1.3913"
-        stroke-linecap="round"
+        strokeWidth="1.3913"
+        strokeLinecap="round"
       />
     </svg>
   );
