@@ -53,6 +53,8 @@ namespace TiktokWidget.ODataEntities
             _builder.EntitySet<InstagramViewModel>("InstagramVideos");
             _builder.EntitySet<PerformancesEntity>("Traffic");
             _builder.EntitySet<ShopDescriptorEntity>("ShopDescriptor");
+            _builder.EntitySet<PostsEntity>("Posts");
+            _builder.EntitySet<BannerEnitty>("Banner");
             BuildEdmModel<TikTokWidgetEntity>(TikTokWidgetActions);
             BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
             BuildEdmModel<ShopEntity>(ShopEntityActions);

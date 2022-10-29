@@ -295,5 +295,15 @@ namespace TiktokWidget.Service.Implements
             };
             await _context.SaveChangesAsync();
         }
+
+        public IQueryable<PostsEntity> GetPosts()
+        {
+            return _context.Posts.Where(x => x.Status);
+        }
+
+        public IQueryable<BannerEnitty> GetBanners()
+        {
+            return _context.Banner.Where(x => x.Status);
+        }
     }
 }

@@ -89,7 +89,7 @@ String.prototype.format = function () {
 // const elements = document.querySelectorAll("div[name='orichi']");
 
 // const elementInstagram = document.querySelectorAll(
-//   "div[name='orichi'][data-type='ins']"
+//   "div[name='orichi-instagram']"
 // );
 
 // if (elements && elements.length > 0) {
