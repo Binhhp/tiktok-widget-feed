@@ -23,18 +23,7 @@ export const LoaderWrapper = styled("div")`
   }
 `;
 
-export const SnipperLoader = styled("div")`
-  width: 36px !important;
-  height: 36px !important;
-  max-width: 36px !important;
-  max-height: 36px !important;
-  svg {
-    width: 36px !important;
-    height: 36px !important;
-    max-width: 36px !important;
-    max-height: 36px !important;
-  }
-`;
+export const SnipperLoader = styled("div")``;
 
 export const ImageStyle = styled("img")`
   width: 100%;

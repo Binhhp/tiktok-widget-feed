@@ -1,12 +1,8 @@
+import breakpoints from "Dependencies/Devices/breakpoint";
 import styled from "Dependencies/StyledComponents/Container";
 
 export const InstagramLayoutWrappepr = styled("div", "", "orichi-instagram")`
   width: 100%;
-`;
-
-export const InstagramLayoutContainer = styled("div", "", "orichi-instagram")`
-  width: 100%;
-  height: 100%;
 `;
 
 export const DivTitle = styled("div", "", "orichi-instagram")`
@@ -33,7 +29,21 @@ export const DivIcon = styled("div", "", "orichi-instagram")`
 `;
 
 export const DivLayoutFlexbox = styled("div", "", "orichi-instagram")`
+  align-items: stretch;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  position: relative;
+`;
+
+export const InstagramLayoutContainer = styled("div", "", "orichi-instagram")`
+  width: 100%;
+  height: 100%;
+  @media only screen and (${breakpoints.device.lg}) {
+  }
+  @media only screen and (${breakpoints.device.sm}) {
+  }
+  @media only screen and (${breakpoints.device.xm}) {
+  }
 `;

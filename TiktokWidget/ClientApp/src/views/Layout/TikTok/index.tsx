@@ -5,23 +5,21 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import widgetReducerManager from "stores/Layout/Widget";
 import { StyleSheetManager } from "styled-components";
-import Instagram from "./InstagramApp";
+import TikTokApp from "./TikTokApp";
 import GlobalStyle from "../Common/GlobalStyle";
 
-//Show instagram widget
-const elementInstagram = document.querySelectorAll(
-  "div[name='orichi-instagram']"
-);
-if (elementInstagram && elementInstagram.length > 0) {
-  elementInstagram.forEach((element) => {
-    const rootInstagram = ReactDOM.createRoot(element);
-    const widgetIdInstagram = element.getAttribute("data-id");
-    rootInstagram.render(
+//Show tiktok widget
+const elements = document.querySelectorAll("div[name='orichi']");
+if (elements && elements.length > 0) {
+  elements.forEach((element) => {
+    const root = ReactDOM.createRoot(element);
+    const widgetId = element.getAttribute("data-id");
+    root.render(
       <StyleSheetManager disableVendorPrefixes>
         <Provider store={widgetReducerManager.store}>
           <BrowserRouter>
             <GlobalStyle />
-            <Instagram widgetId={widgetIdInstagram} />
+            <TikTokApp widgetId={widgetId} />
           </BrowserRouter>
         </Provider>
       </StyleSheetManager>
