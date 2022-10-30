@@ -28,6 +28,14 @@ function Detail(props: IDetailProps) {
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
+        <div className="orichi-instagram-user">
+          <DivUserName>
+            <IconInstagram />
+            <h2>{props.item.author}</h2>
+            <DivDot color={props.widget.setting.itemColor}></DivDot>
+            <a href="https://www.instagram.com/">Follow</a>
+          </DivUserName>
+        </div>
         <DivContent>
           {props.item.video ? (
             <VideoPlayer
@@ -40,12 +48,18 @@ function Detail(props: IDetailProps) {
           )}
         </DivContent>
         <DivDesc>
-          <div className="orichi-instagram-item">
+          <div className="orichi-instagram-item username">
             <DivUserName>
               <IconInstagram />
               <h2>{props.item.author}</h2>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
-              <a href="https://www.instagram.com/">Follow</a>
+              <a
+                href={`https://www.instagram.com/${props.item.author}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Follow
+              </a>
             </DivUserName>
             <p className="orichi-instagram-desc">{props.item.desc}</p>
           </div>

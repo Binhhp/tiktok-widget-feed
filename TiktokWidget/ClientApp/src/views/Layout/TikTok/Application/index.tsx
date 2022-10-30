@@ -19,7 +19,7 @@ import {
   SettingProviderWidget,
 } from "stores/Admin/Widget/state";
 import { ShopActionTS } from "stores/Admin/Shop/action";
-import ApplicationContainer from "views/Layout/ApplicationContainer";
+import ApplicationContainer from "views/Layout/Common/ApplicationContainer";
 
 function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);

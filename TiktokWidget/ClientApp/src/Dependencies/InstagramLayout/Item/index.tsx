@@ -29,7 +29,11 @@ function Item(props: IItemProps) {
         </ItemIcon>
       )}
       <DivItemOrginal>
-        <DivItemImage src={props.item.images[0]} alt={props.item.desc} />
+        <DivItemImage
+          loading="lazy"
+          src={props.item.images[0]}
+          alt={props.item.desc}
+        />
       </DivItemOrginal>
       <DivItemContent
         onClick={props.onClick && props.onClick(props.item)}

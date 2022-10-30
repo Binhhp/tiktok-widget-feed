@@ -76,6 +76,7 @@ export const DivButtonShop = styled("a")`
   font-weight: 500;
   height: auto;
   width: 80px;
+  max-width: 100%;
   cursor: pointer;
   text-decoration: none;
   display: flex;
@@ -94,19 +95,13 @@ export const ShopTagProductWrapper = styled("div", "", "orichi-instagram")`
   height: auto;
   background-color: #ffffff;
   color: #000000;
+  max-width: 100%;
+  overflow: hidden;
   @media only screen and (${breakpoints.device.xs}) {
   }
   @media only screen and (${breakpoints.device.sm}) {
   }
   @media only screen and (${breakpoints.device.lg}) {
-    min-width: 100%;
-    height: 80px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    z-index: 10;
-    border-top: 1px solid #00000020;
     ${DivPriceProduct} {
       h3 {
         font-size: 12px;
@@ -135,8 +130,6 @@ export const ShopTagProductWrapper = styled("div", "", "orichi-instagram")`
     }
     ${DivButtonShop} {
       font-size: 10px;
-      padding: 5px;
-      min-width: 80px;
     }
   }
 `;

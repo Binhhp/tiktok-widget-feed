@@ -80,48 +80,63 @@ String.prototype.format = function () {
 // // third party
 // import { BrowserRouter } from "react-router-dom";
 // import { Provider } from "react-redux";
-// import GlobalStyle from "./views/Layout/GlobalStyle";
-// import workerTikTokManager from "stores/Layout/TikTok";
-// import TikTokApp from "./views/Layout/TikTok/TikTokApp";
+// import widgetReducerManager from "stores/Layout/Widget";
 // import { StyleSheetManager } from "styled-components";
-// import Instagram from "./views/Layout/Instagram";
+// import Instagram from "views/Layout/Instagram";
+// import TikTokApp from "views/Layout/TikTok/TikTokApp";
+// import GlobalStyle from "views/Layout/GlobalStyle";
 
-// const elements = document.querySelectorAll("div[name='orichi']");
-
-// const elementInstagram = document.querySelectorAll(
-//   "div[name='orichi-instagram']"
-// );
-
-// if (elements && elements.length > 0) {
-//   elements.forEach((element) => {
-//     const root = ReactDOM.createRoot(element);
-//     const widgetId = element.getAttribute("data-id");
-//     root.render(
-//       <StyleSheetManager disableVendorPrefixes>
-//         <Provider store={workerTikTokManager.store}>
-//           <BrowserRouter>
-//             <GlobalStyle />
-//             <TikTokApp widgetId={widgetId} />
-//           </BrowserRouter>
-//         </Provider>
-//       </StyleSheetManager>
-//     );
+// (function () {
+//   //Add css swiper and fancybox
+//   [
+//     "https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.0/swiper-bundle.min.css",
+//     "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css",
+//   ].forEach((item: string) => {
+//     var styleEl = document.createElement("link");
+//     styleEl.rel = "stylesheet";
+//     styleEl.href = item;
+//     styleEl.crossOrigin = "anonymous";
+//     styleEl.referrerPolicy = "no-referrer";
+//     document.getElementsByTagName("head")[0].appendChild(styleEl);
 //   });
-// }
 
-// if (elementInstagram && elementInstagram.length > 0) {
-//   elementInstagram.forEach((element) => {
-//     const rootInstagram = ReactDOM.createRoot(element);
-//     const widgetIdInstagram = element.getAttribute("data-id");
-//     rootInstagram.render(
-//       <StyleSheetManager disableVendorPrefixes>
-//         <Provider store={workerTikTokManager.store}>
-//           <BrowserRouter>
-//             <GlobalStyle />
-//             <Instagram widgetId={widgetIdInstagram} />
-//           </BrowserRouter>
-//         </Provider>
-//       </StyleSheetManager>
-//     );
-//   });
-// }
+//   //Show tiktok widget
+//   const elements = document.querySelectorAll("div[name='orichi']");
+//   if (elements && elements.length > 0) {
+//     elements.forEach((element) => {
+//       const root = ReactDOM.createRoot(element);
+//       const widgetId = element.getAttribute("data-id");
+//       root.render(
+//         <StyleSheetManager disableVendorPrefixes>
+//           <Provider store={widgetReducerManager.store}>
+//             <BrowserRouter>
+//               <GlobalStyle />
+//               <TikTokApp widgetId={widgetId} />
+//             </BrowserRouter>
+//           </Provider>
+//         </StyleSheetManager>
+//       );
+//     });
+//   }
+
+//   //Show instagram widget
+//   const elementInstagram = document.querySelectorAll(
+//     "div[name='orichi-instagram']"
+//   );
+//   if (elementInstagram && elementInstagram.length > 0) {
+//     elementInstagram.forEach((element) => {
+//       const rootInstagram = ReactDOM.createRoot(element);
+//       const widgetIdInstagram = element.getAttribute("data-id");
+//       rootInstagram.render(
+//         <StyleSheetManager disableVendorPrefixes>
+//           <Provider store={widgetReducerManager.store}>
+//             <BrowserRouter>
+//               <GlobalStyle />
+//               <Instagram widgetId={widgetIdInstagram} />
+//             </BrowserRouter>
+//           </Provider>
+//         </StyleSheetManager>
+//       );
+//     });
+//   }
+// })();
