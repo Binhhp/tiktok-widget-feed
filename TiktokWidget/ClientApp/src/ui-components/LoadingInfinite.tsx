@@ -1,6 +1,6 @@
 import { ButtonViewMore, LoadingInfiniteWrapper } from "./UtilsStyle";
 import React from "react";
-import { SnipperLoading } from "./SnipperLoading";
+import TikTokLoader from "./TikTokLoader";
 
 export interface ILoadingInfiniteProps {
   viewMore?: string;
@@ -16,10 +16,10 @@ function LoadingInfinite(props: ILoadingInfiniteProps) {
             <h2 className="viewmore">{props.viewMore}</h2>
           </ButtonViewMore>
         ) : (
-          <SnipperLoading></SnipperLoading>
+          <TikTokLoader></TikTokLoader>
         )
       ) : (
-        <SnipperLoading></SnipperLoading>
+        <TikTokLoader></TikTokLoader>
       )}
     </LoadingInfiniteWrapper>
   );

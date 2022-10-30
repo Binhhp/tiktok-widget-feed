@@ -37,7 +37,7 @@ export class InstagramOption {
   constructor(dto?: BaseInstagramWidget) {
     this.title = dto?.header.title ?? "";
     this.type =
-      dto?.setting.layoutType === 0
+      dto?.setting.layoutType === 1
         ? TemplateInstagramType.Slider
         : TemplateInstagramType.List;
     this.itemBackground = dto?.setting.itemBackGround ?? "";

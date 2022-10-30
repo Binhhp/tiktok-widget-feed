@@ -39,20 +39,34 @@ namespace TiktokWidget.Service.Implements
 
         public async Task SetPerformanceAsync(int shopId, DateTime time, PerformanceTypeEnum type)
         {
-            var performanceByTime = _dbContext.Performances.FirstOrDefault(x => x.ShopId.Equals(shopId) && x.Time.Date.Equals(time.Date) && x.Type.Equals(type));
+            var performanceByTime = _dbContext.Performances.FirstOrDefault(x => x.ShopId.Equals(shopId) && x.Time.Date.Equals(time.Date));
             if (performanceByTime != null)
             {
-                performanceByTime.Traffic += 1;
+                if (type.Equals(PerformanceTypeEnum.Instagram))
+                {
+                    performanceByTime.InstagramTraffic += 1;
+                }
+                else if (type.Equals(PerformanceTypeEnum.TikTok))
+                {
+                    performanceByTime.TikTokTraffic += 1;
+                }
             }
             else
             {
-                await _dbContext.Performances.AddAsync(new PerformancesEntity
+                var performanceEntity = new PerformancesEntity
                 {
-                    Type = type,
                     Time = time,
-                    Traffic = 1,
                     ShopId = shopId
-                });
+                };
+                if (type.Equals(PerformanceTypeEnum.Instagram))
+                {
+                    performanceEntity.InstagramTraffic = 1;
+                }
+                else if (type.Equals(PerformanceTypeEnum.TikTok))
+                {
+                    performanceEntity.TikTokTraffic = 1;
+                }
+                await _dbContext.Performances.AddAsync(performanceEntity);
             }
             await _dbContext.SaveChangesAsync();
         }

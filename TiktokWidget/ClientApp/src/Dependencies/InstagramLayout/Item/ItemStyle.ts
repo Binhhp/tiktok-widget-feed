@@ -1,3 +1,4 @@
+import breakpoints from "Dependencies/Devices/breakpoint";
 import styled from "Dependencies/StyledComponents/Container";
 
 interface IItemContent {
@@ -14,7 +15,7 @@ export const DivItemContent = styled(
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 12;
   justify-content: center;
   display: none;
   flex-direction: column;
@@ -78,21 +79,17 @@ export const DivItemIcon = styled("div", "", "orichi-instagram")`
 interface IItemWrapper {
   width: number;
 }
-export const ItemWrapper = styled("div", "", "orichi-instagram")<IItemWrapper>`
-  width: ${(props) => props.width}%;
-  height: auto;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  &:hover ${DivItemContent} {
-    display: flex;
-  }
-`;
 
 export const DivItemOrginal = styled("div", "", "orichi-instagram")`
   width: 100%;
   height: 100%;
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
 `;
 export const DivItemImage = styled("img", "", "orichi-instagram")`
   width: 100%;
@@ -107,4 +104,25 @@ export const ItemIcon = styled("div", "", "orichi-instagram")`
   right: 10px;
   width: 22px;
   height: 22px;
+  z-index: 10;
+`;
+export const ItemWrapper = styled("div", "", "orichi-instagram")<IItemWrapper>`
+  width: ${(props) => props.width}%;
+  padding-bottom: ${(props) => props.width}%;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  &:hover ${DivItemContent} {
+    display: flex;
+  }
+  @media only screen and (${breakpoints.device.lg}) {
+    width: 50%;
+    padding-bottom: 50%;
+  }
+  @media only screen and (${breakpoints.device.sm}) {
+    width: 100%;
+    padding-bottom: 100%;
+  }
+  @media only screen and (${breakpoints.device.xm}) {
+  }
 `;

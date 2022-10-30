@@ -28,14 +28,17 @@ function ListInstagram(props: ListProps) {
         ))}
       </DivLayoutFlexbox>
       <DivLoadmore>
-        {props.items.length < templateContext.state.count && (
-          <ButtonLoadmore
-            onClick={props.onLoadmore}
-            bg={props.option.loadMoreBackground}
-          >
-            {props.option.labelLoadmore}
-          </ButtonLoadmore>
-        )}
+        {props.items.length < templateContext.state.count &&
+          (!props.loading ? (
+            <ButtonLoadmore
+              onClick={props.onLoadmore}
+              bg={props.option.loadMoreBackground}
+            >
+              {props.option.labelLoadmore}
+            </ButtonLoadmore>
+          ) : (
+            <LoadingInfinite></LoadingInfinite>
+          ))}
       </DivLoadmore>
     </ListWrapper>
   ) : (

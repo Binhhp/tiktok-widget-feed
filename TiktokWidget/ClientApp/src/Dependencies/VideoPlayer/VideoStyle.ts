@@ -300,7 +300,6 @@ export const DivVideoWrapper = styled(
         height: 100%;
       }
       ${DivContainer} {
-        width: 70%;
         margin: auto;
         padding: 0px;
         video {

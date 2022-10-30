@@ -14,8 +14,10 @@ import SliderInstagram from "./Slider";
 
 function InstagramLayoutView(props: IInstagramLayoutView) {
   const [loading, setLoading] = useState(true);
+  const [loadingButton, setLoadingButton] = useState(false);
   const templateContext = useContext(InstagramLayoutContext);
   const fetchData = () => {
+    setLoadingButton(true);
     if (props.notLoadmore && templateContext.state.pageIndex > 1) return;
     props
       ._queryData(
@@ -30,6 +32,7 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
           });
         }
         setLoading(false);
+        setLoadingButton(false);
       });
   };
 
@@ -61,6 +64,7 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
         />
       ) : (
         <ListInstagram
+          loading={loadingButton}
           items={templateContext.state.items}
           onClick={props.onClickItem}
           option={props.option}

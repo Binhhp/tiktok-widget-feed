@@ -4,16 +4,17 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const PATHS = {
-  src: path.join(__dirname, "../src/views/Layout/index.tsx"),
+  tiktokSrc: path.join(__dirname, "../src/views/Layout/TikTok/index.tsx"),
+  instagramSrc: path.join(__dirname, "../src/views/Layout/Instagram/index.tsx"),
   build: path.join(__dirname, "../../wwwroot/"),
   tsConfig: path.join(__dirname, "../tsconfig.json"),
 };
 
 module.exports = {
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool: "inline-source-map",
+  mode: "production",
   entry: {
-    tiktok: PATHS.src,
+    tiktok: PATHS.tiktokSrc,
+    instagram: PATHS.instagramSrc,
   },
   output: {
     path: PATHS.build,

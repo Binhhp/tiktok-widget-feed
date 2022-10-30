@@ -1,51 +1,47 @@
+import breakpoints from "Dependencies/Devices/breakpoint";
 import styled from "Dependencies/StyledComponents/Container";
 
-export const DivDetailWrapper = styled("div", "", "orichi-instagram")`
-  max-width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 999999;
+export const DivContainer = styled("div", "container", "orichi-instagram")`
+  &.orichi-instagram-container {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    max-width: 100%;
+    align-items: stretch;
+    flex-shrink: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
-export const DivContainer = styled("div", "", "orichi-instagram")`
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  max-width: 100%;
-  align-items: stretch;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+export const DivContent = styled("div", "content", "orichi-instagram")`
+  &.orichi-instagram-content {
+    background: #000000;
+    max-width: 50%;
+    max-height: 100%;
+    overflow: hidden;
+    min-width: 200px;
+  }
 `;
 
-export const DivContent = styled("div", "", "orichi-instagram")`
-  background: #000000;
-  max-width: 50%;
-  max-height: 100%;
-  overflow: hidden;
-`;
-
-export const DivDesc = styled("div", "", "orichi-instagram")`
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  justify-content: space-between;
-  padding: 15px 11px;
-  p.orichi-instagram-desc {
-    margin: 32px 0px;
-    font-family: "SF Pro Display";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    color: #000000;
+export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
+  &.orichi-instagram-divdesc {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    justify-content: space-between;
+    padding: 15px 11px 0px 11px;
+    p.orichi-instagram-desc {
+      margin: 32px 0px;
+      font-family: "SF Pro Display";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      color: #000000;
+    }
   }
 `;
 
@@ -61,8 +57,8 @@ export const DivUserName = styled("div", "", "orichi-instagram")`
     font-size: 16px;
     font-weight: 700;
     line-height: 16px;
-    margin-left: 5px;
     color: #000000;
+    margin: 0px 0px 0px 5px;
   }
   a {
     text-decoration: none;
@@ -111,4 +107,56 @@ export const DivDot = styled("div", "", "orichi-instagram")<IDivDot>`
   height: 4px;
   width: 4px;
   border-radius: 50%;
+`;
+
+export const DivDetailWrapper = styled("div", "", "orichi-instagram")`
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  .orichi-instagram-user {
+    display: none;
+    background: #ffffff;
+    padding: 0px 11px;
+  }
+  @media only screen and (${breakpoints.device.lg}) {
+    ${DivContainer} {
+      flex-direction: column;
+      ${DivContent} {
+        max-width: 100%;
+      }
+      ${DivDesc} {
+        max-width: 100%;
+      }
+    }
+    .orichi-instagram-user {
+      display: block;
+      ${DivUserName} {
+        padding: 15px 0px;
+        border: none;
+      }
+    }
+    .username ${DivUserName} {
+      display: none;
+    }
+    .username p {
+      margin: 12px 0px;
+    }
+    p.orichi-instagram-desc {
+      margin-bottom: 46px;
+    }
+    ${DivContainer} {
+      width: 75%;
+    }
+  }
+  @media only screen and (${breakpoints.device.sm}) {
+  }
+  @media only screen and (${breakpoints.device.xm}) {
+  }
 `;

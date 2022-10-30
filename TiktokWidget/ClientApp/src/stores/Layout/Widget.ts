@@ -1,7 +1,7 @@
 import thunk from "redux-thunk";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import tikTokReducer from "./TikTokReducer";
+import tikTokReducer from "./WidgetReducer";
 
 const middleware = [thunk];
 
@@ -10,5 +10,5 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-const workerTikTokManager = { store, middleware };
-export default workerTikTokManager;
+const widgetReducerManager = { store, middleware };
+export default widgetReducerManager;
