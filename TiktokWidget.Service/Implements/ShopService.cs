@@ -291,7 +291,8 @@ namespace TiktokWidget.Service.Implements
 
             shop.ShopDescriptor = new ShopDescriptorEntity
             {
-                Feedback = postFeedbackRequest?.Feedback ?? string.Empty
+                Feedback = postFeedbackRequest?.Feedback ?? string.Empty,
+                FeedbackStatus = postFeedbackRequest.Status
             };
             await _context.SaveChangesAsync();
         }
