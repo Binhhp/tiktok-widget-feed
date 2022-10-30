@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
-import Loader from "ui-components/Loader";
+import Loader from "ui-components/Loading/ComponentLoader";
 import CreateWidgetProvider from "./CreateWidgetProvider";
 import {
   Content,

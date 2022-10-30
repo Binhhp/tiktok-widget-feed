@@ -16,24 +16,23 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
   const templateContext = useContext(InstagramLayoutContext);
-  const fetchData = () => {
-    setLoadingButton(true);
+  const fetchData = async () => {
     if (props.notLoadmore && templateContext.state.pageIndex > 1) return;
-    props
-      ._queryData(
-        templateContext.state.pageIndex,
-        props.option.numberPerRow * 2
-      )
-      .then((res) => {
-        if (res?.data.length > 0) {
-          templateContext.OnSetItems({
-            count: res.count,
-            items: res.data,
-          });
-        }
-        setLoading(false);
-        setLoadingButton(false);
+    if (templateContext.state.items.length > 0) {
+      setLoadingButton(true);
+    }
+    const res = await props._queryData(
+      templateContext.state.pageIndex,
+      props.option.numberPerRow * 2
+    );
+    if (res?.data.length > 0) {
+      templateContext.OnSetItems({
+        count: res.count,
+        items: res.data,
       });
+    }
+    setLoading(false);
+    setLoadingButton(false);
   };
 
   useEffect(() => {

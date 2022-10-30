@@ -19,7 +19,7 @@ import Image from "ui-components/Image";
 import Profile from "Dependencies/Profile";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateModel";

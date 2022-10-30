@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { InstagramLayoutContext } from "../InstagramLayoutContext";
 import { IInstagramDto } from "../InstagramLayoutModel";
 import { DivLayoutFlexbox } from "../InstagramLayoutStyle";
@@ -17,7 +17,7 @@ function ListInstagram(props: ListProps) {
   return props.option.labelLoadmore ? (
     <ListWrapper>
       <DivLayoutFlexbox>
-        {items.map((item, index) => (
+        {items.map((item) => (
           <Item
             key={`list-${item.id}`}
             onClick={props.onClick}
@@ -28,17 +28,21 @@ function ListInstagram(props: ListProps) {
         ))}
       </DivLayoutFlexbox>
       <DivLoadmore>
-        {props.items.length < templateContext.state.count &&
-          (!props.loading ? (
-            <ButtonLoadmore
-              onClick={props.onLoadmore}
-              bg={props.option.loadMoreBackground}
-            >
-              {props.option.labelLoadmore}
-            </ButtonLoadmore>
-          ) : (
-            <LoadingInfinite></LoadingInfinite>
-          ))}
+        {props.items.length < templateContext.state.count && (
+          <LoadingInfinite
+            customButton={
+              <ButtonLoadmore
+                onClick={props.onLoadmore}
+                bg={props.option.loadMoreBackground}
+              >
+                {props.option.labelLoadmore}
+              </ButtonLoadmore>
+            }
+            loading={props.loading}
+            viewMore={props.option.labelLoadmore}
+            color={props.option.loadMoreBackground}
+          ></LoadingInfinite>
+        )}
       </DivLoadmore>
     </ListWrapper>
   ) : (
@@ -49,7 +53,11 @@ function ListInstagram(props: ListProps) {
           ? true
           : templateContext.state.items.length < templateContext.state.count
       }
-      loader={<LoadingInfinite></LoadingInfinite>}
+      loader={
+        <LoadingInfinite
+          color={props.option.loadMoreBackground}
+        ></LoadingInfinite>
+      }
       next={props.onLoadmore}
     >
       <ListWrapper>

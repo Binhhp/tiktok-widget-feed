@@ -9,7 +9,6 @@ export const ListWrapper = styled("div", "", "orichi-instagram")`
 export const DivLoadmore = styled("div", "", "orichi-instagram")`
   width: 100%;
   height: max-content;
-  margin-top: 30px;
   display: flex;
   justify-content: center;
 `;

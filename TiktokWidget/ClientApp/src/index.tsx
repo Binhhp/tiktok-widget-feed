@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import workerManager from "stores/Admin";
 import GlobalStyles from "GlobalStyles";
-import Loadable from "ui-components/Loadable";
+import Loadable from "ui-components/Loading/Loadable";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "views/ErrorFallback";
 import { Helmet } from "react-helmet";
@@ -86,9 +86,8 @@ String.prototype.format = function () {
 // import { Provider } from "react-redux";
 // import widgetReducerManager from "stores/Layout/Widget";
 // import { StyleSheetManager } from "styled-components";
-// import Instagram from "views/Layout/Instagram";
-// import TikTokApp from "views/Layout/TikTok/TikTokApp";
-// import GlobalStyle from "views/Layout/GlobalStyle";
+// import GlobalStyle from "views/Layout/Common/GlobalStyle";
+// import Instagram from "views/Layout/Instagram/InstagramApp";
 
 // (function () {
 //   //Add css swiper and fancybox
@@ -103,25 +102,6 @@ String.prototype.format = function () {
 //     styleEl.referrerPolicy = "no-referrer";
 //     document.getElementsByTagName("head")[0].appendChild(styleEl);
 //   });
-
-//   //Show tiktok widget
-//   const elements = document.querySelectorAll("div[name='orichi']");
-//   if (elements && elements.length > 0) {
-//     elements.forEach((element) => {
-//       const root = ReactDOM.createRoot(element);
-//       const widgetId = element.getAttribute("data-id");
-//       root.render(
-//         <StyleSheetManager disableVendorPrefixes>
-//           <Provider store={widgetReducerManager.store}>
-//             <BrowserRouter>
-//               <GlobalStyle />
-//               <TikTokApp widgetId={widgetId} />
-//             </BrowserRouter>
-//           </Provider>
-//         </StyleSheetManager>
-//       );
-//     });
-//   }
 
 //   //Show instagram widget
 //   const elementInstagram = document.querySelectorAll(

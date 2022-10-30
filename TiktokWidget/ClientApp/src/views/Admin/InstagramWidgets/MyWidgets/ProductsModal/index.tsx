@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { toastNotify } from "Dependencies/Toast";
 import Image from "ui-components/Image";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { ProductReponsitory } from "repositories/implements/ProductReponsitory";
 import { Waypoint } from "react-waypoint";
 import { RootReducer } from "stores/Admin/reducers";

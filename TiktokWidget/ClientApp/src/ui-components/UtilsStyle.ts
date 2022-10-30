@@ -23,8 +23,6 @@ export const LoaderWrapper = styled("div")`
   }
 `;
 
-export const SnipperLoader = styled("div")``;
-
 export const ImageStyle = styled("img")`
   width: 100%;
   max-width: 100%;

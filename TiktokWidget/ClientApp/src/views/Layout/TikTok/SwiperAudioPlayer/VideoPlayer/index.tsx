@@ -43,9 +43,9 @@ import {
   ImgPoster,
 } from "./VideoStyle";
 import { IVideoProps } from "./VideoType";
-import Loader from "ui-components/Loader";
+import Loader from "ui-components/Loading/ComponentLoader";
 import breakpoints from "Dependencies/Devices/breakpoint";
-import TikTokLoader from "ui-components/TikTokLoader";
+import TikTokLoader from "ui-components/Loading/TikTokLoader";
 import ShopTagProduct from "../../ShopTagProduct";
 
 function VideoPlayer(props: IVideoProps) {

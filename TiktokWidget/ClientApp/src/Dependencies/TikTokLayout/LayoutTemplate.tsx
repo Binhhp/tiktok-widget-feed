@@ -17,7 +17,7 @@ import LayoutList from "./Layouts/List";
 import Masonries from "./Layouts/Masonry";
 import Slider from "./Layouts/Slider";
 import Carousel from "./Layouts/Carourel";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { LayoutTemplateContext } from "./LayoutTemplateContext";
 import config from "config";
 

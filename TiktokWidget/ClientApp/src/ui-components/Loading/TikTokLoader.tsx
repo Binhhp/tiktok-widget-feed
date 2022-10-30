@@ -3,7 +3,7 @@ import {
   DivTikTokLoader1,
   DivTikTokLoader2,
   DivTikTokLoaderContainer,
-} from "./UtilsStyle";
+} from "../UtilsStyle";
 function TikTokLoader() {
   return (
     <DivTikTokLoaderContainer>
