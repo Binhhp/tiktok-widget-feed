@@ -10,7 +10,7 @@ using TiktokWidget.Service.Context;
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(WidgetFeedDbContext))]
-    [Migration("20221029170148_update_tables")]
+    [Migration("20221030103833_update_tables")]
     partial class update_tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,8 +294,14 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Property<string>("Feedback")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FeedbackStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ShopOwner")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

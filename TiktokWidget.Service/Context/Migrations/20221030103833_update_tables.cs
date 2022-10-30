@@ -141,6 +141,8 @@ namespace TiktokWidget.Service.Context.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FeedbackStatus = table.Column<int>(type: "int", nullable: false),
+                    ShopOwner = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShopId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
