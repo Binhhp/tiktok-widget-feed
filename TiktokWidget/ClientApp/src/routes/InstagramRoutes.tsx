@@ -1,6 +1,6 @@
 import MainLayout from "layout/MainLayout";
 import React, { lazy } from "react";
-import Loadable from "ui-components/Loadable";
+import Loadable from "ui-components/Loading/Loadable";
 
 //Create Widget
 const InstagramStep1 = Loadable(

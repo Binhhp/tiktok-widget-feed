@@ -9,7 +9,7 @@ import { NonEmptyArray } from "@shopify/polaris/build/ts/latest/src/types";
 import { ContainerSection } from "common/style/UtilStyles";
 import React, { useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { AbsoluteCenter } from "ui-components/UtilsStyle";
 import Actions from "./Actions";
 import { AlertTitle, DataTablesProvider } from "./DataTablesStyle";
@@ -108,19 +108,18 @@ function DataTables(props: IDataTableProps) {
   const onHandleUpdate =
     (item: any, isDeleted: boolean = false, isConfirm = false) =>
     async () => {
-      var result = false;
       if (isDeleted) {
         if (!isConfirm) {
           onSetAlert(item);
         } else {
           setLoadingButton(true);
-          result = await props.onDelete(item);
+          await props.onDelete(item);
           fetchData(true);
           setLoadingButton(false);
           onCloseAlert();
         }
       } else {
-        result = await props.onUpdate(item);
+        await props.onUpdate(item);
         fetchData(true);
       }
     };

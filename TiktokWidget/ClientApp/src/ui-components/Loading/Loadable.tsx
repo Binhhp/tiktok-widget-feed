@@ -1,4 +1,4 @@
-import Loader from "./Loader";
+import Loader from "./ComponentLoader";
 import React, { Suspense } from "react";
 const Loadable = (Component: any) => (props: any) =>
   (

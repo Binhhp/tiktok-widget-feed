@@ -12,6 +12,7 @@ export interface IInstagramLayoutView {
   notLoadmore?: boolean;
   showLoadInfinite?: boolean;
   showPageFirst?: boolean;
+  defaultLoadingButton?: boolean;
   _queryData: (
     pageIndex: number,
     showItems?: number

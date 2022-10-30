@@ -9,7 +9,7 @@ import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ShopActionTS } from "stores/Admin/Shop/action";
-import Loader from "ui-components/Loader";
+import Loader from "ui-components/Loading/ComponentLoader";
 import withAppProvider from "Dependencies/ApplicationProvider";
 import { useQuery } from "hooks";
 import { WidgetActionTS } from "stores/Admin/Widget/action";

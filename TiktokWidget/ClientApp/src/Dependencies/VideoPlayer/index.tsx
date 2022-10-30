@@ -13,8 +13,8 @@ import {
   ImgPoster,
 } from "./VideoStyle";
 import { IErrorPlayer, IVideoProps, StatusType } from "./VideoType";
-import TikTokLoader from "ui-components/TikTokLoader";
-import Loader from "ui-components/Loader";
+import TikTokLoader from "ui-components/Loading/TikTokLoader";
+import Loader from "ui-components/Loading/ComponentLoader";
 import { ErrorCodePlayer } from "./ErrorCode";
 
 function VideoPlayer(props: IVideoProps) {

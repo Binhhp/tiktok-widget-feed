@@ -4,7 +4,7 @@ import { LayoutPropTypes } from "../LayoutTemplateType";
 //Swiper
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Loader from "ui-components/Loader";
+import Loader from "ui-components/Loading/ComponentLoader";
 import { LayoutTemplateContext } from "../LayoutTemplateContext";
 
 SwiperCore.use([Autoplay, Navigation]);

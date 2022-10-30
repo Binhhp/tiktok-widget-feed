@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "ui-components/Loader";
-import LoadingInfinite from "ui-components/LoadingInfinite";
+import Loader from "ui-components/Loading/ComponentLoader";
+import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import Item from "../Item";
 import { LayoutTemplateContext } from "../LayoutTemplateContext";
 import { TemplateInfiniteItem } from "../LayoutTemplateStype";
