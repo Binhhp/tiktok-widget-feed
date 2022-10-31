@@ -1,19 +1,11 @@
-import styled from "Dependencies/StyledComponents/Container";
+import styled from 'Dependencies/StyledComponents/Container';
 
-export const DashboardWrapper = styled("div")`
-  display: flex;
-  justify-content: center;
+export const DashboardWrapper = styled('div')`
+  display: grid;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-`;
-
-export const DashboardContent = styled("div")`
-  width: auto;
-  height: auto;
-  margin: auto;
-  img {
-    width: 100%;
-    height: 100%;
-  }
+  padding: 40px 32px;
+  grid-template-columns: 70% 30%;
+  column-gap: 20px;
 `;

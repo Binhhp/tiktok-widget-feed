@@ -1,23 +1,23 @@
-import React, { Suspense, useEffect, useState } from "react";
-import Routes from "routes";
-import NavigationScroll from "./layout/MainLayout/NavigationScroll";
-import { Toaster } from "react-hot-toast";
-import "@shopify/polaris/build/esm/styles.css";
-import "swiper/swiper-bundle.css";
-import "@fancyapps/ui/dist/fancybox.css";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { ShopActionTS } from "stores/Admin/Shop/action";
-import Loader from "ui-components/Loader";
-import withAppProvider from "Dependencies/ApplicationProvider";
-import { useQuery } from "hooks";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import React, { Suspense, useEffect, useState } from 'react';
+import Routes from 'routes';
+import NavigationScroll from './layout/MainLayout/NavigationScroll';
+import { Toaster } from 'react-hot-toast';
+import '@shopify/polaris/build/esm/styles.css';
+import 'swiper/swiper-bundle.css';
+import '@fancyapps/ui/dist/fancybox.css';
+import { ShopReponsitory } from 'repositories/implements/ShopReponsitory';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ShopActionTS } from 'stores/Admin/Shop/action';
+import Loader from 'ui-components/Loader';
+import withAppProvider from 'Dependencies/ApplicationProvider';
+import { useQuery } from 'hooks';
+import { WidgetActionTS } from 'stores/Admin/Widget/action';
 
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const shop = useQuery().get("shop");
+  const shop = useQuery().get('shop');
   const [isPending, setPending] = useState(true);
   useEffect(() => {
     if (shop) {
@@ -29,49 +29,50 @@ function App() {
             dispatch(
               ShopActionTS.OnSetInformation({
                 shop: res,
-              })
+              }),
             );
-            shopReponsitory.GetWidgetsCount(res.domain ?? "").then((val) => {
+            console.log(res.domain, 'res.domain');
+            shopReponsitory.GetWidgetsCount(res.domain ?? '').then((val) => {
               dispatch(WidgetActionTS.OnSetWidgetCount(val));
               if (val) {
                 navigate(`/my-widget?shop=${res.domain}`);
               }
             });
           } else {
-            navigate("/not-found");
+            navigate('/not-found');
           }
           setPending(false);
         })
         .catch(() => {
-          navigate("/not-found");
+          navigate('/not-found');
           setPending(false);
         });
     } else {
-      navigate("/not-found");
+      navigate('/not-found');
       setPending(false);
     }
   }, []);
 
   return (
-    <Suspense fallback={<Loader></Loader>}>
+    <Suspense fallback={<Loader />}>
       {isPending ? (
-        <Loader></Loader>
+        <Loader />
       ) : (
         <NavigationScroll>
           <Routes />
           <Toaster
-            position="bottom-center"
+            position='bottom-center'
             reverseOrder={false}
             gutter={8}
-            containerClassName=""
+            containerClassName=''
             containerStyle={{}}
             toastOptions={{
               // Define default options
-              className: "",
+              className: '',
               duration: 5000,
               style: {
-                background: "#363636",
-                color: "#fff",
+                background: '#363636',
+                color: '#fff',
               },
             }}
           />

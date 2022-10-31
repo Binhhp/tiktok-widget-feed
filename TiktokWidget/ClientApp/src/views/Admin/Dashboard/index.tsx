@@ -1,12 +1,14 @@
-import React from "react";
-import { DashboardContent, DashboardWrapper } from "./DashboardStyle";
-import IconDashboard from "assets/images/dashboard.png";
+import React from 'react';
+import { DashboardWrapper } from './DashboardStyle';
+import IconDashboard from 'assets/images/dashboard.png';
+import Banner from './components/Banner';
+
 function Dashboard() {
   return (
     <DashboardWrapper>
-      <DashboardContent>
-        <img src={IconDashboard} alt="Dashboard TikTok Widget Feed" />
-      </DashboardContent>
+      <div>
+        <Banner />
+      </div>
     </DashboardWrapper>
   );
 }

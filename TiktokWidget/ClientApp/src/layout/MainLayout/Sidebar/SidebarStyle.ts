@@ -1,20 +1,23 @@
-import styled from "Dependencies/StyledComponents/Container";
+import styled from 'Dependencies/StyledComponents/Container';
 
 export interface ISidebarWrapper {
   active: boolean;
 }
 
-export const SupportLink = styled("div")`
+export const SupportLink = styled('div')`
   position: absolute;
   bottom: 80px;
   right: 0;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
+
+  // display: flex;
+  //
+  // align-items: center;
+  div.link-sp {
+    margin-top: 20px;
     display: flex;
     cursor: pointer;
+    justify-content: center;
     align-items: center;
     .Polaris-Icon {
       margin: 0;
@@ -27,7 +30,8 @@ export const SupportLink = styled("div")`
     }
   }
 `;
-export const SidebarWrapper = styled("div")<ISidebarWrapper>`
+
+export const SidebarWrapper = styled('div')<ISidebarWrapper>`
   width: 239px;
   height: 100%;
   position: fixed;
@@ -48,7 +52,7 @@ export const SidebarWrapper = styled("div")<ISidebarWrapper>`
     fill: rgba(255, 11, 83, 1) !important;
   }
   .active-menu::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0.0625rem;
     bottom: 0.0625rem;
@@ -69,5 +73,42 @@ export const SidebarWrapper = styled("div")<ISidebarWrapper>`
     padding-top: 75px;
     transition: transform 0.5s ease-out;
     transform: translateX(${(props) => (props.active ? 0 : -300)}px);
+  }
+`;
+
+export const FeedbackBox = styled('div')`
+  margin: 0 8px;
+  padding: 16px;
+  background-color: #fdf5f2;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+
+  .text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #101828;
+  }
+  .reaction {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+
+    &-btn {
+      border: none;
+      outline: none;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+    }
   }
 `;
