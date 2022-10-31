@@ -27,6 +27,9 @@ function App() {
         .Get(shop)
         .then((res) => {
           if (res) {
+            if (res?.shopConfiguration && res?.shopConfiguration?.timezone) {
+              localStorage.setItem("timezone", res.shopConfiguration.timezone);
+            }
             dispatch(
               ShopActionTS.OnSetInformation({
                 shop: res,

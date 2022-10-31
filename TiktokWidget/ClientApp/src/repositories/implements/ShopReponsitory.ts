@@ -36,7 +36,7 @@ export class ShopReponsitory implements IShopReponsitory {
   Get = async (shopDomain: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
-      url: `${RootURL.ApiBase}/odata/shops('${shopDomain}')`,
+      url: `${RootURL.ApiBase}/odata/shops('${shopDomain}')?$expand=shopDescriptor,shopConfiguration`,
     });
     if (response.Status) {
       return response.Data as BaseShop;

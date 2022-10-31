@@ -193,6 +193,10 @@ namespace TiktokWidget.Service.Implements
                         shopEntity = new ShopEntity()
                         {
                             Domain = domain,
+                            ShopDescriptor = new ShopDescriptorEntity
+                            {
+                                ShopOwner = shopInformation.ShopOwner,
+                            },
                             Token = access
                         };
                       
@@ -217,6 +221,10 @@ namespace TiktokWidget.Service.Implements
                     else
                     {
                         shopEntity.Token = access;
+                        shopEntity.ShopDescriptor = new ShopDescriptorEntity
+                        {
+                            ShopOwner = shopInformation.ShopOwner
+                        };
                         await _context.SaveChangesAsync();
                     }
                     try

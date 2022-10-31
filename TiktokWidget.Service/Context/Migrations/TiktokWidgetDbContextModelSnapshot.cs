@@ -292,7 +292,7 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Property<string>("Feedback")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FeedbackStatus")
+                    b.Property<int?>("FeedbackStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("ShopId")

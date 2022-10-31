@@ -16,4 +16,23 @@ export interface BaseShop {
   email2?: string;
   country?: string;
   planName?: string;
+  shopDescriptor?: ShopDescriptor;
+  shopConfiguration?: ShopConfiguration;
+}
+
+export interface ShopConfiguration {
+  shopId: number;
+  timezone: string;
+}
+export interface ShopDescriptor {
+  id: string;
+  shopOwner?: string;
+  feedback?: string;
+  feedbackStatus?: FeedbackStatus;
+  shopId: number;
+}
+
+export enum FeedbackStatus {
+  Good,
+  Bad,
 }

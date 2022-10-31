@@ -209,7 +209,7 @@ namespace TiktokWidget.Service.Implements
                 var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
                 if (widget != null)
                 {
-                    response = InstagramVideoSeedData.Seed();
+                    response = InstagramVideoSeedData.Seed().Take(widget.Setting.LimitItems);
                 }
                 //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
                 //var JSON = File.ReadAllText(pathFile);

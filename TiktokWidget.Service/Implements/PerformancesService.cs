@@ -1,8 +1,11 @@
-﻿using Orichi.IoC.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Orichi.IoC.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Enums;
+using TiktokWidget.Common.Utils;
+using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
@@ -39,6 +42,10 @@ namespace TiktokWidget.Service.Implements
 
         public async Task SetPerformanceAsync(int shopId, DateTime time, PerformanceTypeEnum type)
         {
+            var shop = _dbContext.Shop.Include(x => x.ShopConfiguration).FirstOrDefault(x => x.ID.Equals(shopId));
+            if (shop == null) throw new NotFoundException("Shop");
+
+            var timezone = shop?.ShopConfiguration?.Timezone;
             var performanceByTime = _dbContext.Performances.FirstOrDefault(x => x.ShopId.Equals(shopId) && x.Time.Date.Equals(time.Date));
             if (performanceByTime != null)
             {
@@ -53,6 +60,10 @@ namespace TiktokWidget.Service.Implements
             }
             else
             {
+                if (!string.IsNullOrEmpty(timezone))
+                {
+                    time = TimezoneProvider.ConvertIANATimezone(time, timezone);
+                }
                 var performanceEntity = new PerformancesEntity
                 {
                     Time = time,
