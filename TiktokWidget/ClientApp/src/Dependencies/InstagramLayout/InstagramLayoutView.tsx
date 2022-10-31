@@ -49,9 +49,11 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
     <InstagramLayoutContainer>
       {props.option.title && props.option.header && (
         <DivTitle>
-          <DivIcon>
-            <IconInstagram />
-          </DivIcon>
+          {props.option.showNetworkIcon && (
+            <DivIcon>
+              <IconInstagram />
+            </DivIcon>
+          )}
           <DivTitleContent>{props.option.title}</DivTitleContent>
         </DivTitle>
       )}

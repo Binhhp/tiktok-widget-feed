@@ -26,6 +26,11 @@ function FormRightItem() {
   const dispatch = useDispatch();
   const onSetNumberRow = (val: string) => {
     const value = parseInt(val);
+    if (!value) {
+      return dispatch(
+        InstagramWidgetActionTS.OnSetSetting({ numberItemPerRow: 0 })
+      );
+    }
     if (value > 15 || value < 0 || value === 0) return;
     return dispatch(
       InstagramWidgetActionTS.OnSetSetting({ numberItemPerRow: parseInt(val) })
@@ -34,7 +39,10 @@ function FormRightItem() {
 
   const onSetLimitItem = (val: string) => {
     const value = parseInt(val);
-    if (value > 15 || value < 0 || value === 0) return;
+    if (!value) {
+      return dispatch(InstagramWidgetActionTS.OnSetSetting({ limitItems: 1 }));
+    }
+    if (value < 0 || value === 0) return;
     return dispatch(
       InstagramWidgetActionTS.OnSetSetting({ limitItems: parseInt(val) })
     );
@@ -75,35 +83,42 @@ function FormRightItem() {
     <FormRight>
       <FormRightWrapper>
         <FormLayout>
-          <FormControlStep>
-            <LabelForm>
-              <TextStyle>Show Network Icon</TextStyle>
-            </LabelForm>
-            <FormControlStep>
-              <RadioForm mr={10}>
-                <RadioButton
-                  label="Enable"
-                  checked={widgetReducer.settings.showNetworkIcon === "enable"}
-                  name="network-icon"
-                  id="network-icon-enable"
-                  onChange={(_checked: boolean, value: string) =>
-                    onChooseRadio(value)
-                  }
-                />
-              </RadioForm>
-              <RadioForm>
-                <RadioButton
-                  label="Disable"
-                  checked={widgetReducer.settings.showNetworkIcon === "disable"}
-                  name="network-icon"
-                  id="network-icon-disable"
-                  onChange={(_checked: boolean, value: string) =>
-                    onChooseRadio(value)
-                  }
-                />
-              </RadioForm>
-            </FormControlStep>
-          </FormControlStep>
+          {widgetReducer.settings.header === "enable" &&
+            widgetReducer.settings.titleHeader && (
+              <FormControlStep>
+                <LabelForm>
+                  <TextStyle>Show Network Icon</TextStyle>
+                </LabelForm>
+                <FormControlStep>
+                  <RadioForm mr={10}>
+                    <RadioButton
+                      label="Enable"
+                      checked={
+                        widgetReducer.settings.showNetworkIcon === "enable"
+                      }
+                      name="network-icon"
+                      id="network-icon-enable"
+                      onChange={(_checked: boolean, value: string) =>
+                        onChooseRadio(value)
+                      }
+                    />
+                  </RadioForm>
+                  <RadioForm>
+                    <RadioButton
+                      label="Disable"
+                      checked={
+                        widgetReducer.settings.showNetworkIcon === "disable"
+                      }
+                      name="network-icon"
+                      id="network-icon-disable"
+                      onChange={(_checked: boolean, value: string) =>
+                        onChooseRadio(value)
+                      }
+                    />
+                  </RadioForm>
+                </FormControlStep>
+              </FormControlStep>
+            )}
           {widgetReducer.settings.layout === TemplateInstagramType.List && (
             <FormControlStep>
               <LabelForm>

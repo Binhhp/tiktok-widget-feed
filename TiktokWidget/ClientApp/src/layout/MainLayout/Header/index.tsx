@@ -67,7 +67,12 @@ function Header() {
         ) : (
           ""
         )}
-        <AvatarDisplay name={shopReducer.shop.domain} />
+        <AvatarDisplay
+          name={
+            shopReducer.shop?.shopDescriptor?.shopOwner ??
+            shopReducer.shop?.domain
+          }
+        />
       </FlexBox>
     </HeaderWrapper>
   );

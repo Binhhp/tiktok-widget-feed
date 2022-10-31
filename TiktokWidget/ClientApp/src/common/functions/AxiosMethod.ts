@@ -10,6 +10,11 @@ const instance = axios.create({
 
 const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {
   let result = new BaseResponse();
+  if (localStorage.getItem("timezone")) {
+    instance.defaults.headers.common["tz"] = `${localStorage.getItem(
+      "timezone"
+    )}`;
+  }
   try {
     const response = await instance({
       method: req.method,

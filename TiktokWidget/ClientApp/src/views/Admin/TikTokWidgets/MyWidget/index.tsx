@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
@@ -75,14 +74,8 @@ function MyWidget() {
     });
   };
 
-  const [timeZone, setTimeZone] = useState<string | undefined>("UTC");
   const fetchData = async (pageIndex: number) => {
     const widgetReponsitory = new WidgetReponsitory();
-    const shopReponsitory = new ShopReponsitory();
-    const config = await shopReponsitory.GetConfiguration(
-      shopReducer.shop?.domain
-    );
-    if (config) setTimeZone(config?.timezone);
     return widgetReponsitory.Get(pageIndex, shopReducer.shop.domain);
   };
 
@@ -123,10 +116,7 @@ function MyWidget() {
       onRender: (item: any) => {
         return (
           <TimeZoneColumn>
-            {DateTimeFormatter.onFormatDateTimeUTC(
-              new Date(item?.createDate),
-              timeZone
-            )}
+            {DateTimeFormatter.onFormatDateTimeUTC(new Date(item?.createDate))}
           </TimeZoneColumn>
         );
       },
