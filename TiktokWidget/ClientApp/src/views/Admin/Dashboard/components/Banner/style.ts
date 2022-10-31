@@ -12,4 +12,9 @@ export const RootComponent = styled('div')`
     font-size: 30px;
     line-height: 38px;
   }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
 `;

@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootReducer } from 'stores/reducers';
 import { RootComponent } from './style';
+import BannerImg from 'assets/images/Banner.png';
 
 const Banner = () => {
   const shopReducer = useSelector((state: RootReducer) => state.shopReducer);
@@ -13,6 +14,8 @@ const Banner = () => {
         You will be able to see top performers based on views and
         call-to-actions
       </p>
+
+      <img src={BannerImg} alt='BannerImg' style={{ marginTop: '10px' }} />
     </RootComponent>
   );
 };
