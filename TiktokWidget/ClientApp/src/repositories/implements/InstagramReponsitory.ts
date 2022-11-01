@@ -13,12 +13,21 @@ import {
 } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
+import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import { IInstagramReponsitory } from "./../interfaces/IInstagramReponsitory";
 
 export class InstagramReponsitory implements IInstagramReponsitory {
+  PostFeedback = async (domain: string, req: PostFeedbackRequest) => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/Shops('${domain}')/Feedback`,
+      body: req,
+    });
+    return response;
+  };
   Delete = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "DELETE",

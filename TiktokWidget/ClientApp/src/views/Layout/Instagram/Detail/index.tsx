@@ -25,12 +25,13 @@ interface IDetailProps {
 function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
+  console.log(props.widget.setting.showNetworkIcon);
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
         <div className="orichi-instagram-user">
           <DivUserName>
-            <IconInstagram />
+            {props.widget.setting.showNetworkIcon && <IconInstagram />}
             <h2>{props.item.author}</h2>
             <DivDot color={props.widget.setting.itemColor}></DivDot>
             <a href="https://www.instagram.com/">Follow</a>
@@ -50,7 +51,7 @@ function Detail(props: IDetailProps) {
         <DivDesc>
           <div className="orichi-instagram-item username">
             <DivUserName>
-              <IconInstagram />
+              {props.widget.setting.showNetworkIcon && <IconInstagram />}
               <h2>{props.item.author}</h2>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
               <a

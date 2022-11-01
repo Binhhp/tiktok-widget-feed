@@ -17,17 +17,15 @@ import { IconComment, IconGalarey, IconHeart, IconMedia } from "../Icons";
 function Item(props: IItemProps) {
   return (
     <ItemWrapper width={props.width}>
-      {props.option.showNetworkIcon && (
-        <ItemIcon>
-          {props.item.video ? (
-            <IconMedia />
-          ) : props.item.images.length > 1 ? (
-            <IconGalarey />
-          ) : (
-            <></>
-          )}
-        </ItemIcon>
-      )}
+      <ItemIcon>
+        {props.item.video ? (
+          <IconMedia />
+        ) : props.item.images.length > 1 ? (
+          <IconGalarey />
+        ) : (
+          <></>
+        )}
+      </ItemIcon>
       <DivItemOrginal>
         <DivItemImage
           loading="lazy"

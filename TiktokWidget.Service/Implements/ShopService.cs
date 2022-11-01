@@ -15,6 +15,7 @@ using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Responses.Shop;
+using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
@@ -292,17 +293,33 @@ namespace TiktokWidget.Service.Implements
             return response;
         }
 
-        public async Task FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest)
+        public async Task<PostFeedbackResponse> FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest)
         {
-            var shop = _context.Shop.FirstOrDefault(x => x.Domain.ToLower().Equals(domain));
+            var shop = _context.Shop.Include(x => x.ShopDescriptor).FirstOrDefault(x => x.Domain.ToLower().Equals(domain));
             if (shop == null) throw new NotFoundException(domain);
 
-            shop.ShopDescriptor = new ShopDescriptorEntity
+            if(shop.ShopDescriptor != null)
             {
-                Feedback = postFeedbackRequest?.Feedback ?? string.Empty,
-                FeedbackStatus = postFeedbackRequest.Status
-            };
+                shop.ShopDescriptor.Feedback = postFeedbackRequest?.Feedback;
+                shop.ShopDescriptor.FeedbackStatus = postFeedbackRequest.Status;
+            }
+            else
+            {
+                var shopDescriptor = new ShopDescriptorEntity
+                {
+                    Feedback = postFeedbackRequest?.Feedback,
+                    FeedbackStatus = postFeedbackRequest.Status
+                };
+                shop.ShopDescriptor = shopDescriptor;
+            }
             await _context.SaveChangesAsync();
+            return new PostFeedbackResponse
+            {
+                ShopId = shop.ShopDescriptor.ShopId,
+                Feedback = shop.ShopDescriptor.Feedback,
+                FeedbackStatus = shop.ShopDescriptor.FeedbackStatus,
+                ShopOwner = shop.ShopDescriptor.ShopOwner
+            };
         }
 
         public IQueryable<CoursesEntity> GetCources()

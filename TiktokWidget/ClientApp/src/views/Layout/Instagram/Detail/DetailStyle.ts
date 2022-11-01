@@ -52,13 +52,16 @@ export const DivUserName = styled("div", "", "orichi-instagram")`
   padding-bottom: 12px;
   align-items: center;
   border-bottom: 1px solid rgba(213, 213, 213, 0.53);
+  svg {
+    margin-right: 5px;
+  }
   h2 {
     font-family: "SF Pro Display";
     font-size: 16px;
     font-weight: 700;
     line-height: 16px;
     color: #000000;
-    margin: 0px 0px 0px 5px;
+    margin: 0px;
   }
   a {
     text-decoration: none;

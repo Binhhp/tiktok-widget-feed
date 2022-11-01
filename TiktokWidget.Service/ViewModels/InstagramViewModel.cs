@@ -67,7 +67,7 @@ namespace TiktokWidget.Service.ViewModels
                     playCount = (new Random()).Next(0, 10000000),
                     shareCount = (new Random()).Next(0, 10000000)
                 },
-                video = "https://v16-webapp.tiktok.com/724e20f686109e13d69000526a46e62f/635e779a/video/tos/useast2a/tos-useast2a-pve-0037-aiso/fcac7f43a7194fc39dff6ceb5df3f97c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2632&bt=1316&cs=0&ds=3&ft=kLO5qy-gZmo0PTFxfBkVQ~NxDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ZDQ1Zzo8Z2dnNjQ1PDRnZkBpM2htaTY6ZnhoZjMzZjczM0AuNi00YDRgXl4xNDEwNTAuYSNwYjNvcjRfMjZgLS1kMWNzcw%3D%3D&l=20221030070934010245244195150918AB&btag=80000"
+                video = "https://v16-webapp.tiktok.com/2197a88d17b1d1125ac5780ceb0c9423/636176ba/video/tos/useast2a/tos-useast2a-pve-0037-aiso/29f7ac32c59b4fb584d6bf6ce5854c65/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=1894&bt=947&cs=0&ds=3&ft=kLO5qy-gZmo0PECjQBkVQNiBDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ODNpOzM1Zmk5ZjM2ZzpkNEBpamx4Njg6ZjdsZjMzZjgzM0AwMTQ0LTEtXzYxNC5fNDFjYSNhX2ZrcjQwYGNgLS1kL2Nzcw%3D%3D&l=202211011342240102451582250206530D&btag=80000"
             });
             result.Add(new InstagramViewModel
             {
@@ -87,7 +87,7 @@ namespace TiktokWidget.Service.ViewModels
                     playCount = (new Random()).Next(0, 10000000),
                     shareCount = (new Random()).Next(0, 10000000)
                 },
-                video = "https://v16-webapp.tiktok.com/724e20f686109e13d69000526a46e62f/635e779a/video/tos/useast2a/tos-useast2a-pve-0037-aiso/fcac7f43a7194fc39dff6ceb5df3f97c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2632&bt=1316&cs=0&ds=3&ft=kLO5qy-gZmo0PTFxfBkVQ~NxDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ZDQ1Zzo8Z2dnNjQ1PDRnZkBpM2htaTY6ZnhoZjMzZjczM0AuNi00YDRgXl4xNDEwNTAuYSNwYjNvcjRfMjZgLS1kMWNzcw%3D%3D&l=20221030070934010245244195150918AB&btag=80000"
+                video = "https://v16-webapp.tiktok.com/2197a88d17b1d1125ac5780ceb0c9423/636176ba/video/tos/useast2a/tos-useast2a-pve-0037-aiso/29f7ac32c59b4fb584d6bf6ce5854c65/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=1894&bt=947&cs=0&ds=3&ft=kLO5qy-gZmo0PECjQBkVQNiBDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ODNpOzM1Zmk5ZjM2ZzpkNEBpamx4Njg6ZjdsZjMzZjgzM0AwMTQ0LTEtXzYxNC5fNDFjYSNhX2ZrcjQwYGNgLS1kL2Nzcw%3D%3D&l=202211011342240102451582250206530D&btag=80000"
             });
             result.Add(new InstagramViewModel
             {
@@ -186,7 +186,7 @@ namespace TiktokWidget.Service.ViewModels
                     playCount = (new Random()).Next(0, 10000000),
                     shareCount = (new Random()).Next(0, 10000000)
                 },
-                video = "https://v16-webapp.tiktok.com/724e20f686109e13d69000526a46e62f/635e779a/video/tos/useast2a/tos-useast2a-pve-0037-aiso/fcac7f43a7194fc39dff6ceb5df3f97c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2632&bt=1316&cs=0&ds=3&ft=kLO5qy-gZmo0PTFxfBkVQ~NxDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ZDQ1Zzo8Z2dnNjQ1PDRnZkBpM2htaTY6ZnhoZjMzZjczM0AuNi00YDRgXl4xNDEwNTAuYSNwYjNvcjRfMjZgLS1kMWNzcw%3D%3D&l=20221030070934010245244195150918AB&btag=80000"
+                video = "https://v16-webapp.tiktok.com/2197a88d17b1d1125ac5780ceb0c9423/636176ba/video/tos/useast2a/tos-useast2a-pve-0037-aiso/29f7ac32c59b4fb584d6bf6ce5854c65/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=1894&bt=947&cs=0&ds=3&ft=kLO5qy-gZmo0PECjQBkVQNiBDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ODNpOzM1Zmk5ZjM2ZzpkNEBpamx4Njg6ZjdsZjMzZjgzM0AwMTQ0LTEtXzYxNC5fNDFjYSNhX2ZrcjQwYGNgLS1kL2Nzcw%3D%3D&l=202211011342240102451582250206530D&btag=80000"
             });
             result.Add(new InstagramViewModel
             {
@@ -324,7 +324,7 @@ namespace TiktokWidget.Service.ViewModels
                     playCount = (new Random()).Next(0, 10000000),
                     shareCount = (new Random()).Next(0, 10000000)
                 },
-                video = "https://v16-webapp.tiktok.com/724e20f686109e13d69000526a46e62f/635e779a/video/tos/useast2a/tos-useast2a-pve-0037-aiso/fcac7f43a7194fc39dff6ceb5df3f97c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2632&bt=1316&cs=0&ds=3&ft=kLO5qy-gZmo0PTFxfBkVQ~NxDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ZDQ1Zzo8Z2dnNjQ1PDRnZkBpM2htaTY6ZnhoZjMzZjczM0AuNi00YDRgXl4xNDEwNTAuYSNwYjNvcjRfMjZgLS1kMWNzcw%3D%3D&l=20221030070934010245244195150918AB&btag=80000"
+                video = "https://v16-webapp.tiktok.com/2197a88d17b1d1125ac5780ceb0c9423/636176ba/video/tos/useast2a/tos-useast2a-pve-0037-aiso/29f7ac32c59b4fb584d6bf6ce5854c65/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=1894&bt=947&cs=0&ds=3&ft=kLO5qy-gZmo0PECjQBkVQNiBDiHKJdmC0&mime_type=video_mp4&qs=0&rc=ODNpOzM1Zmk5ZjM2ZzpkNEBpamx4Njg6ZjdsZjMzZjgzM0AwMTQ0LTEtXzYxNC5fNDFjYSNhX2ZrcjQwYGNgLS1kL2Nzcw%3D%3D&l=202211011342240102451582250206530D&btag=80000"
             });
             result.Add(new InstagramViewModel
             {

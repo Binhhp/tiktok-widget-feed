@@ -1,10 +1,10 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
 export interface ISidebarWrapper {
   active: boolean;
 }
 
-export const SupportLink = styled('div')`
+export const SupportLink = styled("div")`
   position: absolute;
   bottom: 80px;
   right: 0;
@@ -13,7 +13,7 @@ export const SupportLink = styled('div')`
     width: max-content;
     margin: auto;
     cursor: pointer;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     .Polaris-Icon {
@@ -28,7 +28,7 @@ export const SupportLink = styled('div')`
   }
 `;
 
-export const SidebarWrapper = styled('div')<ISidebarWrapper>`
+export const SidebarWrapper = styled("div")<ISidebarWrapper>`
   width: 239px;
   height: 100%;
   position: fixed;
@@ -49,7 +49,7 @@ export const SidebarWrapper = styled('div')<ISidebarWrapper>`
     fill: rgba(255, 11, 83, 1) !important;
   }
   .active-menu::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0.0625rem;
     bottom: 0.0625rem;
@@ -73,17 +73,17 @@ export const SidebarWrapper = styled('div')<ISidebarWrapper>`
   }
 `;
 
-export const FeedbackBox = styled('div')`
+export const FeedbackBox = styled("div")`
   margin: 0 8px 20px 8px;
-  padding: 16px;
+  padding: 20px;
   background-color: #fdf5f2;
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-
+  font-family: "SF Pro Display";
   .text {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
     color: #101828;
     word-break: break-all;
   }

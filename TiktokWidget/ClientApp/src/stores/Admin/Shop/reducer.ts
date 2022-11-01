@@ -1,3 +1,4 @@
+import { ShopDescriptor } from "repositories/dtos/responses/BaseShop";
 import { ShopActEnum } from "./enum";
 import { ShopType } from "./model";
 import { ShopStoreModel, ShopStoreModelDto } from "./state";
@@ -11,6 +12,12 @@ const OnSetInformation = (
   return copyState;
 };
 
+const OnSetDescriptor = (state: ShopStoreModel, payload: ShopDescriptor) => {
+  let copyState = state.Clone();
+  if (payload) copyState.shop.shopDescriptor = payload;
+  return copyState;
+};
+
 const ShopReducer = (
   state: ShopStoreModel = new ShopStoreModel(),
   action: ShopType
@@ -18,6 +25,8 @@ const ShopReducer = (
   switch (action.type) {
     case ShopActEnum.INFORMATION:
       return OnSetInformation(state, action.payload);
+    case ShopActEnum.DESCRIPTOR:
+      return OnSetDescriptor(state, action.payload);
     default:
       return state;
   }

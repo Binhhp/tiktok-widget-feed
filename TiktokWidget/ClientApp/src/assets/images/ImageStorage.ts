@@ -24,7 +24,12 @@ import VideoBackgroundGuides from "./Guides/video-guides.png";
 import InstagramGuides from "./Instagram/ins-guides.png";
 import InstagramGuides2 from "./Instagram/ins-guides-2.png";
 
+import FacebookPixel from "./facebook-pixel.png";
+import Discount from "./discount.png";
+
 export const ImageStorage = {
+  FacebookPixel,
+  Discount,
   Background,
   ButtonTikTok: [
     "https://tiktok.roughgroup.com/build/static/media/tiktok-5.0270516d1edd38467280.gif",

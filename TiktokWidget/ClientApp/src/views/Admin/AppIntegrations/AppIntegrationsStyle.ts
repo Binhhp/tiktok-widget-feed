@@ -1,15 +1,26 @@
 import styled from "Dependencies/StyledComponents/Container";
-import _styled from "styled-components";
-import { MediaCard } from "@shopify/polaris";
 
 export const AppIntegrationWrapper = styled("div")`
   width: 100%;
-  padding: 40px 32px;
+  padding: 24px 32px;
   background: rgba(246, 246, 247, 0.89);
-
+  font-family: "SF Pro Display";
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  p {
+    color: #202223;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
   .title {
     font-size: 20px;
-    line-height: 24px;
+    line-height: 20px;
     color: #202223;
     margin-bottom: 24px;
     span {

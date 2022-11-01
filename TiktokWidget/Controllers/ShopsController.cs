@@ -175,8 +175,8 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/Feedback")]
         public async Task<IActionResult> PostFeedback([FromODataUri] string domain, [FromBody] PostFeedbackRequest request)
         {
-            await _shopService.FeedbackAsync(domain, request);
-            return Ok();
+            var result = await _shopService.FeedbackAsync(domain, request);
+            return Ok(result);
         }
     }
 }

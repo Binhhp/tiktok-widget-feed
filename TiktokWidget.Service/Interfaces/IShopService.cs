@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Responses.Shop;
+using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 
@@ -23,7 +24,7 @@ namespace TiktokWidget.Service.Interfaces
         Task ExternalAuthenticationAsync(string domain, string code);
         Task Test(string domain);
         IQueryable<Theme> GetThemes(string domain);
-        Task FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest);
+        Task<PostFeedbackResponse> FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest);
         IQueryable<CoursesEntity> GetCources();
         IQueryable<BannerEnitty> GetBanners();
         IQueryable<PostsEntity> GetPosts();
