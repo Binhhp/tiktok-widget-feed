@@ -3,6 +3,24 @@ import styled from 'Dependencies/StyledComponents/Container';
 export const MetricChartRoot = styled('div')`
   margin-top: 20px;
 `;
+
+export const ChartRoot = styled("div")`
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
+    0px 1px 2px rgba(16, 24, 40, 0.06);
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 30px;
+
+  .title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #101828;
+  }
+`;
+
 export const MetricRoot = styled('div')`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
