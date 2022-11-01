@@ -34,6 +34,9 @@ div[p-color-scheme="light"] {
 .Polaris-Image--isLoading{
   background: transparent !important;
 }
+#feedback-submit{
+  background: #FF0B53;
+}
 html {
     --scrollbarBG: #ffffff;
     --thumbBG: gray;

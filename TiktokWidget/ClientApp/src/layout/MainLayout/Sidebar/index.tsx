@@ -1,4 +1,4 @@
-import { FeedbackBox, SidebarWrapper, SupportLink } from "./SidebarStyle";
+import { SidebarWrapper, SupportLink } from "./SidebarStyle";
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -28,7 +28,7 @@ function Sidebar() {
       </MobileView>
 
        <SupportLink>
-        <FeedBack />
+       <FeedBack />
         <div onClick={ChatPlugin.Open} className="orichi-tiktok-chat-plugin">
           <Icon source={ChatMajor} color="base" />
           <span>Live Chat Support</span>

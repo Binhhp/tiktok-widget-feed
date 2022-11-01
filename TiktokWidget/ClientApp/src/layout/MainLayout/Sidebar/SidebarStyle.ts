@@ -9,13 +9,11 @@ export const SupportLink = styled('div')`
   bottom: 80px;
   right: 0;
   width: 100%;
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
-  div {
-    margin-top: 20px;
-    display: flex;
+  div.orichi-tiktok-chat-plugin {
+    width: max-content;
+    margin: auto;
     cursor: pointer;
+    display:flex;
     justify-content: center;
     align-items: center;
     .Polaris-Icon {
@@ -76,7 +74,7 @@ export const SidebarWrapper = styled('div')<ISidebarWrapper>`
 `;
 
 export const FeedbackBox = styled('div')`
-  margin: 0 8px;
+  margin: 0 8px 20px 8px;
   padding: 16px;
   background-color: #fdf5f2;
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25);
@@ -87,6 +85,7 @@ export const FeedbackBox = styled('div')`
     font-size: 16px;
     line-height: 24px;
     color: #101828;
+    word-break: break-all;
   }
   .reaction {
     display: flex;

@@ -44,6 +44,7 @@ const FeedBack = () => {
         title='What we could have done better?'
         primaryAction={{
           content: 'Send',
+          id: 'feedback-submit',
           onAction: handleSubmitBad,
         }}
         secondaryActions={[

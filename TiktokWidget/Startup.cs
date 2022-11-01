@@ -2,7 +2,9 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNet.OData.Batch;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Formatter.Serialization;
 using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNet.OData.Routing.Conventions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -10,13 +12,16 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OData;
 using Orichi.IoC.Bases;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiktokWidget.Middlewares.GlobalExceptionHandler;
 using TiktokWidget.ODataEntities;
+using TiktokWidget.ODataEntities.ODataProvider;
 using TiktokWidget.Service;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
@@ -116,11 +121,20 @@ namespace TiktokWidget
 
             });
             app.GlobalExceptionMiddleware();
+            var model = OdataEdmEntity.GetEdmModel();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.Select().Filter().Expand(QueryOptionSetting.Allowed).OrderBy().MaxTop(null).Count().SkipToken();
                 endpoints.EnableDependencyInjection();
+                endpoints.MapODataRoute(routeName: "odata", routePrefix: "odata", builder =>
+                {
+                    builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, (IServiceProvider sp) => model);
+                    builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, (IServiceProvider sp) => new DefaultODataBatchHandler());
+                    builder.AddService(Microsoft.OData.ServiceLifetime.Singleton, (Func<IServiceProvider, IEnumerable<IODataRoutingConvention>>)((IServiceProvider sp) => ODataRoutingConventions.CreateDefaultWithAttributeRouting("odata", endpoints.ServiceProvider)));
+                    builder.AddService<ODataSerializerProvider>(Microsoft.OData.ServiceLifetime.Singleton, s => new EntityTypeSerializerProvider(s));
+                    builder.AddService<ODataBatchHandler>(Microsoft.OData.ServiceLifetime.Singleton, serviceProvider => new DefaultODataBatchHandler());
+                });
                 endpoints.MapODataRoute(routeName: "odata", routePrefix: "odata", OdataEdmEntity.GetEdmModel(), new DefaultODataBatchHandler());
             });
 
