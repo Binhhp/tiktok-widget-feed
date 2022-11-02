@@ -11,7 +11,7 @@ namespace TiktokWidget.Service.Context
         public WidgetFeedDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WidgetFeedDbContext>();
-            optionsBuilder.UseSqlServer(ServerTest);
+            optionsBuilder.UseSqlServer(Localhost);
             return new WidgetFeedDbContext(optionsBuilder.Options);
         }
     }

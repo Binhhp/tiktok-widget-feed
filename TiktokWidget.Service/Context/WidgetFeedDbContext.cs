@@ -9,17 +9,17 @@ namespace TiktokWidget.Service.Context
         public WidgetFeedDbContext(DbContextOptions<WidgetFeedDbContext> options) : base(options)
         {
         }
-        public DbSet<InstagramWidgetEntity> InstagramWidgets { get; set; }
+        //public DbSet<InstagramWidgetEntity> InstagramWidgets { get; set; }
         public DbSet<TikTokWidgetEntity> Widgets { get; set; }
         public DbSet<JobEntity> Job { get; set; }
         public DbSet<ShopEntity> Shop { get; set; }
         public DbSet<ShopConfigurationEntity> ShopConfiguration { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
-        public DbSet<PerformancesEntity> Performances { get; set; }
+        //public DbSet<PerformancesEntity> Performances { get; set; }
         public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
-        public DbSet<CoursesEntity> Cources { get; set; }
-        public DbSet<BannerEnitty> Banner { get; set; }
-        public DbSet<PostsEntity> Posts { get; set; }
+        //public DbSet<CoursesEntity> Cources { get; set; }
+        //public DbSet<BannerEnitty> Banner { get; set; }
+        //public DbSet<PostsEntity> Posts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -65,36 +65,36 @@ namespace TiktokWidget.Service.Context
             modelBuilder.Entity<ShopEntity>().HasOne(x => x.ShopConfiguration).WithOne(x => x.Shops).HasForeignKey<ShopConfigurationEntity>(x => x.ShopId);
             modelBuilder.Entity<ShopEntity>().HasOne(x => x.ShopDescriptor).WithOne(x => x.Shops).HasForeignKey<ShopDescriptorEntity>(x => x.ShopId);
 
-            //Config instagram widget entity
-            var instagramWidget = modelBuilder.Entity<InstagramWidgetEntity>().ToTable("InstagramWidget");
-            instagramWidget.OwnsOne(x => x.Setting);
-            instagramWidget.OwnsOne(x => x.Header);
-            instagramWidget.HasIndex(p => p.WidgetTitle);
-            instagramWidget.HasKey(p => p.Id);
-            instagramWidget.Property(x => x.Id).HasMaxLength(100);
-            instagramWidget.Property(p => p.WidgetTitle).IsRequired().HasMaxLength(150);
-            instagramWidget.Property(p => p.ValueSource).IsRequired().HasMaxLength(255);
-            instagramWidget.Property(g => g.SourceType).HasMaxLength(50);
-            instagramWidget.Property(g => g.SourceType)
-                .HasConversion(
-                v => v == SourceTypeEnum.HashTag ? "hashtag" : "username",
-                v => v == "hashtag" ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName);
-            instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
-            modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
+            ////Config instagram widget entity
+            //var instagramWidget = modelBuilder.Entity<InstagramWidgetEntity>().ToTable("InstagramWidget");
+            //instagramWidget.OwnsOne(x => x.Setting);
+            //instagramWidget.OwnsOne(x => x.Header);
+            //instagramWidget.HasIndex(p => p.WidgetTitle);
+            //instagramWidget.HasKey(p => p.Id);
+            //instagramWidget.Property(x => x.Id).HasMaxLength(100);
+            //instagramWidget.Property(p => p.WidgetTitle).IsRequired().HasMaxLength(150);
+            //instagramWidget.Property(p => p.ValueSource).IsRequired().HasMaxLength(255);
+            //instagramWidget.Property(g => g.SourceType).HasMaxLength(50);
+            //instagramWidget.Property(g => g.SourceType)
+            //    .HasConversion(
+            //    v => v == SourceTypeEnum.HashTag ? "hashtag" : "username",
+            //    v => v == "hashtag" ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName);
+            //instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
+            //modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
 
-            ////Config performances of shop
-            var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
-            performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
+            //////Config performances of shop
+            //var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
+            //performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
 
-            //Cources
-            modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
-            //Banner
-            modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
-            //Posts
-            modelBuilder.Entity<PostsEntity>().ToTable("Posts");
-            //Post impression
-            var postImpression = modelBuilder.Entity<PostImpressionEntity>().ToTable("PostImpression");
-            postImpression.HasOne(x => x.Post).WithMany(x => x.Impression).HasForeignKey(x => new { x.PostId });
+            ////Cources
+            //modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
+            ////Banner
+            //modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
+            ////Posts
+            //modelBuilder.Entity<PostsEntity>().ToTable("Posts");
+            ////Post impression
+            //var postImpression = modelBuilder.Entity<PostImpressionEntity>().ToTable("PostImpression");
+            //postImpression.HasOne(x => x.Post).WithMany(x => x.Impression).HasForeignKey(x => new { x.PostId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

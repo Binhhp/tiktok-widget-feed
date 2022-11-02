@@ -10,7 +10,7 @@ using TiktokWidget.Service.Context;
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(WidgetFeedDbContext))]
-    [Migration("20221102163223_add_shop_descriptor")]
+    [Migration("20221102170007_add_shop_descriptor")]
     partial class add_shop_descriptor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

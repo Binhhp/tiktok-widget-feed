@@ -19,98 +19,6 @@ namespace TiktokWidget.Service.Context.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.BannerEnitty", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banner");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.CoursesEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ordering")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cources");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.InstagramWidgetEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SourceType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ValueSource")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("WidgetTitle")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.HasIndex("WidgetTitle");
-
-                    b.ToTable("InstagramWidget");
-                });
-
             modelBuilder.Entity("TiktokWidget.Service.Entities.JobEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -133,88 +41,6 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PerformancesEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("InstagramTraffic")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("TikTokTraffic")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("Performances");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PostImpressionEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("Clicks")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Impression")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PostId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostImpression");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PostsEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Posts");
-                });
-
             modelBuilder.Entity("TiktokWidget.Service.Entities.ProductEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -230,9 +56,6 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InstagramWidgetId")
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Prices")
                         .HasColumnType("nvarchar(max)");
@@ -257,8 +80,6 @@ namespace TiktokWidget.Service.Context.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id", "ShopId");
-
-                    b.HasIndex("InstagramWidgetId");
 
                     b.HasIndex("ShopId");
 
@@ -431,115 +252,8 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.ToTable("Widget");
                 });
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.InstagramWidgetEntity", b =>
-                {
-                    b.HasOne("TiktokWidget.Service.Entities.ShopEntity", "Shops")
-                        .WithMany("InstagramWidgets")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("TiktokWidget.Service.Entities.ValueObjects.InstagramOptions", "Setting", b1 =>
-                        {
-                            b1.Property<string>("InstagramWidgetId")
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<string>("ItemBackGround")
-                                .HasMaxLength(18)
-                                .HasColumnType("nvarchar(18)");
-
-                            b1.Property<string>("ItemColor")
-                                .HasMaxLength(18)
-                                .HasColumnType("nvarchar(18)");
-
-                            b1.Property<string>("LabelLoadMore")
-                                .HasMaxLength(155)
-                                .HasColumnType("nvarchar(155)");
-
-                            b1.Property<string>("LabelReadMore")
-                                .HasMaxLength(155)
-                                .HasColumnType("nvarchar(155)");
-
-                            b1.Property<int>("LayoutType")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("LimitItems")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("LoadMoreBackGround")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("NumberPerRow")
-                                .HasColumnType("int");
-
-                            b1.Property<bool>("ShowNetworkIcon")
-                                .HasColumnType("bit");
-
-                            b1.HasKey("InstagramWidgetId");
-
-                            b1.ToTable("InstagramWidget");
-
-                            b1.WithOwner("InstagramWidget")
-                                .HasForeignKey("InstagramWidgetId");
-
-                            b1.Navigation("InstagramWidget");
-                        });
-
-                    b.OwnsOne("TiktokWidget.Service.Entities.ValueObjects.HeaderInstagramOptions", "Header", b1 =>
-                        {
-                            b1.Property<string>("WidgetId")
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.Property<bool>("Enable")
-                                .HasColumnType("bit");
-
-                            b1.Property<string>("Title")
-                                .HasMaxLength(155)
-                                .HasColumnType("nvarchar(155)");
-
-                            b1.HasKey("WidgetId");
-
-                            b1.ToTable("InstagramWidget");
-
-                            b1.WithOwner("Widget")
-                                .HasForeignKey("WidgetId");
-
-                            b1.Navigation("Widget");
-                        });
-
-                    b.Navigation("Header");
-
-                    b.Navigation("Setting");
-
-                    b.Navigation("Shops");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PerformancesEntity", b =>
-                {
-                    b.HasOne("TiktokWidget.Service.Entities.ShopEntity", "Shops")
-                        .WithMany("Performances")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shops");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PostImpressionEntity", b =>
-                {
-                    b.HasOne("TiktokWidget.Service.Entities.PostsEntity", "Post")
-                        .WithMany("Impression")
-                        .HasForeignKey("PostId");
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("TiktokWidget.Service.Entities.ProductEntity", b =>
                 {
-                    b.HasOne("TiktokWidget.Service.Entities.InstagramWidgetEntity", "InstagramWidget")
-                        .WithMany("Products")
-                        .HasForeignKey("InstagramWidgetId");
-
                     b.HasOne("TiktokWidget.Service.Entities.ShopEntity", "Shops")
                         .WithMany("Products")
                         .HasForeignKey("ShopId")
@@ -549,8 +263,6 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.HasOne("TiktokWidget.Service.Entities.TikTokWidgetEntity", "Widget")
                         .WithMany("Products")
                         .HasForeignKey("WidgetId");
-
-                    b.Navigation("InstagramWidget");
 
                     b.Navigation("Shops");
 
@@ -670,22 +382,8 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Navigation("Shops");
                 });
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.InstagramWidgetEntity", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PostsEntity", b =>
-                {
-                    b.Navigation("Impression");
-                });
-
             modelBuilder.Entity("TiktokWidget.Service.Entities.ShopEntity", b =>
                 {
-                    b.Navigation("InstagramWidgets");
-
-                    b.Navigation("Performances");
-
                     b.Navigation("Products");
 
                     b.Navigation("ShopConfiguration");
