@@ -19,6 +19,7 @@ namespace TiktokWidget.Service.Entities.ValueObjects
         [MaxLength(18)]
         public string Color { get; set; }
         public int NumberPerRow { get; set; }
+        public string CustomCss { get; set; }
         public virtual TikTokWidgetEntity Widget { get; set; }
 
     }

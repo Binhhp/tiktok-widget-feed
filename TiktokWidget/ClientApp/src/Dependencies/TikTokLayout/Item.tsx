@@ -34,6 +34,9 @@ import IconNetwork from "ui-components/IconNetwork";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
 import { NumberFormatter } from "common/functions/NumberFormatter";
 import { LogoTikTok } from "ui-components/UtilsStyle";
+import IconTick from "./Icons/IconTick";
+import IconComment from "./Icons/IconComment";
+import IconHeart from "./Icons/IconHeart";
 
 function Item(props: ITemplateItem) {
   const onMouseEnter =
@@ -134,22 +137,20 @@ function Item(props: ITemplateItem) {
             >
               @{props.item?.author}
             </UserNameTextLink>
-            {props.item?.officalItem && (
-              <CircleTick>
-                <Icon source={CircleTickMajor} />
-              </CircleTick>
-            )}
+            <CircleTick>
+              <IconTick />
+            </CircleTick>
           </UserName>
           <SocialNetwork>
             <UserSocialInfo left={true}>
               <SocialNetworkItem>
-                <Icon source={HeartMajor}></Icon>
+                <IconHeart />
               </SocialNetworkItem>
               <span>{NumberFormatter.Format(props.item.stats?.diggCount)}</span>
             </UserSocialInfo>
             <UserSocialInfo right={true}>
               <SocialNetworkItem>
-                <Icon source={ConversationMinor}></Icon>
+                <IconComment />
               </SocialNetworkItem>
               <span>
                 {NumberFormatter.Format(props.item.stats?.commentCount)}

@@ -19,7 +19,11 @@ namespace TiktokWidget.Controllers
         private readonly IWidgetService _widgetService;
         private readonly IInstagramWidgetService _instagramWidgetService;
         private readonly IPerformancesService _performancesService;
-        public ShopsController(IShopService shopService, IProductService productService, IWidgetService widgetService, IInstagramWidgetService instagramWidgetService, IPerformancesService performancesService)
+        public ShopsController(IShopService shopService, 
+            IProductService productService, 
+            IWidgetService widgetService, 
+            IInstagramWidgetService instagramWidgetService, 
+            IPerformancesService performancesService)
         {
             _shopService = shopService;
             _productService = productService;

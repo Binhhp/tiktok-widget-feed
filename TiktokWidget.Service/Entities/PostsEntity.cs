@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TiktokWidget.Service.Entities
 {
@@ -10,15 +11,7 @@ namespace TiktokWidget.Service.Entities
         public string Image { get; set; }
         public string Url { get; set; }
         public bool Status { get; set; }
-        public Int64 Clicks { get; set; }
-        public CategoryEnum Categories { get; set; }
         public DateTime CreatedTime { get; set; }
-
-    }
-
-    public enum CategoryEnum
-    {
-        TikTok,
-        Instagram
+        public ICollection<PostImpressionEntity> Impression { get; set; }
     }
 }

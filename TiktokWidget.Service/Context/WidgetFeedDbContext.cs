@@ -53,13 +53,17 @@ namespace TiktokWidget.Service.Context
             
             //Config Shop Configuration 
             modelBuilder.Entity<ShopConfigurationEntity>().ToTable("ShopConfiguration");
-            
+
+            //Shop description
+            modelBuilder.Entity<ShopDescriptorEntity>().ToTable("ShopDescriptor");
+
             //Config Shop
             modelBuilder.Entity<ShopEntity>().HasKey(x => x.ID);
             modelBuilder.Entity<ShopEntity>().Property(x => x.ID).ValueGeneratedOnAdd(); 
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.Widgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.Products).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
             modelBuilder.Entity<ShopEntity>().HasOne(x => x.ShopConfiguration).WithOne(x => x.Shops).HasForeignKey<ShopConfigurationEntity>(x => x.ShopId);
+            modelBuilder.Entity<ShopEntity>().HasOne(x => x.ShopDescriptor).WithOne(x => x.Shops).HasForeignKey<ShopDescriptorEntity>(x => x.ShopId);
 
             //Config instagram widget entity
             var instagramWidget = modelBuilder.Entity<InstagramWidgetEntity>().ToTable("InstagramWidget");
@@ -78,13 +82,9 @@ namespace TiktokWidget.Service.Context
             instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
 
-            //Config performances of shop
+            ////Config performances of shop
             var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
             performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
-
-            //Shop description
-            var shopDescriptor = modelBuilder.Entity<ShopDescriptorEntity>().ToTable("ShopDescriptor");
-            shopDescriptor.HasOne(c => c.Shops).WithOne(e => e.ShopDescriptor).HasForeignKey<ShopDescriptorEntity>(x => x.ShopId);
 
             //Cources
             modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
@@ -92,6 +92,9 @@ namespace TiktokWidget.Service.Context
             modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
             //Posts
             modelBuilder.Entity<PostsEntity>().ToTable("Posts");
+            //Post impression
+            var postImpression = modelBuilder.Entity<PostImpressionEntity>().ToTable("PostImpression");
+            postImpression.HasOne(x => x.Post).WithMany(x => x.Impression).HasForeignKey(x => new { x.PostId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

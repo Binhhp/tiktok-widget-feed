@@ -38,6 +38,7 @@ export interface IOptionOwner {
   backGround: string;
   color: string;
   numberPerRow: number;
+  customCss: string;
 }
 
 export interface IOptionInstagramOwner {

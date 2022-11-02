@@ -62,7 +62,7 @@ export interface ITemplate {
 }
 
 export class TemplateProvider {
-  public static icon: number = 9;
+  public static icon: number = 11;
 }
 
 export interface ITemplateImage {

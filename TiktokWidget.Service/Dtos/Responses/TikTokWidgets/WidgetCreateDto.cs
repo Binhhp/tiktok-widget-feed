@@ -19,6 +19,7 @@ namespace TiktokWidget.Service.Dtos.Responses.TikTokWidgets
         public string BackGround { get; set; }
         public string Color { get; set; }
         public int NumberPerRow { get; set; }
+        public string CustomCss { get; set; }
         #endregion
 
         #region Header

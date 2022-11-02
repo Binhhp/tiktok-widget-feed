@@ -40,6 +40,8 @@ function FormControlSource(props: IFormControlSource) {
   };
 
   const onFieldChange = (val: string, setFieldValue: any, key: string) => {
+    if (val.startsWith("#") && widgetReducer.settings.source === 0) return;
+    if (val.includes("@") && widgetReducer.settings.source === 1) return;
     setFieldValue(key, val);
     if (props.saveStore) {
       let copyState: ISettingProviderWidget = {};

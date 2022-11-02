@@ -18,7 +18,7 @@ export const DivDescProduct = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  min-height: 100%;
   width: calc(100% - 80px);
   span {
     font-family: "SF Pro Display";
@@ -40,7 +40,7 @@ export const DivDescProduct = styled("div")`
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
-    margin-right: 6px;
+    margin: 0px 6px 0px 0px;
   }
   h5 {
     font-family: "SF Pro Display";
@@ -49,14 +49,14 @@ export const DivDescProduct = styled("div")`
     font-size: 13px;
     line-height: 24px;
     text-decoration: line-through;
+    margin: 0px;
   }
 `;
 
 export const DivLeftProduct = styled("div")`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  margin-right: 5px;
+  width: 100%;
 `;
 
 export const DivPriceProduct = styled("div")`
@@ -104,7 +104,7 @@ export const ShopTagProductWrapper = styled("div")`
   @media only screen and (${breakpoints.device.sm}) {
   }
   @media only screen and (${breakpoints.device.lg}) {
-    min-width: 100%;
+    width: 100%;
     height: 80px;
     position: absolute;
     bottom: 0;

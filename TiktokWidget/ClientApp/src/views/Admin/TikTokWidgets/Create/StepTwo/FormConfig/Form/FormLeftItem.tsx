@@ -82,6 +82,15 @@ function FormLeftItem() {
               autoComplete="off"
             />
           )}
+        <TextField
+          name="custom-css"
+          id="custom-css"
+          label="Custom css"
+          value={widgetReducer.settings.customCss}
+          onChange={(val) => onSetConfig({ customCss: val })}
+          placeholder="Custom css"
+          autoComplete="off"
+        />
       </FormLayout>
     </FormLeft>
   );

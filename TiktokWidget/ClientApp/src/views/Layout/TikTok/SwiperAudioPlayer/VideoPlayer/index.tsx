@@ -89,7 +89,7 @@ function VideoPlayer(props: IVideoProps) {
             >
               <h2>{props.error?.message}</h2>
             </DivErrorVideo>
-            <DivBasicPlayerWrapper hidden={props.loading}>
+            {/* <DivBasicPlayerWrapper hidden={props.loading}>
               {props.item.id === props.videoId && (
                 <ReactPlayer
                   playIcon={
@@ -109,6 +109,7 @@ function VideoPlayer(props: IVideoProps) {
                   width={props.loading ? 0 : `100%`}
                   height="100%"
                   controls
+                  muted
                   onError={(error) => {
                     if (props.onError) props.onError(error);
                   }}
@@ -120,7 +121,7 @@ function VideoPlayer(props: IVideoProps) {
               >
                 <DivPlayerIcon></DivPlayerIcon>
               </DivPlayerIconContainer>
-            </DivBasicPlayerWrapper>
+            </DivBasicPlayerWrapper> */}
           </DivVideoPlay>
           <DivContentVideo>
             <DivContentVideoBody>

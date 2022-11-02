@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TiktokWidget.Service.Context;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(WidgetFeedDbContext))]
-    partial class TiktokWidgetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221102163546_add_tables")]
+    partial class add_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

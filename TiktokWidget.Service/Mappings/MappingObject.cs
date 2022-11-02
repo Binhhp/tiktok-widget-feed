@@ -30,6 +30,7 @@ namespace TiktokWidget.Service.Mappings
                     LayoutType = src.LayoutType,
                     NumberPerRow = src.NumberPerRow,
                     ShowNetworkIcon = src.ShowNetworkIcon,
+                    CustomCss = src.CustomCss
                 })).ForMember(x => x.Header, opt => opt.MapFrom(src => new HeaderOptions
                 {
                     Caption = src.Caption,
@@ -41,22 +42,23 @@ namespace TiktokWidget.Service.Mappings
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(src => System.DateTime.Now))
                 .ForMember(x => x.ModifyDate, opt => opt.MapFrom(src => System.DateTime.Now))
                 .ForMember(x => x.Setting, opt => opt.MapFrom(src => new TikTokOptions
-            {
-                LabelReadMore = src.LabelReadMore,
-                ShowProfile = src.ShowProfile,
-                AccentColor = src.AccentColor,
-                BackGround = src.BackGround,
-                Color = src.Color,
-                LabelViewMore = src.LabelViewMore,
-                LayoutType = src.LayoutType,
-                NumberPerRow = src.NumberPerRow,
-                ShowNetworkIcon = src.ShowNetworkIcon,
-            })).ForMember(x => x.Header, opt => opt.MapFrom(src => new HeaderOptions
-            {
-                Caption = src.Caption,
-                Title = src.Title,
-                Enable = src.Enable,
-            }));
+                {
+                    LabelReadMore = src.LabelReadMore,
+                    ShowProfile = src.ShowProfile,
+                    AccentColor = src.AccentColor,
+                    BackGround = src.BackGround,
+                    Color = src.Color,
+                    LabelViewMore = src.LabelViewMore,
+                    LayoutType = src.LayoutType,
+                    NumberPerRow = src.NumberPerRow,
+                    ShowNetworkIcon = src.ShowNetworkIcon,
+                    CustomCss = src.CustomCss
+                })).ForMember(x => x.Header, opt => opt.MapFrom(src => new HeaderOptions
+                {
+                    Caption = src.Caption,
+                    Title = src.Title,
+                    Enable = src.Enable,
+                }));
 
             //Map Request Instagram Widget to Entity
             CreateMap<CreateInstagramWidgetRequest, InstagramWidgetEntity>()

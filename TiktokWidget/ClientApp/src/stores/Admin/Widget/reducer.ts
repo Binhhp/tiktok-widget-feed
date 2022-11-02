@@ -57,6 +57,8 @@ const OnSetSetting = (
         copyState.settings.itemBackground = payload.itemBackground;
       if (payload.numberItemPerRow !== undefined)
         copyState.settings.numberItemPerRow = payload.numberItemPerRow;
+      if (payload.customCss !== undefined)
+        copyState.settings.customCss = payload.customCss;
       if (payload.products) copyState.settings.products = payload.products;
     } else {
       copyState.settings = new WidgetStoreModelDto().settings;

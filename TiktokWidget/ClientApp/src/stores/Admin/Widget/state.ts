@@ -20,7 +20,7 @@ export interface ISettingProviderWidget {
   itemBackground?: string;
   itemColor?: string;
   numberItemPerRow?: number;
-  limitItem?: number;
+  customCss?: string;
   products?: BaseProduct[];
 }
 
@@ -41,7 +41,7 @@ export class SettingProviderWidget implements ISettingProviderWidget {
   itemBackground?: string;
   itemColor?: string;
   numberItemPerRow?: number;
-  limitItem?: number;
+  customCss?: string;
   products?: BaseProduct[];
   constructor(dto?: BaseTikTokWidget) {
     this.id = dto?.id;
@@ -60,6 +60,7 @@ export class SettingProviderWidget implements ISettingProviderWidget {
     this.itemBackground = dto?.setting.backGround || "";
     this.itemColor = dto?.setting.color || "";
     this.numberItemPerRow = dto?.setting.numberPerRow || 3;
+    this.customCss = dto?.setting.customCss || "";
     this.products = dto?.products || [];
   }
   ToDto = (): ISettingProviderWidget => {
@@ -80,7 +81,7 @@ export class WidgetStoreModelDto {
     this.mobile = false;
     this.products = [];
     this.count = undefined;
-    this.status = "FirstCreated";
+    this.status = "Undefined";
     this.settings = {
       id: "",
       title: "",
@@ -98,7 +99,7 @@ export class WidgetStoreModelDto {
       itemBackground: "#fafafa",
       itemColor: "#000000",
       numberItemPerRow: 3,
-      limitItem: 10,
+      customCss: "",
       products: [],
     };
   }
@@ -116,7 +117,7 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
     this._mobile = _dto?.mobile || false;
     this._products = _dto?.products || [];
     this._count = _dto?.count ?? -1;
-    this._status = _dto?.status ?? "FirstCreated";
+    this._status = _dto?.status ?? "Undefined";
     this._settings = _dto?.settings || {
       id: "",
       title: "",
@@ -134,10 +135,11 @@ export class WidgetStoreModel implements ICloneStore<WidgetStoreModel> {
       itemColor: "#000000",
       itemBackground: "#fafafa",
       numberItemPerRow: 3,
-      limitItem: 10,
+      customCss: "",
       products: [],
     };
   }
+
   public get status(): WidgetStatus {
     return this._status;
   }

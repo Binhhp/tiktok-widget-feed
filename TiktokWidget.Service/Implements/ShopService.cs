@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -324,17 +325,20 @@ namespace TiktokWidget.Service.Implements
 
         public IQueryable<CoursesEntity> GetCources()
         {
-            return _context.Cources.Where(x => x.Status);
+            //return _context.Cources.Where(x => x.Status);
+            return new List<CoursesEntity>().AsQueryable();
         }
 
         public IQueryable<BannerEnitty> GetBanners()
         {
-            return _context.Banner.Where(x => x.Status);
+            //return _context.Banner.Where(x => x.Status);
+            return new List<BannerEnitty>().AsQueryable();
         }
 
         public IQueryable<PostsEntity> GetPosts()
         {
-            return _context.Posts.Where(x => x.Status);
+            //return _context.Posts.Where(x => x.Status);
+            return new List<PostsEntity>().AsQueryable();
         }
     }
 }

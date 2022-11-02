@@ -275,10 +275,9 @@ export const UserNameTextLink = styled("a")<IHashtagItem>`
   font-family: "SF Pro Display";
   font-style: normal;
   color: ${(props) => props.color};
-  margin-right: 3px;
+  margin-right: 4px;
   font-size: 14px;
   font-weight: 600;
-  margin-top: 5px;
   text-decoration: none;
   cursor: pointer;
 `;
@@ -292,7 +291,7 @@ export const SocialNetwork = styled("div", "social-network")`
     position: relative;
     border-radius: 3px;
     background: #fd325a;
-    padding: 1px 5px;
+    padding: 3px 5px;
     margin-top: 5px;
     &:before {
       content: "";
@@ -313,7 +312,7 @@ export const SocialNetwork = styled("div", "social-network")`
 
 export const CircleTick = styled("div")`
   width: 10px;
-  height: 10px;
+  display: flex;
   svg {
     fill: #20d5ec;
   }
@@ -336,18 +335,15 @@ export const UserSocialInfo = styled("div")<IUserSocialInfo>`
   svg {
     width: ${TemplateProvider.icon}px;
     height: ${TemplateProvider.icon}px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
     fill: #ffffff;
   }
   span {
     font-family: "SF Pro Display";
     font-style: normal;
-    font-size: 11px;
+    font-size: 12px;
     color: #fff;
     font-weight: 500;
+    margin-left: 2px;
   }
 `;
 
@@ -485,6 +481,9 @@ export const TemplateWrapper = styled("div", "parent")<ITemplateType>`
       }
       ${TemplateImage} {
         height: ${(props) => (props.contentOverflow ? 100 : 70)}%;
+      }
+      .swiper-slide {
+        width: 100% !important;
       }
     }
     @media only screen and (${breakpoints.device.sm}) {

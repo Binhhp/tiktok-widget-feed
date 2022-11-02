@@ -23,6 +23,7 @@ const FeedBack = (props: FeedbackProps) => {
   const handleChange = React.useCallback(() => {
     setActive(!active);
   }, [active]);
+
   const handleOnClickGood = () => {
     if (props.domain) {
       return toastNotify
@@ -37,7 +38,8 @@ const FeedBack = (props: FeedbackProps) => {
         )
         .then((res) => {
           if (res.Status) {
-            dispatch(ShopActionTS.OnSetDescriptor(res.Data as ShopDescriptor));
+            window.location.href =
+              "https://apps.shopify.com/tikify-tiktok-button#modal-show=ReviewListingModal";
           }
         });
     }

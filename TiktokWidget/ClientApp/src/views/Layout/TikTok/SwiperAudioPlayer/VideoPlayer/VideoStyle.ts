@@ -156,7 +156,7 @@ export const ImgPoster = styled("img", "video-poster")`
     object-fit: cover;
     display: block;
     max-height: 100%;
-    max-width: max-content !important;
+    max-width: 100%;
   }
 `;
 
@@ -275,7 +275,7 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
         height: 100%;
       }
       ${DivContainer} {
-        width: 70%;
+        width: 100%;
         margin: auto;
         padding: 0px;
         video {
