@@ -7,7 +7,7 @@ import tikTok from "./tiktok";
 export default class MenuManagement {
   items: IMenuItems[];
   constructor() {
-    this.items = [dashboard, tikTok, instagram, buttonWidget, apps];
-    // this.items = [tikTok, buttonWidget, apps];
+    // this.items = [dashboard, tikTok, instagram, buttonWidget, apps];
+    this.items = [tikTok, buttonWidget, apps];
   }
 }

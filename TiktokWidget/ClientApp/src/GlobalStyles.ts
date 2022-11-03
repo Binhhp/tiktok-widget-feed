@@ -37,6 +37,9 @@ div[p-color-scheme="light"] {
 #feedback-submit{
   background: #FF0B53;
 }
+#feedback-submit.Polaris-Button--loading{
+  background: var(--p-action-primary-disabled)
+}
 html {
     --scrollbarBG: #ffffff;
     --thumbBG: gray;

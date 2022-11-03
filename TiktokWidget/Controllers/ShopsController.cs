@@ -50,14 +50,14 @@ namespace TiktokWidget.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Shops({domain})/GetInstagramWidgetCounts")]
-        public IActionResult GetInstagramWidgetCounts([FromODataUri] string domain)
-        {
-            var result = _instagramWidgetService.GetCounts(domain);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Shops({domain})/GetInstagramWidgetCounts")]
+        //public IActionResult GetInstagramWidgetCounts([FromODataUri] string domain)
+        //{
+        //    var result = _instagramWidgetService.GetCounts(domain);
+        //    return Ok(result);
+        //}
 
         [HttpGet]
         [EnableQuery]
@@ -133,14 +133,14 @@ namespace TiktokWidget.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Shops({domain})/InstagramWidgets")]
-        public IActionResult GetInstagramWidgets([FromODataUri] string domain)
-        {
-            var result = _instagramWidgetService.Get(domain);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Shops({domain})/InstagramWidgets")]
+        //public IActionResult GetInstagramWidgets([FromODataUri] string domain)
+        //{
+        //    var result = _instagramWidgetService.Get(domain);
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         [ODataRoute("Shops({domain})/RegisterTikTokWidget")]
@@ -150,13 +150,13 @@ namespace TiktokWidget.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        [ODataRoute("Shops({domain})/RegisterInstagramWidget")]
-        public async Task<IActionResult> RegisterInstagramWidgets([FromODataUri] string domain, [FromBody] CreateInstagramWidgetRequest request)
-        {
-            var response = await _instagramWidgetService.CreateWidgetsAsync(domain, request);
-            return Ok(response);
-        }
+        //[HttpPost]
+        //[ODataRoute("Shops({domain})/RegisterInstagramWidget")]
+        //public async Task<IActionResult> RegisterInstagramWidgets([FromODataUri] string domain, [FromBody] CreateInstagramWidgetRequest request)
+        //{
+        //    var response = await _instagramWidgetService.CreateWidgetsAsync(domain, request);
+        //    return Ok(response);
+        //}
 
         [HttpPost]
         [ODataRoute("Shops({domain})/AddJob")]
@@ -166,14 +166,14 @@ namespace TiktokWidget.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Shops({domain})/Traffic")]
-        public IActionResult GetTraffic([FromODataUri] string domain)
-        {
-            var result = _performancesService.Get(domain);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Shops({domain})/Traffic")]
+        //public IActionResult GetTraffic([FromODataUri] string domain)
+        //{
+        //    var result = _performancesService.Get(domain);
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         [ODataRoute("Shops({domain})/Feedback")]

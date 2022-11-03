@@ -9,11 +9,9 @@ import { ChatMajor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
 import { ChatPlugin } from "common/functions/ChatPlugin";
 import FeedBack from "./FeedBack";
-import { FeedbackStatus } from "repositories/dtos/responses/BaseShop";
 
 function Sidebar() {
   const appReducer = useSelector((state: RootReducer) => state.AppReducer);
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   return (
     <SidebarWrapper active={appReducer.mobileMenuView}>
       <BrowserView>
@@ -31,9 +29,7 @@ function Sidebar() {
       </MobileView>
 
       <SupportLink>
-        {shopReducer?.shop?.shopDescriptor?.feedbackStatus === null && (
-          <FeedBack domain={shopReducer.shop.domain} />
-        )}
+        <FeedBack />
         <div onClick={ChatPlugin.Open} className="orichi-tiktok-chat-plugin">
           <Icon source={ChatMajor} color="base" />
           <span>Live Chat Support</span>

@@ -75,7 +75,10 @@ function NavGroup(props: INavGroupProps) {
         (appReducer.menuItems.some((x) => x === props.item?.id) ||
           props.item.children.some((x) =>
             window.location.pathname.includes(x.id)
-          )) && <NavGroupMenuItem>{items}</NavGroupMenuItem>}
+          ) ||
+          (window.location.pathname === "/")) && (
+          <NavGroupMenuItem>{items}</NavGroupMenuItem>
+        )}
     </NavGroupWrapper>
   );
 }

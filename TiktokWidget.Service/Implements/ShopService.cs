@@ -311,6 +311,13 @@ namespace TiktokWidget.Service.Implements
                     Feedback = postFeedbackRequest?.Feedback,
                     FeedbackStatus = postFeedbackRequest.Status
                 };
+
+                var service = new ShopifySharp.ShopService(domain, shop.Token);
+                var shopInformation = await service.GetAsync();
+                if (shopInformation != null)
+                {
+                    shopDescriptor.ShopOwner = shopInformation.ShopOwner;
+                }
                 shop.ShopDescriptor = shopDescriptor;
             }
             await _context.SaveChangesAsync();

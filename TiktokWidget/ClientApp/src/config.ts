@@ -15,6 +15,8 @@ const config = {
   showItems: 15,
   sliderShowItem: 100,
   showUseSection: false,
+  urlInstallTikTok:
+    "https://apps.shopify.com/tikify-tiktok-button#modal-show=ReviewListingModal",
 };
 
 export default config;

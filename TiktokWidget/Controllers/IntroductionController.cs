@@ -14,31 +14,31 @@ namespace TiktokWidget.Controllers
             _shopService = shopService;
         }
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Courses")]
-        public IActionResult GetCourses()
-        {
-            var courses = _shopService.GetCources();
-            return Ok(courses);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Courses")]
+        //public IActionResult GetCourses()
+        //{
+        //    var courses = _shopService.GetCources();
+        //    return Ok(courses);
+        //}
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Banner")]
-        public IActionResult GetBanner()
-        {
-            var banners = _shopService.GetBanners();
-            return Ok(banners);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Banner")]
+        //public IActionResult GetBanner()
+        //{
+        //    var banners = _shopService.GetBanners();
+        //    return Ok(banners);
+        //}
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Posts")]
-        public IActionResult GetPosts()
-        {
-            var posts = _shopService.GetPosts();
-            return Ok(posts);
-        }
+        //[HttpGet]
+        //[EnableQuery]
+        //[ODataRoute("Posts")]
+        //public IActionResult GetPosts()
+        //{
+        //    var posts = _shopService.GetPosts();
+        //    return Ok(posts);
+        //}
     }
 }
