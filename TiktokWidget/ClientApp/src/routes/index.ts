@@ -10,7 +10,7 @@ export default function ThemeRoutes() {
     [
       MainRoutes,
       TikTokRoutes,
-      // InstagramRoutes,
+      InstagramRoutes,
       EndpointManager.NotFoundRoutes,
       EndpointManager.NotFoundUrlRoutes,
     ],

@@ -59,8 +59,6 @@ function NavItem(props: INavItemProps) {
   const activeMenu =
     props.level === 1
       ? window.location.pathname === props.url
-      : window.location.pathname === "/" && props.url === "/my-widget"
-      ? true
       : window.location.pathname.includes(props.id);
 
   return (!InstagramWidgetReducer.count ||
