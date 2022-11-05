@@ -54,35 +54,35 @@ namespace TiktokWidget.Controllers
             return BadRequest();
         }
 
-        //[HttpGet]
-        //[EnableQuery]
-        //[ODataRoute("InstagramVideos")]
-        //public IActionResult GetInstagramVideos(string data, SourceTypeEnum type)
-        //{
-        //    if (!string.IsNullOrEmpty(data))
-        //    {
-        //        var response = _instagramWidgetService.GetVideoJob(new GetVideoByJobRequest
-        //        {
-        //            Data = data,
-        //            Type = type
-        //        });
-        //        return Ok(response);
-        //    }
-        //    return BadRequest();
-        //}
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("InstagramVideos")]
+        public IActionResult GetInstagramVideos(string data, SourceTypeEnum type)
+        {
+            if (!string.IsNullOrEmpty(data))
+            {
+                var response = _instagramWidgetService.GetVideoJob(new GetVideoByJobRequest
+                {
+                    Data = data,
+                    Type = type
+                });
+                return Ok(response);
+            }
+            return BadRequest();
+        }
 
-        //[HttpGet]
-        //[EnableQuery]
-        //[ODataRoute("InstagramVideos({key})")]
-        //public async Task<IActionResult> GetInstagramVideos([FromODataUri] string key)
-        //{
-        //    var result = _instagramWidgetService.GetVideos(key);
-        //    await Task.Run(() => _mediator.Publish(new InstagramImpressionCommand
-        //    {
-        //        Time = DateTime.UtcNow,
-        //        WidgetId = key
-        //    }));
-        //    return Ok(result);
-        //}
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("InstagramVideos({key})")]
+        public async Task<IActionResult> GetInstagramVideos([FromODataUri] string key)
+        {
+            var result = _instagramWidgetService.GetVideos(key);
+            await Task.Run(() => _mediator.Publish(new InstagramImpressionCommand
+            {
+                Time = DateTime.UtcNow,
+                WidgetId = key
+            }));
+            return Ok(result);
+        }
     }
 }

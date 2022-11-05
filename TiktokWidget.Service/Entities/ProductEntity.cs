@@ -19,7 +19,7 @@ namespace TiktokWidget.Service.Entities
         public string VariantName { get; set; }
         public string Image { get; set; }
         public virtual TikTokWidgetEntity Widget { get; set; }
-        //public virtual InstagramWidgetEntity InstagramWidget { get; set; }
+        public virtual InstagramWidgetEntity InstagramWidget { get; set; }
         public virtual ShopEntity Shops { get; set; }
     }
 }
