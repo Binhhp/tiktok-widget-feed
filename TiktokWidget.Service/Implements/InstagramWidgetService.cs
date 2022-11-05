@@ -36,7 +36,7 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<InstagramWidgetEntity> Get(string domain)
         {
             var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
-            //resposne = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain));
+            response = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain));
             return response;
         }
         /// <summary>
@@ -46,7 +46,7 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<InstagramWidgetEntity> GetById(string key)
         {
             var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
-            //response = _widgetDbContext.InstagramWidgets.Where(x => x.Id.Equals(key));
+            response = _widgetDbContext.InstagramWidgets.Where(x => x.Id.Equals(key));
             return response;
         }
         /// <summary>
@@ -56,7 +56,7 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<InstagramWidgetEntity> GetByIds(IEnumerable<string> widgetIds)
         {
             var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
-            //response = _widgetDbContext.InstagramWidgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
+            response = _widgetDbContext.InstagramWidgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
             return response;
         }
         /// <summary>
@@ -66,7 +66,7 @@ namespace TiktokWidget.Service.Implements
         public int GetCounts(string domain)
         {
             var result = 0;
-            //result = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).Count();
+            result = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).Count();
             return result;
         }
         /// <summary>
@@ -77,22 +77,22 @@ namespace TiktokWidget.Service.Implements
         public async Task<CreateInstagramWidgetResponse> CreateWidgetsAsync(string domain, CreateInstagramWidgetRequest request)
         {
             var response = new CreateInstagramWidgetResponse();
-            //var shop = _widgetDbContext.Shop.FirstOrDefault(x => x.Domain == domain);
-            //if (shop == null)
-            //{
-            //    throw new NotFoundException(domain);
-            //}
-            
-            //var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
-            //widgetEntity.Shops = shop;
+            var shop = _widgetDbContext.Shop.FirstOrDefault(x => x.Domain == domain);
+            if (shop == null)
+            {
+                throw new NotFoundException(domain);
+            }
 
-            //await _widgetDbContext.InstagramWidgets.AddAsync(widgetEntity);
-            //await _widgetDbContext.SaveChangesAsync();
+            var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
+            widgetEntity.Shops = shop;
 
-            //if (!string.IsNullOrEmpty(widgetEntity.Id))
-            //{
-            //    response.WidgetId = widgetEntity.Id;
-            //}   
+            await _widgetDbContext.InstagramWidgets.AddAsync(widgetEntity);
+            await _widgetDbContext.SaveChangesAsync();
+
+            if (!string.IsNullOrEmpty(widgetEntity.Id))
+            {
+                response.WidgetId = widgetEntity.Id;
+            }
             return response;
         }
         /// <summary>
@@ -103,26 +103,26 @@ namespace TiktokWidget.Service.Implements
         public async Task<UpdateInstagramWidgetResponse> UpdateWidgetsAsync(string key, CreateInstagramWidgetRequest request)
         {
             var response = new UpdateInstagramWidgetResponse();
-            //var widget = await _widgetDbContext.InstagramWidgets.FirstOrDefaultAsync(x => x.Id == key);
-            //if (widget == null)
-            //{
-            //    throw new NotFoundException(key);
-            //}
-            //var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
-            //widget.SourceType = widgetEntity.SourceType;
-            //widget.ValueSource = widgetEntity.ValueSource;
-            //widget.ModifyDate = DateTime.Now;
-            //widget.Setting = widgetEntity.Setting;
-            //widget.Header = widgetEntity.Header;
-            //widget.WidgetTitle = widgetEntity.WidgetTitle;
+            var widget = await _widgetDbContext.InstagramWidgets.FirstOrDefaultAsync(x => x.Id == key);
+            if (widget == null)
+            {
+                throw new NotFoundException(key);
+            }
+            var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
+            widget.SourceType = widgetEntity.SourceType;
+            widget.ValueSource = widgetEntity.ValueSource;
+            widget.ModifyDate = DateTime.Now;
+            widget.Setting = widgetEntity.Setting;
+            widget.Header = widgetEntity.Header;
+            widget.WidgetTitle = widgetEntity.WidgetTitle;
 
-            //var jobEntity = new JobEntity
-            //{
-            //    Data = widgetEntity.ValueSource,
-            //    Type = widgetEntity.SourceType
-            //};
+            var jobEntity = new JobEntity
+            {
+                Data = widgetEntity.ValueSource,
+                Type = widgetEntity.SourceType
+            };
 
-            //await _widgetDbContext.SaveChangesAsync();
+            await _widgetDbContext.SaveChangesAsync();
             return response;
         }
         /// <summary>
@@ -133,14 +133,14 @@ namespace TiktokWidget.Service.Implements
         public async Task<ResponseBase> DeleteAsync(string key)
         {
             var response = new ResponseBase();
-            //var widget = await _widgetDbContext.InstagramWidgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == key);
-            //if (widget == null)
-            //{
-            //    throw new NotFoundException(key);
-            //}
-            //widget.Products.Clear();
-            //_widgetDbContext.InstagramWidgets.Remove(widget);
-            //await _widgetDbContext.SaveChangesAsync();
+            var widget = await _widgetDbContext.InstagramWidgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == key);
+            if (widget == null)
+            {
+                throw new NotFoundException(key);
+            }
+            widget.Products.Clear();
+            _widgetDbContext.InstagramWidgets.Remove(widget);
+            await _widgetDbContext.SaveChangesAsync();
             return response;
         }
         /// <summary>
@@ -151,47 +151,47 @@ namespace TiktokWidget.Service.Implements
         /// <returns></returns>
         public async Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products)
         {
-            var response = new ResponseBase(); 
-            //var widget = await _widgetDbContext.InstagramWidgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id.Equals(key));
-            //if (widget == null)
-            //{
-            //    throw new NotFoundException("Widget");
-            //}
-            //if (products.Any())
-            //{
-            //    var shop = _widgetDbContext.Shop.FirstOrDefault(x => x.ID == products.First().ShopId);
-            //    if (shop == null)
-            //    {
-            //        throw new NotFoundException(products.First().ShopId.ToString());
-            //    }
+            var response = new ResponseBase();
+            var widget = await _widgetDbContext.InstagramWidgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id.Equals(key));
+            if (widget == null)
+            {
+                throw new NotFoundException("Widget");
+            }
+            if (products.Any())
+            {
+                var shop = _widgetDbContext.Shop.FirstOrDefault(x => x.ID == products.First().ShopId);
+                if (shop == null)
+                {
+                    throw new NotFoundException(products.First().ShopId.ToString());
+                }
 
-            //    var productOfWidget = _widgetDbContext.Product.Where(x => x.InstagramWidget.Id == widget.Id).ToList();
-            //    if (productOfWidget.Any())
-            //    {
-            //        _widgetDbContext.Product.RemoveRange(productOfWidget);
-            //        await _widgetDbContext.SaveChangesAsync();
-            //    }
+                var productOfWidget = _widgetDbContext.Product.Where(x => x.InstagramWidget.Id == widget.Id).ToList();
+                if (productOfWidget.Any())
+                {
+                    _widgetDbContext.Product.RemoveRange(productOfWidget);
+                    await _widgetDbContext.SaveChangesAsync();
+                }
 
-            //    var productEntities = products.Select(x => new ProductEntity
-            //    {
-            //        Handle = x.Handle,
-            //        ProductId = x.Id,
-            //        Image = x.Image,
-            //        Prices = x.Prices,
-            //        Title = x.Title,
-            //        VariantName = x.VariantName,
-            //        Variants = x.Variants,
-            //        VariantSku = x.VariantSku,
-            //        Shops = shop,
-            //        InstagramWidget = widget
-            //    }).ToList();
-            //    await _widgetDbContext.Product.AddRangeAsync(productEntities);
-            //}
-            //else if (widget.Products.Any())
-            //{
-            //    _widgetDbContext.Product.RemoveRange(widget.Products);
-            //}
-            //await _widgetDbContext.SaveChangesAsync();
+                var productEntities = products.Select(x => new ProductEntity
+                {
+                    Handle = x.Handle,
+                    ProductId = x.Id,
+                    Image = x.Image,
+                    Prices = x.Prices,
+                    Title = x.Title,
+                    VariantName = x.VariantName,
+                    Variants = x.Variants,
+                    VariantSku = x.VariantSku,
+                    Shops = shop,
+                    InstagramWidget = widget
+                }).ToList();
+                await _widgetDbContext.Product.AddRangeAsync(productEntities);
+            }
+            else if (widget.Products.Any())
+            {
+                _widgetDbContext.Product.RemoveRange(widget.Products);
+            }
+            await _widgetDbContext.SaveChangesAsync();
             return response;
         }
 
@@ -213,11 +213,11 @@ namespace TiktokWidget.Service.Implements
             var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
             try
             {
-                //var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
-                //if (widget != null)
-                //{
-                //    response = InstagramVideoSeedData.Seed().Take(widget.Setting.LimitItems);
-                //}
+                var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
+                if (widget != null)
+                {
+                    response = InstagramVideoSeedData.Seed().Take(widget.Setting.LimitItems);
+                }
                 //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
                 //var JSON = File.ReadAllText(pathFile);
                 //if (!string.IsNullOrEmpty(JSON))

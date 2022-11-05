@@ -18,37 +18,37 @@ namespace TiktokWidget.Controllers
             _instagramWidgetService = instagramWidgetService;
         }
 
-        //[HttpGet]
-        //[EnableQuery]
-        //[ODataRoute("InstagramWidgets({key})")]
-        //public SingleResult<InstagramWidgetEntity> Get([FromODataUri] string key)
-        //{
-        //    var result = _instagramWidgetService.GetById(key);
-        //    return SingleResult.Create(result);
-        //}
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("InstagramWidgets({key})")]
+        public SingleResult<InstagramWidgetEntity> Get([FromODataUri] string key)
+        {
+            var result = _instagramWidgetService.GetById(key);
+            return SingleResult.Create(result);
+        }
 
-        //[HttpPost]
-        //[ODataRoute("InstagramWidgets({key})/UpdateProduct")]
-        //public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
-        //{
-        //    await _instagramWidgetService.UpdateProductAsync(key, request.Products);
-        //    return Ok();
-        //}
+        [HttpPost]
+        [ODataRoute("InstagramWidgets({key})/UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
+        {
+            await _instagramWidgetService.UpdateProductAsync(key, request.Products);
+            return Ok();
+        }
 
-        //[HttpDelete]
-        //[ODataRoute("InstagramWidgets({key})")]
-        //public async Task<IActionResult> Delete([FromODataUri] string key)
-        //{
-        //    var response = await _instagramWidgetService.DeleteAsync(key);
-        //    return Ok(response);
-        //}
+        [HttpDelete]
+        [ODataRoute("InstagramWidgets({key})")]
+        public async Task<IActionResult> Delete([FromODataUri] string key)
+        {
+            var response = await _instagramWidgetService.DeleteAsync(key);
+            return Ok(response);
+        }
 
-        //[HttpPut]
-        //[ODataRoute("InstagramWidgets({key})")]
-        //public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] CreateInstagramWidgetRequest request)
-        //{
-        //    var response = await _instagramWidgetService.UpdateWidgetsAsync(key, request);
-        //    return Ok(response);
-        //}
+        [HttpPut]
+        [ODataRoute("InstagramWidgets({key})")]
+        public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] CreateInstagramWidgetRequest request)
+        {
+            var response = await _instagramWidgetService.UpdateWidgetsAsync(key, request);
+            return Ok(response);
+        }
     }
 }
