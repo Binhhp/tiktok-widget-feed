@@ -33,10 +33,10 @@ namespace TiktokWidget.ODataEntities
         {
             "UpdateShopConfiguration",
             "RegisterTikTokWidget",
-            //"RegisterInstagramWidget",
+            "RegisterInstagramWidget",
             "AddJob",
             "GetWidgetCounts",
-            //"GetInstagramWidgetCounts",
+            "GetInstagramWidgetCounts",
             "GetThemes",
             "Feedback"
         };
@@ -44,20 +44,20 @@ namespace TiktokWidget.ODataEntities
         {
             _builder.EntitySet<ShopWidgetsOdataEntity>("ShopWidgets");
             _builder.EntitySet<TikTokWidgetEntity>("TikTokWidgets");
-            //_builder.EntitySet<InstagramWidgetEntity>("InstagramWidgets");
+            _builder.EntitySet<InstagramWidgetEntity>("InstagramWidgets");
             _builder.EntitySet<ShopOdataEntity>("Shops").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");
             _builder.EntitySet<ShopConfigurationEntity>("ShopConfiguration");
             _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
-            //_builder.EntitySet<InstagramViewModel>("InstagramVideos");
-            //_builder.EntitySet<PerformancesEntity>("Traffic");
+            _builder.EntitySet<InstagramViewModel>("InstagramVideos");
+            _builder.EntitySet<PerformancesEntity>("Traffic");
             _builder.EntitySet<ShopDescriptorEntity>("ShopDescriptor");
-            //_builder.EntitySet<CoursesEntity>("Courses");
-            //_builder.EntitySet<BannerEnitty>("Banner");
-            //_builder.EntitySet<PostsEntity>("Posts");
+            _builder.EntitySet<CoursesEntity>("Courses");
+            _builder.EntitySet<BannerEnitty>("Banner");
+            _builder.EntitySet<PostsEntity>("Posts");
             BuildEdmModel<TikTokWidgetEntity>(TikTokWidgetActions);
-            //BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
+            BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
             BuildEdmModel<ShopEntity>(ShopEntityActions);
         }
         private static void BuildEdmModel<T>(List<string> actions) where T : class
