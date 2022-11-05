@@ -9,16 +9,14 @@ const ButtonWidget = Loadable(lazy(() => import("views/Admin/ButtonWidget")));
 const AppIntegrationWrapper = Loadable(
   lazy(() => import("views/Admin/AppIntegrations"))
 );
-const MyWidget = Loadable(
-  lazy(() => import("views/Admin/TikTokWidgets/MyWidget"))
-);
+
 const MainRoutes = {
   path: "/",
   element: <MainLayout />,
   children: [
     {
       path: "/",
-      element: <MyWidget />,
+      element: <Dashboard />,
     },
     {
       path: "/button-widget",
