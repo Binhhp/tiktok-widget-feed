@@ -38,7 +38,7 @@ export const ProfileInfo = styled("div", "info")<IProfileInfo>`
     justify-content: space-between;
     padding-left: 10px;
     position: relative;
-    width: calc(100% - 100px);
+    flex: 1;
     h2 {
       width: 100%;
       font-weight: 600;
@@ -128,16 +128,19 @@ export const ProfileHeader = styled("div", "header")`
   }
 `;
 
-export const FollowerButton = styled("button", "followBtn")`
+export const FollowerButton = styled("a", "followBtn")`
   &.orichi-tiktok-followBtn {
-    padding: 0px 40px;
+    padding: 0px 35px;
     cursor: pointer;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     margin-bottom: 10px;
     margin-left: 10px;
     font-size: 14px !important;
     line-height: 14px !important;
     height: 35px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
 `;
 

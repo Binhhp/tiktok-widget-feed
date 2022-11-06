@@ -1,6 +1,6 @@
 import { Icon } from "@shopify/polaris";
 import { PlusMinor } from "@shopify/polaris-icons";
-import React, { useState } from "react";
+import React from "react";
 import { IProfileProps } from "./ProfileType";
 import {
   AvatarProfile,
@@ -18,13 +18,6 @@ import { NumberFormatter } from "common/functions/NumberFormatter";
 import Skeleton from "react-loading-skeleton";
 
 function Profile(props: IProfileProps) {
-  const [status, setStatus] = useState(false);
-
-  const onChangeStatus = () => {
-    if (props.onClickFollow) props.onClickFollow(!status);
-    setStatus(!status);
-  };
-
   return (
     <ProfileWrapper {...props.style}>
       <AvatarProfile {...props.style}>
@@ -54,24 +47,15 @@ function Profile(props: IProfileProps) {
               ? `@someone`
               : props.profileInfo?.name ?? <Skeleton inline />}
           </h2>
-          {!props.hiddenFollower &&
-            (props.default ? (
-              <FollowerButton
-                className={status ? "following" : "follow"}
-                onClick={onChangeStatus}
-              >
-                {status ? "Following" : "Follow"}
-              </FollowerButton>
-            ) : (
-              props.profileInfo?.name && (
-                <FollowerButton
-                  className={status ? "following" : "follow"}
-                  onClick={onChangeStatus}
-                >
-                  {status ? "Following" : "Follow"}
-                </FollowerButton>
-              )
-            ))}
+          {!props.hiddenFollower && props.profileInfo?.name && (
+            <FollowerButton
+              className="follow"
+              href={`https://www.tiktok.com/@${props.profileInfo?.name ?? ""}`}
+              target="_blank"
+            >
+              Follow
+            </FollowerButton>
+          )}
         </ProfileHeader>
         <Contact>
           <ContactItem fontSize={props?.style?.fontSize}>
