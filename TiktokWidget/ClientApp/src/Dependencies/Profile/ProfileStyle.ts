@@ -38,6 +38,7 @@ export const ProfileInfo = styled("div", "info")<IProfileInfo>`
     justify-content: space-between;
     padding-left: 10px;
     position: relative;
+    width: calc(100% - 100px);
     h2 {
       width: 100%;
       font-weight: 600;
@@ -62,7 +63,7 @@ export const Contact = styled("div", "contactDiv")`
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    width: 300px;
+    max-width: 300px;
   }
 `;
 
@@ -133,7 +134,7 @@ export const FollowerButton = styled("button", "followBtn")`
     cursor: pointer;
     font-weight: 600 !important;
     margin-bottom: 10px;
-    margin-left: 40px;
+    margin-left: 10px;
     font-size: 14px !important;
     line-height: 14px !important;
     height: 35px;

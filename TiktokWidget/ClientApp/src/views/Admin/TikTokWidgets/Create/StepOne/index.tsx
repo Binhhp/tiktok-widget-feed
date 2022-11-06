@@ -22,7 +22,6 @@ function StepOne() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(WidgetActionTS.OnStep(1));
-    dispatch(WidgetActionTS.OnSetSetting(true));
   }, []);
 
   const widgetReducer = useSelector(

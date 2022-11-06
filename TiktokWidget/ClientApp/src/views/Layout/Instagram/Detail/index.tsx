@@ -25,7 +25,6 @@ interface IDetailProps {
 function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
-  console.log(props.widget.setting.showNetworkIcon);
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>

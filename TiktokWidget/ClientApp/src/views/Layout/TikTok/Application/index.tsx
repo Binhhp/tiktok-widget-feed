@@ -75,7 +75,7 @@ function TikTok(props: ITikTokAppProps) {
     <ApplicationContainer>
       {widgets.map((item) => (
         <DivTiKTokenizer key={`TikTok-Widget-${item.id}`}>
-          <AudioPlayerProvider>
+          <AudioPlayerProvider customCss={item.customCss}>
             <TikTokWrapper>
               <DivTikTok>
                 {item.showProfile && item.source === 1 && (

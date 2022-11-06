@@ -1,5 +1,4 @@
 import { Button } from "@shopify/polaris";
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,23 +19,6 @@ function FormSubmit() {
 
   const onCancel = () => {
     dispatch(WidgetActionTS.OnStep(0));
-    dispatch(
-      WidgetActionTS.OnSetSetting({
-        layout: TemplateType.Slider,
-        header: "enable",
-        titleHeader: "My TikTok Feed",
-        caption: "caption",
-        labelReadMore: "Read more",
-        labelView: "View more",
-        showProfile: "enable",
-        showNetworkIcon: "enable",
-        accentColor: "#000000",
-        itemBackground: "#fafafa",
-        itemColor: "#000000",
-        numberItemPerRow: 3,
-        products: [],
-      })
-    );
     if (widgetReducer.settings.id)
       navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
     else navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}`);
@@ -70,7 +52,6 @@ function FormSubmit() {
       );
       if (response.Status) {
         dispatch(WidgetActionTS.OnStep(3));
-        // dispatch(WidgetActionTS.OnSetSetting(true));
         const shopReponsitory = new ShopReponsitory();
         shopReponsitory
           .GetWidgetsCount(shopReducer.shop.domain ?? "")

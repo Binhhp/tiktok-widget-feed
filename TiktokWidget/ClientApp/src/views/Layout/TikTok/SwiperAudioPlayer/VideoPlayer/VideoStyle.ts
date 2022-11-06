@@ -2,6 +2,7 @@ import { IVideoWrapperStyle } from "./VideoType";
 import { keyframes } from "styled-components";
 import {
   SocialNetwork,
+  TemplateLefItemContext,
   TimeZone,
   UserName,
 } from "Dependencies/TikTokLayout/LayoutTemplateStype";
@@ -55,7 +56,7 @@ export const DivContentVideo = styled("div", "video-content")<IDivContentVideo>`
     padding: 20px 15px 15px 15px;
     background: #ffffff;
     max-width: 550px;
-    min-width: 350px;
+    width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -73,7 +74,7 @@ export const DivContentVideo = styled("div", "video-content")<IDivContentVideo>`
 
 export const DivContentVideoFooter = styled("div", "video-content-footer")`
   &.video-content-footer {
-    width: 100%;
+    max-width: 100%;
     padding-bottom: 20px;
     position: relative;
     &:after {
@@ -95,7 +96,7 @@ export const DivContentVideoFooter = styled("div", "video-content-footer")`
 
 export const DivContentVideoBody = styled("div", "video-body")`
   &.orichi-tiktok-video-body {
-    width: 100%;
+    max-width: 100%;
     .desc {
       max-height: max-content;
       display: block;
@@ -111,8 +112,8 @@ export const DivContentHeader = styled("div", "video-content-header")`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 11px;
     border-bottom: 1px solid rgba(229, 229, 229, 1);
+    padding-bottom: 10px;
     ${UserName} {
       margin-right: 45px;
     }
@@ -156,13 +157,18 @@ export const ImgPoster = styled("img", "video-poster")`
     object-fit: cover;
     display: block;
     max-height: 100%;
-    max-width: 100%;
   }
 `;
 
-export const ButtonClose = styled("div")`
-  cursor: pointer;
-  display: none;
+export const ButtonClose = styled("div", "btn__close")`
+  &.orichi-tiktok-btn__close {
+    cursor: pointer;
+    display: none;
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
 `;
 
 export interface IDivPlayerIconContainer {
@@ -193,38 +199,45 @@ export const DivPlayerIconContainer = styled(
   }
 `;
 
-export const DivErrorVideo = styled("div")<IDivPlayerIconContainer>`
-  position: absolute;
-  width: calc(100% - 20px);
-  height: 100%;
-  top: 0px;
-  left: 0px;
-  z-index: 20;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  display: ${(props) => (props.hidden ? "none" : "auto")};
-  background: #202020;
-  color: #ffffff;
-  padding: 0 10px;
-  h2 {
-    text-transform: none !important;
-    font-family: "SF Pro Display";
-    font-style: normal;
-    font-size: 16px;
-    font-weight: 400;
+export const DivErrorVideo = styled(
+  "div",
+  "error__video"
+)<IDivPlayerIconContainer>`
+  &.orichi-tiktok-error__video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 20;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: ${(props) => (props.hidden ? "none" : "auto")};
+    background: #202020;
+    color: #ffffff;
+    padding: 0 10px;
+    h2 {
+      text-transform: none !important;
+      font-family: "SF Pro Display";
+      font-style: normal;
+      font-size: 16px;
+      font-weight: 400;
+    }
   }
 `;
 
-export const DivPlayerIcon = styled("div")`
-  width: 62px;
-  height: 62px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: url("https://lf16-tiktok-web.ttwstatic.com/obj/tiktok-web/tiktok/webapp/main/webapp-mobile/d84eb82fb19d8c010b0b.png");
+export const DivPlayerIcon = styled("div", "player")`
+  &.orichi-tiktok-player {
+    width: 62px;
+    height: 62px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("https://lf16-tiktok-web.ttwstatic.com/obj/tiktok-web/tiktok/webapp/main/webapp-mobile/d84eb82fb19d8c010b0b.png");
+  }
 `;
 
 export const AnimationContent = keyframes`
@@ -240,18 +253,20 @@ export const AnimationContentBack = keyframes`
   100% { height: 300px }
 `;
 
-export const DivVideoTitle = styled("span")`
-  width: 100%;
-  text-overflow: ellipsis;
-  line-height: 18px;
-  -webkit-line-clamp: 3;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  max-height: 54px;
-  margin-bottom: 6px;
-  font-size: 16px;
-  font-family: "SF Pro Display";
+export const DivVideoTitle = styled("span", "video__title")`
+  &.orichi-tiktok-video__title {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    line-height: 18px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 54px;
+    margin-bottom: 6px;
+    font-size: 16px;
+    font-family: "SF Pro Display";
+  }
 `;
 
 export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
@@ -272,7 +287,11 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
     @media only screen and (${breakpoints.device.lg}) {
       ${ImgPoster} {
         width: 100%;
+        max-width: 100%;
         height: 100%;
+      }
+      ${ButtonClose} {
+        display: block;
       }
       ${DivContainer} {
         width: 100%;
@@ -287,8 +306,11 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
         height: 100%;
         width: 100%;
       }
+      ${TemplateLefItemContext} {
+        margin: 10px;
+      }
       ${DivVideoPlay} {
-        min-width: 100%;
+        max-width: 100%;
         height: auto;
         max-height: calc(
           100% - ${(props) => (props.showProducts ? 120 : 50)}px
@@ -302,17 +324,15 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
         bottom: 0;
         left: 0;
         height: 300px;
-        min-width: 100%;
-        padding: 7px 10px ${(props) => (props.showProducts ? 80 : 0)}px 10px;
+        max-width: 100%;
+        padding: 0px 0px ${(props) => (props.showProducts ? 80 : 0)}px 0px;
         z-index: 100;
       }
       ${DivContentHeader} {
-        margin-bottom: 7px;
-        padding-bottom: 8px;
+        margin: 10px;
       }
       ${DivContentVideoFooter} {
-        padding: 10px 0px;
-        margin: 0px;
+        margin: 10px;
         &:after {
           top: 0;
           bottom: auto;

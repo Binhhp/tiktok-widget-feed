@@ -1,5 +1,5 @@
 export const StyledConfig = {
-  MARGIN_CONTENT: 5,
+  MARGIN_CONTENT: 7,
 };
 export interface IVideoTemplateModel {
   data: ITikTokVideoDto[];

@@ -1,11 +1,3 @@
-import { Icon } from "@shopify/polaris";
-import {
-  CircleTickMajor,
-  ConversationMinor,
-  HeartMajor,
-  MinusMinor,
-  MobileCancelMajor,
-} from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
 import { NumberFormatter } from "common/functions/NumberFormatter";
 import React from "react";
@@ -47,6 +39,10 @@ import Loader from "ui-components/Loading/ComponentLoader";
 import breakpoints from "Dependencies/Devices/breakpoint";
 import TikTokLoader from "ui-components/Loading/TikTokLoader";
 import ShopTagProduct from "../../ShopTagProduct";
+import IconMinus from "Dependencies/TikTokLayout/Icons/IconMinus";
+import IconTick from "Dependencies/TikTokLayout/Icons/IconTick";
+import IconHeart from "Dependencies/TikTokLayout/Icons/IconHeart";
+import IconComment from "Dependencies/TikTokLayout/Icons/IconComment";
 
 function VideoPlayer(props: IVideoProps) {
   const video = props.item.video?.playAddr;
@@ -89,7 +85,7 @@ function VideoPlayer(props: IVideoProps) {
             >
               <h2>{props.error?.message}</h2>
             </DivErrorVideo>
-            {/* <DivBasicPlayerWrapper hidden={props.loading}>
+            <DivBasicPlayerWrapper hidden={props.loading}>
               {props.item.id === props.videoId && (
                 <ReactPlayer
                   playIcon={
@@ -109,7 +105,6 @@ function VideoPlayer(props: IVideoProps) {
                   width={props.loading ? 0 : `100%`}
                   height="100%"
                   controls
-                  muted
                   onError={(error) => {
                     if (props.onError) props.onError(error);
                   }}
@@ -121,7 +116,7 @@ function VideoPlayer(props: IVideoProps) {
               >
                 <DivPlayerIcon></DivPlayerIcon>
               </DivPlayerIconContainer>
-            </DivBasicPlayerWrapper> */}
+            </DivBasicPlayerWrapper>
           </DivVideoPlay>
           <DivContentVideo>
             <DivContentVideoBody>
@@ -132,14 +127,14 @@ function VideoPlayer(props: IVideoProps) {
                   </UserNameTextLink>
                   {props.item?.officalItem && (
                     <CircleTick>
-                      <Icon source={CircleTickMajor} />
+                      <IconTick />
                     </CircleTick>
                   )}
                 </UserName>
                 <SocialNetwork>
                   <UserSocialInfo left={true}>
                     <SocialNetworkItem>
-                      <Icon source={HeartMajor}></Icon>
+                      <IconHeart />
                     </SocialNetworkItem>
                     <span>
                       {NumberFormatter.Format(props.item.stats?.diggCount)}
@@ -147,7 +142,7 @@ function VideoPlayer(props: IVideoProps) {
                   </UserSocialInfo>
                   <UserSocialInfo right={true}>
                     <SocialNetworkItem style={{ marginRight: `6px` }}>
-                      <Icon source={ConversationMinor}></Icon>
+                      <IconComment />
                     </SocialNetworkItem>
                     <span>
                       {NumberFormatter.Format(props.item.stats?.commentCount)}
@@ -155,9 +150,7 @@ function VideoPlayer(props: IVideoProps) {
                   </UserSocialInfo>
                 </SocialNetwork>
                 <ButtonClose onClick={props.onSetHidden}>
-                  <Icon
-                    source={props.hidden ? MinusMinor : MobileCancelMajor}
-                  />
+                  <IconMinus />
                 </ButtonClose>
               </DivContentHeader>
               <TemplateLefItemContext showDesc>

@@ -1,12 +1,5 @@
 import { ITemplateItem, TemplateType } from "./LayoutTemplateType";
 import React from "react";
-import { Icon } from "@shopify/polaris";
-import {
-  CircleTickMajor,
-  ConversationMinor,
-  HeartMajor,
-  PlayMinor,
-} from "@shopify/polaris-icons";
 import {
   DynamicVideo,
   CircleTick,
@@ -37,6 +30,7 @@ import { LogoTikTok } from "ui-components/UtilsStyle";
 import IconTick from "./Icons/IconTick";
 import IconComment from "./Icons/IconComment";
 import IconHeart from "./Icons/IconHeart";
+import IconPlay from "./Icons/IconPlay";
 
 function Item(props: ITemplateItem) {
   const onMouseEnter =
@@ -70,7 +64,7 @@ function Item(props: ITemplateItem) {
           alt={props.item?.desc}
         ></Image>
         <TemplateVideoPlay>
-          <Icon source={PlayMinor}></Icon>
+          <IconPlay />
         </TemplateVideoPlay>
         {props.enableHover && (
           <DynamicVideo id={`${props.item.id}-dynamic`}>
@@ -160,7 +154,7 @@ function Item(props: ITemplateItem) {
         </UserInfo>
         {props.contentOverflow && (
           <TemplateVideoPlay>
-            <Icon source={PlayMinor}></Icon>
+            <IconPlay />
           </TemplateVideoPlay>
         )}
       </TemplateContent>

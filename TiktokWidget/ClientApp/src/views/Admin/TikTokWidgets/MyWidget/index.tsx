@@ -14,7 +14,6 @@ import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
-import { SettingProviderWidget } from "stores/Admin/Widget/state";
 import {
   MyWidgetHeader,
   MyWidgetWrapper,
@@ -52,19 +51,10 @@ function MyWidget() {
     });
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const onUpdate = (item: any) => {
-    return new WidgetReponsitory().GetById(item?.id).then((res) => {
-      if (res?.Status) {
-        const result = res.Data as BaseTikTokWidget;
-        const dto = new SettingProviderWidget(result).ToDto();
-        dispatch(WidgetActionTS.OnStep(2));
-        dispatch(WidgetActionTS.OnSetSetting(dto));
-        onClickToCreateWidget();
-        navigate(
-          `/create-widget-step-2/${item.id}?shop=${shopReducer.shop.domain}&key=${result.id}`
-        );
-      }
-      return res.Status;
-    });
+    onClickToCreateWidget();
+    return navigate(
+      `/create-widget-step-2/${item.id}?shop=${shopReducer.shop.domain}`
+    );
   };
   const onDelete = async (item: any) => {
     const widgetReponsitory = new WidgetReponsitory();
@@ -142,13 +132,6 @@ function MyWidget() {
         <ContainerSection width={100} mb={30}>
           <MyWidgetHeader>
             <h2>My Widgets</h2>
-            {/* <LinkRouter
-              onClick={onClickToCreateWidget}
-              size="small"
-              to={`/create-widget-step-1?shop=${shopReducer.shop.domain}`}
-            >
-              Create new widget
-            </LinkRouter> */}
           </MyWidgetHeader>
         </ContainerSection>
         <ContainerSection height={100} width={100}>

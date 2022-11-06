@@ -92,7 +92,7 @@ function FormControlSource(props: IFormControlSource) {
                     Widget Title <ColorRed>(*)</ColorRed>
                   </TextStyle>
                 }
-                value={values.title}
+                value={widgetReducer.settings.title}
                 onChange={(val) => onFieldChange(val, setFieldValue, "title")}
                 placeholder="Widget Title"
                 autoComplete="off"
@@ -128,7 +128,7 @@ function FormControlSource(props: IFormControlSource) {
                     ? ""
                     : "Do not include the “@” symbol"
                 }`}
-                value={values.value}
+                value={widgetReducer.settings.valueSource}
                 onChange={(val) => onFieldChange(val, setFieldValue, "value")}
                 placeholder={`${
                   widgetReducer.settings.source === 0 ? "#" : "@"

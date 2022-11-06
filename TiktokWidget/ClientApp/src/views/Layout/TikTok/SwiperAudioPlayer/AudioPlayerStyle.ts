@@ -163,10 +163,6 @@ export const VideoScrollWrapper = styled(
         right: 15px;
         top: 10px;
         left: auto;
-        svg {
-          width: 100% !important;
-          height: 100% !important;
-        }
       }
     }
   }
