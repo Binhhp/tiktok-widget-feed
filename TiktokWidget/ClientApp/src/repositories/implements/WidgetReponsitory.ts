@@ -57,6 +57,13 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     }
   };
 
+  PostClick = async (key: string) => {
+    return await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/TikTokVideos('${key}')/SetClicks`,
+    });
+  };
+
   GetVideosByJob = async (
     req: GetVideoByJobRequest,
     showItems?: number

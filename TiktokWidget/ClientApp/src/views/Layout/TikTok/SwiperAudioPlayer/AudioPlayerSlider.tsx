@@ -14,6 +14,7 @@ import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateC
 import { IAudioPlayerSliderProps } from "./AudioPlayerType";
 import { AudioPlayerContext } from "./AudioPlayerContext";
 import IconClose from "assets/svg/Close";
+import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 
 SwiperCore.use([Pagination, Mousewheel]);
 
@@ -54,6 +55,10 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
           message: "",
         });
       }, 100);
+    }
+    if (props.widget.id) {
+      const tiktokResp = new WidgetReponsitory();
+      tiktokResp.PostClick(props.widget.id);
     }
   };
 

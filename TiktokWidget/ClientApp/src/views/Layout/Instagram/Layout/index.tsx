@@ -26,7 +26,11 @@ function Layout(props: ILayoutProps) {
   };
 
   const [item, setItem] = useState<IInstagramDto | undefined>(undefined);
-  const onClickItem = (item?: IInstagramDto) => () => setItem(item);
+  const onClickItem = (item?: IInstagramDto) => () => {
+    setItem(item);
+    const instagramResp = new InstagramReponsitory();
+    instagramResp.PostClick(props.widget.id);
+  };
   return (
     <InstagramLayoutWrapper>
       <InstagramLayout
