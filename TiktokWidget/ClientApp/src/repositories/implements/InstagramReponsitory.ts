@@ -7,10 +7,6 @@ import {
   IInstagramDto,
   IInstagramTemplateModel,
 } from "Dependencies/InstagramLayout/InstagramLayoutModel";
-import {
-  ITikTokVideoDto,
-  IVideoTemplateModel,
-} from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
@@ -130,6 +126,13 @@ export class InstagramReponsitory implements IInstagramReponsitory {
         count: 0,
       });
     }
+  };
+
+  PostClick = async (key: string) => {
+    return await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/InstagramVideos('${key}')/SetClicks`,
+    });
   };
 
   GetVideosByJob = async (
