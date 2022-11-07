@@ -27,6 +27,7 @@ export interface IWidgetReponsitory {
     pageIndex: number,
     showItems?: number
   ) => Promise<IVideoTemplateModel>;
+  PostClick: (key: string) => Promise<any>;
   GetVideosByJob: (
     req: GetVideoByJobRequest,
     showItems?: number
