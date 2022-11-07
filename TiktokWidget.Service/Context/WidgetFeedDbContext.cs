@@ -20,6 +20,7 @@ namespace TiktokWidget.Service.Context
         public DbSet<CoursesEntity> Cources { get; set; }
         public DbSet<BannerEnitty> Banner { get; set; }
         public DbSet<PostsEntity> Posts { get; set; }
+        public DbSet<PostImpressionEntity> PostImpression { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

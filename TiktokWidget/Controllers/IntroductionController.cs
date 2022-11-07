@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
@@ -35,9 +36,9 @@ namespace TiktokWidget.Controllers
         [HttpGet]
         [EnableQuery]
         [ODataRoute("Posts")]
-        public IActionResult GetPosts()
+        public IActionResult GetPosts(DateTime startTime, DateTime endTime)
         {
-            var posts = _shopService.GetPosts();
+            var posts = _shopService.GetPosts(startTime, endTime);
             return Ok(posts);
         }
     }
