@@ -2,6 +2,7 @@
 using Orichi.IoC.Containers.LifeScoped;
 using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos.Requests.Shops;
@@ -9,6 +10,7 @@ using TiktokWidget.Service.Dtos.Responses.Shop;
 using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Interfaces
 {
@@ -27,6 +29,6 @@ namespace TiktokWidget.Service.Interfaces
         Task<PostFeedbackResponse> FeedbackAsync(string domain, PostFeedbackRequest postFeedbackRequest);
         IQueryable<CoursesEntity> GetCources();
         IQueryable<BannerEnitty> GetBanners();
-        IQueryable<PostsEntity> GetPosts();
+        IQueryable<PostViewModel> GetPosts(DateTime startTime, DateTime endTime);
     }
 }
