@@ -54,6 +54,18 @@ namespace TiktokWidget.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        [ODataRoute("TikTokVideos({key})/SetClicks")]
+        public async Task<IActionResult> SetTikTokClicks([FromODataUri] string key)
+        {
+            await Task.Run(() => _mediator.Publish(new TikTokClicksCommand
+            {
+                Time = DateTime.UtcNow,
+                WidgetId = key
+            }));
+            return Ok();
+        }
+
         [HttpGet]
         [EnableQuery]
         [ODataRoute("InstagramVideos")]
@@ -83,6 +95,18 @@ namespace TiktokWidget.Controllers
                 WidgetId = key
             }));
             return Ok(result);
+        }
+
+        [HttpPost]
+        [ODataRoute("InstagramVideos({key})/SetClicks")]
+        public async Task<IActionResult> SetInstagramClicks([FromODataUri] string key)
+        {
+            await Task.Run(() => _mediator.Publish(new InstagramClicksCommand
+            {
+                Time = DateTime.UtcNow,
+                WidgetId = key
+            }));
+            return Ok();
         }
     }
 }

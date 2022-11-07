@@ -7,6 +7,7 @@ using TiktokWidget.Common.Enums;
 using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
+using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
@@ -21,7 +22,6 @@ namespace TiktokWidget.Service.Implements
             _dbContext = dbContext;
             _logger = logger;
         }
-
         public IQueryable<PerformancesEntity> Get(string domain)
         {
             var response = Enumerable.Empty<PerformancesEntity>().AsQueryable();
@@ -37,7 +37,112 @@ namespace TiktokWidget.Service.Implements
             {
                 _logger.LogInfo(ex);
             }
-            return response;    
+            return response;
+        }
+        public async Task<AnalyzeWidgetResponse> Analytics(string domain, AnalyzeWidgetRequest request)
+        {
+            var response = new AnalyzeWidgetResponse();
+            try
+            {
+                var shop = await _dbContext.Shop.FirstOrDefaultAsync(x => x.Domain.ToLower().Equals(domain.ToLower()));
+                if (shop != null)
+                {
+                    var performances = await _dbContext.Performances.Where(x => 
+                    x.ShopId.Equals(shop.ID) && 
+                    (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
+                        .ToListAsync();
+                    try
+                    {
+                        if (performances.Any())
+                        {
+                            response.Impression = performances.Select(x => new PerformanceViewModel
+                            {
+                                Time = x.Time,
+                                Impression = x.InstagramTraffic + x.TikTokTraffic,
+                                Clicks = x.InstagramClicks + x.TikTokClicks
+                            }).ToList();
+
+                            var totalImpression = performances.Sum(_ => _.InstagramTraffic) + performances.Sum(_ => _.TikTokTraffic);
+                            var totalClicks = performances.Sum(_ => _.InstagramClicks) + performances.Sum(_ => _.TikTokClicks);
+
+                            response.Analytics = new Analytics(totalImpression, totalClicks);
+                            var period = request.EndTime.Date.Subtract(request.StartTime.Date).Days;
+                            if (period > 0)
+                            {
+                                var startTimeHistory = request.StartTime.AddDays(-period);
+                                var endTimeHistory = request.EndTime.AddDays(-period);
+
+                                var performanceLast = await _dbContext.Performances.Where(x =>
+                                   x.ShopId.Equals(shop.ID) &&
+                                   (x.Time.Date > startTimeHistory.Date || x.Time.Date == startTimeHistory.Date) && (x.Time.Date < endTimeHistory.Date || x.Time.Date == endTimeHistory.Date))
+                                       .ToListAsync();
+
+                                if (performanceLast.Any())
+                                {
+                                    var totalImpressionLast = performances.Sum(x => x.InstagramTraffic) + performances.Sum(x => x.TikTokTraffic);
+                                    response.Analytics.SetAnlysisImpression(totalImpressionLast);
+
+                                    var totalClicksLast = performances.Sum(_ => _.InstagramClicks) + performances.Sum(_ => _.TikTokClicks);
+                                    response.Analytics.SetAnlysisClicks(totalClicksLast);
+
+                                    response.Analytics.SetAnlysisConversationRate(totalImpressionLast, totalClicksLast);
+                                }
+                            }
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.LogInfo(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo(ex);
+            }
+            return response;
+        }
+
+        public async Task SetClicksAsync(int shopId, DateTime time, PerformanceTypeEnum type)
+        {
+            var shop = _dbContext.Shop.Include(x => x.ShopConfiguration).FirstOrDefault(x => x.ID.Equals(shopId));
+            if (shop == null) throw new NotFoundException("Shop");
+
+            var timezone = shop?.ShopConfiguration?.Timezone;
+            var performanceByTime = _dbContext.Performances.FirstOrDefault(x => x.ShopId.Equals(shopId) && x.Time.Date.Equals(time.Date));
+            if (performanceByTime != null)
+            {
+                if (type.Equals(PerformanceTypeEnum.Instagram))
+                {
+                    performanceByTime.InstagramClicks += 1;
+                }
+                else if (type.Equals(PerformanceTypeEnum.TikTok))
+                {
+                    performanceByTime.TikTokClicks += 1;
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(timezone))
+                {
+                    time = TimezoneProvider.ConvertIANATimezone(time, timezone);
+                }
+                var performanceEntity = new PerformancesEntity
+                {
+                    Time = time,
+                    ShopId = shopId
+                };
+                if (type.Equals(PerformanceTypeEnum.Instagram))
+                {
+                    performanceEntity.InstagramClicks = 1;
+                }
+                else if (type.Equals(PerformanceTypeEnum.TikTok))
+                {
+                    performanceEntity.TikTokClicks = 1;
+                }
+                await _dbContext.Performances.AddAsync(performanceEntity);
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task SetPerformanceAsync(int shopId, DateTime time, PerformanceTypeEnum type)

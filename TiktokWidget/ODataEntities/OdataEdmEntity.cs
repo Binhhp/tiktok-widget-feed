@@ -29,6 +29,16 @@ namespace TiktokWidget.ODataEntities
             "UpdateProduct"
         };
 
+        private static List<string> InstagramVideoActions = new List<string>
+        {
+            "SetClicks"
+        };
+
+        private static List<string> TikTokVideoActions = new List<string>
+        {
+            "SetClicks"
+        };
+
         private static List<string> ShopEntityActions = new List<string>
         {
             "UpdateShopConfiguration",
@@ -38,6 +48,7 @@ namespace TiktokWidget.ODataEntities
             "GetWidgetCounts",
             "GetInstagramWidgetCounts",
             "GetThemes",
+            "Analytics",
             "Feedback"
         };
         private static void BuildEdmModelShare()
@@ -49,15 +60,20 @@ namespace TiktokWidget.ODataEntities
             _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");
             _builder.EntitySet<ShopConfigurationEntity>("ShopConfiguration");
-            _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
-            _builder.EntitySet<InstagramViewModel>("InstagramVideos");
             _builder.EntitySet<PerformancesEntity>("Traffic");
             _builder.EntitySet<ShopDescriptorEntity>("ShopDescriptor");
             _builder.EntitySet<CoursesEntity>("Courses");
             _builder.EntitySet<BannerEnitty>("Banner");
-            _builder.EntitySet<PostsEntity>("Posts");
+            _builder.EntitySet<PostViewModel>("Posts");
             BuildEdmModel<TikTokWidgetEntity>(TikTokWidgetActions);
             BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
+
+            //Videos
+            _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
+            _builder.EntitySet<InstagramViewModel>("InstagramVideos");
+            BuildEdmModel<InstagramViewModel>(InstagramVideoActions);
+            BuildEdmModel<VideoTikTokModel>(TikTokVideoActions);
+
             BuildEdmModel<ShopEntity>(ShopEntityActions);
         }
         private static void BuildEdmModel<T>(List<string> actions) where T : class

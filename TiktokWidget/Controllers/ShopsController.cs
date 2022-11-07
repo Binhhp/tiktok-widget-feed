@@ -6,6 +6,7 @@ using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.Shop;
+using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
@@ -164,6 +165,14 @@ namespace TiktokWidget.Controllers
         {
             var response = await _widgetService.AddJob(request);
             return Ok(response);
+        }
+
+        [HttpPost]
+        [ODataRoute("Shops({domain})/Analytics")]
+        public async Task<IActionResult> AnalyzeWidgets([FromODataUri] string domain, [FromBody] AnalyzeWidgetRequest request)
+        {
+            var result = await _performancesService.Analytics(domain, request);
+            return Ok(result);
         }
 
         [HttpGet]
