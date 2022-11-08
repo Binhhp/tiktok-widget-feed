@@ -1,10 +1,12 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import config from 'config';
+import { RootURL } from 'common/constants/RootURL';
 
 export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
+  console.log(config.apiUrl, 'config.apiUrl');
   const instance = axios.create({
-    baseURL: config.apiUrl,
+    baseURL: RootURL.ApiBase,
     timeout: 30 * 1000,
     headers: {
       'Content-Type': 'application/json',
@@ -12,7 +14,7 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
   });
 
   // response parse
-  instance.interceptors.response.use(
+  instance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       // check login and add token header
       if (requireAuth) {
@@ -33,7 +35,7 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
   // response parse
   instance.interceptors.response.use(
     (response) => {
-      return response;
+      return response.data;
     },
     (error) => {
       console.warn('Error status', error.response.status);
