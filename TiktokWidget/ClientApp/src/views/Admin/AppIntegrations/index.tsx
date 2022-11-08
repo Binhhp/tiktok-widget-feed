@@ -7,17 +7,17 @@ import AppIntegrationProvider from "./AppModel";
 function AppIntegrations() {
   return (
     <AppIntegrationWrapper>
-      <p className="title">
-        <span className="">Integrations</span> 3rd party applications supported
+      <p className='title'>
+        <span className=''>Integrations</span> 3rd party applications supported
         by Tikify
       </p>
-      <div className="main">
-        <div className="card-item">
+      <div className='main'>
+        <div className='card-item'>
           <MediaCard
             portrait
             title={AppIntegrationProvider.FacebookPixel.title}
             primaryAction={{
-              content: "Learn more",
+              content: 'Learn more',
               onAction: () => {
                 window.open(AppIntegrationProvider.FacebookPixel.url);
               },
@@ -39,12 +39,12 @@ function AppIntegrations() {
             </Card>
           </MediaCard>
         </div>
-        <div className="card-item">
+        <div className='card-item'>
           <MediaCard
             portrait
             title={AppIntegrationProvider.QuantityDiscount.title}
             primaryAction={{
-              content: "Learn more",
+              content: 'Learn more',
               onAction: () => {
                 window.open(AppIntegrationProvider.QuantityDiscount.url);
               },
