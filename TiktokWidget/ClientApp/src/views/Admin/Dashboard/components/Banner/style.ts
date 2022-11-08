@@ -14,8 +14,13 @@ export const RootComponent = styled('div')`
     line-height: 38px;
   }
 
-  img {
-    width: 100%;
-    object-fit: cover;
+  .swipper {
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      display: block;
+      cursor: pointer;
+    }
   }
 `;
