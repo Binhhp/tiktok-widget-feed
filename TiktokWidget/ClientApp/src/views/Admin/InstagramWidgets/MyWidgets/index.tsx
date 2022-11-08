@@ -99,7 +99,9 @@ function MyWidget() {
 
   useEffect(() => {
     if (!widgetReducer.count)
-      return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+      return navigate(
+        `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
+      );
   }, [widgetReducer.count]);
 
   const onReloadData = () => {

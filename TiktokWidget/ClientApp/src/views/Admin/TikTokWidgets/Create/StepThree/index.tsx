@@ -31,7 +31,6 @@ function StepThree() {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
-      // dispatch(WidgetActionTS.OnSetSetting(true));
       dispatch(WidgetActionTS.OnChangStatus());
       setState({
         step: 1,
@@ -42,7 +41,7 @@ function StepThree() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!widgetReducer.settings.valueSource) {
-      return navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
+      return navigate(`/my-widget?shop=${shopReducer.shop.domain}&admin=1`);
     }
   }, []);
 

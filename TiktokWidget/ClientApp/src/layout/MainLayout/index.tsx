@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
+import { UriProvider } from "common/functions/FuncUtils";
 
 const MainLayout: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -30,6 +31,10 @@ const MainLayout: React.FC = (): JSX.Element => {
     ) {
       dispatch(InstagramWidgetActionTS.OnSetSetting(true));
     }
+
+    if (!window.location.search.includes("admin=1")) {
+      UriProvider.InsertParameters("admin", 1);
+    }
   }, [window.location.pathname]);
 
   return (
@@ -44,5 +49,4 @@ const MainLayout: React.FC = (): JSX.Element => {
     </MainLayoutWrapper>
   );
 };
-
 export default MainLayout;

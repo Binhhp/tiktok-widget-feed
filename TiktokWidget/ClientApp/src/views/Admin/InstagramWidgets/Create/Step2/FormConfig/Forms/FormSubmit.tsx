@@ -22,7 +22,9 @@ export default function FormSubmit() {
 
   const onBackStep = () => {
     dispatch(InstagramWidgetActionTS.OnStep(1));
-    return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+    return navigate(
+      `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
+    );
   };
 
   const onSubmit = async () => {
@@ -37,7 +39,9 @@ export default function FormSubmit() {
         dispatch(InstagramWidgetActionTS.OnStep(1));
         dispatch(InstagramWidgetActionTS.OnSetSetting(true));
         setLoading(false);
-        return navigate(`/my-instagram-widget?shop=${shopReducer.shop.domain}`);
+        return navigate(
+          `/my-instagram-widget?shop=${shopReducer.shop.domain}&admin=1`
+        );
       } else {
         setLoading(false);
         toast.error(response.Error);
@@ -60,7 +64,9 @@ export default function FormSubmit() {
         dispatch(InstagramWidgetActionTS.OnSetWidgetCount(result));
         setLoading(false);
 
-        return navigate(`/instagram-step-3?shop=${shopReducer.shop.domain}`);
+        return navigate(
+          `/instagram-step-3?shop=${shopReducer.shop.domain}&admin=1`
+        );
       } else {
         setLoading(false);
         toast.error(response.Error);

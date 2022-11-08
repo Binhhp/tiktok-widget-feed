@@ -28,7 +28,6 @@ import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { ProductReponsitory } from "repositories/implements/ProductReponsitory";
 import { Waypoint } from "react-waypoint";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
 

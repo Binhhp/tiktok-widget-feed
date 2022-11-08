@@ -53,7 +53,7 @@ function MyWidget() {
   const onUpdate = (item: any) => {
     onClickToCreateWidget();
     return navigate(
-      `/create-widget-step-2/${item.id}?shop=${shopReducer.shop.domain}`
+      `/create-widget-step-2/${item.id}?shop=${shopReducer.shop.domain}&admin=1`
     );
   };
   const onDelete = async (item: any) => {

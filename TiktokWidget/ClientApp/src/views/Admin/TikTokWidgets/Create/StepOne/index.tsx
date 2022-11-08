@@ -48,7 +48,7 @@ function StepOne() {
         })
       );
       resetForm();
-      navigate(`/create-widget-step-2?shop=${shopReducer.shop.domain}`);
+      navigate(`/create-widget-step-2?shop=${shopReducer.shop.domain}&admin=1`);
     } else {
       toast.error(`${res.Error}`);
     }

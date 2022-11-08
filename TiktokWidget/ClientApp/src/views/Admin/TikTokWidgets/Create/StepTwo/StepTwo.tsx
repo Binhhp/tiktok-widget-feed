@@ -23,7 +23,7 @@ function StepTwo() {
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {
-      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}`);
+      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`);
     }
   }, []);
 

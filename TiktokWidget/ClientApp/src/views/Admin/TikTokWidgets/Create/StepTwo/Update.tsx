@@ -27,7 +27,9 @@ function StepTwoUpdateMain() {
         return res.Status;
       });
     } else
-      return navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}`);
+      return navigate(
+        `/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`
+      );
   }, [dispatch]);
 
   return (
