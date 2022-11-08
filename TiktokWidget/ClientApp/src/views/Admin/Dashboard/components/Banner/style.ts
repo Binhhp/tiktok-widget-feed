@@ -1,6 +1,6 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
-export const RootComponent = styled('div')`
+export const RootComponent = styled("div")`
   p.text-welcome {
     font-weight: 400;
     font-size: 16px;
@@ -18,7 +18,7 @@ export const RootComponent = styled('div')`
     img {
       width: 100%;
       height: 300px;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
       cursor: pointer;
     }
