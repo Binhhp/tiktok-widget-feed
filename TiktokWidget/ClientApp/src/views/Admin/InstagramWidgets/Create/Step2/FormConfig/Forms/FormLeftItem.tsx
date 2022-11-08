@@ -5,7 +5,6 @@ import {
   TextField,
   TextStyle,
 } from "@shopify/polaris";
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";

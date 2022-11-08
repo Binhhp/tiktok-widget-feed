@@ -29,22 +29,17 @@ function LiveTemplate() {
     (state: RootReducer) => state.TiktokWidgetReducer
   );
 
-  const [intervalId, setIntervalId] = useState(0);
-
   const [layouts, setLayouts] = useState<IVideoTemplateModel>({
     count: 0,
     data: [],
   });
   const queryData = () => {
-    clearInterval(intervalId);
-    setIntervalId(0);
     return Promise.resolve(layouts);
   };
 
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const newIntervalId = setInterval(async () => {
+  const getVideoFunc = async () => {
+    try {
       const res = await new WidgetReponsitory().GetVideosByJob(
         new GetVideoByJobRequest(
           widgetReducer.settings.valueSource,
@@ -54,22 +49,20 @@ function LiveTemplate() {
       );
       if (res?.count !== undefined) {
         setLoading(false);
-        clearInterval(newIntervalId);
-        setIntervalId(0);
         setLayouts({
           count: res.count,
           data: res.data,
         });
+      } else {
+        setTimeout(() => getVideoFunc(), 1000);
       }
-    }, 2000);
-    setIntervalId(newIntervalId);
-  }, []);
+    } catch {
+      setTimeout(() => getVideoFunc(), 1000);
+    }
+  };
 
   useEffect(() => {
-    return () => {
-      clearInterval(intervalId);
-      setIntervalId(0);
-    };
+    getVideoFunc();
   }, []);
 
   const RenderLiveTemplates = (

@@ -78,7 +78,7 @@ function NavItem(props: INavItemProps) {
         ) : (
           <ListItemButton
             className={activeMenu ? "active-menu" : ""}
-            to={`${props.url}?shop=${shopReducer.shop.domain}` ?? "#"}
+            to={`${props.url}?shop=${shopReducer.shop.domain}&admin=1`}
             level={props.level}
             onClick={onHandleMenuItem(props.id, true)}
           >

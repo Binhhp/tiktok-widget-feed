@@ -139,11 +139,17 @@ namespace TiktokWidget.Service.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<long>("InstagramClicks")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("InstagramTraffic")
                         .HasColumnType("bigint");
 
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
+
+                    b.Property<long>("TikTokClicks")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("TikTokTraffic")
                         .HasColumnType("bigint");

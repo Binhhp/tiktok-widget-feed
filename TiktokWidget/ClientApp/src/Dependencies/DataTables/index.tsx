@@ -45,7 +45,6 @@ function DataTables(props: IDataTableProps) {
         if (props.onSetCount) props.onSetCount(res.count);
       })
       .catch((err) => {
-        console.log(err.message);
         setDataTable([]);
         setLoading(false);
       });

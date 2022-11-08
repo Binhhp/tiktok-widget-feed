@@ -16,7 +16,7 @@ function Dashboard() {
       <div className='right'>
         <DateRange />
         <MostPost />
-        {/* <RecentCourse /> */}
+        <RecentCourse />
       </div>
     </DashboardWrapper>
   );

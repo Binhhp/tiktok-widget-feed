@@ -49,7 +49,7 @@ namespace TiktokWidget
             services.AddDbContext<WidgetFeedDbContext>(options => options.UseSqlServer(connectionString));
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
-            if(appSettings != null)
+            if (appSettings != null)
             {
                 AppSettings appConfig = appSettings;
                 services.AddSingleton(appConfig);
@@ -80,6 +80,9 @@ namespace TiktokWidget
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 })
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                )
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ValidatorFilter>());
 
             services.AddCors(options =>
@@ -138,7 +141,7 @@ namespace TiktokWidget
                 //endpoints.MapODataRoute(routeName: "odata", routePrefix: "odata", OdataEdmEntity.GetEdmModel(), new DefaultODataBatchHandler());
             });
 
-            if(env.EnvironmentName != "Development")
+            if (env.EnvironmentName != "Development")
             {
                 app.UseSpa(spa =>
                 {

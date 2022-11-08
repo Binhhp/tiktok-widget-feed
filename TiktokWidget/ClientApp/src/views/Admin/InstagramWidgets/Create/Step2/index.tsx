@@ -22,7 +22,7 @@ function Step2() {
   useEffect(() => {
     if (widgetReducer.step < 2) {
       dispatch(ApplicationActionTS.OnHandleMenuItem("instagram-step"));
-      navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+      navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`);
     }
   }, []);
 

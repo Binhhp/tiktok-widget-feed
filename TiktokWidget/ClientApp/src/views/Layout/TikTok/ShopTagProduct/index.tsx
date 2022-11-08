@@ -31,7 +31,7 @@ function ShopTagProduct(props: IShopTagProduct) {
           <span>{props.product.title}</span>
           <DivPriceProduct>
             <h3>${props.product.prices}</h3>
-            <h5>${props.product.prices}</h5>
+            {/* <h5>${props.product.prices}</h5> */}
           </DivPriceProduct>
         </DivDescProduct>
       </DivLeftProduct>

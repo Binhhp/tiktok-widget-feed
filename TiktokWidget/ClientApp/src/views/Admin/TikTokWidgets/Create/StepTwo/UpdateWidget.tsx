@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CaptionStep } from "../CreateWidgetStyle";
 import Pattern from "./Patterns";
-import { useSelector } from "react-redux";
-import { RootReducer } from "stores/Admin/reducers";
 import FormConfiguration from "./FormConfig";
 import { Container, ContainerSection } from "common/style/UtilStyles";
 import CreateWidgetProvider from "../CreateWidgetProvider";
-import { useNavigate } from "react-router-dom";
 import FormControlSource from "../StepOne/FormControl";
 import FormSubmit from "./FormConfig/Form/FormSubmit";
 
 function StepTwoUpdate() {
-  const widgetReducer = useSelector(
-    (state: RootReducer) => state.TiktokWidgetReducer
-  );
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (widgetReducer.step < 2) {
-      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}`);
-    }
-  }, []);
-
   const RenderSourceTypeUpdate = (
     <React.Fragment>
       <CaptionStep mb={30}>Step 1: Select source</CaptionStep>

@@ -113,6 +113,7 @@ export const TemplateContent = styled("div", "content")<ITemplateType>`
     }
     width: ${(props: ITemplateType) =>
       props.widthItem ? `${props.widthItem}` : "auto"};
+    max-width: 100%;
     display: flex;
     z-index: ${(props) => props.zIndex ?? 10};
     flex-direction: column;
@@ -128,7 +129,6 @@ export const TemplateContent = styled("div", "content")<ITemplateType>`
         : `#ffffff`};
     bottom: 0;
     left: 0;
-    background: ${(props) => (props.bg ? props.bg : "transparent")};
     background: ${(props) =>
       props.bg && props.contentOverflow ? `${props.bg}00` : props.bg};
   }
@@ -292,7 +292,6 @@ export const SocialNetwork = styled("div", "social-network")`
     border-radius: 3px;
     background: #fd325a;
     padding: 3px 5px;
-    margin-top: 5px;
     &:before {
       content: "";
       display: block;

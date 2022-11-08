@@ -16,6 +16,7 @@ export class CreateWidgetRequest {
   public backGround?: string;
   public color?: string;
   public numberPerRow?: number;
+  public customCss?: string;
   constructor(dto?: ISettingProviderWidget) {
     this.widgetTitle = dto?.title || "";
     this.sourceType = dto?.source || 0;
@@ -32,5 +33,6 @@ export class CreateWidgetRequest {
     this.backGround = dto?.itemBackground || "";
     this.color = dto?.itemColor || "";
     this.numberPerRow = dto?.numberItemPerRow || 3;
+    this.customCss = dto?.customCss || "";
   }
 }

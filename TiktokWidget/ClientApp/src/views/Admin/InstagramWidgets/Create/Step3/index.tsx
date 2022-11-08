@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/Admin/reducers";
-import { FlexboxDiv, InstagramWidgetWrapper } from "../CreateWidgetStyle";
+import { FlexboxDiv } from "../CreateWidgetStyle";
 import InstagramCreateHOC from "../InstagramCreateHOC";
 import MediaCardGuides from "../MediaCardGuides";
 import {
@@ -36,7 +36,9 @@ function Step3() {
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step !== 3) {
-      return navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+      return navigate(
+        `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
+      );
     }
   }, []);
 
@@ -108,7 +110,7 @@ function Step3() {
                 <DivActionStepContent>2/2</DivActionStepContent>
               </DivActionStep>
               <DivLink
-                to={`/my-instagram-widget?shop=${shopReducer.shop.domain}`}
+                to={`/my-instagram-widget?shop=${shopReducer.shop.domain}&admin=1`}
               >
                 I've done
               </DivLink>

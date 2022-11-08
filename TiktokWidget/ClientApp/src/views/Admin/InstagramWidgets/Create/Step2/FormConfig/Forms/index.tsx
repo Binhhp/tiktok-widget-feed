@@ -20,7 +20,7 @@ function FormConfigs() {
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {
-      navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}`);
+      navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`);
     }
   }, []);
   return widgetReducer.step !== 2 ? (

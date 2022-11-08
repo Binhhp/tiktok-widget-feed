@@ -20,6 +20,7 @@ using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -52,7 +53,7 @@ namespace TiktokWidget.Service.Implements
                     shopEntity.ShopConfiguration = new ShopConfigurationEntity
                     {
                         Timezone = request.TimeZone,
-                        IsEnabled = false  
+                        IsEnabled = false
                     };
 
                     await _context.Job.AddAsync(new JobEntity
@@ -133,7 +134,7 @@ namespace TiktokWidget.Service.Implements
                 throw new Exception(string.Format(ErrorMessage.NotFound, "Shop"));
             }
 
-            if(shop.ShopConfiguration == null)
+            if (shop.ShopConfiguration == null)
             {
                 var shopConfig = _mapper.Map<ShopConfigurationEntity>(request);
                 shopConfig.IsEnabled = true;
@@ -152,7 +153,7 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<ShopConfigurationEntity> GetConfiguration(string domain)
         {
             var shop = _context.Shop.FirstOrDefault(x => x.Domain.Equals(domain));
-            if(shop == null)
+            if (shop == null)
             {
                 return null;
             }
@@ -201,7 +202,7 @@ namespace TiktokWidget.Service.Implements
                             },
                             Token = access
                         };
-                      
+
                         var resCreateShop = await CreateAsync(new ShopCreateDto()
                         {
                             Domain = domain,
@@ -244,7 +245,7 @@ namespace TiktokWidget.Service.Implements
                     catch (Exception)
                     {
                     }
-                   
+
                 }
                 else
                 {
@@ -276,7 +277,7 @@ namespace TiktokWidget.Service.Implements
                 };
                 var webHook = await service_webhook.CreateAsync(hook);
             }
-            catch 
+            catch
             {
             }
 
@@ -286,7 +287,7 @@ namespace TiktokWidget.Service.Implements
         {
             var response = Enumerable.Empty<Theme>().AsQueryable();
             var shopObj = GetByDomain(domain).FirstOrDefault();
-            if(shopObj != null)
+            if (shopObj != null)
             {
                 var themeService = new ThemeService(shopObj.Domain, shopObj.Token);
                 response = themeService.ListAsync().GetAwaiter().GetResult().AsQueryable();
@@ -299,7 +300,7 @@ namespace TiktokWidget.Service.Implements
             var shop = _context.Shop.Include(x => x.ShopDescriptor).FirstOrDefault(x => x.Domain.ToLower().Equals(domain));
             if (shop == null) throw new NotFoundException(domain);
 
-            if(shop.ShopDescriptor != null)
+            if (shop.ShopDescriptor != null)
             {
                 shop.ShopDescriptor.Feedback = postFeedbackRequest?.Feedback;
                 shop.ShopDescriptor.FeedbackStatus = postFeedbackRequest.Status;
@@ -311,6 +312,13 @@ namespace TiktokWidget.Service.Implements
                     Feedback = postFeedbackRequest?.Feedback,
                     FeedbackStatus = postFeedbackRequest.Status
                 };
+
+                var service = new ShopifySharp.ShopService(domain, shop.Token);
+                var shopInformation = await service.GetAsync();
+                if (shopInformation != null)
+                {
+                    shopDescriptor.ShopOwner = shopInformation.ShopOwner;
+                }
                 shop.ShopDescriptor = shopDescriptor;
             }
             await _context.SaveChangesAsync();
@@ -325,20 +333,40 @@ namespace TiktokWidget.Service.Implements
 
         public IQueryable<CoursesEntity> GetCources()
         {
-            //return _context.Cources.Where(x => x.Status);
-            return new List<CoursesEntity>().AsQueryable();
+            return _context.Cources.Where(x => x.Status);
         }
 
         public IQueryable<BannerEnitty> GetBanners()
         {
-            //return _context.Banner.Where(x => x.Status);
-            return new List<BannerEnitty>().AsQueryable();
+            return _context.Banner.Where(x => x.Status);
         }
 
-        public IQueryable<PostsEntity> GetPosts()
+        public IQueryable<PostViewModel> GetPosts(DateTime startTime, DateTime endTime)
         {
-            //return _context.Posts.Where(x => x.Status);
-            return new List<PostsEntity>().AsQueryable();
+            var response = Enumerable.Empty<PostViewModel>().AsQueryable();
+            try
+            {
+                var postImpressions = _context.PostImpression.Include(x => x.Post).Where(x => (x.Time > startTime || x.Time == startTime) && (x.Time < endTime || x.Time == endTime)).ToList();
+                if (postImpressions.Any())
+                {
+                    var result = postImpressions.GroupBy(p => p.Post, i => i, (p, i) => new PostViewModel
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Description = p.Description,
+                        Content = p.Content,
+                        Url = p.Url,
+                        Image = p.Image,
+                        Impression = i.Sum(x => x.Impression),
+                        Clicks = i.Sum(x => x.Clicks)
+                    }).AsQueryable();
+                    response = result;
+                }
+            }
+            catch
+            {
+            }
+            return response;
         }
     }
 }

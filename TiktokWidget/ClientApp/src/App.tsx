@@ -14,6 +14,7 @@ import withAppProvider from 'Dependencies/ApplicationProvider';
 import { useQuery } from 'hooks';
 import { WidgetActionTS } from 'stores/Admin/Widget/action';
 import { InstagramWidgetActionTS } from 'stores/Admin/InstagramWidget/action';
+import { ChatPlugin } from 'common/functions/ChatPlugin';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 
@@ -37,25 +38,14 @@ function App() {
                 shop: res,
               }),
             );
-            const script2 = document.createElement('script');
-            script2.innerHTML = `
-              window.$crisp=[];window.CRISP_WEBSITE_ID="07faab23-2cce-4034-93cd-5361030881aa";CRISP_TOKEN_ID = btoa("${
-                (res.domain ?? '') + 'Tiktok'
-              }");
-              (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
-              $crisp.push(["set", "user:nickname", ["${res.domain ?? ''}"]]);
-              $crisp.push(["set", "session:segments", [["Tiktok"]]]);`;
-            document.body.appendChild(script2);
-
+            ChatPlugin.Init(res.domain);
             shopReponsitory.GetWidgetsCount(res.domain ?? '').then((val) => {
               dispatch(WidgetActionTS.OnSetWidgetCount(val));
             });
             shopReponsitory.GetInstagramCount(res.domain ?? '').then((val) => {
               dispatch(InstagramWidgetActionTS.OnSetWidgetCount(val));
             });
-          } else {
-            navigate('/not-found');
-          }
+          } else navigate('/not-found');
           setPending(false);
         })
         .catch(() => {
@@ -82,7 +72,6 @@ function App() {
             containerClassName=''
             containerStyle={{}}
             toastOptions={{
-              // Define default options
               className: '',
               duration: 5000,
               style: {

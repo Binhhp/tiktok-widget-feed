@@ -26,8 +26,10 @@ import InstagramGuides2 from "./Instagram/ins-guides-2.png";
 
 import FacebookPixel from "./facebook-pixel.png";
 import Discount from "./discount.png";
+import Feedback from "./feedback.png";
 
 export const ImageStorage = {
+  Feedback,
   FacebookPixel,
   Discount,
   Background,

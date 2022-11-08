@@ -57,7 +57,7 @@ function GuidesStep2(props: IGuidesStepProps) {
           </div>
           <LinkRouter
             size="small"
-            to={`/my-widget?shop=${shopReducer.shop.domain}`}
+            to={`/my-widget?shop=${shopReducer.shop.domain}&admin=1`}
           >
             I've done
           </LinkRouter>

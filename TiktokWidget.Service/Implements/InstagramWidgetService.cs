@@ -35,8 +35,9 @@ namespace TiktokWidget.Service.Implements
         /// <param name="domain">domain of shop</param>
         public IQueryable<InstagramWidgetEntity> Get(string domain)
         {
-            var resposne = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain));
-            return resposne;
+            var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
+            response = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain));
+            return response;
         }
         /// <summary>
         /// get by single id
@@ -44,7 +45,9 @@ namespace TiktokWidget.Service.Implements
         /// <param name="key">key of widget</param>
         public IQueryable<InstagramWidgetEntity> GetById(string key)
         {
-            return _widgetDbContext.InstagramWidgets.Where(x => x.Id.Equals(key));
+            var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
+            response = _widgetDbContext.InstagramWidgets.Where(x => x.Id.Equals(key));
+            return response;
         }
         /// <summary>
         /// get widgets by ids
@@ -52,7 +55,9 @@ namespace TiktokWidget.Service.Implements
         /// <param name="widgetIds">list ids</param>
         public IQueryable<InstagramWidgetEntity> GetByIds(IEnumerable<string> widgetIds)
         {
-            return _widgetDbContext.InstagramWidgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
+            var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
+            response = _widgetDbContext.InstagramWidgets.Where(x => widgetIds.Any(w => w.Equals(x.Id)));
+            return response;
         }
         /// <summary>
         /// get number of widgets
@@ -60,7 +65,9 @@ namespace TiktokWidget.Service.Implements
         /// <param name="domain">domain of shop client</param>
         public int GetCounts(string domain)
         {
-            return _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).Count();
+            var result = 0;
+            result = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).Count();
+            return result;
         }
         /// <summary>
         /// create widget
@@ -75,7 +82,7 @@ namespace TiktokWidget.Service.Implements
             {
                 throw new NotFoundException(domain);
             }
-            
+
             var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
             widgetEntity.Shops = shop;
 
@@ -85,7 +92,7 @@ namespace TiktokWidget.Service.Implements
             if (!string.IsNullOrEmpty(widgetEntity.Id))
             {
                 response.WidgetId = widgetEntity.Id;
-            }   
+            }
             return response;
         }
         /// <summary>
@@ -144,7 +151,7 @@ namespace TiktokWidget.Service.Implements
         /// <returns></returns>
         public async Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products)
         {
-            var response = new ResponseBase(); 
+            var response = new ResponseBase();
             var widget = await _widgetDbContext.InstagramWidgets.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id.Equals(key));
             if (widget == null)
             {

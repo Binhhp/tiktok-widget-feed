@@ -31,6 +31,9 @@ function Layout(props: LayoutProps) {
       const videoId = templateContext.state.items[index].id;
       audioPlayerContext.handleVideoClick(videoId);
     }
+
+    const tiktokResp = new WidgetReponsitory();
+    tiktokResp.PostClick(props.id);
   };
   return (
     <Template

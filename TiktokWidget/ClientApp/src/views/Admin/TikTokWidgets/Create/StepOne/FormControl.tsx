@@ -16,7 +16,6 @@ import { RootReducer } from "stores/Admin/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { FormStackRadio, FormSubmitStep } from "./StepOneStyle";
-import { ISettingProviderWidget } from "stores/Admin/Widget/state";
 
 export interface IFormControlSource {
   onSubmit: (values: any, resetForm: any) => void;
@@ -39,16 +38,24 @@ function FormControlSource(props: IFormControlSource) {
     );
   };
 
-  const onFieldChange = (val: string, setFieldValue: any, key: string) => {
+  const setTitle = (val: string, setFieldValue: any) => {
+    setFieldValue("title", val);
+    dispatch(
+      WidgetActionTS.OnSetSetting({
+        title: val,
+      })
+    );
+  };
+
+  const setValueSource = (val: string, setFieldValue: any) => {
     if (val.startsWith("#") && widgetReducer.settings.source === 0) return;
     if (val.includes("@") && widgetReducer.settings.source === 1) return;
-    setFieldValue(key, val);
-    if (props.saveStore) {
-      let copyState: ISettingProviderWidget = {};
-      if (key === "title") copyState.title = val;
-      if (key === "value") copyState.valueSource = val;
-      dispatch(WidgetActionTS.OnSetSetting(copyState));
-    }
+    setFieldValue("value", val);
+    dispatch(
+      WidgetActionTS.OnSetSetting({
+        valueSource: val,
+      })
+    );
   };
 
   return (
@@ -92,8 +99,8 @@ function FormControlSource(props: IFormControlSource) {
                     Widget Title <ColorRed>(*)</ColorRed>
                   </TextStyle>
                 }
-                value={values.title}
-                onChange={(val) => onFieldChange(val, setFieldValue, "title")}
+                value={widgetReducer.settings.title}
+                onChange={(val) => setTitle(val, setFieldValue)}
                 placeholder="Widget Title"
                 autoComplete="off"
                 error={(touched.title && errors.title) || ""}
@@ -128,8 +135,8 @@ function FormControlSource(props: IFormControlSource) {
                     ? ""
                     : "Do not include the “@” symbol"
                 }`}
-                value={values.value}
-                onChange={(val) => onFieldChange(val, setFieldValue, "value")}
+                value={widgetReducer.settings.valueSource}
+                onChange={(val) => setValueSource(val, setFieldValue)}
                 placeholder={`${
                   widgetReducer.settings.source === 0 ? "#" : "@"
                 }`}

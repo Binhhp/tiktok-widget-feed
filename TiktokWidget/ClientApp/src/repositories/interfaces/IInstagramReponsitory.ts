@@ -36,4 +36,5 @@ export interface IInstagramReponsitory {
     domain: string,
     req: PostFeedbackRequest
   ) => Promise<BaseResponse>;
+  PostClick: (key: string) => Promise<any>;
 }

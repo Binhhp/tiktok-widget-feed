@@ -28,7 +28,7 @@ function CreateWidget() {
 
   useEffect(() => {
     if (widgetReducer.count && widgetReducer.count > 0) {
-      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}`);
+      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`);
       dispatch(WidgetActionTS.OnStep(1));
     } else dispatch(WidgetActionTS.OnStep(0));
   }, []);
@@ -47,7 +47,7 @@ function CreateWidget() {
             </Caption>
             <LinkRouter
               size="medium"
-              to={`/create-widget-step-1?shop=${shopReducer.shop.domain}`}
+              to={`/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`}
             >
               Create new widget
             </LinkRouter>
