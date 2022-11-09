@@ -11,9 +11,9 @@ namespace TiktokWidget.Service.CommandHandlers
     public class TikTokImpressionCommandHandler : INotificationHandler<TikTokImpressionCommand>
     {
         private readonly IPerformancesService _performancesService;
-        private readonly IWidgetService _tiktokWidgetService;
+        private readonly ITikTokWidgetService _tiktokWidgetService;
 
-        public TikTokImpressionCommandHandler(IPerformancesService performancesService, IWidgetService tiktokWidgetService)
+        public TikTokImpressionCommandHandler(IPerformancesService performancesService, ITikTokWidgetService tiktokWidgetService)
         {
             _performancesService = performancesService;
             _tiktokWidgetService = tiktokWidgetService;

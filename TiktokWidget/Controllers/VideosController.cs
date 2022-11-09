@@ -13,14 +13,12 @@ namespace TiktokWidget.Controllers
 {
     public class VideosController : ODataController
     {
-        private readonly IWidgetService _widgetService;
-        private readonly IInstagramWidgetService _instagramWidgetService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
-        public VideosController(IWidgetService widgetService, IMediator mediator, IInstagramWidgetService instagramWidgetService)
+        public VideosController(IMediator mediator, IUnitOfWork unitOfWork)
         {
-            _widgetService = widgetService;
+            _unitOfWork = unitOfWork;
             _mediator = mediator;
-            _instagramWidgetService = instagramWidgetService;
         }
 
         [HttpGet]
@@ -28,7 +26,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("TikTokVideos({key})")]
         public async Task<IActionResult> GetTikTokVideos([FromODataUri] string key)
         {
-            var result = _widgetService.GetVideos(key);
+            var result = await _mediator.Send(new GetTikTokVideoCommand(key));
             await Task.Run(() => _mediator.Publish(new TikTokImpressionCommand
             {
                 Time = DateTime.UtcNow,
@@ -44,7 +42,7 @@ namespace TiktokWidget.Controllers
         {
             if (!string.IsNullOrEmpty(data))
             {
-                var response = _widgetService.GetVideoJob(new GetVideoByJobRequest
+                var response = _unitOfWork.TikTok.GetVideoJob(new GetVideoByJobRequest
                 {
                     Data = data,
                     Type = type
@@ -73,7 +71,7 @@ namespace TiktokWidget.Controllers
         {
             if (!string.IsNullOrEmpty(data))
             {
-                var response = _instagramWidgetService.GetVideoJob(new GetVideoByJobRequest
+                var response = _unitOfWork.Instagram.GetVideoJob(new GetVideoByJobRequest
                 {
                     Data = data,
                     Type = type
@@ -88,7 +86,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("InstagramVideos({key})")]
         public async Task<IActionResult> GetInstagramVideos([FromODataUri] string key)
         {
-            var result = _instagramWidgetService.GetVideos(key);
+            var result = await _mediator.Send(new GetInstagramVideoCommand(key));
             await Task.Run(() => _mediator.Publish(new InstagramImpressionCommand
             {
                 Time = DateTime.UtcNow,
