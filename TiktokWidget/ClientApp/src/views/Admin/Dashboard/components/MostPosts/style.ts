@@ -1,8 +1,7 @@
 import styled from "Dependencies/StyledComponents/Container";
 
 export const MostPostRoot = styled("div")`
-  margin-top: 40px;
-
+  margin-top: 50px;
   div.post-list {
     display: flex;
     flex-direction: column;
