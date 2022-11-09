@@ -8,11 +8,11 @@ namespace TiktokWidget.Controllers
 {
     public class IntroductionController : ODataController
     {
-        private readonly IShopService _shopService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public IntroductionController(IShopService shopService)
+        public IntroductionController(IUnitOfWork unitOfWork)
         {
-            _shopService = shopService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -20,7 +20,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Courses")]
         public IActionResult GetCourses()
         {
-            var courses = _shopService.GetCources();
+            var courses = _unitOfWork.Shop.GetCources();
             return Ok(courses);
         }
 
@@ -29,7 +29,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Banner")]
         public IActionResult GetBanner()
         {
-            var banners = _shopService.GetBanners();
+            var banners = _unitOfWork.Shop.GetBanners();
             return Ok(banners);
         }
 
@@ -38,7 +38,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Posts")]
         public IActionResult GetPosts(DateTime startTime, DateTime endTime)
         {
-            var posts = _shopService.GetPosts(startTime, endTime);
+            var posts = _unitOfWork.Shop.GetPosts(startTime, endTime);
             return Ok(posts);
         }
     }

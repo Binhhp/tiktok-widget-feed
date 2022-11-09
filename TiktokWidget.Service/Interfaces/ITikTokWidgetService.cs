@@ -11,7 +11,7 @@ using TiktokWidget.Service.Models;
 
 namespace TiktokWidget.Service.Interfaces
 {
-    public interface IWidgetService : IScopedDependency
+    public interface ITikTokWidgetService : IScopedDependency
     {
         IQueryable<TikTokWidgetEntity> Get(string domain);
         IQueryable<TikTokWidgetEntity> GetById(string key);
@@ -20,9 +20,9 @@ namespace TiktokWidget.Service.Interfaces
         Task<ResponseBase> UpdateAsync(string key, UpdateWidgetRequest request);
         Task<ResponseBase> DeleteAsync(string key);
         Task<ResponseBase> UpdateProductAsync(string key, IEnumerable<ProductEntity> products);
-        IQueryable<VideoTikTokModel> GetVideos(string widgetId);
+        IQueryable<TikTokVideoViewModel> GetVideos(string widgetId);
         int GetCounts(string domain);
         Task<AddJobResponse> AddJob(AddJobRequest request);
-        IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request);
+        IQueryable<TikTokVideoViewModel> GetVideoJob(GetVideoByJobRequest request);
     }
 }

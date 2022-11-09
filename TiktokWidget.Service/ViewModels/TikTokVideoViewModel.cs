@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TiktokWidget.Service.Models
 {
-    public class VideoTikTokModel
+    public class TikTokVideoViewModel
     {
         public string id { get; set; }
         public string desc { get; set; }

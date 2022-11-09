@@ -10,13 +10,11 @@ namespace TiktokWidget.Controllers
 {
     public class ShopWidgetsController : ODataController
     {
-        private readonly IWidgetService _widgetService;
-        private readonly IInstagramWidgetService _instagramWidgetService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ShopWidgetsController(IWidgetService widgetService, IInstagramWidgetService instagramWidgetService)
+        public ShopWidgetsController(IUnitOfWork unitOfWork)
         {
-            _widgetService = widgetService;
-            _instagramWidgetService = instagramWidgetService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -30,12 +28,12 @@ namespace TiktokWidget.Controllers
             
             if(type == WidgetTypeEnum.TikTok)
             {
-                var result = _widgetService.GetByIds(widgetIds);
+                var result = _unitOfWork.TikTok.GetByIds(widgetIds);
                 return Ok(result);
             }
             else
             {
-                var result = _instagramWidgetService.GetByIds(widgetIds);
+                var result = _unitOfWork.Instagram.GetByIds(widgetIds);
                 return Ok(result);
             }
         }
