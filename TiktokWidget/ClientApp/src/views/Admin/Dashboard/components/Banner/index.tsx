@@ -25,7 +25,7 @@ const Banner = () => {
         You will be able to see top performers based on views and
         call-to-actions
       </p>
-      <div style={{ marginTop: "10px" }}>
+      <div className="banner-slider">
         <Swiper
           slidesPerView={1}
           slidesPerGroup={1}

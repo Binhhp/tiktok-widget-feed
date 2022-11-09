@@ -60,7 +60,6 @@ const MetricChart = () => {
         <MetricItem title="Clicks" value={"14"} percent={0} />
         <MetricItem title="Conversion Rate" value={"50%"} percent={-3.5} />
       </MetricRoot>
-
       <ChartRoot>
         <p className="title">Widget Performance</p>
         <Bar

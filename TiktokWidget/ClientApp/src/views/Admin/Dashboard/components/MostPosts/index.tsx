@@ -1,7 +1,7 @@
-import React from 'react';
-import { MostPostRoot } from './style';
-import product from 'assets/images/product.png';
-import MostPostItemComponent from './MostPostItem';
+import React from "react";
+import { MostPostRoot } from "./style";
+import product from "assets/images/product.png";
+import MostPostItemComponent from "./MostPostItem";
 
 const MostPost = () => {
   return (
