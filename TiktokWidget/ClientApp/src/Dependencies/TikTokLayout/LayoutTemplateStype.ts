@@ -231,6 +231,7 @@ export const TimeZone = styled("span", "time-zone")`
     font-family: "SF Pro Display";
     font-style: normal;
     font-size: 12px;
+    margin-bottom: 10px;
   }
 `;
 
