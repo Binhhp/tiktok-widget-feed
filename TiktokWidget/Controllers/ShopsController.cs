@@ -15,22 +15,10 @@ namespace TiktokWidget.Controllers
 {
     public class ShopsController : ODataController
     {
-        private readonly IShopService _shopService;
-        private readonly IProductService _productService;
-        private readonly IWidgetService _widgetService;
-        private readonly IInstagramWidgetService _instagramWidgetService;
-        private readonly IPerformancesService _performancesService;
-        public ShopsController(IShopService shopService, 
-            IProductService productService, 
-            IWidgetService widgetService, 
-            IInstagramWidgetService instagramWidgetService, 
-            IPerformancesService performancesService)
+        private readonly IUnitOfWork _unitOfWork;
+        public ShopsController(IUnitOfWork unitOfWork)
         {
-            _shopService = shopService;
-            _productService = productService;
-            _widgetService = widgetService;
-            _instagramWidgetService = instagramWidgetService;
-            _performancesService = performancesService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -38,7 +26,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})")]
         public SingleResult<ShopEntity> Get([FromODataUri] string domain)
         {
-            var result = _shopService.GetByDomain(domain);
+            var result = _unitOfWork.Shop.GetByDomain(domain);
             return SingleResult.Create(result);
         }
 
@@ -47,7 +35,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/GetWidgetCounts")]
         public IActionResult GetWidgetCounts([FromODataUri] string domain)
         {
-            var result = _widgetService.GetCounts(domain);
+            var result = _unitOfWork.TikTok.GetCounts(domain);
             return Ok(result);
         }
 
@@ -56,7 +44,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/GetInstagramWidgetCounts")]
         public IActionResult GetInstagramWidgetCounts([FromODataUri] string domain)
         {
-            var result = _instagramWidgetService.GetCounts(domain);
+            var result = _unitOfWork.Instagram.GetCounts(domain);
             return Ok(result);
         }
 
@@ -65,7 +53,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/GetThemes")]
         public IActionResult GetThemes([FromODataUri] string domain)
         {
-            var result = _shopService.GetThemes(domain);
+            var result = _unitOfWork.Shop.GetThemes(domain);
             return Ok(result);
         }
 
@@ -73,7 +61,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops")]
         public async Task<IActionResult> Post([FromBody] ShopCreateDto request)
         {
-            await _shopService.CreateAsync(request);
+            await _unitOfWork.Shop.CreateAsync(request);
             return Ok();
         }
 
@@ -81,7 +69,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})")]
         public async Task<IActionResult> Put([FromODataUri] string domain, [FromBody] ShopCreateDto request)
         {
-            await _shopService.UpdateAsync(request, domain);
+            await _unitOfWork.Shop.UpdateAsync(request, domain);
             return Ok();
         }
 
@@ -89,7 +77,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})")]
         public async Task<IActionResult> Delete([FromODataUri] string domain)
         {
-            await _shopService.DeleteAsync(domain);
+            await _unitOfWork.Shop.DeleteAsync(domain);
             return Ok();
         }
 
@@ -97,7 +85,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/UpdateShopConfiguration")]
         public async Task<IActionResult> UpdateShopConfiguration([FromODataUri] string domain, [FromBody] CreateShopConfigurationRequest request)
         {
-            await _shopService.UpdateConfigurationAsync(domain, request);
+            await _unitOfWork.Shop.UpdateConfigurationAsync(domain, request);
             return Ok();
         }
 
@@ -106,7 +94,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/ShopConfiguration")]
         public SingleResult<ShopConfigurationEntity> GetShopConfiguration([FromODataUri] string domain)
         {
-            return SingleResult.Create(_shopService.GetConfiguration(domain));
+            return SingleResult.Create(_unitOfWork.Shop.GetConfiguration(domain));
         }
 
         [HttpGet]
@@ -120,8 +108,8 @@ namespace TiktokWidget.Controllers
             {
                 pageIndex = page;
             }
-            var response = _productService.Get(domain, pageIndex);
-            var pageIndexes = _productService.GetPageIndex(domain);
+            var response = _unitOfWork.Product.Get(domain, pageIndex);
+            var pageIndexes = _unitOfWork.Product.GetPageIndex(domain);
             return new PageResult<ProductEntity>(response, null, pageIndexes);
         }
 
@@ -130,7 +118,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/TikTokWidgets")]
         public IActionResult GetWidgets([FromODataUri] string domain)
         {
-            var result = _widgetService.Get(domain);
+            var result = _unitOfWork.TikTok.Get(domain);
             return Ok(result);
         }
 
@@ -139,7 +127,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/InstagramWidgets")]
         public IActionResult GetInstagramWidgets([FromODataUri] string domain)
         {
-            var result = _instagramWidgetService.Get(domain);
+            var result = _unitOfWork.Instagram.Get(domain);
             return Ok(result);
         }
 
@@ -147,7 +135,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/RegisterTikTokWidget")]
         public async Task<IActionResult> RegisterTikTokWidget([FromODataUri] string domain, [FromBody] WidgetCreateDto request)
         {
-            var response = await _widgetService.CreateAsync(domain, request);
+            var response = await _unitOfWork.TikTok.CreateAsync(domain, request);
             return Ok(response);
         }
 
@@ -155,7 +143,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/RegisterInstagramWidget")]
         public async Task<IActionResult> RegisterInstagramWidgets([FromODataUri] string domain, [FromBody] CreateInstagramWidgetRequest request)
         {
-            var response = await _instagramWidgetService.CreateWidgetsAsync(domain, request);
+            var response = await _unitOfWork.Instagram.CreateWidgetsAsync(domain, request);
             return Ok(response);
         }
 
@@ -163,7 +151,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/AddJob")]
         public async Task<IActionResult> AddJob([FromODataUri] string domain, [FromBody] AddJobRequest request)
         {
-            var response = await _widgetService.AddJob(request);
+            var response = await _unitOfWork.TikTok.AddJob(request);
             return Ok(response);
         }
 
@@ -171,7 +159,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/Analytics")]
         public async Task<IActionResult> AnalyzeWidgets([FromODataUri] string domain, [FromBody] AnalyzeWidgetRequest request)
         {
-            var result = await _performancesService.Analytics(domain, request);
+            var result = await _unitOfWork.Performance.Analytics(domain, request);
             return Ok(result);
         }
 
@@ -180,7 +168,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/Traffic")]
         public IActionResult GetTraffic([FromODataUri] string domain)
         {
-            var result = _performancesService.Get(domain);
+            var result = _unitOfWork.Performance.Get(domain);
             return Ok(result);
         }
 
@@ -188,7 +176,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("Shops({domain})/Feedback")]
         public async Task<IActionResult> PostFeedback([FromODataUri] string domain, [FromBody] PostFeedbackRequest request)
         {
-            var result = await _shopService.FeedbackAsync(domain, request);
+            var result = await _unitOfWork.Shop.FeedbackAsync(domain, request);
             return Ok(result);
         }
     }

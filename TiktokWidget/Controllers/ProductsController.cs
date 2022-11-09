@@ -8,16 +8,16 @@ namespace TiktokWidget.Controllers
 {
     public class ProductsController : ODataController
     {
-        private readonly IProductService _productService;
-        public ProductsController(IProductService productService)
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductsController(IUnitOfWork unitOfWork)
         {
-            _productService = productService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddProductRequest request)
         {
-            var response = await _productService.AddAsync(request);
+            var response = await _unitOfWork.Product.AddAsync(request);
             if(response.Errors != null)
             {
                 return BadRequest(response);
@@ -28,14 +28,14 @@ namespace TiktokWidget.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] UpdateProductRequest request)
         {
-            await _productService.UpdateAsync(key, request);
+            await _unitOfWork.Product.UpdateAsync(key, request);
             return Ok();
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete([FromODataUri] string key)
         {
-            await _productService.RemoveAsync(key);
+            await _unitOfWork.Product.RemoveAsync(key);
             return Ok();
         }
     }

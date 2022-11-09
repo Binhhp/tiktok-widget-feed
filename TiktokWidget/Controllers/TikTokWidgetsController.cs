@@ -11,11 +11,11 @@ namespace TiktokWidget.Controllers
 {
     public class TikTokWidgetsController : ODataController
     {
-        private readonly IWidgetService _widgetService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TikTokWidgetsController(IWidgetService widgetService)
+        public TikTokWidgetsController(IUnitOfWork unitOfWork)
         {
-            _widgetService = widgetService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -23,14 +23,14 @@ namespace TiktokWidget.Controllers
         [ODataRoute("TikTokWidgets({key})")]
         public SingleResult<TikTokWidgetEntity> Get([FromODataUri] string key)
         {
-            var result = _widgetService.GetById(key);
+            var result = _unitOfWork.TikTok.GetById(key);
             return SingleResult.Create(result);
         }
         [HttpPost]
         [ODataRoute("TikTokWidgets({key})/UpdateProduct")]
         public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
         {
-            await _widgetService.UpdateProductAsync(key, request.Products);
+            await _unitOfWork.TikTok.UpdateProductAsync(key, request.Products);
             return Ok();
         }
 
@@ -38,7 +38,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("TikTokWidgets({key})")]
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] UpdateWidgetRequest request)
         {
-            var response = await _widgetService.UpdateAsync(key, request);
+            var response = await _unitOfWork.TikTok.UpdateAsync(key, request);
             return Ok(response);
         }
 
@@ -46,7 +46,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("TikTokWidgets({key})")]
         public async Task<IActionResult> Delete([FromODataUri] string key)
         {
-            var response = await _widgetService.DeleteAsync(key);
+            var response = await _unitOfWork.TikTok.DeleteAsync(key);
             return Ok(response);
         }
     }
