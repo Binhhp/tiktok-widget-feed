@@ -20,12 +20,12 @@ using Orichi.IoC.Logging;
 
 namespace TiktokWidget.Service.Implements
 {
-    public class WidgetService : IWidgetService
+    public class TikTokWidgetService : ITikTokWidgetService
     {
         private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
         private readonly ILoggerProvider _logger;
-        public WidgetService(WidgetFeedDbContext context, IMapper mapper, ILoggerProvider logger)
+        public TikTokWidgetService(WidgetFeedDbContext context, IMapper mapper, ILoggerProvider logger)
         {
             _context = context;
             _mapper = mapper;
@@ -178,9 +178,9 @@ namespace TiktokWidget.Service.Implements
             return new ResponseBase();
         }
 
-        public IQueryable<VideoTikTokModel> GetVideos(string widgetId)
+        public IQueryable<TikTokVideoViewModel> GetVideos(string widgetId)
         {
-            var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
+            var response = Enumerable.Empty<TikTokVideoViewModel>().AsQueryable();
             try
             {
                 var widget = _context.Widgets.FirstOrDefault(x => x.Id == widgetId);
@@ -193,7 +193,7 @@ namespace TiktokWidget.Service.Implements
                 var JSON = File.ReadAllText(pathFile);
                 if (!string.IsNullOrEmpty(JSON))
                 {
-                    response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+                    response = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).ToList().AsQueryable();
                 }
             }
             catch(Exception ex)
@@ -226,15 +226,15 @@ namespace TiktokWidget.Service.Implements
             return new AddJobResponse();
         }
 
-        public IQueryable<VideoTikTokModel> GetVideoJob(GetVideoByJobRequest request)
+        public IQueryable<TikTokVideoViewModel> GetVideoJob(GetVideoByJobRequest request)
         {
-            var response = Enumerable.Empty<VideoTikTokModel>().AsQueryable();
+            var response = Enumerable.Empty<TikTokVideoViewModel>().AsQueryable();
             string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
             var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
             var JSON = File.ReadAllText(pathFile);
             if (!string.IsNullOrEmpty(JSON))
             {
-                response = JsonConvert.DeserializeObject<IEnumerable<VideoTikTokModel>>(JSON).ToList().AsQueryable();
+                response = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).ToList().AsQueryable();
             }
             return response;
         }

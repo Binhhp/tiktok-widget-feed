@@ -69,10 +69,10 @@ namespace TiktokWidget.ODataEntities
             BuildEdmModel<InstagramWidgetEntity>(InstagramWidgetActions);
 
             //Videos
-            _builder.EntitySet<VideoTikTokModel>("TikTokVideos");
+            _builder.EntitySet<TikTokVideoViewModel>("TikTokVideos");
             _builder.EntitySet<InstagramViewModel>("InstagramVideos");
             BuildEdmModel<InstagramViewModel>(InstagramVideoActions);
-            BuildEdmModel<VideoTikTokModel>(TikTokVideoActions);
+            BuildEdmModel<TikTokVideoViewModel>(TikTokVideoActions);
 
             BuildEdmModel<ShopEntity>(ShopEntityActions);
         }

@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -22,17 +23,6 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: false,
-    },
-  },
-};
 function randomIntFromInterval(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -50,13 +40,14 @@ const labels = [
   "13/9",
 ];
 
-export const data = {
+export const data: ChartData<"bar", number[], string> = {
   labels,
   datasets: [
     {
       label: "Impression",
       data: labels.map(() => randomIntFromInterval(20, 1000)),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      backgroundColor: "#7CD4FD",
+      borderRadius: 10,
     },
   ],
 };
@@ -69,10 +60,37 @@ const MetricChart = () => {
         <MetricItem title="Clicks" value={"14"} percent={0} />
         <MetricItem title="Conversion Rate" value={"50%"} percent={-3.5} />
       </MetricRoot>
-
       <ChartRoot>
         <p className="title">Widget Performance</p>
-        <Bar options={options} data={data} />
+        <Bar
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top" as const,
+                align: "end",
+                title: {
+                  color: "#667085",
+                },
+                labels: {
+                  padding: 0,
+                  boxHeight: 6,
+                  boxWidth: 6,
+                  boxPadding: 6,
+                  usePointStyle: true,
+                  font: {
+                    family: "SF Pro Display",
+                    size: 14,
+                  },
+                },
+              },
+              title: {
+                display: true,
+              },
+            },
+          }}
+          data={data}
+        />
       </ChartRoot>
     </MetricChartRoot>
   );

@@ -60,7 +60,7 @@ function FormConfig() {
   const navigate = useNavigate();
   const onNextStep = () => {
     dispatch(InstagramWidgetActionTS.OnStep(2));
-    navigate(`/instagram-step-2?shop=${shopReducer.shop.domain}`);
+    navigate(`/instagram-step-2?shop=${shopReducer.shop.domain}&admin=1`);
   };
 
   return (

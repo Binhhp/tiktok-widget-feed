@@ -5,17 +5,16 @@ using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Entities;
-using TiktokWidget.Service.Implements;
+using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
 {
     public class InstagramWidgetsController : ODataController
     {
-        private readonly InstagramWidgetService _instagramWidgetService;
-
-        public InstagramWidgetsController(InstagramWidgetService instagramWidgetService)
+        private readonly IUnitOfWork _unitOfWork;
+        public InstagramWidgetsController(IUnitOfWork unitOfWork)
         {
-            _instagramWidgetService = instagramWidgetService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -23,7 +22,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("InstagramWidgets({key})")]
         public SingleResult<InstagramWidgetEntity> Get([FromODataUri] string key)
         {
-            var result = _instagramWidgetService.GetById(key);
+            var result = _unitOfWork.Instagram.GetById(key);
             return SingleResult.Create(result);
         }
 
@@ -31,7 +30,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("InstagramWidgets({key})/UpdateProduct")]
         public async Task<IActionResult> UpdateProduct([FromODataUri] string key, [FromBody] AddTagProductRequest request)
         {
-            await _instagramWidgetService.UpdateProductAsync(key, request.Products);
+            await _unitOfWork.Instagram.UpdateProductAsync(key, request.Products);
             return Ok();
         }
 
@@ -39,7 +38,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("InstagramWidgets({key})")]
         public async Task<IActionResult> Delete([FromODataUri] string key)
         {
-            var response = await _instagramWidgetService.DeleteAsync(key);
+            var response = await _unitOfWork.Instagram.DeleteAsync(key);
             return Ok(response);
         }
 
@@ -47,7 +46,7 @@ namespace TiktokWidget.Controllers
         [ODataRoute("InstagramWidgets({key})")]
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] CreateInstagramWidgetRequest request)
         {
-            var response = await _instagramWidgetService.UpdateWidgetsAsync(key, request);
+            var response = await _unitOfWork.Instagram.UpdateWidgetsAsync(key, request);
             return Ok(response);
         }
     }
