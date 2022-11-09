@@ -11,7 +11,7 @@ export const ChartRoot = styled("div")`
     0px 1px 2px rgba(16, 24, 40, 0.06);
   border-radius: 8px;
   padding: 24px;
-  margin-top: 30px;
+  margin-top: 28px;
 
   .title {
     font-weight: 500;
