@@ -9,6 +9,7 @@ export const DivVideoContainer = styled("div", "video-container")`
     overflow: hidden;
     flex: 1;
     height: 100%;
+    width: 100%;
   }
 `;
 

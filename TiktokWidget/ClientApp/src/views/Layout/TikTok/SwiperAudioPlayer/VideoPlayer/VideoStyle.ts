@@ -282,6 +282,7 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
         animation-duration: 0.4s;
         animation-timing-function: ease-out;
         animation-fill-mode: forwards;
+        padding-bottom: 20px;
       }
     }
     @media only screen and (${breakpoints.device.lg}) {
@@ -325,7 +326,7 @@ export const DivVideoWrapper = styled("div", "video-wrapper")<IDivContentVideo>`
         left: 0;
         height: 300px;
         max-width: 100%;
-        padding: 0px 0px ${(props) => (props.showProducts ? 80 : 0)}px 0px;
+        padding: 0px 0px ${(props) => (props.showProducts ? 100 : 0)}px 0px;
         z-index: 100;
       }
       ${DivContentHeader} {

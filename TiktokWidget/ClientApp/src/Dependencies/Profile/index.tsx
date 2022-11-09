@@ -45,7 +45,7 @@ function Profile(props: IProfileProps) {
           <h2>
             {props.default
               ? `@someone`
-              : props.profileInfo?.name ?? <Skeleton inline />}
+              : props.profileInfo?.name ?? <Skeleton inline width={300} />}
           </h2>
           {!props.hiddenFollower && props.profileInfo?.name && (
             <FollowerButton

@@ -223,9 +223,6 @@ export const ProfileWrapper = styled("div", "wrapper")<IProfileWrapper>`
           right: -4px;
         }
       }
-      ${FollowerButton} {
-        padding: 3px 18px;
-      }
     }
     @media only screen and (${breakpoints.device.xm}) {
       max-width: 100%;

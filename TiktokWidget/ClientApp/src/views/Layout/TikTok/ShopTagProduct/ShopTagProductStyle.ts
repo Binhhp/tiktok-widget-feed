@@ -117,7 +117,7 @@ export const ShopTagProductWrapper = styled("div", "product__wrapper")`
     }
     @media only screen and (${breakpoints.device.lg}) {
       max-width: 100%;
-      width: 100%;
+      width: calc(100% - 20px);
       height: 70px;
       padding: 10px;
       position: absolute;
