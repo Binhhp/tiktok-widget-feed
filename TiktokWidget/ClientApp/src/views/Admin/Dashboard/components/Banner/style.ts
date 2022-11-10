@@ -17,7 +17,7 @@ export const RootComponent = styled("div")`
   }
 
   .banner-slider {
-    height: 286px;
+    height: 276px;
   }
   .swipper {
     width: 100%;

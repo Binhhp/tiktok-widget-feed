@@ -71,9 +71,11 @@ function MyWidget() {
   };
 
   useEffect(() => {
-    dispatch(ApplicationActionTS.OnHandleMenuItem("my-widget", true));
-    dispatch(WidgetActionTS.OnStep(0));
-    dispatch(WidgetActionTS.OnSetSetting(true));
+    Promise.all([
+      dispatch(ApplicationActionTS.OnHandleMenuItem("my-widget", true)),
+      dispatch(WidgetActionTS.OnStep(0)),
+      dispatch(WidgetActionTS.OnSetSetting(true)),
+    ]);
   }, []);
 
   const onReloadData = () => {
