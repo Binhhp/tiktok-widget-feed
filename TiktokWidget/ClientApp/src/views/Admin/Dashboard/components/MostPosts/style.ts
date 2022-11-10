@@ -12,7 +12,7 @@ export const MostPostRoot = styled("div")`
     font-size: 18px;
     line-height: 28px;
     color: #101828;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 `;
 
@@ -20,18 +20,40 @@ export const MostPostItem = styled("div")`
   background: #f5faff;
   border-radius: 12px;
   display: flex;
-
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  flex-shrink: 0;
+  font-family: "SF Pro Display";
+  .poster {
+    background-color: transparent;
+    position: relative;
+    width: 31%;
+    height: 100%;
+    padding: 11%;
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+  }
   img {
-    width: 100px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   .content {
     flex: 1;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 16px;
-    padding-right: 64px;
+    margin: auto 64px auto 16px;
+  }
+  .content-item:first-child {
+    margin-bottom: 6px;
   }
   .content-item {
     display: flex;
@@ -39,13 +61,13 @@ export const MostPostItem = styled("div")`
     align-items: center;
 
     .name {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 14px;
       line-height: 20px;
       color: #194185;
     }
     .value {
-      font-weight: 400;
+      font-weight: 500;
       font-size: 14px;
       line-height: 20px;
       color: #175cd3;

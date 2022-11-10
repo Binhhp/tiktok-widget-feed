@@ -15,8 +15,6 @@ import { useQuery } from "hooks";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { ChatPlugin } from "common/functions/ChatPlugin";
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
 
 function App() {
   const navigate = useNavigate();
@@ -28,10 +26,10 @@ function App() {
       const shopReponsitory = new ShopReponsitory();
       shopReponsitory
         .Get(shop)
-        .then((res) => {
+        .then(async (res) => {
           if (res) {
             if (res?.shopConfiguration && res?.shopConfiguration?.timezone) {
-              localStorage.setItem('timezone', res.shopConfiguration.timezone);
+              localStorage.setItem("timezone", res.shopConfiguration.timezone);
             }
             dispatch(
               ShopActionTS.OnSetInformation({
@@ -39,13 +37,15 @@ function App() {
               })
             );
             ChatPlugin.Init(res.domain);
-            shopReponsitory.GetWidgetsCount(res.domain ?? "").then((val) => {
-              dispatch(WidgetActionTS.OnSetWidgetCount(val));
-            });
-            shopReponsitory.GetInstagramCount(res.domain ?? '').then((val) => {
-              dispatch(InstagramWidgetActionTS.OnSetWidgetCount(val));
-            });
-          } else navigate("/not-found");
+            const [tiktokCount, instagramCount] = await Promise.all([
+              shopReponsitory.GetWidgetsCount(res.domain ?? ""),
+              shopReponsitory.GetInstagramCount(res.domain ?? ""),
+            ]);
+            dispatch(WidgetActionTS.OnSetWidgetCount(tiktokCount));
+            dispatch(InstagramWidgetActionTS.OnSetWidgetCount(instagramCount));
+          } else {
+            navigate("/not-found");
+          }
           setPending(false);
         })
         .catch(() => {

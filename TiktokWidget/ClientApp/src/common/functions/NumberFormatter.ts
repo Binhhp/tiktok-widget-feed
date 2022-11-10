@@ -10,4 +10,8 @@ export class NumberFormatter {
     }
     return "0";
   }
+
+  static FormatLocaleString(val: number) {
+    return val.toLocaleString("de-DE");
+  }
 }
