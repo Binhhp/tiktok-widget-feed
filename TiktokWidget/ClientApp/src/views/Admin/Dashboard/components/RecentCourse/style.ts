@@ -14,6 +14,7 @@ export const Root = styled("div")`
       padding-left: 16px;
       padding-top: 16px;
       padding-bottom: 16px;
+      padding-right: 16px;
       .swiper-slide {
         width: 80%;
       }
