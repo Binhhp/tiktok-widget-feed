@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getRecentCourses } from 'repositories/api';
 import useSWR from 'swr';
 import { Root } from './style';
@@ -7,33 +7,55 @@ import { Root } from './style';
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import RecentCourseItem from './RecentCourseItem';
+import { Pagination } from '@shopify/polaris';
 SwiperCore.use([Autoplay, Navigation]);
 
 const RecentCourse = () => {
   const { data } = useSWR('/odata/Courses', getRecentCourses);
   const courses = data?.value || [];
-  return (
+  const [swiperController, setSwiperController] = useState<SwiperCore>();
+
+  const [isNext, setIsNext] = useState(true);
+  const [isPrev, setIsPrev] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(1);
+
+  const onNext = () => swiperController?.slideNext();
+  const onPrev = () => swiperController?.slidePrev();
+
+  return courses.length > 0 ? (
     <Root>
       <p className='title'>Recent Course</p>
       <div className='slider'>
         <Swiper
-        // pagination={{
-        //   clickable: true,
-        // }}
-        // className='swipper'
-        // cssMode={true}
-        // navigation={true}
-        // pagination={true}
-        // mousewheel={true}
-        >
+          onActiveIndexChange={(swiperCore) => {
+            setIsNext(!swiperCore.isEnd);
+            setIsPrev(!swiperCore.isBeginning);
+            setActiveIndex(swiperCore.activeIndex + 1);
+          }}
+          mousewheel
+          updateOnWindowResize
+          className='swipper'
+          onSwiper={setSwiperController}
+          slidesPerView={'auto'}
+          spaceBetween={16}>
           {courses.map((item) => (
             <SwiperSlide key={`slider-${item.id}`}>
               <RecentCourseItem item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className='action'>
+          <Pagination
+            hasNext={isNext}
+            hasPrevious={isPrev}
+            onNext={onNext}
+            onPrevious={onPrev}></Pagination>
+          <span className='result'>{`${activeIndex}/${courses.length}`}</span>
+        </div>
       </div>
     </Root>
+  ) : (
+    <></>
   );
 };
 

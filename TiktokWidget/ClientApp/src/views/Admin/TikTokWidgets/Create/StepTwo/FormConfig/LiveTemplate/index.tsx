@@ -39,30 +39,43 @@ function LiveTemplate() {
 
   const [loading, setLoading] = useState(true);
   const getVideoFunc = async () => {
-    try {
-      const res = await new WidgetReponsitory().GetVideosByJob(
-        new GetVideoByJobRequest(
-          widgetReducer.settings.valueSource,
-          widgetReducer.settings.source
-        ),
-        100
-      );
-      if (res?.count !== undefined) {
-        setLoading(false);
-        setLayouts({
-          count: res.count,
-          data: res.data,
-        });
-      } else {
+    if (window._timeout && layouts.data.length === 0) {
+      if (window._timeout < new Date().getTime()) {
+        window._timeout = 0;
+        return;
+      }
+      try {
+        const res = await new WidgetReponsitory().GetVideosByJob(
+          new GetVideoByJobRequest(
+            widgetReducer.settings.valueSource,
+            widgetReducer.settings.source
+          ),
+          100
+        );
+        if (res?.count !== undefined) {
+          setLoading(false);
+          setLayouts({
+            count: res.count,
+            data: res.data,
+          });
+        } else {
+          setTimeout(() => getVideoFunc(), 1000);
+        }
+      } catch {
         setTimeout(() => getVideoFunc(), 1000);
       }
-    } catch {
-      setTimeout(() => getVideoFunc(), 1000);
     }
   };
 
   useEffect(() => {
+    window._timeout = new Date().getTime() + 4 * 60000;
     getVideoFunc();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      window._timeout = 0;
+    };
   }, []);
 
   const RenderLiveTemplates = (

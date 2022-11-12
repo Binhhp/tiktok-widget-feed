@@ -5,4 +5,5 @@ declare interface String {
 interface Window {
   Shopify: any;
   $crisp: any;
+  _timeout: number;
 }

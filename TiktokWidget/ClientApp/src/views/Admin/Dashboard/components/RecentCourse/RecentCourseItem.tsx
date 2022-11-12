@@ -19,11 +19,17 @@ const RecentCourseItem: React.FC<Props> = ({ item }) => {
             },
           }}
           description={item.description}>
-          <Card sectioned>
-            <a href={item.url} target='_blank' rel='noreferrer'>
-              <img alt='Facebook Pixel' src={item.image} />
-            </a>
-          </Card>
+          <div className='card-content'>
+            <Card sectioned>
+              <a
+                href={item.url}
+                target='_blank'
+                rel='noreferrer'
+                className='recent-poster'>
+                <img alt={item.title} src={item.image} />
+              </a>
+            </Card>
+          </div>
         </MediaCard>
       </div>
     </RecentCourseItemRoot>

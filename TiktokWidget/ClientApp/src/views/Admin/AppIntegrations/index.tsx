@@ -2,6 +2,7 @@ import React from 'react';
 import { AppIntegrationWrapper } from './AppIntegrationsStyle';
 import { Card, MediaCard } from '@shopify/polaris';
 import { ImageStorage } from 'assets/images/ImageStorage';
+import AppIntegrationProvider from './AppModel';
 
 function AppIntegrations() {
   return (
@@ -14,22 +15,24 @@ function AppIntegrations() {
         <div className='card-item'>
           <MediaCard
             portrait
-            title='Facebook Pixels Conversion API'
+            title={AppIntegrationProvider.FacebookPixel.title}
             primaryAction={{
               content: 'Learn more',
               onAction: () => {
-                window.open(
-                  'https://apps.shopify.com/yuri-facebook-multi-pixels?surface_source=tiktok&surface_type=in-app',
-                );
+                window.open(AppIntegrationProvider.FacebookPixel.url);
               },
             }}
-            description='#1 Facebook Pixel tracking, Conversion API supported, Solution for IOS update, Tracking 100% purchase events'>
+            description={AppIntegrationProvider.FacebookPixel.desc}>
             <Card sectioned>
               <a
-                href='https://apps.shopify.com/quantity-break-limit-purchase?surface_source=tiktok&surface_type=in-app'
+                href={AppIntegrationProvider.FacebookPixel.url}
                 target='_blank'
                 rel='noreferrer'>
-                <img alt='Facebook Pixel' src={ImageStorage.FacebookPixel} />
+                <img
+                  loading='lazy'
+                  alt={AppIntegrationProvider.FacebookPixel.title}
+                  src={ImageStorage.FacebookPixel}
+                />
               </a>
             </Card>
           </MediaCard>
@@ -37,22 +40,24 @@ function AppIntegrations() {
         <div className='card-item'>
           <MediaCard
             portrait
-            title='Quantity Discount Order Limits'
+            title={AppIntegrationProvider.QuantityDiscount.title}
             primaryAction={{
               content: 'Learn more',
               onAction: () => {
-                window.open(
-                  'https://apps.shopify.com/quantity-break-limit-purchase?surface_source=tiktok&surface_type=in-app',
-                );
+                window.open(AppIntegrationProvider.QuantityDiscount.url);
               },
             }}
-            description='Easily set up discount campaign based on any rules. Only discount in multiple (buy 3,6,9,...) is also available now!'>
+            description={AppIntegrationProvider.QuantityDiscount.desc}>
             <Card sectioned>
               <a
-                href='https://apps.shopify.com/quantity-break-limit-purchase?surface_source=tiktok&surface_type=in-app'
+                href={AppIntegrationProvider.QuantityDiscount.url}
                 target='_blank'
                 rel='noreferrer'>
-                <img alt='Discount' src={ImageStorage.Discount} />
+                <img
+                  alt='Quantity Discount App'
+                  loading='lazy'
+                  src={ImageStorage.Discount}
+                />
               </a>
             </Card>
           </MediaCard>

@@ -86,6 +86,7 @@ function FormLeftItem() {
           name="custom-css"
           id="custom-css"
           label="Custom css"
+          multiline={4}
           value={widgetReducer.settings.customCss}
           onChange={(val) => onSetConfig({ customCss: val })}
           placeholder="Custom css"

@@ -53,7 +53,10 @@ const FeedBack = () => {
           }
         )
         .then((res) => {
-          if (res.Status) window.location.href = config.urlInstallTikTok;
+          if (res.Status) {
+            dispatch(ShopActionTS.OnSetDescriptor(res.Data as ShopDescriptor));
+            window.open(config.urlInstallTikTok);
+          }
         });
     }
     return;

@@ -1,6 +1,6 @@
-import styled from "Dependencies/StyledComponents/Container";
+import styled from 'Dependencies/StyledComponents/Container';
 
-export const RootComponent = styled("div")`
+export const RootComponent = styled('div')`
   p.text-welcome {
     font-weight: 400;
     font-size: 16px;
@@ -17,7 +17,7 @@ export const RootComponent = styled("div")`
   }
 
   .banner-slider {
-    height: 286px;
+    height: 276px;
   }
   .swipper {
     width: 100%;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DashboardWrapper } from './DashboardStyle';
+import { DashboardContainer, DashboardWrapper } from './DashboardStyle';
 import Banner from './components/Banner';
 import MetricChart from './components/MetricChart';
 import DateRange from 'ui-components/DateRange';
@@ -9,15 +9,17 @@ import RecentCourse from './components/RecentCourse';
 function Dashboard() {
   return (
     <DashboardWrapper>
-      <div className='left'>
-        <Banner />
-        <MetricChart />
-      </div>
-      <div className='right'>
+      <DashboardContainer>
         <DateRange />
-        <MostPost />
-        <RecentCourse />
-      </div>
+        <div className='left'>
+          <Banner />
+          <MetricChart />
+        </div>
+        <div className='right'>
+          <MostPost />
+          <RecentCourse />
+        </div>
+      </DashboardContainer>
     </DashboardWrapper>
   );
 }
