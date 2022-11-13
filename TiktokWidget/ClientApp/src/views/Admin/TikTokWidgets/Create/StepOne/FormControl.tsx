@@ -7,6 +7,7 @@ import {
   Stack,
   TextField,
   TextStyle,
+  Tooltip,
 } from "@shopify/polaris";
 import { ColorRed } from "../CreateWidgetStyle";
 import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
@@ -185,12 +186,16 @@ function FormControlSource(props: IFormControlSource) {
               error={errorValue}
             />
             {props.jobInterval && (
-              <Button
-                loading={widgetReducer.workingSearch}
-                icon={SearchMajor}
-                onClick={onAddJobVideo}
-                id="orichi-search"
-              />
+              <Tooltip content="Search" dismissOnMouseOut>
+                <Button
+                  loading={widgetReducer.workingSearch}
+                  icon={SearchMajor}
+                  onClick={onAddJobVideo}
+                  id="orichi-search"
+                  ariaDescribedBy="search videos"
+                  accessibilityLabel="search videos"
+                />
+              </Tooltip>
             )}
           </FormValueSource>
           {!props.hiddenSubmit && (

@@ -35,30 +35,50 @@ function LayoutTemplateContextProvider({ children }: any) {
 
   const OnCloseLoading = () => setLoading(false);
   const OnAppendItems = (payload: IOnSetItemsProps): void => {
-    const item = payload.items[0];
-    const user = {
-      author: item.author,
-      avatarThumb: item.avatarThumb,
-      diggCount: item.authorStats?.diggCount,
-      followerCount: item.authorStats?.followerCount,
-      followingCount: item.authorStats?.followingCount,
-    };
-    if (payload.nonAppend) {
-      setState({
-        index: state.index,
-        count: payload.count,
-        pageIndex: state.pageIndex,
-        items: payload.items,
-        user: user,
-      });
+    if (payload.items && payload.items.length > 0) {
+      const item = payload.items[0];
+      const user = {
+        author: item.author,
+        avatarThumb: item.avatarThumb,
+        diggCount: item.authorStats?.diggCount,
+        followerCount: item.authorStats?.followerCount,
+        followingCount: item.authorStats?.followingCount,
+      };
+      if (payload.nonAppend) {
+        setState({
+          index: state.index,
+          count: payload.count,
+          pageIndex: state.pageIndex,
+          items: payload.items,
+          user: user,
+        });
+      } else {
+        setState({
+          ...state,
+          count: payload.count,
+          pageIndex: state.pageIndex + 1,
+          items: [...state.items, ...payload.items],
+          user: user,
+        });
+      }
     } else {
-      setState({
-        ...state,
-        count: payload.count,
-        pageIndex: state.pageIndex + 1,
-        items: [...state.items, ...payload.items],
-        user: user,
-      });
+      if (payload.nonAppend) {
+        setState({
+          index: state.index,
+          count: payload.count,
+          pageIndex: state.pageIndex,
+          items: payload.items,
+          user: {},
+        });
+      } else {
+        setState({
+          ...state,
+          count: payload.count,
+          pageIndex: state.pageIndex + 1,
+          items: [...state.items, ...payload.items],
+          user: {},
+        });
+      }
     }
   };
 

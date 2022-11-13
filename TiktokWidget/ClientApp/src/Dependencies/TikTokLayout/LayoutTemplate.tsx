@@ -41,13 +41,11 @@ function LayoutTemplate(props: ITemplateProps) {
     let page = templateContext.state.pageIndex;
     if (props._queryData) {
       props._queryData(page, showItems).then((res) => {
-        if (res?.data.length > 0) {
-          templateContext.OnAppendItems({
-            count: res.count,
-            items: res.data,
-            nonAppend: props.nonAppend,
-          });
-        }
+        templateContext.OnAppendItems({
+          count: res.count,
+          items: res.data,
+          nonAppend: props.nonAppend,
+        });
         setLoading(false);
         setLoadingButton(false);
       });
