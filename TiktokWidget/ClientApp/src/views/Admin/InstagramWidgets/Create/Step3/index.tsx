@@ -1,6 +1,7 @@
 import { Pagination } from "@shopify/polaris";
 import { ImageStorage } from "assets/images/ImageStorage";
 import { ChatPlugin } from "common/functions/ChatPlugin";
+import { UriProvider } from "common/functions/FuncUtils";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -36,9 +37,7 @@ function Step3() {
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step !== 3) {
-      return navigate(
-        `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
-      );
+      return navigate(UriProvider.KeepParameters(`/instagram-step-1`));
     }
   }, []);
 
@@ -109,9 +108,7 @@ function Step3() {
                 />
                 <DivActionStepContent>2/2</DivActionStepContent>
               </DivActionStep>
-              <DivLink
-                to={`/my-instagram-widget?shop=${shopReducer.shop.domain}&admin=1`}
-              >
+              <DivLink to={UriProvider.KeepParameters(`/my-instagram-widget`)}>
                 I've done
               </DivLink>
             </Step3DoneContent>

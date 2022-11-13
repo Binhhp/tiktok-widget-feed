@@ -10,24 +10,31 @@ const initialState = new TemplateStoreModel();
 export interface IOnSetItemsProps {
   items: ITikTokVideoDto[];
   count: number;
+  nonAppend?: boolean;
 }
 
 export interface ILayoutTemplateContext {
+  loading: boolean;
+  OnCloseLoading: () => void;
   state: ITemplateStoreModel;
-  OnSetItems: (payload: IOnSetItemsProps) => void;
+  OnAppendItems: (payload: IOnSetItemsProps) => void;
   OnActiveItem: (payload: IItemActive) => void;
 }
 export const LayoutTemplateContext =
   React.createContext<ILayoutTemplateContext>({
     OnActiveItem: () => {},
-    OnSetItems: () => {},
+    OnAppendItems: () => {},
     state: new TemplateStoreModel(),
+    loading: true,
+    OnCloseLoading: () => {},
   });
 
 function LayoutTemplateContextProvider({ children }: any) {
   const [state, setState] = useState<ITemplateStoreModel>(initialState);
+  const [loading, setLoading] = useState(true);
 
-  const OnSetItems = (payload: IOnSetItemsProps): void => {
+  const OnCloseLoading = () => setLoading(false);
+  const OnAppendItems = (payload: IOnSetItemsProps): void => {
     const item = payload.items[0];
     const user = {
       author: item.author,
@@ -36,13 +43,23 @@ function LayoutTemplateContextProvider({ children }: any) {
       followerCount: item.authorStats?.followerCount,
       followingCount: item.authorStats?.followingCount,
     };
-    setState({
-      ...state,
-      count: payload.count,
-      pageIndex: state.pageIndex + 1,
-      items: [...state.items, ...payload.items],
-      user: user,
-    });
+    if (payload.nonAppend) {
+      setState({
+        index: state.index,
+        count: payload.count,
+        pageIndex: state.pageIndex,
+        items: payload.items,
+        user: user,
+      });
+    } else {
+      setState({
+        ...state,
+        count: payload.count,
+        pageIndex: state.pageIndex + 1,
+        items: [...state.items, ...payload.items],
+        user: user,
+      });
+    }
   };
 
   const OnActiveItem = (payload: IItemActive): void => {
@@ -55,8 +72,10 @@ function LayoutTemplateContextProvider({ children }: any) {
   return (
     <LayoutTemplateContext.Provider
       value={{
+        loading,
+        OnCloseLoading,
         state,
-        OnSetItems,
+        OnAppendItems,
         OnActiveItem,
       }}
     >

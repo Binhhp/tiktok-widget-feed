@@ -31,10 +31,6 @@ const MainLayout: React.FC = (): JSX.Element => {
     ) {
       dispatch(InstagramWidgetActionTS.OnSetSetting(true));
     }
-
-    if (!window.location.search.includes("admin=1")) {
-      UriProvider.InsertParameters("admin", 1);
-    }
   }, [window.location.pathname]);
 
   return (

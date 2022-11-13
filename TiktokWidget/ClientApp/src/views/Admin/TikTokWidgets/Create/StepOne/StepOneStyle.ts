@@ -71,3 +71,27 @@ export const FormSubmitStep = styled("div")<IFormSubmitStep>`
       props.size === "small" ? `15px` : `var(--p-space-4)`};
   }
 `;
+
+interface IFormValueSource {
+  enableSearch?: boolean;
+}
+export const FormValueSource = styled("div")<IFormValueSource>`
+  position: relative;
+  div[class=""] {
+    width: 100%;
+  }
+  input {
+    padding-right: ${(props) => (props.enableSearch ? `50px` : "auto")};
+  }
+  #orichi-search {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 100;
+  }
+`;

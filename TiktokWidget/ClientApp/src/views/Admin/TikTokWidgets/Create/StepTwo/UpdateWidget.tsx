@@ -17,6 +17,7 @@ function StepTwoUpdate() {
           hiddenSubmit={true}
           onSubmit={() => {}}
           saveStore={true}
+          jobInterval
         ></FormControlSource>
       </ContainerSection>
     </React.Fragment>

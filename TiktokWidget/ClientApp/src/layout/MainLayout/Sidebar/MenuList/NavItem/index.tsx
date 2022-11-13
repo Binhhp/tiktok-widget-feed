@@ -12,6 +12,7 @@ import { Heading, Icon } from "@shopify/polaris";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
+import { UriProvider } from "common/functions/FuncUtils";
 
 function NavItem(props: INavItemProps) {
   const nameReducer = props.chip && props.chip.nameReducer;
@@ -80,7 +81,7 @@ function NavItem(props: INavItemProps) {
         ) : (
           <ListItemButton
             className={activeMenu ? "active-menu" : ""}
-            to={`${props.url}?shop=${shopReducer.shop.domain}&admin=1`}
+            to={UriProvider.KeepParameters(props.url)}
             level={props.level}
             onClick={onHandleMenuItem(props.id, true)}
           >

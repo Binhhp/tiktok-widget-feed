@@ -157,14 +157,14 @@ export interface ITemplateStoreModel {
   items: ITikTokVideoDto[];
   index: IItemActive;
   pageIndex: number;
-  count: number;
+  count: number | undefined;
   user: IUserInformation;
 }
 export class TemplateStoreModel implements ITemplateStoreModel {
   items: ITikTokVideoDto[];
   index: IItemActive;
   pageIndex: number;
-  count: number;
+  count: number | undefined;
   user: IUserInformation;
   constructor() {
     this.items = [];
@@ -173,7 +173,7 @@ export class TemplateStoreModel implements ITemplateStoreModel {
       active: false,
     };
     this.pageIndex = 1;
-    this.count = 0;
+    this.count = undefined;
     this.user = {};
   }
 }

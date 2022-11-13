@@ -1,3 +1,4 @@
+import { UriProvider } from "common/functions/FuncUtils";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,12 +16,10 @@ function FormConfigs() {
   const widgetReducer = useSelector(
     (state: RootReducer) => state.InstagramWidgetReducer
   );
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
-
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {
-      navigate(`/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`);
+      navigate(UriProvider.KeepParameters(`/instagram-step-1`));
     }
   }, []);
   return widgetReducer.step !== 2 ? (

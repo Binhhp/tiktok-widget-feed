@@ -1,4 +1,5 @@
 import { Button } from "@shopify/polaris";
+import { UriProvider } from "common/functions/FuncUtils";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +21,8 @@ function FormSubmit() {
   const onCancel = () => {
     dispatch(WidgetActionTS.OnStep(0));
     if (widgetReducer.settings.id)
-      navigate(`/my-widget?shop=${shopReducer.shop.domain}&admin=1`);
-    else
-      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`);
+      navigate(UriProvider.KeepParameters(`/my-widget`));
+    else navigate(UriProvider.KeepParameters(`/create-widget-step-1`));
   };
   const [loading, setLoading] = useState(false);
   const widgetReducer = useSelector(
@@ -30,6 +30,8 @@ function FormSubmit() {
   );
 
   const onSubmit = async () => {
+    if (!widgetReducer.settings.title || !widgetReducer.settings.valueSource)
+      return;
     setLoading(true);
     const widgetReponsitory = new WidgetReponsitory();
     if (widgetReducer.settings.id) {
@@ -41,7 +43,7 @@ function FormSubmit() {
         dispatch(WidgetActionTS.OnStep(1));
         dispatch(WidgetActionTS.OnSetSetting(true));
         setLoading(false);
-        return navigate(`/my-widget?shop=${shopReducer.shop.domain}&admin=1`);
+        return navigate(UriProvider.KeepParameters(`/my-widget`));
       } else {
         setLoading(false);
         toast.error(response.Error);
@@ -65,7 +67,9 @@ function FormSubmit() {
           });
         setLoading(false);
         return navigate(
-          `/create-widget-step-3/${response.Data?.widgetId}?shop=${shopReducer.shop.domain}&admin=1`
+          UriProvider.KeepParameters(
+            `/create-widget-step-3/${response.Data?.widgetId}`
+          )
         );
       } else {
         setLoading(false);
@@ -77,7 +81,13 @@ function FormSubmit() {
   return (
     <FormSubmitWrapper>
       <ButtonCancel onClick={onCancel}>Back</ButtonCancel>
-      <Button loading={loading} onClick={onSubmit}>
+      <Button
+        disabled={
+          !widgetReducer.settings.title || !widgetReducer.settings.valueSource
+        }
+        loading={loading}
+        onClick={onSubmit}
+      >
         Save
       </Button>
     </FormSubmitWrapper>
