@@ -11,7 +11,7 @@ const MostPost = () => {
     (state: RootReducer) => state.AppReducer.dateRange,
   );
 
-  const { data } = useSWR('/odata/Posts', () =>
+  const { data } = useSWR(['/odata/Posts', dateRangeSate], () =>
     getPosts(dateRangeSate.startDate, dateRangeSate.endDate),
   );
 

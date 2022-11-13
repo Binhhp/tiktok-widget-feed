@@ -1,10 +1,11 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import config from 'config';
 import { RootURL } from 'common/constants/RootURL';
 
-export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
-  console.log(config.apiUrl, 'config.apiUrl');
+export const getAxiosInstance = (
+  requireAuth?: boolean,
+  notTimeZone?: boolean,
+): AxiosInstance => {
   const instance = axios.create({
     baseURL: RootURL.ApiBase,
     timeout: 30 * 1000,
