@@ -1,9 +1,11 @@
 ﻿using System;
+using TiktokWidget.Common.Utils;
 
 namespace TiktokWidget.Service.Entities
 {
     public class PerformancesEntity : BaseEntity<string>
     {
+        [NonFormater]
         public DateTime Time { get; set; }
         public Int64 InstagramTraffic { get; set; }
         public Int64 InstagramClicks { get; set; }
