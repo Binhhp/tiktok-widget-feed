@@ -12,8 +12,8 @@ const MostPost = () => {
   }
   return (
     <MostPostRoot>
-      <h4 className="title">Most Popular Posts</h4>
-      <div className="post-list">
+      <h4 className="orichi-post-title">Most Popular Posts</h4>
+      <div className="orichi-post-list">
         {posts?.map((item) => (
           <MostPostItemComponent
             img={item.image}

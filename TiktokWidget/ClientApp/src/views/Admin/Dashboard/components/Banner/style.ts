@@ -1,7 +1,7 @@
 import styled from "Dependencies/StyledComponents/Container";
 
-export const RootComponent = styled("div")`
-  p.text-welcome {
+export const RootComponent = styled("div", "", "orichi-banner")`
+  p.orichi-text-welcome {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -16,7 +16,7 @@ export const RootComponent = styled("div")`
     margin-bottom: 3px;
   }
 
-  .banner-slider {
+  .orichi-banner-slider {
     height: 276px;
   }
   .swipper {
@@ -50,7 +50,7 @@ export const RootComponent = styled("div")`
     }
   }
   @media only screen and (min-width: 1590px) {
-    .banner-slider {
+    .orichi-banner-slider {
       height: 366px;
     }
   }

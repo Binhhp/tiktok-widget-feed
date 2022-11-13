@@ -28,8 +28,8 @@ const MetricItem: React.FC<IProp> = ({ title, value, percent }) => {
   return (
     <MetricBox>
       <div>
-        <p className="title">{title}</p>
-        <p className="value">{value}</p>
+        <p className="orichi-chart-title">{title}</p>
+        <p className="orichi-chart-value">{value}</p>
       </div>
       <div
         style={{
@@ -37,7 +37,7 @@ const MetricItem: React.FC<IProp> = ({ title, value, percent }) => {
         }}
       >
         <img src={styleChart.img} alt={title} />
-        <p className="percent">{`${percent.toFixed(2)} %`}</p>
+        <p className="orichi-chart-percent">{`${percent.toFixed(2)} %`}</p>
       </div>
     </MetricBox>
   );

@@ -1,17 +1,24 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios';
-import axios from 'axios';
-import config from 'config';
-import { RootURL } from 'common/constants/RootURL';
+import { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios from "axios";
+import { RootURL } from "common/constants/RootURL";
 
-export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
-  console.log(config.apiUrl, 'config.apiUrl');
+export const getAxiosInstance = (
+  requireAuth?: boolean,
+  notTimeZone?: boolean
+): AxiosInstance => {
   const instance = axios.create({
     baseURL: RootURL.ApiBase,
     timeout: 30 * 1000,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
+
+  if (!notTimeZone && localStorage.getItem("timezone")) {
+    instance.defaults.headers.common["tz"] = `${localStorage.getItem(
+      "timezone"
+    )}`;
+  }
 
   // response parse
   instance.interceptors.request.use(
@@ -22,14 +29,14 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
       return config;
     },
     (error) => {
-      console.warn('Error status', error.response.status);
+      console.warn("Error status", error.response.status);
       // return Promise.reject(error)
       if (error.response) {
         return error.response.data;
       } else {
         return Promise.reject(error);
       }
-    },
+    }
   );
 
   // response parse
@@ -38,14 +45,14 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
       return response.data;
     },
     (error) => {
-      console.warn('Error status', error.response.status);
+      console.warn("Error status", error.response.status);
       // return Promise.reject(error)
       if (error.response) {
         return error.response.data;
       } else {
         return Promise.reject(error);
       }
-    },
+    }
   );
   return instance;
 };
@@ -53,9 +60,9 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
 let publicRequester: AxiosInstance;
 let privateRequester: AxiosInstance;
 
-function getInstance(isPrivate: boolean = false) {
+function getInstance(isPrivate: boolean = false, notTimeZone: boolean = false) {
   if (!publicRequester) {
-    publicRequester = getAxiosInstance();
+    publicRequester = getAxiosInstance(isPrivate, notTimeZone);
   }
   if (!privateRequester && isPrivate) {
     privateRequester = getAxiosInstance(true);
@@ -67,6 +74,7 @@ function getInstance(isPrivate: boolean = false) {
 }
 
 export const axiosInstance = getInstance().publicRequester;
+export const axiosInstanceV2 = getInstance(false, true).publicRequester;
 
 export const privateInstance = getInstance(true).publicRequester;
 

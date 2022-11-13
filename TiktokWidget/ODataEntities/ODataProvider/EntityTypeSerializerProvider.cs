@@ -16,15 +16,9 @@ namespace TiktokWidget.ODataEntities.ODataProvider
         }
         public override ODataEdmTypeSerializer GetEdmTypeSerializer(IEdmTypeReference edmType)
         {
-            if (edmType is IEdmPrimitiveTypeReference edmPrimitiveTypeReference)
+            if(edmType.Definition.TypeKind == EdmTypeKind.Entity || edmType.Definition.TypeKind == EdmTypeKind.EntityReference || edmType.Definition.TypeKind == EdmTypeKind.Complex)
             {
-                var primitiveKind = edmPrimitiveTypeReference.PrimitiveKind();
-                switch (primitiveKind)
-                {
-                    case EdmPrimitiveTypeKind.DateTimeOffset:
-                    case EdmPrimitiveTypeKind.Date:
-                        return new DateTimePrimitiveSerializer();
-                }
+                return new DateTimeResourceSerializer(this);
             }
             var result = base.GetEdmTypeSerializer(edmType);
             return result;

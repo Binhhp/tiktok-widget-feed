@@ -8,7 +8,7 @@ export type Props = {
 const RecentCourseItem: React.FC<Props> = ({ item }) => {
   return (
     <RecentCourseItemRoot>
-      <div className="card-item">
+      <div className="orichi-courses-card-item">
         <MediaCard
           portrait
           title={item.title}
@@ -20,13 +20,13 @@ const RecentCourseItem: React.FC<Props> = ({ item }) => {
           }}
           description={item.description}
         >
-          <div className="card-content">
+          <div className="orichi-courses-card-content">
             <Card sectioned>
               <a
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="recent-poster"
+                className="orichi-courses-poster"
               >
                 <img alt={item.title} src={item.image} />
               </a>

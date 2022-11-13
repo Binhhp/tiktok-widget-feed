@@ -21,11 +21,11 @@ const Banner = () => {
           shopReducer?.shop?.domain}
         !🎉
       </h3>
-      <p className="text-welcome">
+      <p className="orichi-text-welcome">
         You will be able to see top performers based on views and
         call-to-actions
       </p>
-      <div className="banner-slider">
+      <div className="orichi-banner-slider">
         <Swiper
           slidesPerView={1}
           slidesPerGroup={1}
@@ -43,7 +43,11 @@ const Banner = () => {
         >
           {data?.value?.map((item) => (
             <SwiperSlide key={`slider-${item.id}`}>
-              <img src={item.image} alt="BannerImg" className="slide-img" />
+              <img
+                src={item.image}
+                alt="BannerImg"
+                className="orichi-slider-poster"
+              />
             </SwiperSlide>
           ))}
         </Swiper>

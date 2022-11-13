@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Orichi.IoC.Logging;
 using System;
 using System.Linq;
@@ -17,10 +18,12 @@ namespace TiktokWidget.Service.Implements
     {
         private readonly WidgetFeedDbContext _dbContext;
         private readonly ILoggerProvider _logger;
-        public PerformancesService(WidgetFeedDbContext dbContext, ILoggerProvider logger)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public PerformancesService(WidgetFeedDbContext dbContext, ILoggerProvider logger, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IQueryable<PerformancesEntity> Get(string domain)
         {
@@ -44,6 +47,12 @@ namespace TiktokWidget.Service.Implements
             var response = new AnalyzeWidgetResponse();
             try
             {
+                var timeZoneFromQuery = _httpContextAccessor.HttpContext.Request?.Headers?["tz"].ToString();
+                if(!string.IsNullOrEmpty(timeZoneFromQuery))
+                {
+                    request.StartTime = TimezoneProvider.ConvertIANATimezone(request.StartTime, timeZoneFromQuery);
+                    request.EndTime = TimezoneProvider.ConvertIANATimezone(request.EndTime, timeZoneFromQuery); 
+                }
                 var shop = await _dbContext.Shop.FirstOrDefaultAsync(x => x.Domain.ToLower().Equals(domain.ToLower()));
                 if (shop != null)
                 {

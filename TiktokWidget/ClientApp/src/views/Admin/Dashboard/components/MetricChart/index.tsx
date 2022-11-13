@@ -61,7 +61,7 @@ const MetricChart = () => {
         <MetricItem title="Conversion Rate" value={"50%"} percent={-3.5} />
       </MetricRoot>
       <ChartRoot>
-        <p className="title">Widget Performance</p>
+        <p className="orichi-chart-title">Widget Performance</p>
         <Bar
           options={{
             responsive: true,

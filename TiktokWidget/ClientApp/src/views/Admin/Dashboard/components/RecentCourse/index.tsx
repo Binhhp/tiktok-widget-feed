@@ -24,8 +24,8 @@ const RecentCourse = () => {
 
   return courses.length > 0 ? (
     <Root>
-      <p className="title">Recent Course</p>
-      <div className="slider">
+      <p className="orichi-courses-title">Recent Course</p>
+      <div className="orichi-courses-slider">
         <Swiper
           onActiveIndexChange={(swiperCore) => {
             setIsNext(!swiperCore.isEnd);
@@ -45,14 +45,14 @@ const RecentCourse = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="action">
+        <div className="orichi-courses-action">
           <Pagination
             hasNext={isNext}
             hasPrevious={isPrev}
             onNext={onNext}
             onPrevious={onPrev}
           ></Pagination>
-          <span className="result">{`${activeIndex}/${courses.length}`}</span>
+          <span className="orichi-courses-page">{`${activeIndex}/${courses.length}`}</span>
         </div>
       </div>
     </Root>

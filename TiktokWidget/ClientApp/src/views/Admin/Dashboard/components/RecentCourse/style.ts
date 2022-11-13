@@ -1,9 +1,9 @@
 import styled from "Dependencies/StyledComponents/Container";
 
-export const Root = styled("div")`
+export const Root = styled("div", "", "orichi-courses")`
   width: 100%;
   margin-top: 57px;
-  .slider {
+  .orichi-courses-slider {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -20,7 +20,7 @@ export const Root = styled("div")`
       }
     }
   }
-  .title {
+  .orichi-courses-title {
     font-weight: 500;
     font-size: 18px;
     line-height: 28px;
@@ -33,11 +33,11 @@ export const Root = styled("div")`
     height: 100%;
     position: relative;
   }
-  .action {
+  .orichi-courses-action {
     display: flex;
     align-items: center;
     padding: 0px 16px 16px 16px;
-    .result {
+    .orichi-courses-page {
       margin-left: 16px;
       color: #6d7175;
       flex: none;
@@ -49,13 +49,13 @@ export const Root = styled("div")`
   }
 `;
 
-export const RecentCourseItemRoot = styled("div")`
+export const RecentCourseItemRoot = styled("div", "", "orichi-courses")`
   img {
     width: 100%;
     object-fit: center;
   }
 
-  .card-content {
+  .orichi-courses-card-content {
     width: 100%;
     .Polaris-Card .Polaris-Card__Section {
       padding: 0px 0px 50% 0px;
@@ -63,7 +63,7 @@ export const RecentCourseItemRoot = styled("div")`
       height: 100%;
       position: relative;
     }
-    .recent-poster {
+    .orichi-courses-poster {
       position: absolute;
       top: 0;
       left: 0;

@@ -19,5 +19,6 @@ export const DashboardContainer = styled("div")`
   }
   .right {
     width: 30%;
+    padding-top: 30px;
   }
 `;

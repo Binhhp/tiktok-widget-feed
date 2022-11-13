@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
-import { IToastNotify } from "./ToastNotificationModel";
+import { IToastContainer, IToastNotify } from "./ToastNotificationModel";
 
 export const toastNotify = {
   promise: async (funcQuery: Promise<BaseResponse>, content: IToastNotify) => {
@@ -16,5 +16,29 @@ export const toastNotify = {
       });
     }
     return res;
+  },
+
+  success: (content: IToastContainer): string => {
+    return toast.success(content.message, {
+      style: content.style,
+      id: content.id,
+      className: content.className,
+    });
+  },
+
+  error: (content: IToastContainer): string => {
+    return toast.error(content.message, {
+      style: content.style,
+      id: content.id,
+      className: content.className,
+    });
+  },
+
+  loading: (content: IToastContainer): string => {
+    return toast.loading(content.message, {
+      style: content.style,
+      id: content.id,
+      className: content.className,
+    });
   },
 };
