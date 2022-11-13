@@ -1,15 +1,26 @@
-import { ICloneStore } from "common/interfaces/ICloneStore";
+import { ICloneStore } from 'common/interfaces/ICloneStore';
+import { addDays } from 'ui-components/DateRange';
 
+export type DateRangeType = {
+  startDate: string;
+  endDate: string;
+};
 export class ApplicationStoreModelDto {
   menuItems: string[];
   menuActive: string;
   mobileMenuView: boolean;
   step: number;
+  dateRange: DateRangeType;
   constructor() {
+    const dateNow = new Date();
     this.menuItems = [];
-    this.menuActive = "";
+    this.menuActive = '';
     this.mobileMenuView = false;
     this.step = 0;
+    this.dateRange = {
+      endDate: dateNow.toString(),
+      startDate: addDays(dateNow, -7).toString(),
+    };
   }
 }
 
@@ -20,13 +31,28 @@ export class ApplicationStoreModel
   protected _menuActive: string;
   protected _mobileMenuView: boolean;
   protected _step: number;
+  protected _dateRange: DateRangeType;
   constructor(_dto?: ApplicationStoreModelDto) {
+    const dateNow = new Date();
     this._menuItems = _dto?.menuItems || [];
     this._menuActive =
-      _dto?.menuActive || window.location.pathname.replace("/", "");
+      _dto?.menuActive || window.location.pathname.replace('/', '');
     this._mobileMenuView = _dto?.mobileMenuView || false;
     this._step = _dto?.step || 0;
+    this._dateRange = _dto?.dateRange || {
+      endDate: dateNow.toString(),
+      startDate: addDays(dateNow, -7).toString(),
+    };
   }
+
+  public get dateRange(): DateRangeType {
+    return this._dateRange;
+  }
+
+  public set dateRange(v: DateRangeType) {
+    this._dateRange = v;
+  }
+
   public get step(): number {
     return this._step;
   }
@@ -69,6 +95,7 @@ export class ApplicationStoreModel
       menuActive: this._menuActive,
       mobileMenuView: this._mobileMenuView,
       step: this._step,
+      dateRange: this._dateRange,
     };
   }
 }

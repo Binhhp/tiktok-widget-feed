@@ -3,9 +3,18 @@ import { MostPostRoot } from './style';
 import MostPostItemComponent from './MostPostItem';
 import { getPosts } from 'repositories/api';
 import useSWR from 'swr';
+import { useSelector } from 'react-redux';
+import { RootReducer } from 'stores/Admin/reducers';
 
 const MostPost = () => {
-  const { data } = useSWR('/odata/Posts', () => getPosts());
+  const dateRangeSate = useSelector(
+    (state: RootReducer) => state.AppReducer.dateRange,
+  );
+
+  const { data } = useSWR('/odata/Posts', () =>
+    getPosts(dateRangeSate.startDate, dateRangeSate.endDate),
+  );
+
   const posts = data?.value;
   if (posts?.length === 0) {
     return null;

@@ -1,4 +1,5 @@
-import { ApplicationActEnum } from "./enum";
+import { ApplicationActEnum } from './enum';
+import { DateRangeType } from './state';
 
 export interface OnMenuItem {
   type: typeof ApplicationActEnum.MENU_TOGGLE;
@@ -13,4 +14,11 @@ export interface OnMenuItemMobile {
   payload: boolean;
 }
 
-export type ApplicationType = OnMenuItem | OnMenuItemMobile;
+export interface OnHandleChangeDateRange {
+  type: typeof ApplicationActEnum.SET_DATE_RANGE;
+  payload: DateRangeType;
+}
+export type ApplicationType =
+  | OnMenuItem
+  | OnMenuItemMobile
+  | OnHandleChangeDateRange;
