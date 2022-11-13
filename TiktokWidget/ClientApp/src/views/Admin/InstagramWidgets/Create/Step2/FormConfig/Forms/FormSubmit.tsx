@@ -9,6 +9,7 @@ import { InstagramReponsitory } from "repositories/implements/InstagramReponsito
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
+import { UriProvider } from "common/functions/FuncUtils";
 export default function FormSubmit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,9 +23,7 @@ export default function FormSubmit() {
 
   const onBackStep = () => {
     dispatch(InstagramWidgetActionTS.OnStep(1));
-    return navigate(
-      `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
-    );
+    return navigate(UriProvider.KeepParameters(`/instagram-step-1`));
   };
 
   const onSubmit = async () => {
@@ -39,9 +38,7 @@ export default function FormSubmit() {
         dispatch(InstagramWidgetActionTS.OnStep(1));
         dispatch(InstagramWidgetActionTS.OnSetSetting(true));
         setLoading(false);
-        return navigate(
-          `/my-instagram-widget?shop=${shopReducer.shop.domain}&admin=1`
-        );
+        return navigate(UriProvider.KeepParameters(`/my-instagram-widget`));
       } else {
         setLoading(false);
         toast.error(response.Error);
@@ -64,9 +61,7 @@ export default function FormSubmit() {
         dispatch(InstagramWidgetActionTS.OnSetWidgetCount(result));
         setLoading(false);
 
-        return navigate(
-          `/instagram-step-3?shop=${shopReducer.shop.domain}&admin=1`
-        );
+        return navigate(UriProvider.KeepParameters(`/instagram-step-3`));
       } else {
         setLoading(false);
         toast.error(response.Error);

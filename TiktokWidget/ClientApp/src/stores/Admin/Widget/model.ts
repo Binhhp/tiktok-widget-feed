@@ -32,10 +32,21 @@ export interface IChangeStatus {
   payload: WidgetStatus;
 }
 
+export interface RiseSequenceNumber {
+  type: typeof WidgetActEnum.RISE_SEQUENCENUMBER;
+}
+
+export interface SearchingVideos {
+  type: typeof WidgetActEnum.SEARCHING;
+  payload: boolean;
+}
+
 export type WidgetType =
   | IOnStep
   | IOnSetting
   | IOnHandleMobile
   | IGetTagProducts
   | ISetWidgetCount
-  | IChangeStatus;
+  | IChangeStatus
+  | RiseSequenceNumber
+  | SearchingVideos;

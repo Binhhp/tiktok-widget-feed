@@ -16,6 +16,7 @@ import { RootReducer } from "stores/Admin/reducers";
 import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import toast from "react-hot-toast";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
+import { UriProvider } from "common/functions/FuncUtils";
 
 function StepOne() {
   const dispatch = useDispatch();
@@ -30,27 +31,28 @@ function StepOne() {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const [loading, setLoading] = useState(false);
-  const onSubmit = async (values: any, resetForm: any) => {
+  const onSubmit = async () => {
     setLoading(true);
     dispatch(WidgetActionTS.OnStep(2));
     const widgetReponsitory = new WidgetReponsitory();
     const sourceType = widgetReducer.settings.source ?? 0;
-    const res = await widgetReponsitory.AddJob(
-      shopReducer.shop.domain,
-      new AddJobRequest(values.value, sourceType)
-    );
-    if (res.Status) {
-      dispatch(
-        WidgetActionTS.OnSetSetting({
-          title: values.title,
-          valueSource: values.value,
-          source: sourceType,
-        })
+    if (widgetReducer.settings.valueSource) {
+      const res = await widgetReponsitory.AddJob(
+        shopReducer.shop.domain,
+        new AddJobRequest(widgetReducer.settings.valueSource, sourceType)
       );
-      resetForm();
-      navigate(`/create-widget-step-2?shop=${shopReducer.shop.domain}&admin=1`);
-    } else {
-      toast.error(`${res.Error}`);
+      if (res.Status) {
+        dispatch(
+          WidgetActionTS.OnSetSetting({
+            title: widgetReducer.settings.title,
+            valueSource: widgetReducer.settings.valueSource,
+            source: sourceType,
+          })
+        );
+        navigate(UriProvider.KeepParameters(`/create-widget-step-2`));
+      } else {
+        toast.error(`${res.Error}`);
+      }
     }
     setLoading(false);
   };

@@ -38,7 +38,8 @@ function LayoutList(props: LayoutPropTypes) {
                 ></Item>
               ))}
           </TemplateInfiniteItem>
-          {(templateContext.state.items.length < templateContext.state.count ||
+          {(templateContext.state.items.length <
+            (templateContext.state.count ?? 1) ||
             props.showLoadInfinite) && (
             <LoadingInfinite
               viewMore={props.options?.viewMore}
@@ -53,7 +54,8 @@ function LayoutList(props: LayoutPropTypes) {
           hasMore={
             props.showLoadInfinite
               ? true
-              : templateContext.state.items.length < templateContext.state.count
+              : templateContext.state.items.length <
+                (templateContext.state.count ?? 1)
           }
           loader={<LoadingInfinite></LoadingInfinite>}
           next={props.fetchData}

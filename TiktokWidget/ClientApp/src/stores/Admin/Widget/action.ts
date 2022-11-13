@@ -11,6 +11,19 @@ export class WidgetActionTS {
     };
   }
 
+  public static SetWorkingSearch(isSearching: boolean): WidgetType {
+    return {
+      type: WidgetActEnum.SEARCHING,
+      payload: isSearching,
+    };
+  }
+
+  public static RiseSequenceNumber(): WidgetType {
+    return {
+      type: WidgetActEnum.RISE_SEQUENCENUMBER,
+    };
+  }
+
   public static OnChangStatus(status: WidgetStatus = "Undefined"): WidgetType {
     return {
       type: WidgetActEnum.CHANGE_STATUS,

@@ -25,4 +25,25 @@ export class UriProvider {
     // reload page with new params
     document.location.search = params;
   }
+
+  static KeepParameters(url: string) {
+    const queryString = window.location.search;
+    let urlOutput = new URL(`${window.location.origin}${url}`);
+    const paramUrlOutput = urlOutput.searchParams;
+    if (queryString) {
+      var kvp = queryString.substr(1).split("&");
+      let i = 0;
+
+      for (; i < kvp.length; i++) {
+        let pair = kvp[i].split("=");
+        const key = pair[0];
+        const val = pair[1];
+        if (!paramUrlOutput.has(key)) {
+          urlOutput.searchParams.append(key, val);
+        }
+      }
+      return `${urlOutput.pathname}${urlOutput.search}`;
+    }
+    return url;
+  }
 }

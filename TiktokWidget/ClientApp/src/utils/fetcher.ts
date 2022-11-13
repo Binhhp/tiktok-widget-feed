@@ -13,6 +13,12 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
     },
   });
 
+  if (!notTimeZone && localStorage.getItem('timezone')) {
+    instance.defaults.headers.common['tz'] = `${localStorage.getItem(
+      'timezone',
+    )}`;
+  }
+
   // response parse
   instance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -53,9 +59,9 @@ export const getAxiosInstance = (requireAuth?: boolean): AxiosInstance => {
 let publicRequester: AxiosInstance;
 let privateRequester: AxiosInstance;
 
-function getInstance(isPrivate: boolean = false) {
+function getInstance(isPrivate: boolean = false, notTimeZone: boolean = false) {
   if (!publicRequester) {
-    publicRequester = getAxiosInstance();
+    publicRequester = getAxiosInstance(isPrivate, notTimeZone);
   }
   if (!privateRequester && isPrivate) {
     privateRequester = getAxiosInstance(true);
@@ -67,6 +73,7 @@ function getInstance(isPrivate: boolean = false) {
 }
 
 export const axiosInstance = getInstance().publicRequester;
+export const axiosInstanceV2 = getInstance(false, true).publicRequester;
 
 export const privateInstance = getInstance(true).publicRequester;
 

@@ -1,7 +1,7 @@
 import styled from 'Dependencies/StyledComponents/Container';
 
-export const RootComponent = styled('div')`
-  p.text-welcome {
+export const RootComponent = styled('div', '', 'orichi-banner')`
+  p.orichi-text-welcome {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;

@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Orichi.IoC.Logging.Models.Models;
 using ShopifySharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Constants;
+using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Configurations;
 using TiktokWidget.Service.Context;
@@ -29,11 +30,13 @@ namespace TiktokWidget.Service.Implements
         private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
-        public ShopService(WidgetFeedDbContext context, IMapper mapper, AppSettings appSettings)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ShopService(WidgetFeedDbContext context, IMapper mapper, AppSettings appSettings, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _mapper = mapper;
             _appSettings = appSettings;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<AddShopResponse> CreateAsync(ShopCreateDto request)
@@ -346,7 +349,16 @@ namespace TiktokWidget.Service.Implements
             var response = Enumerable.Empty<PostViewModel>().AsQueryable();
             try
             {
-                var postImpressions = _context.PostImpression.Include(x => x.Post).Where(x => (x.Time > startTime || x.Time == startTime) && (x.Time < endTime || x.Time == endTime)).ToList();
+                var timezoneFromQuery = _httpContextAccessor.HttpContext?.Request?.Headers?["tz"].ToString();
+                if(!string.IsNullOrEmpty(timezoneFromQuery))
+                {
+                    startTime = TimezoneProvider.ConvertIANATimezone(startTime, timezoneFromQuery);
+                    endTime = TimezoneProvider.ConvertIANATimezone(endTime, timezoneFromQuery);
+                }
+                var postImpressions = _context.PostImpression.Include(x => x.Post).Where(x => 
+                    (x.Time.Date > startTime.Date || x.Time.Date == startTime.Date) && 
+                    (x.Time.Date < endTime.Date || x.Time.Date == endTime.Date)).ToList();
+
                 if (postImpressions.Any())
                 {
                     var result = postImpressions.GroupBy(p => p.Post, i => i, (p, i) => new PostViewModel

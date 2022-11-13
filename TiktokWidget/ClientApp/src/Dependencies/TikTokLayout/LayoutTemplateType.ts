@@ -26,10 +26,11 @@ export interface ITemplateProps {
   flexDirection?: "row" | "column";
   imgHeight?: number;
   hiddenContent?: boolean;
-  _queryData: (
+  _queryData?: (
     pageIndex: number,
     showItems?: number
   ) => Promise<IVideoTemplateModel>;
+  nonAppend?: boolean;
   clickRender?: (index: number) => void;
   onNotFound?: () => JSX.Element;
   enableHover?: boolean;

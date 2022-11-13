@@ -1,3 +1,4 @@
+import { UriProvider } from "common/functions/FuncUtils";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,6 @@ function StepThree() {
     (state: RootReducer) => state.TiktokWidgetReducer
   );
 
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const [state, setState] = useState<IGuidesState>({
     step: 1,
   });
@@ -41,7 +41,7 @@ function StepThree() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!widgetReducer.settings.valueSource) {
-      return navigate(`/my-widget?shop=${shopReducer.shop.domain}&admin=1`);
+      return navigate(UriProvider.KeepParameters(`/my-widget`));
     }
   }, []);
 

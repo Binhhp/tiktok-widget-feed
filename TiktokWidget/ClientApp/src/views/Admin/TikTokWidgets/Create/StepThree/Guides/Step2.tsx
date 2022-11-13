@@ -13,12 +13,10 @@ import {
 import Guides2 from "assets/images/Guides/guides2.png";
 import { IGuidesStepProps } from "./GuidesModel";
 import { LinkRouter } from "common/style/UtilStyles";
-import { useSelector } from "react-redux";
-import { RootReducer } from "stores/Admin/reducers";
 import { ChatPlugin } from "common/functions/ChatPlugin";
+import { UriProvider } from "common/functions/FuncUtils";
 
 function GuidesStep2(props: IGuidesStepProps) {
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   return (
     <GuidesContainer>
       <GuidesContainerItem pb={18} pt={29}>
@@ -57,7 +55,7 @@ function GuidesStep2(props: IGuidesStepProps) {
           </div>
           <LinkRouter
             size="small"
-            to={`/my-widget?shop=${shopReducer.shop.domain}&admin=1`}
+            to={UriProvider.KeepParameters(`/my-widget`)}
           >
             I've done
           </LinkRouter>

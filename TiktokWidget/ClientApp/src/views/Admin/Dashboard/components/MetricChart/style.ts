@@ -1,10 +1,10 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
-export const MetricChartRoot = styled('div')`
+export const MetricChartRoot = styled("div", "", "orichi-chart")`
   margin-top: 20px;
 `;
 
-export const ChartRoot = styled("div")`
+export const ChartRoot = styled("div", "", "orichi-chart")`
   background: #ffffff;
   border: 1px solid #eaecf0;
   box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
@@ -13,7 +13,7 @@ export const ChartRoot = styled("div")`
   padding: 24px;
   margin-top: 28px;
 
-  .title {
+  .orichi-chart-title {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -21,12 +21,12 @@ export const ChartRoot = styled("div")`
   }
 `;
 
-export const MetricRoot = styled('div')`
+export const MetricRoot = styled("div", "", "orichi-chart")`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 24px;
 `;
-export const MetricBox = styled('div')`
+export const MetricBox = styled("div", "", "orichi-chart")`
   background: #ffffff;
   box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
     0px 1px 2px rgba(16, 24, 40, 0.06);
@@ -37,20 +37,20 @@ export const MetricBox = styled('div')`
   align-items: flex-end;
   justify-content: space-between;
 
-  p.title {
+  p.orichi-chart-title {
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
     color: #667085;
   }
-  p.value {
+  p.orichi-chart-value {
     font-weight: 600;
     font-size: 30px;
     line-height: 38px;
     color: #101828;
     margin-top: 8px;
   }
-  p.percent {
+  p.orichi-chart-percent {
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;

@@ -1,13 +1,13 @@
 import styled from 'Dependencies/StyledComponents/Container';
 
-export const MostPostRoot = styled('div')`
-  margin-top: 90px;
-  div.post-list {
+export const MostPostRoot = styled('div', '', 'orichi-post')`
+  margin-top: 57px;
+  div.orichi-post-list {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
   }
-  .title {
+  .orichi-post-title {
     font-weight: 500;
     font-size: 18px;
     line-height: 28px;
@@ -16,7 +16,7 @@ export const MostPostRoot = styled('div')`
   }
 `;
 
-export const MostPostItem = styled('div')`
+export const MostPostItem = styled('div', '', 'orichi-post')`
   background: #f5faff;
   border-radius: 12px;
   display: flex;
@@ -25,7 +25,7 @@ export const MostPostItem = styled('div')`
   width: 100%;
   flex-shrink: 0;
   font-family: 'SF Pro Display';
-  .poster {
+  .orichi-post-poster {
     background-color: transparent;
     position: relative;
     width: 31%;
@@ -48,25 +48,25 @@ export const MostPostItem = styled('div')`
     top: 0;
     left: 0;
   }
-  .content {
+  .orichi-post-content {
     flex: 1;
     margin: auto 64px auto 16px;
   }
-  .content-item:first-child {
+  .orichi-post-content-item:first-child {
     margin-bottom: 6px;
   }
-  .content-item {
+  .orichi-post-content-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .name {
+    .orichi-post-name {
       font-weight: 600;
       font-size: 14px;
       line-height: 20px;
       color: #194185;
     }
-    .value {
+    .orichi-post-value {
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;

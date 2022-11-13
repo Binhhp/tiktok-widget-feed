@@ -12,6 +12,7 @@ import CreateWidgetProvider from "../CreateWidgetProvider";
 import { useNavigate } from "react-router-dom";
 import FormSubmit from "./FormConfig/Form/FormSubmit";
 import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
+import { UriProvider } from "common/functions/FuncUtils";
 
 function StepTwo() {
   const widgetReducer = useSelector(
@@ -19,11 +20,10 @@ function StepTwo() {
   );
 
   const templateContext = useContext(LayoutTemplateContext);
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const navigate = useNavigate();
   useEffect(() => {
     if (widgetReducer.step < 2) {
-      navigate(`/create-widget-step-1?shop=${shopReducer.shop.domain}&admin=1`);
+      navigate(UriProvider.KeepParameters(`/create-widget-step-1`));
     }
   }, []);
 
@@ -34,6 +34,8 @@ function StepTwo() {
       </TitleTemplateMajor>
       {widgetReducer.settings.source === 0 ? (
         <Hashtag></Hashtag>
+      ) : !templateContext.loading && !templateContext.state.count ? (
+        <></>
       ) : (
         <Profile
           profileInfo={{
@@ -53,6 +55,7 @@ function StepTwo() {
     <CreateWidgetProvider animation={true}>
       <Container position="relative">
         <ContainerSection
+          height="100%"
           width={32}
           pt={20}
           pl={30}

@@ -1,6 +1,7 @@
 import { Icon } from "@shopify/polaris";
 import { ProductsMinor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
+import { UriProvider } from "common/functions/FuncUtils";
 import { Container, ContainerSection } from "common/style/UtilStyles";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
@@ -99,9 +100,7 @@ function MyWidget() {
 
   useEffect(() => {
     if (!widgetReducer.count)
-      return navigate(
-        `/instagram-step-1?shop=${shopReducer.shop.domain}&admin=1`
-      );
+      return navigate(UriProvider.KeepParameters(`/instagram-step-1`));
   }, [widgetReducer.count]);
 
   const onReloadData = () => {

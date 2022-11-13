@@ -39,16 +39,19 @@ function LayoutTemplate(props: ITemplateProps) {
       showItems = config.sliderShowItem;
     }
     let page = templateContext.state.pageIndex;
-    props._queryData(page, showItems).then((res) => {
-      if (res?.data.length > 0) {
-        templateContext.OnSetItems({
-          count: res.count,
-          items: res.data,
-        });
-      }
-      setLoading(false);
-      setLoadingButton(false);
-    });
+    if (props._queryData) {
+      props._queryData(page, showItems).then((res) => {
+        if (res?.data.length > 0) {
+          templateContext.OnAppendItems({
+            count: res.count,
+            items: res.data,
+            nonAppend: props.nonAppend,
+          });
+        }
+        setLoading(false);
+        setLoadingButton(false);
+      });
+    }
   };
 
   useEffect(() => {

@@ -96,6 +96,18 @@ const OnChangeStatus = (state: WidgetStoreModel, status: WidgetStatus) => {
   return copyState;
 };
 
+const RiseSequenceNumber = (state: WidgetStoreModel) => {
+  let copyState = state.Clone();
+  copyState.sequenceNumber += 1;
+  return copyState;
+};
+
+const SearchingVideos = (state: WidgetStoreModel, payload: boolean) => {
+  let copyState = state.Clone();
+  copyState.workingSearch = payload;
+  return copyState;
+};
+
 const WidgetReducer = (
   state: WidgetStoreModel = new WidgetStoreModel(),
   action: WidgetType
@@ -113,6 +125,10 @@ const WidgetReducer = (
       return OnSetCount(state, action.payload);
     case WidgetActEnum.CHANGE_STATUS:
       return OnChangeStatus(state, action.payload);
+    case WidgetActEnum.RISE_SEQUENCENUMBER:
+      return RiseSequenceNumber(state);
+    case WidgetActEnum.SEARCHING:
+      return SearchingVideos(state, action.payload);
     default:
       return state;
   }

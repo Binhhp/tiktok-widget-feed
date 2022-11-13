@@ -1,5 +1,5 @@
 import Template from "Dependencies/TikTokLayout";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import {
@@ -23,6 +23,8 @@ import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateModel";
+import { ValidatorProvider } from "common/constants/Validator";
+import { WidgetActionTS } from "stores/Admin/Widget/action";
 
 function LiveTemplate() {
   const widgetReducer = useSelector(
@@ -37,9 +39,15 @@ function LiveTemplate() {
     return Promise.resolve(layouts);
   };
 
+  const templateContext = useContext(LayoutTemplateContext);
+
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
+
   const getVideoFunc = async () => {
-    if (window._timeout && layouts.data.length === 0) {
+    if (window._timeout) {
+      if (!loading) setLoading(true);
       if (window._timeout < new Date().getTime()) {
         window._timeout = 0;
         return;
@@ -58,19 +66,44 @@ function LiveTemplate() {
             count: res.count,
             data: res.data,
           });
+          dispatch(WidgetActionTS.SetWorkingSearch(false));
+          window._timeout = 0;
+          templateContext.OnCloseLoading();
         } else {
-          setTimeout(() => getVideoFunc(), 1000);
+          setTimeout(() => getVideoFunc(), 1400);
         }
       } catch {
-        setTimeout(() => getVideoFunc(), 1000);
+        setTimeout(() => getVideoFunc(), 1400);
       }
     }
   };
 
   useEffect(() => {
-    window._timeout = new Date().getTime() + 4 * 60000;
-    getVideoFunc();
-  }, []);
+    if (widgetReducer.settings.valueSource && layouts.data.length === 0) {
+      if (
+        widgetReducer.settings.source === 1 &&
+        !ValidatorProvider.UserName(widgetReducer.settings.valueSource)
+      ) {
+        return;
+      }
+      window._timeout = new Date().getTime() + 4 * 60000;
+      getVideoFunc();
+    }
+  }, [widgetReducer.settings.valueSource]);
+
+  //Refresh Get Video when rise sequence number
+  useEffect(() => {
+    if (widgetReducer.settings.valueSource) {
+      if (
+        widgetReducer.settings.source === 1 &&
+        !ValidatorProvider.UserName(widgetReducer.settings.valueSource)
+      ) {
+        return;
+      }
+      window._timeout = new Date().getTime() + 4 * 60000;
+      getVideoFunc();
+    }
+  }, [widgetReducer.sequenceNumber]);
 
   useEffect(() => {
     return () => {
@@ -112,6 +145,7 @@ function LiveTemplate() {
       }
       type={widgetReducer.settings.layout || TemplateType.Slider}
       _queryData={queryData}
+      nonAppend
       imgHeight={400}
       flexDirection={
         (widgetReducer.mobile &&
@@ -126,7 +160,6 @@ function LiveTemplate() {
       }}
     ></Template>
   );
-  const templateContext = useContext(LayoutTemplateContext);
   return (
     <FormConfigurationWrapper>
       {!widgetReducer.mobile && widgetReducer.settings.header === "enable" && (

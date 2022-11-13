@@ -1,6 +1,7 @@
 import { Icon } from "@shopify/polaris";
 import { ProductsMinor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
+import { UriProvider } from "common/functions/FuncUtils";
 import { Container, ContainerSection } from "common/style/UtilStyles";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
@@ -53,7 +54,7 @@ function MyWidget() {
   const onUpdate = (item: any) => {
     onClickToCreateWidget();
     return navigate(
-      `/create-widget-step-2/${item.id}?shop=${shopReducer.shop.domain}&admin=1`
+      UriProvider.KeepParameters(`/create-widget-step-2/${item.id}`)
     );
   };
   const onDelete = async (item: any) => {
