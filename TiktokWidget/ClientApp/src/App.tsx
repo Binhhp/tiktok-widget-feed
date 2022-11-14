@@ -40,9 +40,6 @@ function App() {
             shopReponsitory.GetWidgetsCount(res.domain ?? "").then((val) => {
               dispatch(WidgetActionTS.OnSetWidgetCount(val));
             });
-            shopReponsitory.GetInstagramCount(res.domain ?? "").then((val) => {
-              dispatch(InstagramWidgetActionTS.OnSetWidgetCount(val));
-            });
           } else navigate("/not-found");
           setPending(false);
         })

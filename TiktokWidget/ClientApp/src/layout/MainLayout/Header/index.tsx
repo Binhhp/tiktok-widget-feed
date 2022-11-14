@@ -34,14 +34,18 @@ function Header() {
         widgetReducer.status === "FirstCreated" ||
         widgetReducer.count === 0
       ) {
-        return widgetReducer.step;
+        if (widgetReducer.step > 0) {
+          return widgetReducer.step;
+        }
       }
     } else if (window.location.pathname.includes("instagram-step")) {
       if (
         instagramWidgetReducer.status === "FirstCreated" ||
         instagramWidgetReducer.count === 0
       ) {
-        return instagramWidgetReducer.step;
+        if (widgetReducer.step > 0) {
+          return instagramWidgetReducer.step;
+        }
       }
     }
     return undefined;

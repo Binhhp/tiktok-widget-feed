@@ -24,13 +24,12 @@ function CreateWidget() {
 
   useEffect(() => {
     dispatch(WidgetActionTS.OnSetSetting(true));
-  }, []);
-
-  useEffect(() => {
     if (widgetReducer.count && widgetReducer.count > 0) {
       navigate(UriProvider.KeepParameters(`/create-widget-step-1`));
       dispatch(WidgetActionTS.OnStep(1));
-    } else dispatch(WidgetActionTS.OnStep(0));
+    } else {
+      dispatch(WidgetActionTS.OnStep(0));
+    }
   }, []);
 
   return (

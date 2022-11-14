@@ -51,6 +51,10 @@ function MyWidget() {
       productId: "",
     });
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
+  const widgetReducer = useSelector(
+    (state: RootReducer) => state.TiktokWidgetReducer
+  );
+
   const onUpdate = (item: any) => {
     onClickToCreateWidget();
     return navigate(
@@ -74,6 +78,9 @@ function MyWidget() {
     dispatch(ApplicationActionTS.OnHandleMenuItem("my-widget", true));
     dispatch(WidgetActionTS.OnStep(0));
     dispatch(WidgetActionTS.OnSetSetting(true));
+    if (widgetReducer.count === 0 && window.location.pathname === "/") {
+      navigate(UriProvider.KeepParameters("/create-widget"));
+    }
   }, []);
 
   const onReloadData = () => {
