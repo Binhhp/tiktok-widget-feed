@@ -22,7 +22,6 @@ function Dashboard() {
     },
     [dispatch]
   );
-  console.log({ dateRangeSate });
   return (
     <DashboardWrapper>
       <DashboardContainer>
