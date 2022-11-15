@@ -1,6 +1,5 @@
-import React from 'react';
-import MetricItem from './MetricItem';
-import { ChartRoot, MetricChartRoot, MetricRoot } from './style';
+import React from "react";
+import { ChartRoot, MetricChartRoot } from "./style";
 
 import {
   Chart as ChartJS,
@@ -10,123 +9,78 @@ import {
   Title,
   Tooltip,
   Legend,
+  PointElement,
   ChartData,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import { fetchDataAnalytics } from 'repositories/api';
-import useSWR from 'swr';
-import { useSelector } from 'react-redux';
-import { RootReducer } from 'stores/Admin/reducers';
-import {
-  IAnalytics,
-  IAnalyticsResponse,
-} from 'repositories/dtos/responses/IAnalytics';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import { fetchDataAnalytics } from "repositories/api";
+import useSWR from "swr";
+import { useSelector } from "react-redux";
+import { RootReducer } from "stores/Admin/reducers";
+import { afterDrawCustom, legendMargin, options } from "./AnalysticProvider";
+import MetricContainer from "./MetricContainer";
+import SniperLoading from "ui-components/Loading/SniperLoading";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  PointElement,
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 const MetricChart = () => {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
-  const shop = shopReducer?.shop?.domain || '';
+  const shop = shopReducer?.shop?.domain || "";
 
   const dateRangeSate = useSelector(
-    (state: RootReducer) => state.AppReducer.dateRange,
+    (state: RootReducer) => state.AppReducer.dateRange
   );
 
   const { data, error } = useSWR(
-    ['/Analytics', shop, dateRangeSate.startDate, dateRangeSate.startDate],
+    ["/Analytics", shop, dateRangeSate.startDate, dateRangeSate.startDate],
     () =>
       fetchDataAnalytics(shop, {
         StartTime: dateRangeSate.startDate,
         EndTime: dateRangeSate.endDate,
-      }),
+      })
   );
-  if (!data) {
-    return <div>loading...</div>;
-  }
+
+  const plugins = [legendMargin, afterDrawCustom];
+
   const { impression, analytics } = data || {};
-  const dataChart = {
-    labels:
-      impression &&
-      impression!.map((item) => {
-        const date = new Date(item!.time ?? '');
-        return `${date.getDate()}/${date.getMonth() + 1}`;
-      }),
-    datasets: [
-      {
-        label: 'Impression',
-        data: impression?.map((item) => item.impression),
-        backgroundColor: '#7CD4FD',
-        borderRadius: 10,
-      },
-      {
-        label: 'Clicks',
-        data: impression?.map((item) => item.clicks),
-        backgroundColor: 'blue',
-        borderRadius: 10,
-      },
-    ],
-  };
+  let dataChart: ChartData<"bar", (string | undefined)[] | undefined, string> =
+    {
+      labels:
+        impression &&
+        impression!.map((item) => {
+          const date = new Date(item!.time ?? "");
+          return `${date.getDate()}/${date.getMonth() + 1}`;
+        }),
+      datasets: [
+        {
+          label: "Impression",
+          data: impression?.map((item) => item.impression),
+          backgroundColor: "#7CD4FD",
+          borderRadius: 10,
+          barPercentage: 0.3,
+          categoryPercentage: 0.6,
+        },
+      ],
+    };
+
   return (
     <MetricChartRoot>
-      <MetricRoot>
-        <MetricItem
-          title='Impressions'
-          value={analytics?.impression?.value.toString() ?? '0'}
-          percent={analytics?.impression?.analysisIndicator}
-        />
-        <MetricItem
-          title='Clicks'
-          value={analytics?.clicks?.value.toString() ?? '0'}
-          percent={analytics?.clicks?.analysisIndicator}
-        />
-        <MetricItem
-          title='Conversion Rate'
-          value={`${
-            (analytics &&
-              (analytics!.conversationRate!.value * 100).toFixed(2)) ??
-            0
-          }%`}
-          percent={analytics?.conversationRate?.analysisIndicator}
-        />
-      </MetricRoot>
+      <MetricContainer analytics={analytics} />
       <ChartRoot>
-        <p className='title'>Widget Performance</p>
-        <Bar
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: 'top' as const,
-                align: 'end',
-                title: {
-                  color: '#667085',
-                },
-                labels: {
-                  padding: 4,
-                  boxHeight: 6,
-                  boxWidth: 6,
-                  boxPadding: 6,
-                  usePointStyle: true,
-                  font: {
-                    family: 'SF Pro Display',
-                    size: 14,
-                  },
-                },
-              },
-              title: {
-                display: true,
-              },
-            },
-          }}
-          data={dataChart}
-        />
+        <p className="orichi-chart-title">Widget Performance</p>
+        {impression ? (
+          <Bar options={options} data={dataChart} plugins={plugins} />
+        ) : (
+          <SniperLoading />
+        )}
       </ChartRoot>
     </MetricChartRoot>
   );

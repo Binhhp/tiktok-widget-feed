@@ -1,28 +1,28 @@
-import React from 'react';
-import { MostPostRoot } from './style';
-import MostPostItemComponent from './MostPostItem';
-import { getPosts } from 'repositories/api';
-import useSWR from 'swr';
-import { useSelector } from 'react-redux';
-import { RootReducer } from 'stores/Admin/reducers';
+import React from "react";
+import { MostPostRoot } from "./style";
+import MostPostItemComponent from "./MostPostItem";
+import { getPosts } from "repositories/api";
+import useSWR from "swr";
+import { useSelector } from "react-redux";
+import { RootReducer } from "stores/Admin/reducers";
 
 const MostPost = () => {
   const dateRangeSate = useSelector(
-    (state: RootReducer) => state.AppReducer.dateRange,
+    (state: RootReducer) => state.AppReducer.dateRange
   );
 
-  const { data } = useSWR(['/odata/Posts', dateRangeSate], () =>
-    getPosts(dateRangeSate.startDate, dateRangeSate.endDate),
+  const { data } = useSWR(["/odata/Posts", dateRangeSate], () =>
+    getPosts(dateRangeSate.startDate, dateRangeSate.endDate)
   );
 
   const posts = data?.value;
-  if (posts?.length === 0) {
-    return null;
+  if (!posts || posts?.length === 0) {
+    return <></>;
   }
   return (
     <MostPostRoot>
-      <h4 className='orichi-post-title'>Most Popular Posts</h4>
-      <div className='orichi-post-list'>
+      <h4 className="orichi-post-title">Most Popular Posts</h4>
+      <div className="orichi-post-list">
         {posts?.map((item) => (
           <MostPostItemComponent
             img={item.image}

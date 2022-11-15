@@ -12,7 +12,14 @@ export const ChartRoot = styled("div", "", "orichi-chart")`
   border-radius: 8px;
   padding: 24px;
   margin-top: 28px;
-
+  min-height: 400px;
+  position: relative;
+  .orichi-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .orichi-chart-title {
     font-weight: 500;
     font-size: 16px;
