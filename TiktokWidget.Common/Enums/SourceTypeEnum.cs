@@ -4,6 +4,8 @@
     {
         HashTag,
         UserName,
-        Product
+        Product,
+        InstagramHashTag,
+        InstagramUserName
     }
 }

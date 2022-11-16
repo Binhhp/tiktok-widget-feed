@@ -13,6 +13,18 @@ export class InstagramWidgetActionTS {
     };
   }
 
+  public static SetWorkingSearch(isSearching: boolean): InstagramWidgetType {
+    return {
+      type: InstagramWidgetActEnum.SEARCHING,
+      payload: isSearching,
+    };
+  }
+
+  public static RiseSequenceNumber(): InstagramWidgetType {
+    return {
+      type: InstagramWidgetActEnum.RISE_SEQUENCENUMBER,
+    };
+  }
   public static OnChangStatus(
     status: InstagramWidgetStatus = "Undefined"
   ): InstagramWidgetType {

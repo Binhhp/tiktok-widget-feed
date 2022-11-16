@@ -44,6 +44,7 @@ function VideoPlayer(props: IVideoProps) {
         <DivContent>
           <DivVideoPlay>
             <ImgPoster
+              crossorigin="anonymous"
               height="100%"
               loading="lazy"
               src={props.image}

@@ -5,4 +5,6 @@ export enum InstagramWidgetActEnum {
   GET_TAG_PRODUCTS = "@instagram/TAG_PRODUCTS",
   COUNT = "@instagram/COUNT",
   CHANGE_STATUS = "@instagram/CHANGE_STATUS",
+  RISE_SEQUENCENUMBER = "@instagram/RISE_SEQUENCENUMBER",
+  SEARCHING = "@instagram/SEARCHING",
 }

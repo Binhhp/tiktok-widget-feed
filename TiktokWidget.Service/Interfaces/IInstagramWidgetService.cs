@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.ViewModels;
 
@@ -23,5 +24,6 @@ namespace TiktokWidget.Service.Interfaces
         int GetCounts(string domain);
         IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request);
         IQueryable<InstagramViewModel> GetVideos(string widgetId);
+        Task<AddJobResponse> AddJob(AddJobRequest request);
     }
 }

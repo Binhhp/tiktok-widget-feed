@@ -1,4 +1,5 @@
 import { UriProvider } from "common/functions/FuncUtils";
+import InstagramLayoutContextProvider from "Dependencies/InstagramLayout/InstagramLayoutContext";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -27,17 +28,19 @@ function Step2() {
   }, []);
 
   return (
-    <InstagramCreateHOC>
-      {widgetReducer.step === 2 && (
-        <FlexboxDiv>
-          <TemplateSelect></TemplateSelect>
-          <FormLayoutContainer>
-            <LiveTemplates></LiveTemplates>
-            <FormConfigs></FormConfigs>
-          </FormLayoutContainer>
-        </FlexboxDiv>
-      )}
-    </InstagramCreateHOC>
+    <InstagramLayoutContextProvider>
+      <InstagramCreateHOC>
+        {widgetReducer.step === 2 && (
+          <FlexboxDiv>
+            <TemplateSelect></TemplateSelect>
+            <FormLayoutContainer>
+              <LiveTemplates></LiveTemplates>
+              <FormConfigs></FormConfigs>
+            </FormLayoutContainer>
+          </FlexboxDiv>
+        )}
+      </InstagramCreateHOC>
+    </InstagramLayoutContextProvider>
   );
 }
 

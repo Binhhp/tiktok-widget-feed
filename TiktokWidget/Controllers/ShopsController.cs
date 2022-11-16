@@ -156,6 +156,14 @@ namespace TiktokWidget.Controllers
         }
 
         [HttpPost]
+        [ODataRoute("Shops({domain})/AddJobInstagram")]
+        public async Task<IActionResult> AddJobInstagram([FromODataUri] string domain, [FromBody] AddJobRequest request)
+        {
+            var response = await _unitOfWork.Instagram.AddJob(request);
+            return Ok(response);
+        }
+
+        [HttpPost]
         [ODataRoute("Shops({domain})/Analytics")]
         public async Task<IActionResult> AnalyzeWidgets([FromODataUri] string domain, [FromBody] AnalyzeWidgetRequest request)
         {

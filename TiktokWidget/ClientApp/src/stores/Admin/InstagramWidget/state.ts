@@ -72,12 +72,16 @@ export class InstagramWidgetStoreModelDto {
   products: BaseProduct[] | undefined;
   count: number | undefined;
   status: InstagramWidgetStatus;
+  sequenceNumber: number;
+  workingSearch: boolean;
   constructor() {
     this.step = 1;
     this.mobile = false;
     this.products = [];
     this.count = undefined;
     this.status = "Undefined";
+    this.sequenceNumber = 0;
+    this.workingSearch = false;
     this.settings = {
       id: "",
       title: "",
@@ -109,12 +113,16 @@ export class InstagramWidgetStoreModel
   protected _settings: IInstagramWidget;
   protected _count: number | undefined;
   protected _status: InstagramWidgetStatus;
+  protected _sequenceNumber: number;
+  protected _workingSearch: boolean;
   constructor(_dto?: InstagramWidgetStoreModelDto) {
     this._step = _dto?.step || 1;
     this._mobile = _dto?.mobile || false;
     this._products = _dto?.products || [];
     this._count = _dto?.count ?? 0;
     this._status = _dto?.status ?? "Undefined";
+    this._workingSearch = _dto?.workingSearch ?? false;
+    this._sequenceNumber = _dto?.sequenceNumber ?? 0;
     this._settings = _dto?.settings || {
       id: "",
       title: "",
@@ -135,6 +143,22 @@ export class InstagramWidgetStoreModel
       products: [],
     };
   }
+  public get workingSearch(): boolean {
+    return this._workingSearch;
+  }
+
+  public set workingSearch(v: boolean) {
+    this._workingSearch = v;
+  }
+
+  public get sequenceNumber(): number {
+    return this._sequenceNumber;
+  }
+
+  public set sequenceNumber(v: number) {
+    this._sequenceNumber = v;
+  }
+
   public get status(): InstagramWidgetStatus {
     return this._status;
   }
@@ -195,6 +219,8 @@ export class InstagramWidgetStoreModel
       products: this._products,
       count: this._count,
       status: this._status,
+      sequenceNumber: this._sequenceNumber,
+      workingSearch: this._workingSearch,
     };
   }
 }

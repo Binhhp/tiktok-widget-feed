@@ -97,6 +97,21 @@ const OnChangeStatus = (
   return copyState;
 };
 
+const RiseSequenceNumber = (state: InstagramWidgetStoreModel) => {
+  let copyState = state.Clone();
+  copyState.sequenceNumber += 1;
+  return copyState;
+};
+
+const SearchingVideos = (
+  state: InstagramWidgetStoreModel,
+  payload: boolean
+) => {
+  let copyState = state.Clone();
+  copyState.workingSearch = payload;
+  return copyState;
+};
+
 const InstagramWidgetReducer = (
   state: InstagramWidgetStoreModel = new InstagramWidgetStoreModel(),
   action: InstagramWidgetType
@@ -114,6 +129,10 @@ const InstagramWidgetReducer = (
       return OnSetCount(state, action.payload);
     case InstagramWidgetActEnum.CHANGE_STATUS:
       return OnChangeStatus(state, action.payload);
+    case InstagramWidgetActEnum.RISE_SEQUENCENUMBER:
+      return RiseSequenceNumber(state);
+    case InstagramWidgetActEnum.SEARCHING:
+      return SearchingVideos(state, action.payload);
     default:
       return state;
   }

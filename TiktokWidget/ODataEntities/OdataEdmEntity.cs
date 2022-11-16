@@ -45,6 +45,7 @@ namespace TiktokWidget.ODataEntities
             "RegisterTikTokWidget",
             "RegisterInstagramWidget",
             "AddJob",
+            "AddJobInstagram",
             "GetWidgetCounts",
             "GetInstagramWidgetCounts",
             "GetThemes",

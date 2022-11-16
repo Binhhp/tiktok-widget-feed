@@ -13,12 +13,14 @@ export interface IInstagramLayoutView {
   showLoadInfinite?: boolean;
   showPageFirst?: boolean;
   defaultLoadingButton?: boolean;
+  nonAppend?: boolean;
   _queryData: (
     pageIndex: number,
     showItems?: number
   ) => Promise<IInstagramTemplateModel>;
-  onClickItem: (item: IInstagramDto) => () => void;
+  onClickItem?: (item: IInstagramDto) => () => void;
   onLoadmore?: () => void;
+  customEmpty?: any;
 }
 
 export interface IStyleInstagram {
@@ -77,29 +79,30 @@ export interface IInstagramTemplateModel {
 }
 
 export interface IInstagramDto {
+  dimensionWidth: number;
+  dimensionHeight: number;
+  likeCount: number;
+  commentCount: number;
   id: string;
-  desc: string; // Show title of video
-  createTime: string; // Show time created
-  author: string; // Show user name
-  officalItem: boolean; // Show offical user
-  stats?: IStats;
-  images: string[];
-  video?: string;
+  type: string;
+  locationId: string;
+  locationName: string;
+  locationSlug: string;
+  thumbnailUrl?: string;
+  videoUrl?: string;
+  imageUrl?: string;
+  imageUrlArr?: string[];
+  description: string;
+  shortCode: string;
+  takenAt: number;
+  user?: IUserInformation;
+  hashTag?: string[];
 }
-
-export interface IStats {
-  diggCount?: number; // Show likes
-  shareCount?: number;
-  commentCount?: number; // Show number of comments
-  playCount?: number;
-}
-
 export interface IUserInformation {
-  followerCount?: number;
-  followingCount?: number;
-  avatarThumb?: string;
-  diggCount?: number;
-  author?: string;
+  id?: string;
+  name?: string;
+  picture?: string;
+  isPrivate?: boolean;
 }
 
 export interface IItemActive {

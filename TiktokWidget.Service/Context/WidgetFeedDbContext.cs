@@ -46,8 +46,8 @@ namespace TiktokWidget.Service.Context
             job.Property(g => g.Type).HasMaxLength(50);
             job.Property(g => g.Type)
                 .HasConversion(
-                v => v == SourceTypeEnum.HashTag ? "hashtag" : v == SourceTypeEnum.Product ? "product" : "username",
-                v => v == "hashtag" ? SourceTypeEnum.HashTag : v == "product" ? SourceTypeEnum.Product : SourceTypeEnum.UserName);
+                v => ConvertSource(v),
+                v => ConvertSourceToEnum(v));
 
             //Config Product
             modelBuilder.Entity<ProductEntity>().ToTable("Product").HasKey(x => new { x.Id, x.ShopId });
@@ -78,8 +78,8 @@ namespace TiktokWidget.Service.Context
             instagramWidget.Property(g => g.SourceType).HasMaxLength(50);
             instagramWidget.Property(g => g.SourceType)
                 .HasConversion(
-                v => v == SourceTypeEnum.HashTag ? "hashtag" : "username",
-                v => v == "hashtag" ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName);
+                v => ConvertSource(v),
+                v => ConvertSourceToEnum(v));
             instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
 
@@ -101,6 +101,30 @@ namespace TiktokWidget.Service.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+        }
+
+        private string ConvertSource(SourceTypeEnum sourceType)
+        {
+            switch (sourceType)
+            {
+                case SourceTypeEnum.HashTag: return "hashtag";
+                case SourceTypeEnum.UserName: return "username";
+                case SourceTypeEnum.InstagramHashTag: return "insta-hashtag";
+                case SourceTypeEnum.InstagramUserName: return "insta-username";
+            }
+            return "product";
+        }
+
+        private SourceTypeEnum ConvertSourceToEnum(string sourceType)
+        {
+            switch (sourceType)
+            {
+                case "hashtag": return SourceTypeEnum.HashTag;
+                case "username": return SourceTypeEnum.UserName;
+                case "insta-hashtag": return SourceTypeEnum.InstagramHashTag;
+                case "insta-username": return SourceTypeEnum.InstagramUserName;
+            }
+            return SourceTypeEnum.Product;
         }
     }
 }

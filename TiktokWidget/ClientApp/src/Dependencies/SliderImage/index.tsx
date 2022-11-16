@@ -6,11 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 interface SliderImageProps {
-  images: string[];
+  images?: string[];
   desc: string;
 }
 function SliderImage(props: SliderImageProps) {
-  return (
+  return props.images ? (
     <SliderImageWrapper>
       <Swiper
         observer={true}
@@ -26,7 +26,7 @@ function SliderImage(props: SliderImageProps) {
         slidePrevClass="orichi-slider-player-prev"
         className="orichi-slider-slider"
       >
-        {props.images.map((item, index) => (
+        {props.images?.map((item, index) => (
           <SwiperSlide key={`image-${index}`}>
             <img
               loading="lazy"
@@ -38,6 +38,8 @@ function SliderImage(props: SliderImageProps) {
         ))}
       </Swiper>
     </SliderImageWrapper>
+  ) : (
+    <></>
   );
 }
 

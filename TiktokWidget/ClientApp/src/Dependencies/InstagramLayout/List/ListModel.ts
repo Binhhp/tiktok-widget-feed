@@ -5,7 +5,7 @@ export interface ListProps {
   autoplay?: number;
   option: InstagramOption;
   loading?: boolean;
-  onClick: (item: IInstagramDto) => () => void;
+  onClick?: (item: IInstagramDto) => () => void;
   onLoadmore: () => void;
   showLoadInfinite?: boolean;
   showPageFirst?: boolean;

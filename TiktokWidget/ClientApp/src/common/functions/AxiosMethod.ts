@@ -6,6 +6,9 @@ import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 
 const instance = axios.create({
   baseURL: config.apiUrl,
+  headers: {
+    "cross-origin-resource-policy": "cross-origin",
+  },
 });
 
 const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {

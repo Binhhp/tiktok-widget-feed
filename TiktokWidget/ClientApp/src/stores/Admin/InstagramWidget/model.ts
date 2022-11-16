@@ -32,10 +32,20 @@ export interface IChangeStatus {
   payload: InstagramWidgetStatus;
 }
 
+export interface RiseSequenceNumber {
+  type: typeof InstagramWidgetActEnum.RISE_SEQUENCENUMBER;
+}
+
+export interface SearchingVideos {
+  type: typeof InstagramWidgetActEnum.SEARCHING;
+  payload: boolean;
+}
 export type InstagramWidgetType =
   | IOnStep
   | IOnSetting
   | IOnHandleMobile
   | IGetTagProducts
   | ISetWidgetCount
-  | IChangeStatus;
+  | IChangeStatus
+  | RiseSequenceNumber
+  | SearchingVideos;

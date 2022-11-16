@@ -25,12 +25,11 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
       templateContext.state.pageIndex,
       props.option.numberPerRow * 2
     );
-    if (res?.data.length > 0) {
-      templateContext.OnSetItems({
-        count: res.count,
-        items: res.data,
-      });
-    }
+    templateContext.OnAppendItems({
+      count: res.count,
+      items: res.data,
+      nonAppend: props.nonAppend,
+    });
     setLoading(false);
     setLoadingButton(false);
   };
@@ -57,22 +56,26 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
           <DivTitleContent>{props.option.title}</DivTitleContent>
         </DivTitle>
       )}
-      {props.option.type === TemplateInstagramType.Slider ? (
-        <SliderInstagram
-          items={templateContext.state.items}
-          onClick={props.onClickItem}
-          option={props.option}
-        />
+      {templateContext.state.items?.length > 0 ? (
+        props.option.type === TemplateInstagramType.Slider ? (
+          <SliderInstagram
+            items={templateContext.state.items}
+            onClick={props.onClickItem}
+            option={props.option}
+          />
+        ) : (
+          <ListInstagram
+            loading={loadingButton}
+            items={templateContext.state.items}
+            onClick={props.onClickItem}
+            option={props.option}
+            onLoadmore={fetchData}
+            showLoadInfinite={props.showLoadInfinite}
+            showPageFirst={props.showPageFirst}
+          />
+        )
       ) : (
-        <ListInstagram
-          loading={loadingButton}
-          items={templateContext.state.items}
-          onClick={props.onClickItem}
-          option={props.option}
-          onLoadmore={fetchData}
-          showLoadInfinite={props.showLoadInfinite}
-          showPageFirst={props.showPageFirst}
-        />
+        props.customEmpty
       )}
     </InstagramLayoutContainer>
   );

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Orichi.IoC.Logging;
 using Orichi.IoC.Logging.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TiktokWidget.Service.BusinessExceptions;
@@ -11,6 +14,7 @@ using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
+using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 using TiktokWidget.Service.ViewModels;
@@ -197,16 +201,15 @@ namespace TiktokWidget.Service.Implements
 
         public IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request)
         {
-            //var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
-            //string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
-            //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
-            //var JSON = File.ReadAllText(pathFile);
-            //if (!string.IsNullOrEmpty(JSON))
-            //{
-            //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
-            //}
-            //return response;
-            return InstagramVideoSeedData.Seed();
+            var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
+            string type = request.Type == Common.Enums.SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
+            var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
+            var JSON = File.ReadAllText(pathFile);
+            if (!string.IsNullOrEmpty(JSON))
+            {
+                response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+            }
+            return response;
         }
         public IQueryable<InstagramViewModel> GetVideos(string widgetId)
         {
@@ -216,21 +219,37 @@ namespace TiktokWidget.Service.Implements
                 var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
                 if (widget != null)
                 {
-                    response = InstagramVideoSeedData.Seed().Take(widget.Setting.LimitItems);
+                    string type = widget.SourceType == Common.Enums.SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
+                    var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+                    var JSON = File.ReadAllText(pathFile);
+                    if (!string.IsNullOrEmpty(JSON))
+                    {
+                        response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+                    }
                 }
-                //var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
-                //var JSON = File.ReadAllText(pathFile);
-                //if (!string.IsNullOrEmpty(JSON))
-                //{
-                //    response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
-                //}
-                //return response;
             }
             catch(Exception ex)
             {
                 _logger.LogInfo(ex);
             }
             return response;
+        }
+
+        public async Task<AddJobResponse> AddJob(AddJobRequest request)
+        {
+            var jobExisted = _widgetDbContext.Job.FirstOrDefault(x => x.Data == request.Data && x.Type == request.Type);
+            if(jobExisted == null)
+            {
+                var job = new JobEntity
+                {
+                    Data = request.Data,
+                    Type = request.Type
+                };
+
+                await _widgetDbContext.Job.AddAsync(job);
+                await _widgetDbContext.SaveChangesAsync();
+            }
+            return new AddJobResponse();
         }
     }
 }

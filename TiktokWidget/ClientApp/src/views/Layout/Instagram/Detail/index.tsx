@@ -31,44 +31,47 @@ function Detail(props: IDetailProps) {
         <div className="orichi-instagram-user">
           <DivUserName>
             {props.widget.setting.showNetworkIcon && <IconInstagram />}
-            <h2>{props.item.author}</h2>
+            <h2>{props.item?.user?.name}</h2>
             <DivDot color={props.widget.setting.itemColor}></DivDot>
             <a href="https://www.instagram.com/">Follow</a>
           </DivUserName>
         </div>
         <DivContent>
-          {props.item.video ? (
+          {props.item.videoUrl ? (
             <VideoPlayer
               muted
-              image={props.item.images[0]}
-              playSrc={props.item.video ?? ""}
+              image={props.item?.imageUrl ?? ""}
+              playSrc={props.item.videoUrl ?? ""}
             />
           ) : (
-            <SliderImage desc={props.item.desc} images={props.item.images} />
+            <SliderImage
+              desc={props.item.description}
+              images={props.item?.imageUrlArr}
+            />
           )}
         </DivContent>
         <DivDesc>
           <div className="orichi-instagram-item username">
             <DivUserName>
               {props.widget.setting.showNetworkIcon && <IconInstagram />}
-              <h2>{props.item.author}</h2>
+              <h2>{props.item.user?.name}</h2>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
               <a
-                href={`https://www.instagram.com/${props.item.author}`}
+                href={`https://www.instagram.com/${props.item?.user?.name}`}
                 target="_blank"
                 rel="noreferrer"
               >
                 Follow
               </a>
             </DivUserName>
-            <p className="orichi-instagram-desc">{props.item.desc}</p>
+            <p className="orichi-instagram-desc">{props.item.description}</p>
           </div>
           <div className="orichi-instagram-item">
             <ShopTagProduct product={props.widget.products[0]} />
             <DivTimezone>
               <DivTimezoneContent color={props.widget.setting.itemColor}>
                 <h2>
-                  {new Date(props.item.createTime).toLocaleDateString("en-US", {
+                  {new Date(props.item.takenAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",

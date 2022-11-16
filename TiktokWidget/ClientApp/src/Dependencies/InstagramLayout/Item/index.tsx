@@ -18,9 +18,9 @@ function Item(props: IItemProps) {
   return (
     <ItemWrapper width={props.width}>
       <ItemIcon>
-        {props.item.video ? (
+        {props.item.videoUrl ? (
           <IconMedia />
-        ) : props.item.images.length > 1 ? (
+        ) : props.item.imageUrlArr ? (
           <IconGalarey />
         ) : (
           <></>
@@ -28,9 +28,10 @@ function Item(props: IItemProps) {
       </ItemIcon>
       <DivItemOrginal>
         <DivItemImage
+          crossorigin="anonymous"
           loading="lazy"
-          src={props.item.images[0]}
-          alt={props.item.desc}
+          src={props.item.thumbnailUrl}
+          alt={props.item.description}
         />
       </DivItemOrginal>
       <DivItemContent
@@ -42,19 +43,19 @@ function Item(props: IItemProps) {
             <DivItemIcon>
               <IconHeart color={props.option.itemColor} />
             </DivItemIcon>
-            <span>{NumberFormatter.Format(props.item.stats?.diggCount)}</span>
+            <span>{NumberFormatter.Format(props.item.likeCount)}</span>
           </DivItemContentContractItem>
           <DivItemContentContractItem color={props.option.itemColor}>
             <DivItemIcon>
               <IconComment color={props.option.itemColor} />
             </DivItemIcon>
-            <span>
-              {NumberFormatter.Format(props.item.stats?.commentCount)}
-            </span>
+            <span>{NumberFormatter.Format(props.item.commentCount)}</span>
           </DivItemContentContractItem>
         </DivItemContentContract>
         <DivItemDesc color={props.option.itemColor}>
-          <p className="orichi-instagram-desc">{props.item.desc?.trimEnd()}</p>
+          <p className="orichi-instagram-desc">
+            {props.item.description?.trimEnd()}
+          </p>
           <span className="orichi-instagram-readmore">
             ...&nbsp;{props.option.labelReadMore ?? "read more"}
           </span>

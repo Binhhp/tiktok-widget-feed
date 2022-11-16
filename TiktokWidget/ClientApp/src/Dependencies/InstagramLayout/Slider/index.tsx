@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { SliderProps } from "./SliderModel";
 import { DivSliderWrapper } from "./SliderStyle";
 //Swiper

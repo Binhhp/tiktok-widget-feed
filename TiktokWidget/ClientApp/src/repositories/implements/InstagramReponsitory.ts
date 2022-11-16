@@ -7,6 +7,7 @@ import {
   IInstagramDto,
   IInstagramTemplateModel,
 } from "Dependencies/InstagramLayout/InstagramLayoutModel";
+import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
@@ -16,6 +17,15 @@ import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import { IInstagramReponsitory } from "./../interfaces/IInstagramReponsitory";
 
 export class InstagramReponsitory implements IInstagramReponsitory {
+  AddJob = async (domain?: string, req?: AddJobRequest) => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/shops('${domain}')/AddJobInstagram`,
+      body: req,
+    });
+    return response;
+  };
+
   PostFeedback = async (domain: string, req: PostFeedbackRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
