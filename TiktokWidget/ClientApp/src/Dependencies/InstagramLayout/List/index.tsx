@@ -14,7 +14,7 @@ function ListInstagram(props: ListProps) {
     ? props.items.slice(0, props.option.numberPerRow * 2)
     : props.items;
 
-  return props.option.labelLoadmore ? (
+  const RenderList = (
     <ListWrapper>
       <DivLayoutFlexbox>
         {items.map((item) => (
@@ -28,7 +28,8 @@ function ListInstagram(props: ListProps) {
         ))}
       </DivLayoutFlexbox>
       <DivLoadmore>
-        {props.items.length < templateContext.state.count && (
+        {(props.items.length < templateContext.state.count ||
+          props.showPageFirst) && (
           <LoadingInfinite
             customButton={
               <ButtonLoadmore
@@ -38,6 +39,7 @@ function ListInstagram(props: ListProps) {
                 {props.option.labelLoadmore}
               </ButtonLoadmore>
             }
+            onClickViewMore={props.onLoadmore}
             loading={props.loading}
             viewMore={props.option.labelLoadmore}
             color={props.option.loadMoreBackground}
@@ -45,7 +47,9 @@ function ListInstagram(props: ListProps) {
         )}
       </DivLoadmore>
     </ListWrapper>
-  ) : (
+  );
+
+  const RenderListInfinite = (
     <InfiniteScroll
       dataLength={templateContext.state.items.length}
       hasMore={
@@ -75,6 +79,7 @@ function ListInstagram(props: ListProps) {
       </ListWrapper>
     </InfiniteScroll>
   );
+  return props.option.labelLoadmore ? RenderList : RenderListInfinite;
 }
 
 export default React.memo(ListInstagram);

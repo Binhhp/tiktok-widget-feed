@@ -116,9 +116,9 @@ function LiveTemplates() {
           _queryData={queryData}
           customLoader={<CircleLoading />}
           notLoadmore
+          nonAppend
           showLoadInfinite
           showPageFirst
-          nonAppend
         ></InstagramLayout>
       ) : (
         <CircleLoading />

@@ -47,7 +47,11 @@ function VideoPlayer(props: IVideoProps) {
               crossorigin="anonymous"
               height="100%"
               loading="lazy"
-              src={props.image}
+              src={
+                props.corsProxy
+                  ? `${props.corsProxy}${props.image}`
+                  : props.image
+              }
               alt={props.image}
             ></ImgPoster>
             <DivLoader>
@@ -69,7 +73,11 @@ function VideoPlayer(props: IVideoProps) {
                 onPause={onPause}
                 onPlay={onPlaying}
                 muted={props.muted}
-                url={props.playSrc}
+                url={
+                  props.corsProxy
+                    ? `${props.corsProxy}${props.playSrc}`
+                    : props.playSrc
+                }
                 playing={status === "Playing"}
                 stopOnUnmount={true}
                 loop={true}

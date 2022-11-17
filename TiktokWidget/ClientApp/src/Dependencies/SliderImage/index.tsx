@@ -8,6 +8,7 @@ SwiperCore.use([Autoplay, Navigation, Pagination]);
 interface SliderImageProps {
   images?: string[];
   desc: string;
+  corsProxy?: string;
 }
 function SliderImage(props: SliderImageProps) {
   return props.images ? (
@@ -31,7 +32,7 @@ function SliderImage(props: SliderImageProps) {
             <img
               loading="lazy"
               className="orichi-slider-img"
-              src={item}
+              src={props.corsProxy ? `${props.corsProxy}${item}` : item}
               alt={props.desc}
             />
           </SwiperSlide>

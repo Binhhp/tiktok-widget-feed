@@ -16,6 +16,7 @@ import {
   DivUserName,
 } from "./DetailStyle";
 import VideoPlayer from "Dependencies/VideoPlayer";
+import config from "config";
 
 interface IDetailProps {
   item: IInstagramDto;
@@ -33,7 +34,13 @@ function Detail(props: IDetailProps) {
             {props.widget.setting.showNetworkIcon && <IconInstagram />}
             <h2>{props.item?.user?.name}</h2>
             <DivDot color={props.widget.setting.itemColor}></DivDot>
-            <a href="https://www.instagram.com/">Follow</a>
+            <a
+              href={`https://www.instagram.com/${props.item?.user?.name}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Follow
+            </a>
           </DivUserName>
         </div>
         <DivContent>
@@ -42,11 +49,13 @@ function Detail(props: IDetailProps) {
               muted
               image={props.item?.imageUrl ?? ""}
               playSrc={props.item.videoUrl ?? ""}
+              corsProxy={config.CORS_PROXY}
             />
           ) : (
             <SliderImage
               desc={props.item.description}
               images={props.item?.imageUrlArr}
+              corsProxy={config.CORS_PROXY}
             />
           )}
         </DivContent>

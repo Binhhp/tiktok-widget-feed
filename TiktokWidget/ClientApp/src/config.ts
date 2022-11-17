@@ -17,6 +17,7 @@ const config = {
   showUseSection: false,
   urlInstallTikTok:
     "https://apps.shopify.com/tikify-tiktok-button#modal-show=ReviewListingModal",
+  CORS_PROXY: "https://api.codetabs.com/v1/proxy?quest=",
 };
 
 export default config;
