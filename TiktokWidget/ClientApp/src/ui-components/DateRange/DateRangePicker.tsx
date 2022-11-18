@@ -1,9 +1,16 @@
-import { Select } from '@shopify/polaris';
+import { Select, TextField } from '@shopify/polaris';
+
 import React from 'react';
 import { useState, useCallback } from 'react';
-import { Button, Modal, TextContainer, DatePicker } from '@shopify/polaris';
+import {
+  Popover,
+  ActionList,
+  TextContainer,
+  DatePicker,
+  Button,
+} from '@shopify/polaris';
 
-import { DateRangeRoot, PopoverContent } from './DateRange';
+import { DateRangeRoot, InputDate, PopoverContent } from './DateRange';
 import { DateRangeType } from 'stores/Admin/Application/state';
 export type DateRangeProps = {
   label?: React.ReactNode;
@@ -30,7 +37,7 @@ export function dateDiffDays(date1: Date, date2: Date): number {
   return Difference_In_Time / (1000 * 3600 * 24);
 }
 
-const DateRange: React.FC<DateRangeProps> = ({
+const DateRangePicker: React.FC<DateRangeProps> = ({
   label,
   valueDefault,
   onChangeDateRange,
@@ -123,46 +130,56 @@ const DateRange: React.FC<DateRangeProps> = ({
     });
     handleChangeActiveModal();
   };
+  const [popoverActive, setPopoverActive] = useState(true);
+
+  const togglePopoverActive = useCallback(
+    () => setPopoverActive((popoverActive) => !popoverActive),
+    [],
+  );
+  const activator = (
+    <div onClick={togglePopoverActive}>
+      123
+      <select className='Polaris-Select__Input' value={'123123'} />
+    </div>
+  );
+
   return (
     <DateRangeRoot>
-      <Select
-        label={label}
-        options={options}
-        onChange={handleSelectChange}
-        value={selected.toString()}
-      />
-
-      <div style={{ height: '500px' }}>
-        <Modal
-          open={activeDateRange}
-          onClose={handleChangeActiveModal}
-          title='Date picker'
-          primaryAction={{
-            content: 'OK',
-            onAction: handleOkeDatePicker,
-          }}
-          secondaryActions={[
-            {
-              content: 'Cancel',
-              onAction: handleChangeActiveModal,
-            },
-          ]}>
-          <Modal.Section>
-            <PopoverContent>
-              <DatePicker
-                month={month}
-                year={year}
-                onChange={setSelectedDates}
-                onMonthChange={handleMonthChange}
-                selected={selectedDates}
-                allowRange
-              />
-            </PopoverContent>
-          </Modal.Section>
-        </Modal>
-      </div>
+      <Popover
+        active={popoverActive}
+        activator={activator}
+        autofocusTarget='first-node'
+        onClose={togglePopoverActive}>
+        <Popover.Pane fixed>
+          <Popover.Section>
+            <p>Available sales channels</p>
+          </Popover.Section>
+        </Popover.Pane>
+        <Popover.Pane>
+          <PopoverContent>
+            <Select
+              label={label}
+              options={options}
+              onChange={handleSelectChange}
+              value={selected.toString()}
+            />
+            <TextField
+              label='Starting'
+              // value={value}
+              // onChange={handleChange}
+              autoComplete='off'
+            />
+            <TextField
+              label='Ending'
+              // value={value}
+              // onChange={handleChange}
+              autoComplete='off'
+            />
+          </PopoverContent>
+        </Popover.Pane>
+      </Popover>
     </DateRangeRoot>
   );
 };
 
-export default DateRange;
+export default DateRangePicker;
