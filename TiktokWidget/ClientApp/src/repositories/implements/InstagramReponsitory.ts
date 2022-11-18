@@ -128,7 +128,8 @@ export class InstagramReponsitory implements IInstagramReponsitory {
       return DataTableFunc.BuildPaging<IInstagramDto>(
         `${RootURL.ApiBase}/odata/InstagramVideos('${key}')`,
         pageIndex,
-        showItems ? showItems : config.showItems
+        showItems ? showItems : config.showItems,
+        "user"
       );
     } catch {
       return Promise.resolve({

@@ -1,3 +1,4 @@
+import breakpoints from "Dependencies/Devices/breakpoint";
 import styled from "Dependencies/StyledComponents/Container";
 
 export const SliderImageWrapper = styled("div", "", "orichi-slider")`
@@ -19,9 +20,16 @@ export const SliderImageWrapper = styled("div", "", "orichi-slider")`
   .orichi-slider-img {
     width: 100%;
     height: 100%;
+    min-height: 80vh;
     object-fit: contain;
     display: block;
     cursor: pointer;
+  }
+
+  @media only screen and (${breakpoints.device.lg}) {
+    .orichi-slider-img {
+      min-height: auto;
+    }
   }
   .swiper-button-next {
     background-color: #ffffff86;

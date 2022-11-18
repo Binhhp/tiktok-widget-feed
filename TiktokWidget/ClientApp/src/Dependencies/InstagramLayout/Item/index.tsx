@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IItemProps } from "./ItemModel";
 import {
   DivItemContent,
@@ -13,7 +13,6 @@ import {
 } from "./ItemStyle";
 import { NumberFormatter } from "common/functions/NumberFormatter";
 import { IconComment, IconGalarey, IconHeart, IconMedia } from "../Icons";
-import config from "config";
 
 function Item(props: IItemProps) {
   return (
@@ -31,7 +30,11 @@ function Item(props: IItemProps) {
         <DivItemImage
           cross-origin="anonymous"
           loading="lazy"
-          src={`${config.CORS_PROXY}${props.item.thumbnailUrl}`}
+          src={
+            props.item.thumbnailUrl?.startsWith("http")
+              ? props.item.thumbnailUrl
+              : `data:image/png;base64,${props.item.thumbnailUrl}`
+          }
           alt={props.item.description}
         />
       </DivItemOrginal>

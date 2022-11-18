@@ -47,7 +47,7 @@ function LiveTemplates() {
             widgetReducer.settings.valueSource,
             widgetReducer.settings.source
           ),
-          100
+          widgetReducer.settings.limitItems
         );
 
         if (res?.count !== undefined) {
@@ -69,7 +69,7 @@ function LiveTemplates() {
   };
 
   useEffect(() => {
-    if (widgetReducer.settings.valueSource && layouts.data.length === 0) {
+    if (widgetReducer.settings.valueSource) {
       if (
         widgetReducer.settings.source === 1 &&
         !ValidatorProvider.UserName(widgetReducer.settings.valueSource)
@@ -79,7 +79,7 @@ function LiveTemplates() {
       window._timeout = new Date().getTime() + 4 * 60000;
       getVideoFunc();
     }
-  }, [widgetReducer.settings.valueSource]);
+  }, [widgetReducer.settings.valueSource, widgetReducer.settings.limitItems]);
 
   //Refresh Get Video when rise sequence number
   useEffect(() => {

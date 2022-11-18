@@ -1,3 +1,10 @@
+const notUriKeys = [
+  "my-widget",
+  "my-instagram-widget",
+  "/",
+  "button-widget",
+  "dashboard",
+];
 export class UriProvider {
   static InsertParameters(key: string, value: string | number) {
     key = encodeURIComponent(key);
@@ -39,6 +46,7 @@ export class UriProvider {
         const key = pair[0];
         const val = pair[1];
         if (!paramUrlOutput.has(key)) {
+          if (notUriKeys.includes(url.substr(1)) && key === "key") continue;
           urlOutput.searchParams.append(key, val);
         }
       }

@@ -1,4 +1,5 @@
 import { Button, Card } from "@shopify/polaris";
+import { UriProvider } from "common/functions/FuncUtils";
 import { ContainerSection, LinkRouter } from "common/style/UtilStyles";
 import config from "config";
 import React from "react";
@@ -19,7 +20,7 @@ function SectionInfo() {
     window.open(
       `https://${shopReducer.shop.domain}/admin/themes/current/editor`
     );
-    return navigate(`/my-widget?shop=${shopReducer.shop.domain}`);
+    return navigate(UriProvider.KeepParameters("/my-widget"));
   };
   return (
     <ContainerSection width={40} pl={30} pt={30} pr={20}>

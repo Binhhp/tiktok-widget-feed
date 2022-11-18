@@ -38,7 +38,7 @@ export const DivContainer = styled(
 export const DivContent = styled("div", "container", DisplayNameStyled)`
   &.orichi-video-container {
     overflow: hidden;
-    max-height: 100%;
+    height: 100%;
   }
 `;
 
@@ -130,6 +130,7 @@ export const DivVideoPlay = styled("div", "player", DisplayNameStyled)`
   &.orichi-video-player {
     display: block;
     position: relative;
+    height: 100%;
     ${AbsoluteCenter} {
       svg {
         width: 100%;
@@ -209,7 +210,7 @@ export const DivErrorVideo = styled(
 )<IDivPlayerIconContainer>`
   &.orichi-video-error {
     position: absolute;
-    width: calc(100% - 20px);
+    width: 100%;
     height: 100%;
     top: 0px;
     left: 0px;
