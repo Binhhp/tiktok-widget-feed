@@ -69,7 +69,7 @@ namespace TiktokWidget.Service.Implements
                                 Time = x.Time,
                                 Impression = x.InstagramTraffic + x.TikTokTraffic,
                                 Clicks = x.InstagramClicks + x.TikTokClicks
-                            }).ToList();
+                            }).OrderBy(x => x.Time).ToList();
 
                             var totalImpression = performances.Sum(_ => _.InstagramTraffic) + performances.Sum(_ => _.TikTokTraffic);
                             var totalClicks = performances.Sum(_ => _.InstagramClicks) + performances.Sum(_ => _.TikTokClicks);
@@ -88,13 +88,19 @@ namespace TiktokWidget.Service.Implements
 
                                 if (performanceLast.Any())
                                 {
-                                    var totalImpressionLast = performances.Sum(x => x.InstagramTraffic) + performances.Sum(x => x.TikTokTraffic);
+                                    var totalImpressionLast = performanceLast.Sum(x => x.InstagramTraffic) + performances.Sum(x => x.TikTokTraffic);
                                     response.Analytics.SetAnlysisImpression(totalImpressionLast);
 
-                                    var totalClicksLast = performances.Sum(_ => _.InstagramClicks) + performances.Sum(_ => _.TikTokClicks);
+                                    var totalClicksLast = performanceLast.Sum(_ => _.InstagramClicks) + performances.Sum(_ => _.TikTokClicks);
                                     response.Analytics.SetAnlysisClicks(totalClicksLast);
 
                                     response.Analytics.SetAnlysisConversationRate(totalImpressionLast, totalClicksLast);
+                                }
+                                else
+                                {
+                                    response.Analytics.Impression.AnalysisIndicator = 1;
+                                    response.Analytics.Clicks.AnalysisIndicator = 1;
+                                    response.Analytics.ConversationRate.AnalysisIndicator = 1;
                                 }
                             }
                         }

@@ -50,8 +50,8 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
         {
             if (valueLast == 0)
             {
-                if (Impression.Value == 0) Impression.AnalysisIndicator = 0;
-                else Impression.AnalysisIndicator = -1;
+                if (Clicks.Value == 0) Clicks.AnalysisIndicator = 0;
+                else Clicks.AnalysisIndicator = -1;
             }
             else
             {
