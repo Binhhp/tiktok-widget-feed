@@ -21,7 +21,8 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
     .orichi-slider-img {
       width: 100%;
       height: 100%;
-      min-height: 80vh;
+      min-height: 90vh;
+      max-height: 90vh;
       object-fit: contain;
       display: block;
       cursor: pointer;

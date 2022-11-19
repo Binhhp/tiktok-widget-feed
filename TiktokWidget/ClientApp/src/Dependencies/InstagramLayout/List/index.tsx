@@ -79,6 +79,7 @@ function ListInstagram(props: ListProps) {
       </ListWrapper>
     </InfiniteScroll>
   );
+
   return props.option.labelLoadmore ? RenderList : RenderListInfinite;
 }
 

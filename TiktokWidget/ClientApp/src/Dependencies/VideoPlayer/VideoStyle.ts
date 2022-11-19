@@ -166,6 +166,7 @@ export const ImgPoster = styled("img", "poster", DisplayNameStyled)`
     display: block;
     max-height: 100%;
     max-width: 100%;
+    min-height: 90vh;
   }
 `;
 
@@ -299,6 +300,7 @@ export const DivVideoWrapper = styled(
       ${ImgPoster} {
         width: 100%;
         height: 100%;
+        min-height: 0px;
       }
       ${DivContainer} {
         margin: auto;
@@ -316,9 +318,6 @@ export const DivVideoWrapper = styled(
         min-width: 100%;
         height: auto;
         max-height: calc(
-          100% - ${(props) => (props.showProducts ? 120 : 50)}px
-        );
-        min-height: calc(
           100% - ${(props) => (props.showProducts ? 120 : 50)}px
         );
       }

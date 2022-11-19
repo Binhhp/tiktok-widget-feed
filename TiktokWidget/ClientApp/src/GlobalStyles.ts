@@ -70,6 +70,16 @@ body {
     }
 }
 
+.img-loading{
+  filter: blur(10px);
+  clip-path: inset(0);
+}
+
+.img-loaded{
+  filter: blur(0px);
+  transition: filter 0.5s linear;
+}
+
 .react-loading-skeleton {
     --base-color: #ebebeb;
     --highlight-color: #f5f5f5;

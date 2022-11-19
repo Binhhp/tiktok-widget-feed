@@ -93,6 +93,16 @@ div[p-color-scheme="light"] {
 .Polaris-Image--isLoading{
   background: transparent !important;
 }
+
+.img-loading{
+  filter: blur(10px);
+  clip-path: inset(0);
+}
+
+.img-loaded{
+  filter: blur(0px);
+  transition: filter 0.5s linear;
+}
 html {
     --scrollbarBG: #ffffff;
     --thumbBG: gray;

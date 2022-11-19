@@ -23,6 +23,7 @@ interface IDetailProps {
   widget: BaseInstagramWidget;
   onExit: () => void;
 }
+
 function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);

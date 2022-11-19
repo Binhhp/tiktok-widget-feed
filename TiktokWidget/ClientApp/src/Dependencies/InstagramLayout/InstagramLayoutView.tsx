@@ -1,3 +1,4 @@
+import { useLazyLoadImage } from "hooks";
 import React, { useContext, useEffect, useState } from "react";
 import { TemplateInstagramType } from "stores/Admin/InstagramWidget/state";
 import { IconInstagram } from "./Icons";
@@ -37,6 +38,8 @@ function InstagramLayoutView(props: IInstagramLayoutView) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useLazyLoadImage("img[data-src]");
 
   return loading ? (
     props.customLoader ? (

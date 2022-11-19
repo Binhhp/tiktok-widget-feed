@@ -2,9 +2,8 @@ import React from "react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { SliderImageWrapper } from "./SliderImageStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import LazyImage from "./LazyImage";
 SwiperCore.use([Autoplay, Navigation, Pagination]);
-
 interface SliderImageProps {
   images?: string[];
   thunbnail: string;
@@ -18,6 +17,7 @@ function SliderImage(props: SliderImageProps) {
       : props.thunbnail
       ? [props.thunbnail]
       : undefined;
+
   return images ? (
     <SliderImageWrapper>
       <Swiper
@@ -36,9 +36,7 @@ function SliderImage(props: SliderImageProps) {
       >
         {images?.map((item, index) => (
           <SwiperSlide key={`image-${index}`}>
-            <img
-              loading="lazy"
-              className="orichi-slider-img"
+            <LazyImage
               src={props.corsProxy ? `${props.corsProxy}${item}` : item}
               alt={props.desc}
             />

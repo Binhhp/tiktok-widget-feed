@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IItemProps } from "./ItemModel";
 import {
   DivItemContent,
@@ -15,6 +15,7 @@ import { NumberFormatter } from "common/functions/NumberFormatter";
 import { IconComment, IconGalarey, IconHeart, IconMedia } from "../Icons";
 
 function Item(props: IItemProps) {
+  const [load, setLoad] = useState(false);
   return (
     <ItemWrapper width={props.width}>
       <ItemIcon>
@@ -28,13 +29,16 @@ function Item(props: IItemProps) {
       </ItemIcon>
       <DivItemOrginal>
         <DivItemImage
+          onLoad={() => setLoad(true)}
           cross-origin="anonymous"
           loading="lazy"
-          src={
+          src=""
+          data-src={
             props.item.thumbnailUrl?.startsWith("http")
               ? props.item.thumbnailUrl
               : `data:image/png;base64,${props.item.thumbnailUrl}`
           }
+          className={load ? "img-loaded" : "img-loading"}
           alt={props.item.description}
         />
       </DivItemOrginal>

@@ -23,3 +23,40 @@ export function useOutsideAlerter(ref: any, onRender: () => void) {
     };
   }, [ref]);
 }
+
+const configObserver = {
+  rootMargin: "0px 0px 0px 0px",
+  threshold: 0,
+};
+
+export function useLazyLoadImage(querySelectorAll: string) {
+  useEffect(() => {
+    let observer = new window.IntersectionObserver(function (entries, self) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          LoadImage(entry.target);
+          self.unobserve(entry.target);
+        }
+      });
+    }, configObserver);
+
+    const images = document.querySelectorAll(querySelectorAll);
+    if (images) {
+      images.forEach((item) => {
+        observer.observe(item);
+      });
+    }
+
+    return () => {
+      if (window.IntersectionObserver) {
+        images.forEach((img) => {
+          observer.unobserve(img);
+        });
+      }
+    };
+  }, [document.querySelectorAll(querySelectorAll)]);
+}
+
+function LoadImage(image: any) {
+  image.src = image.dataset.src;
+}
