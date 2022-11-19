@@ -7,11 +7,18 @@ SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 interface SliderImageProps {
   images?: string[];
+  thunbnail: string;
   desc: string;
   corsProxy?: string;
 }
 function SliderImage(props: SliderImageProps) {
-  return props.images ? (
+  const images =
+    props.images && props.images.length > 0
+      ? props.images
+      : props.thunbnail
+      ? [props.thunbnail]
+      : undefined;
+  return images ? (
     <SliderImageWrapper>
       <Swiper
         observer={true}
@@ -27,7 +34,7 @@ function SliderImage(props: SliderImageProps) {
         slidePrevClass="orichi-slider-player-prev"
         className="orichi-slider-slider"
       >
-        {props.images?.map((item, index) => (
+        {images?.map((item, index) => (
           <SwiperSlide key={`image-${index}`}>
             <img
               loading="lazy"

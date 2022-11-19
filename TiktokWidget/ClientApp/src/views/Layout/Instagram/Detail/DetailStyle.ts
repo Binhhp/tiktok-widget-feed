@@ -35,7 +35,7 @@ export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
     flex-direction: column;
     background: #ffffff;
     justify-content: space-between;
-    padding: 15px 11px 0px 11px;
+    padding: 15px 11px 10px 11px;
     p.orichi-instagram-desc {
       margin: 22px 0px;
       font-family: "SF Pro Display";
@@ -92,7 +92,6 @@ export const DivTimezoneContent = styled(
     flex-direction: row;
     align-items: center;
     padding-top: 10px;
-    padding-bottom: 10px;
     border-top: 1px solid rgba(213, 213, 213, 0.53);
     h2 {
       font-style: italic;
@@ -102,6 +101,7 @@ export const DivTimezoneContent = styled(
       font-weight: 500;
       line-height: 16px;
       color: #888888;
+      margin: 0px;
     }
     h3 {
       color: #888888;
@@ -110,6 +110,7 @@ export const DivTimezoneContent = styled(
       font-weight: 400;
       line-height: 16px;
       font-style: italic;
+      margin: 0px;
     }
   }
 `;
@@ -160,6 +161,9 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
           padding: 15px 0px;
           border: none;
         }
+      }
+      .username p.orichi-instagram-desc {
+        margin-top: 0px;
       }
       .username ${DivUserName} {
         display: none;

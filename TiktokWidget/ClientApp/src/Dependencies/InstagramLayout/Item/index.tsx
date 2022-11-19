@@ -20,7 +20,7 @@ function Item(props: IItemProps) {
       <ItemIcon>
         {props.item.videoUrl ? (
           <IconMedia />
-        ) : props.item.imageUrlArr ? (
+        ) : props.item.imageUrlArr && props.item.imageUrlArr.length > 0 ? (
           <IconGalarey />
         ) : (
           <></>

@@ -55,6 +55,7 @@ function Detail(props: IDetailProps) {
             <SliderImage
               desc={props.item.description}
               images={props.item?.imageUrlArr}
+              thunbnail={props.item.imageUrl ?? ""}
               corsProxy={config.CORS_PROXY}
             />
           )}
@@ -73,7 +74,9 @@ function Detail(props: IDetailProps) {
                 Follow
               </a>
             </DivUserName>
-            <p className="orichi-instagram-desc">{props.item.description}</p>
+            {props.item.description && (
+              <p className="orichi-instagram-desc">{props.item.description}</p>
+            )}
           </div>
           <div className="orichi-instagram-item">
             <ShopTagProduct product={props.widget.products[0]} />
