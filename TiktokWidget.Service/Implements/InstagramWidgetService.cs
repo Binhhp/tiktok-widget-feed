@@ -224,7 +224,7 @@ namespace TiktokWidget.Service.Implements
                     var JSON = File.ReadAllText(pathFile);
                     if (!string.IsNullOrEmpty(JSON))
                     {
-                        response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+                        response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).Take(widget.Setting.LimitItems).AsQueryable();
                     }
                 }
             }

@@ -1,7 +1,7 @@
 const notUriKeys = [
   "my-widget",
   "my-instagram-widget",
-  "/",
+  "",
   "button-widget",
   "dashboard",
 ];
