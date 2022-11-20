@@ -27,7 +27,7 @@ const DateRangePicker = () => {
 
   const dateNow = new Date();
   const [{ month, year }, setDate] = useState({
-    month: dateNow.getMonth(),
+    month: dateNow.getMonth() - 1,
     year: dateNow.getFullYear(),
   });
 
@@ -152,7 +152,10 @@ const DateRangePicker = () => {
         setSelected(_dateDiffDays);
       }
 
-      if (optionsDateRange?.[findIndexOption]) {
+      if (
+        optionsDateRange?.[findIndexOption] &&
+        _endDate.getDate() === new Date().getDate()
+      ) {
         setValueDisplay(optionsDateRange?.[findIndexOption].content);
       } else {
         setValueDisplay(optionsDateRange[5].content);
@@ -259,6 +262,8 @@ const DateRangePicker = () => {
                   selected={selectedDates}
                   multiMonth
                   allowRange
+                  disableDatesAfter={new Date()}
+                  disableDatesBefore={addDays(new Date(), -60)}
                 />
               </div>
             )}
