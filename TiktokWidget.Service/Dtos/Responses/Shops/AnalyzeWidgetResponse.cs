@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TiktokWidget.Service.Dtos.Responses.Shops
 {
@@ -38,24 +39,74 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
         {
             if(valueLast == 0)
             {
-                if (Impression.Value == 0) Impression.AnalysisIndicator = 0;
-                else Impression.AnalysisIndicator = -1;
+                //No change value
+                if (Impression.Value == 0)
+                {
+                    Impression.AnalysisIndicator = 0;
+                }
+                //Value down
+                else
+                {
+                    Impression.Status = StatusAnalystics.Down;
+                    Impression.AnalysisIndicator = 1;
+                }
             }
             else
             {
-                Impression.AnalysisIndicator = (valueLast - Impression.Value) / Impression.Value;
+                //Value down
+                if(valueLast > Impression.Value)
+                {
+                    Impression.AnalysisIndicator = ((double)valueLast - Impression.Value) / (double)valueLast;
+                    Impression.Status = StatusAnalystics.Down;
+                }
+                //Value up
+                else if(valueLast < Impression.Value)
+                {
+                    Impression.Status = StatusAnalystics.Up;
+                    Impression.AnalysisIndicator = ((double)Impression.Value - valueLast) / (double)valueLast;
+                }
+                else
+                {
+                    Impression.Status = StatusAnalystics.NoChange;
+                    Impression.AnalysisIndicator = 0;
+                }
             }
         }
         public void SetAnlysisClicks(long valueLast)
         {
             if (valueLast == 0)
             {
-                if (Clicks.Value == 0) Clicks.AnalysisIndicator = 0;
-                else Clicks.AnalysisIndicator = -1;
+                //No change value
+                if (Clicks.Value == 0)
+                {
+                    Clicks.AnalysisIndicator = 0;
+                }
+                //Value down
+                else
+                {
+                    Clicks.Status = StatusAnalystics.Down;
+                    Clicks.AnalysisIndicator = 1;
+                }
             }
             else
             {
-                Clicks.AnalysisIndicator = (valueLast - Clicks.Value) / Clicks.Value;
+                //Value down
+                if (valueLast > Clicks.Value)
+                {
+                    Clicks.AnalysisIndicator = (double)(valueLast - Clicks.Value) / (double)valueLast;
+                    Clicks.Status = StatusAnalystics.Down;
+                }
+                //Value up
+                else if (valueLast < Clicks.Value)
+                {
+                    Clicks.Status = StatusAnalystics.Up;
+                    Clicks.AnalysisIndicator = ((double)Clicks.Value - valueLast) / (double)valueLast;
+                }
+                else
+                {
+                    Clicks.Status = StatusAnalystics.NoChange;
+                    Clicks.AnalysisIndicator = 0;
+                }
             }
         }
         public void SetAnlysisConversationRate(long impressionLast, long clicksLast)
@@ -63,12 +114,37 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
             var conversationRateLast = clicksLast / impressionLast;
             if (conversationRateLast == 0)
             {
-                if (ConversationRate.Value == 0) ConversationRate.AnalysisIndicator = 0;
-                else ConversationRate.AnalysisIndicator = -1;
+                //No change value
+                if (ConversationRate.Value == 0)
+                {
+                    ConversationRate.AnalysisIndicator = 0;
+                }
+                //Value down
+                else
+                {
+                    ConversationRate.Status = StatusAnalystics.Down;
+                    ConversationRate.AnalysisIndicator = 1;
+                }
             }
             else
             {
-                ConversationRate.AnalysisIndicator = (conversationRateLast - ConversationRate.Value) / ConversationRate.Value;
+                //Value down
+                if (conversationRateLast > ConversationRate.Value)
+                {
+                    ConversationRate.AnalysisIndicator = ((double)conversationRateLast - ConversationRate.Value) / (double)conversationRateLast;
+                    ConversationRate.Status = StatusAnalystics.Down;
+                }
+                //Value up
+                else if (conversationRateLast < ConversationRate.Value)
+                {
+                    ConversationRate.Status = StatusAnalystics.Up;
+                    ConversationRate.AnalysisIndicator = ((double)ConversationRate.Value - conversationRateLast) / (double)conversationRateLast;
+                }
+                else
+                {
+                    ConversationRate.Status = StatusAnalystics.NoChange;
+                    ConversationRate.AnalysisIndicator = 0;
+                }
             }
         }
     }
@@ -83,10 +159,12 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
     {
         public long Value { get; set; }
         public double AnalysisIndicator { get; set; }
+        public StatusAnalystics Status { get; set; }
         public ItemAnalytic()
         {
             Value = 0;
             AnalysisIndicator = 0;
+            Status = StatusAnalystics.NoChange;
         }
         public ItemAnalytic(long value)
         {
@@ -97,14 +175,23 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
     {
         public double Value { get; set; }
         public double AnalysisIndicator { get; set; }
+        public StatusAnalystics Status { get; set; }
         public ConversationRate()
         {
             Value = 0;
             AnalysisIndicator = 0;
+            Status = StatusAnalystics.NoChange;
         }
         public ConversationRate(double value)
         {
             Value = value;
         }
+    }
+
+    public enum StatusAnalystics
+    {
+        Up,
+        Down,
+        NoChange
     }
 }

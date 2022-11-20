@@ -1,5 +1,8 @@
 import React from "react";
-import { IAnalytics } from "repositories/dtos/responses/IAnalytics";
+import {
+  IAnalytics,
+  StatusAnalystic,
+} from "repositories/dtos/responses/IAnalytics";
 import MetricItem from "./MetricItem";
 import { MetricRoot } from "./style";
 
@@ -13,11 +16,13 @@ export default function MetricContainer(props: IMetricProps) {
         title="Impressions"
         value={props.analytics?.impression?.value.toString()}
         percent={RatePercent(props.analytics?.impression?.analysisIndicator)}
+        status={props.analytics?.impression?.status}
       />
       <MetricItem
         title="Clicks"
         value={props.analytics?.clicks?.value.toString()}
         percent={RatePercent(props.analytics?.clicks?.analysisIndicator)}
+        status={props.analytics?.clicks?.status}
       />
       <MetricItem
         title="Conversion Rate"
@@ -32,6 +37,7 @@ export default function MetricContainer(props: IMetricProps) {
         percent={RatePercent(
           props.analytics?.conversationRate?.analysisIndicator
         )}
+        status={props.analytics?.conversationRate?.status}
       />
     </MetricRoot>
   );
@@ -39,7 +45,6 @@ export default function MetricContainer(props: IMetricProps) {
 
 function RatePercent(val: number | undefined): number | undefined {
   if (val !== undefined) {
-    if (val < 0) return (0 - val) * 100;
     return val * 100;
   }
   return undefined;

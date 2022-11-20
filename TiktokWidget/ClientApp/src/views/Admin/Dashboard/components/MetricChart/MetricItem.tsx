@@ -4,20 +4,22 @@ import chartDownTrend from "assets/images/Buttons/chartDownTrend.png";
 import chartUpTrend from "assets/images/Buttons/chartUpTrend.png";
 import chartZero from "assets/images/Buttons/chartZero.png";
 import Skeleton from "react-loading-skeleton";
+import { StatusAnalystic } from "repositories/dtos/responses/IAnalytics";
 type IProp = {
   title: string;
   value?: string;
   percent?: number;
+  status?: StatusAnalystic;
 };
 
-const MetricItem: React.FC<IProp> = ({ title, value, percent }) => {
+const MetricItem: React.FC<IProp> = ({ title, value, percent, status }) => {
   const styleChart =
-    percent === 0
+    status === StatusAnalystic.NoChange
       ? {
           color: "#262626",
           img: chartZero,
         }
-      : percent && percent > 0
+      : status === StatusAnalystic.Up
       ? {
           color: "#5E8E3E",
           img: chartUpTrend,
@@ -46,7 +48,7 @@ const MetricItem: React.FC<IProp> = ({ title, value, percent }) => {
         )}
         <p className="orichi-chart-percent">
           {percent !== undefined ? (
-            `${percent ?? 0} %`
+            `${Math.round(percent * 100) / 100 ?? 0} %`
           ) : (
             <Skeleton inline width={100} />
           )}
