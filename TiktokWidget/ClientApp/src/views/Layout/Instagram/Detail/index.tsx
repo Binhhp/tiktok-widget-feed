@@ -58,6 +58,7 @@ function Detail(props: IDetailProps) {
               images={props.item?.imageUrlArr}
               thunbnail={props.item.imageUrl ?? ""}
               corsProxy={config.CORS_PROXY}
+              loading={"fillBlur"}
             />
           )}
         </DivContent>
@@ -68,7 +69,7 @@ function Detail(props: IDetailProps) {
               <h2>{props.item.user?.name}</h2>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
               <a
-                href={`https://www.instagram.com/${props.item?.user?.name}`}
+                href={`https://www.instagram.com/${props.widget?.valueSource}`}
                 target="_blank"
                 rel="noreferrer"
               >

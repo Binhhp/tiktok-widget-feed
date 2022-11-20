@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import widgetReducerManager from "stores/Layout/Widget";
 import { StyleSheetManager } from "styled-components";
 import Instagram from "./InstagramApp";
-import GlobalStyle from "../Common/GlobalStyle";
+import GlobalCssLayout from "../Common/GlobalCssLayout";
 
 //Show instagram widget
 const elementInstagram = document.querySelectorAll(
@@ -20,7 +20,7 @@ if (elementInstagram && elementInstagram.length > 0) {
       <StyleSheetManager disableVendorPrefixes>
         <Provider store={widgetReducerManager.store}>
           <BrowserRouter>
-            <GlobalStyle />
+            <GlobalCssLayout />
             <Instagram widgetId={widgetIdInstagram} />
           </BrowserRouter>
         </Provider>

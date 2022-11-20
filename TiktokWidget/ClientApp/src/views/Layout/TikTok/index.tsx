@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import widgetReducerManager from "stores/Layout/Widget";
 import { StyleSheetManager } from "styled-components";
 import TikTokApp from "./TikTokApp";
-import GlobalStyle from "../Common/GlobalStyle";
+import GlobalStyle from "../Common/GlobalCssLayout";
 
 //Show tiktok widget
 const elements = document.querySelectorAll("div[name='orichi']");

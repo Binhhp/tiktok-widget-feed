@@ -69,17 +69,6 @@ body {
         transform: translateX(100%);
     }
 }
-
-.img-loading{
-  filter: blur(10px);
-  clip-path: inset(0);
-}
-
-.img-loaded{
-  filter: blur(0px);
-  transition: filter 0.5s linear;
-}
-
 .react-loading-skeleton {
     --base-color: #ebebeb;
     --highlight-color: #f5f5f5;
@@ -121,6 +110,20 @@ body {
     animation-duration: var(--animation-duration);
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+}
+
+.img-loading {
+  /* filter: blur(10px);
+  clip-path: inset(0); */
+  opacity: 0;
+  transition: .15s opacity ease-in-out;
+}
+
+.img-loaded {
+  /* filter: blur(0px);
+  transition: filter 0.5s linear; */
+  opacity: 1;
+  transition: .15s opacity ease-in-out;
 }
 
 `;

@@ -94,15 +94,6 @@ div[p-color-scheme="light"] {
   background: transparent !important;
 }
 
-.img-loading{
-  filter: blur(10px);
-  clip-path: inset(0);
-}
-
-.img-loaded{
-  filter: blur(0px);
-  transition: filter 0.5s linear;
-}
 html {
     --scrollbarBG: #ffffff;
     --thumbBG: gray;
@@ -172,4 +163,24 @@ body {
     animation-iteration-count: infinite;
 }
 
+//Image onload
+.img-loading {
+  opacity: 0;
+  transition: .15s opacity ease-in-out;
+}
+
+.img-loaded {
+  opacity: 1;
+  transition: .15s opacity ease-in-out;
+}
+
+.img-fill-loading {
+  filter: blur(10px);
+  clip-path: inset(0);
+}
+
+.img-fill-loaded {
+  filter: blur(0px);
+  transition: filter 0.5s linear;
+}
 `;
