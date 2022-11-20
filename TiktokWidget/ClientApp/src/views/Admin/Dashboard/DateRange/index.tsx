@@ -154,6 +154,8 @@ const DateRangePicker = () => {
 
       if (optionsDateRange?.[findIndexOption]) {
         setValueDisplay(optionsDateRange?.[findIndexOption].content);
+      } else {
+        setValueDisplay(optionsDateRange[5].content);
       }
       setSelectedDates({
         start: _startDate,
