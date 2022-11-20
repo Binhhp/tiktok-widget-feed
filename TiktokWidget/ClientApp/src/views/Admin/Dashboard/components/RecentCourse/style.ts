@@ -1,8 +1,7 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
-export const Root = styled('div', '', 'orichi-courses')`
+export const Root = styled("div", "", "orichi-courses")`
   width: 100%;
-  margin-top: 57px;
   .orichi-courses-slider {
     display: flex;
     flex-direction: column;
@@ -44,12 +43,12 @@ export const Root = styled('div', '', 'orichi-courses')`
       order: 0;
       flex-grow: 0;
       font-size: 15px;
-      font-family: 'SF Pro Display';
+      font-family: "SF Pro Display";
     }
   }
 `;
 
-export const RecentCourseItemRoot = styled('div', '', 'orichi-courses')`
+export const RecentCourseItemRoot = styled("div", "", "orichi-courses")`
   img {
     width: 100%;
     object-fit: center;

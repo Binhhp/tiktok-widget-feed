@@ -3,10 +3,10 @@ import {
   ActionListItemDescriptor,
   Icon,
   Popover,
-} from '@shopify/polaris';
-import { ChevronDownMinor, ChevronUpMinor } from '@shopify/polaris-icons';
-import React from 'react';
-import { DropdownRoot } from './DateRange';
+} from "@shopify/polaris";
+import { ChevronDownMinor, ChevronUpMinor } from "@shopify/polaris-icons";
+import React from "react";
+import { DropdownRoot } from "./DateRange";
 type IProp = {
   isActive: boolean;
   value: string;
@@ -26,12 +26,13 @@ function Dropdown({
       style={{
         borderColor: isActive ? `#4499A3` : `#ccc`,
       }}
-      onClick={isActive ? handleInActive : handleActive}>
+      onClick={isActive ? handleInActive : handleActive}
+    >
       <div>{value}</div>
       <div>
         <Icon
           source={!isActive ? ChevronDownMinor : ChevronUpMinor}
-          color='base'
+          color="base"
         />
       </div>
     </DropdownRoot>
@@ -42,8 +43,9 @@ function Dropdown({
       fullWidth
       active={isActive}
       activator={activatorDateRange}
-      onClose={handleInActive}>
-      <ActionList actionRole='menuitem' items={items} />
+      onClose={handleInActive}
+    >
+      <ActionList actionRole="menuitem" items={items} />
     </Popover>
   );
 }

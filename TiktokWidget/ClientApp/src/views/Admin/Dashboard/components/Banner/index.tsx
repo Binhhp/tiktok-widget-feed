@@ -1,7 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { RootComponent } from "./style";
-import { RootReducer } from "stores/Admin/reducers";
 //Swiper
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,20 +9,9 @@ import { getBanners } from "repositories/api";
 SwiperCore.use([Autoplay, Pagination]);
 
 const Banner = () => {
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const { data } = useSWR("/odata/Banner", getBanners);
   return (
     <RootComponent>
-      <h3>
-        Welcome to{" "}
-        {shopReducer.shop.shopDescriptor?.shopOwner ??
-          shopReducer?.shop?.domain}
-        !🎉
-      </h3>
-      <p className="orichi-text-welcome">
-        You will be able to see top performers based on views and
-        call-to-actions
-      </p>
       {data && data?.value && data?.value?.length > 0 ? (
         <div className="banner-slider">
           <Swiper

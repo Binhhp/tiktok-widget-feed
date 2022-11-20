@@ -1,7 +1,8 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
-export const MostPostRoot = styled('div', '', 'orichi-post')`
-  margin-top: 57px;
+export const MostPostRoot = styled("div", "", "orichi-post")`
+  width: 100%;
+  margin-bottom: 57px;
   div.orichi-post-list {
     display: flex;
     flex-direction: column;
@@ -16,7 +17,7 @@ export const MostPostRoot = styled('div', '', 'orichi-post')`
   }
 `;
 
-export const MostPostItem = styled('div', '', 'orichi-post')`
+export const MostPostItem = styled("div", "", "orichi-post")`
   background: #f5faff;
   border-radius: 12px;
   display: flex;
@@ -24,7 +25,7 @@ export const MostPostItem = styled('div', '', 'orichi-post')`
   align-items: stretch;
   width: 100%;
   flex-shrink: 0;
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   .orichi-post-poster {
     background-color: transparent;
     position: relative;

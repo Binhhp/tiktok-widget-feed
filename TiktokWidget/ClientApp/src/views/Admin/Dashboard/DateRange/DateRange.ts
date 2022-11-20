@@ -1,16 +1,10 @@
-import styled from 'Dependencies/StyledComponents/Container';
+import styled from "Dependencies/StyledComponents/Container";
 
-export const DateRangeRoot = styled('div')`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 29%;
-
-  .wrapper {
-  }
+export const DateRangeRoot = styled("div")`
+  width: 350px;
 `;
 
-export const PopoverContent = styled('div')`
+export const PopoverContent = styled("div")`
   padding: 20px;
   width: 500px;
 
@@ -63,7 +57,7 @@ export const PopoverContent = styled('div')`
   }
 `;
 
-export const InputDate = styled('input')`
+export const InputDate = styled("input")`
   width: 100%;
   font-weight: 400;
   font-size: 14px;
@@ -78,7 +72,7 @@ export const InputDate = styled('input')`
   letter-spacing: initial;
 `;
 
-export const DropdownRoot = styled('div')`
+export const DropdownRoot = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

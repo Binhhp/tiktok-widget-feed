@@ -1,5 +1,4 @@
-import { ICloneStore } from 'common/interfaces/ICloneStore';
-import { addDays } from 'ui-components/DateRange';
+import { ICloneStore } from "common/interfaces/ICloneStore";
 
 export type DateRangeType = {
   startDate: string;
@@ -14,12 +13,12 @@ export class ApplicationStoreModelDto {
   constructor() {
     const dateNow = new Date();
     this.menuItems = [];
-    this.menuActive = '';
+    this.menuActive = "";
     this.mobileMenuView = false;
     this.step = 0;
     this.dateRange = {
       endDate: dateNow.toString(),
-      startDate: addDays(dateNow, -7).toString(),
+      startDate: dateNow.toString(),
     };
   }
 }
@@ -36,12 +35,12 @@ export class ApplicationStoreModel
     const dateNow = new Date();
     this._menuItems = _dto?.menuItems || [];
     this._menuActive =
-      _dto?.menuActive || window.location.pathname.replace('/', '');
+      _dto?.menuActive || window.location.pathname.replace("/", "");
     this._mobileMenuView = _dto?.mobileMenuView || false;
     this._step = _dto?.step || 0;
     this._dateRange = _dto?.dateRange || {
       endDate: dateNow.toString(),
-      startDate: addDays(dateNow, -7).toString(),
+      startDate: dateNow.toString(),
     };
   }
 
