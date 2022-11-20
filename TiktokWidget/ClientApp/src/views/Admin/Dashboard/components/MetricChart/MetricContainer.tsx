@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  IAnalytics,
-  StatusAnalystic,
-} from "repositories/dtos/responses/IAnalytics";
+import { IAnalytics } from "repositories/dtos/responses/IAnalytics";
 import MetricItem from "./MetricItem";
 import { MetricRoot } from "./style";
 
@@ -30,7 +27,8 @@ export default function MetricContainer(props: IMetricProps) {
           props?.analytics
             ? `${
                 props?.analytics &&
-                props.analytics!.conversationRate!.value * 100
+                Math.round(props.analytics!.conversationRate!.value * 10000) /
+                  100
               }%`
             : undefined
         }
@@ -43,9 +41,16 @@ export default function MetricContainer(props: IMetricProps) {
   );
 }
 
-function RatePercent(val: number | undefined): number | undefined {
+function RatePercent(
+  val: number | undefined,
+  isRounding?: boolean
+): number | undefined {
   if (val !== undefined) {
-    return val * 100;
+    const result = val * 100;
+    if (isRounding) {
+      return Math.round(result) / 100;
+    }
+    return result;
   }
   return undefined;
 }

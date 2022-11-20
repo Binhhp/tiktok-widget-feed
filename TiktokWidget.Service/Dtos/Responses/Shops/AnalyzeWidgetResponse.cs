@@ -31,7 +31,7 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
         {
             Impression = new ItemAnalytic(impression);
             Clicks = new ItemAnalytic(clicks);
-            var conversationRate = clicks / impression;
+            var conversationRate = (double)clicks / impression;
             ConversationRate = new ConversationRate(conversationRate);
         }
 
@@ -160,15 +160,11 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
         public long Value { get; set; }
         public double AnalysisIndicator { get; set; }
         public StatusAnalystics Status { get; set; }
-        public ItemAnalytic()
-        {
-            Value = 0;
-            AnalysisIndicator = 0;
-            Status = StatusAnalystics.NoChange;
-        }
-        public ItemAnalytic(long value)
+        public ItemAnalytic(long value = 0)
         {
             Value = value;
+            AnalysisIndicator = 0;
+            Status = StatusAnalystics.NoChange;
         }
     }
     public class ConversationRate
@@ -176,15 +172,11 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
         public double Value { get; set; }
         public double AnalysisIndicator { get; set; }
         public StatusAnalystics Status { get; set; }
-        public ConversationRate()
-        {
-            Value = 0;
-            AnalysisIndicator = 0;
-            Status = StatusAnalystics.NoChange;
-        }
-        public ConversationRate(double value)
+        public ConversationRate(double value = 0.0)
         {
             Value = value;
+            AnalysisIndicator = 0;
+            Status = StatusAnalystics.NoChange;
         }
     }
 
