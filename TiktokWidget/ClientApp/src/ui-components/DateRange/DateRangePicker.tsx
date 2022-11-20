@@ -1,5 +1,3 @@
-import { Select, TextField } from '@shopify/polaris';
-
 import React from 'react';
 import { useState, useCallback } from 'react';
 import {
@@ -8,10 +6,19 @@ import {
   TextContainer,
   DatePicker,
   Button,
+  TextField,
+  Icon,
 } from '@shopify/polaris';
-
-import { DateRangeRoot, InputDate, PopoverContent } from './DateRange';
+import { SelectMinor } from '@shopify/polaris-icons';
+import {
+  DateRangeRoot,
+  DropdownRoot,
+  InputDate,
+  PopoverContent,
+} from './DateRange';
 import { DateRangeType } from 'stores/Admin/Application/state';
+import Dropdown from './Dropdown';
+import { DropdownMinor } from '@shopify/polaris-icons';
 export type DateRangeProps = {
   label?: React.ReactNode;
   onChangeDateRange?: (_dateRange: DateRangeType) => void;
@@ -42,9 +49,15 @@ const DateRangePicker: React.FC<DateRangeProps> = ({
   valueDefault,
   onChangeDateRange,
 }) => {
-  const [{ month, year }, setDate] = useState({ month: 11, year: 2022 });
+  const dateNow = new Date();
+  const [{ month, year }, setDate] = useState({
+    month: dateNow.getMonth() + 1,
+    year: dateNow.getFullYear(),
+  });
+  const [valueDisplay, setValueDisplay] = useState('');
   const [activeDateRange, setActiveDateRange] = useState(false);
-
+  const [popoverActive, setPopoverActive] = useState(false);
+  console.log({ popoverActive, activeDateRange });
   const [selectedDates, setSelectedDates] = useState({
     start: new Date((valueDefault && valueDefault!.startDate) ?? ''),
     end: new Date((valueDefault && valueDefault!.endDate) ?? ''),
@@ -56,45 +69,65 @@ const DateRangePicker: React.FC<DateRangeProps> = ({
     (month: any, year: any) => setDate({ month, year }),
     [],
   );
-
-  const handleChangeActiveModal = useCallback(
-    () => setActiveDateRange(!activeDateRange),
-    [activeDateRange],
-  );
-
-  const options = React.useMemo(
-    () => [
-      { label: 'Today', value: '0' },
-      { label: 'Yesterday', value: '1' },
-      { label: 'Last 7 days', value: '7' },
-      { label: 'Last 30 days', value: '30' },
-      { label: 'Last 60 days', value: '60' },
-      { label: 'Custom', value: '-1' },
-    ],
+  const togglePopoverActive = useCallback(
+    () => setPopoverActive((popoverActive) => !popoverActive),
     [],
   );
 
-  const handleSelectChange = useCallback(
-    (value: string, id: string) => {
-      const _value = parseInt(value);
-      if (_value < 0) {
-        // setActiveDateRange(true);
-        handleChangeActiveModal();
-      }
-      setSelected(_value);
-    },
-    [handleChangeActiveModal],
+  const handleChangeDateRange = useCallback((value: string, name: string) => {
+    const _value = parseInt(value);
+    setSelected(_value);
+    setActiveDateRange(false);
+    setValueDisplay(name);
+  }, []);
+
+  const optionsDateRange = React.useMemo(
+    () => [
+      {
+        content: 'Today',
+        onAction: () => handleChangeDateRange('0', 'Today'),
+        value: '0',
+      },
+      {
+        content: 'Yesterday',
+        onAction: () => handleChangeDateRange('1', 'Yesterday'),
+        value: '1',
+      },
+      {
+        content: 'Last 7 days',
+        onAction: () => handleChangeDateRange('7', 'Last 7 days'),
+        value: '7',
+      },
+      {
+        content: 'Last 30 days',
+        onAction: () => handleChangeDateRange('30', 'Last 30 days'),
+        value: '30',
+      },
+      {
+        content: 'Last 60 days',
+        onAction: () => handleChangeDateRange('60', 'Last 60 days'),
+        value: '60',
+      },
+      {
+        content: 'Custom',
+        onAction: () => handleChangeDateRange('-1', 'Custom'),
+        value: '-1',
+      },
+    ],
+    [handleChangeDateRange],
   );
 
   React.useEffect(() => {
     if (selected >= 0) {
       const endDateNow = new Date();
       const startDate = addDays(endDateNow, -selected);
-      console.log({ startDate, endDateNow });
-      console.log('date diff', dateDiffDays(startDate, endDateNow));
-      onChangeDateRange?.({
-        startDate: startDate.toString(),
-        endDate: endDateNow.toString(),
+      // setSelectedDates?.({
+      //   startDate: startDate.toString(),
+      //   endDate: endDateNow.toString(),
+      // });
+      setSelectedDates({
+        start: startDate,
+        end: endDateNow,
       });
     }
   }, [selected, onChangeDateRange]);
@@ -107,77 +140,129 @@ const DateRangePicker: React.FC<DateRangeProps> = ({
     const _dateDiffDays = dateDiffDays(_startDate, _endDate);
 
     if (_dateDiffDays >= 0) {
-      const findIndexOption = options.findIndex(
-        (x) => x.value === _dateDiffDays.toString(),
+      const findIndexOption = optionsDateRange.findIndex(
+        (x: any) => x.value === _dateDiffDays.toString(),
       );
-      if (findIndexOption > 0) {
+      if (
+        findIndexOption > 0 &&
+        convertShortDate(new Date().toString()) ===
+          convertShortDate(_endDate.toString())
+      ) {
         setSelected(_dateDiffDays);
       } else {
         setSelected(-1);
       }
+      setValueDisplay(optionsDateRange?.[findIndexOption].content);
       setSelectedDates({
         start: _startDate,
         end: _endDate,
       });
     }
-  }, [valueDefault, options]);
+  }, [valueDefault, optionsDateRange]);
 
-  const handleOkeDatePicker = () => {
-    console.log({ selectedDates });
+  const activator = (
+    <DropdownRoot
+      onClick={togglePopoverActive}
+      style={{ borderColor: '#ccc', backgroundColor: 'white' }}>
+      <div>{valueDisplay}</div>
+      <div>
+        <Icon source={SelectMinor} color='base' />
+      </div>
+    </DropdownRoot>
+  );
+
+  const handleSelectedDate = () => {
     onChangeDateRange?.({
       endDate: selectedDates.end.toString(),
       startDate: selectedDates.start.toString(),
     });
-    handleChangeActiveModal();
+    togglePopoverActive();
   };
-  const [popoverActive, setPopoverActive] = useState(true);
 
-  const togglePopoverActive = useCallback(
-    () => setPopoverActive((popoverActive) => !popoverActive),
-    [],
-  );
-  const activator = (
-    <div onClick={togglePopoverActive}>
-      123
-      <select className='Polaris-Select__Input' value={'123123'} />
-    </div>
-  );
+  const handleResetDate = () => {
+    console.log('handleResetDate');
+  };
+
+  const handleChangeEnd = (value: any) => {
+    console.log('handleChangeEnd');
+  };
+
+  const handleChangeStart = (value: any) => {
+    console.log('handleChangeStart');
+  };
 
   return (
     <DateRangeRoot>
-      <Popover
-        active={popoverActive}
-        activator={activator}
-        autofocusTarget='first-node'
-        onClose={togglePopoverActive}>
-        <Popover.Pane fixed>
-          <Popover.Section>
-            <p>Available sales channels</p>
-          </Popover.Section>
-        </Popover.Pane>
-        <Popover.Pane>
+      <div className='wrapper'>
+        <Popover
+          active={popoverActive}
+          activator={activator}
+          onClose={() => {
+            console.log('onclose Popover');
+          }}
+          // sectioned
+          // ariaHaspopup={'false'}
+          // preferredPosition='mostSpace'
+          fluidContent={true}>
           <PopoverContent>
-            <Select
-              label={label}
-              options={options}
-              onChange={handleSelectChange}
-              value={selected.toString()}
-            />
-            <TextField
-              label='Starting'
-              // value={value}
-              // onChange={handleChange}
-              autoComplete='off'
-            />
-            <TextField
-              label='Ending'
-              // value={value}
-              // onChange={handleChange}
-              autoComplete='off'
-            />
+            <div className='dashboard-filter-timezones'>
+              <span>Date range</span>
+              <Dropdown
+                isActive={activeDateRange}
+                handleActive={() => setActiveDateRange(true)}
+                handleInActive={() => setActiveDateRange(false)}
+                items={optionsDateRange}
+                value={valueDisplay}
+              />
+            </div>
+
+            <div className='date-picker'>
+              <div className='input-date-wrapper'>
+                <div className='input-time'>
+                  <TextField
+                    id='start-time'
+                    value={convertShortDate(selectedDates.start.toString())}
+                    onChange={handleChangeStart}
+                    label='Starting'
+                    type='text'
+                    autoComplete='off'
+                    disabled
+                  />
+                </div>
+                <div className='input-time'>
+                  <TextField
+                    onChange={handleChangeEnd}
+                    id='end-time'
+                    value={convertShortDate(selectedDates.end.toString())}
+                    label='Ending'
+                    type='text'
+                    autoComplete='off'
+                    disabled
+                  />
+                </div>
+              </div>
+              <DatePicker
+                month={month}
+                year={year}
+                onChange={setSelectedDates}
+                onMonthChange={handleMonthChange}
+                selected={selectedDates}
+                multiMonth
+                allowRange
+              />
+            </div>
+
+            <div className='submit-group'>
+              <Button onClick={handleSelectedDate} id='selected'>
+                Selected DateTime
+              </Button>
+              <Button onClick={handleResetDate} id='reset'>
+                Reset DateTime
+              </Button>
+            </div>
           </PopoverContent>
-        </Popover.Pane>
-      </Popover>
+        </Popover>
+      </div>
     </DateRangeRoot>
   );
 };
