@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RootComponent } from "./style";
 //Swiper
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import useSWR from "swr";
 // Import Swiper styles
 import { getBanners } from "repositories/api";
+import { IBannerResponse } from "repositories/dtos/responses/IBanner";
 SwiperCore.use([Autoplay, Pagination]);
 
 const Banner = () => {
-  const { data } = useSWR("/odata/Banner", getBanners);
+  const [data, setData] = useState<IBannerResponse | undefined>(undefined);
+
+  useEffect(() => {
+    getBanners().then((res) => {
+      if (res) setData(res);
+    });
+  }, []);
+
   return (
     <RootComponent>
       {data && data?.value && data?.value?.length > 0 ? (
@@ -47,4 +54,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default React.memo(Banner);

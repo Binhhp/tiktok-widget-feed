@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace TiktokWidget.Service.Dtos.Responses.Shops
 {
@@ -42,12 +41,13 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
                 //No change value
                 if (Impression.Value == 0)
                 {
+                    Impression.Status = StatusAnalystics.NoChange;
                     Impression.AnalysisIndicator = 0;
                 }
-                //Value down
+                //Value up
                 else
                 {
-                    Impression.Status = StatusAnalystics.Down;
+                    Impression.Status = StatusAnalystics.Up;
                     Impression.AnalysisIndicator = 1;
                 }
             }
@@ -79,6 +79,7 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
                 //No change value
                 if (Clicks.Value == 0)
                 {
+                    Clicks.Status = StatusAnalystics.NoChange;
                     Clicks.AnalysisIndicator = 0;
                 }
                 //Value down
@@ -117,6 +118,7 @@ namespace TiktokWidget.Service.Dtos.Responses.Shops
                 //No change value
                 if (ConversationRate.Value == 0)
                 {
+                    ConversationRate.Status = StatusAnalystics.NoChange;
                     ConversationRate.AnalysisIndicator = 0;
                 }
                 //Value down

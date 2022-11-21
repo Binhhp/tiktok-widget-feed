@@ -18,6 +18,7 @@ function StepTwoUpdate() {
           onSubmit={() => {}}
           saveStore={true}
           jobInterval
+          notDesc
         ></FormControlSource>
       </ContainerSection>
     </React.Fragment>
@@ -36,13 +37,14 @@ function StepTwoUpdate() {
           zIndex={1}
           top={60}
           height="100%"
+          id="section1"
         >
           {RenderSourceTypeUpdate}
           <CaptionStep>Step 2: Select a template</CaptionStep>
           <Pattern
             style={{
-              marginItem: 6,
-              marginTopParent: 7,
+              marginItem: 3,
+              marginTopParent: 10,
               height: 110,
             }}
           ></Pattern>

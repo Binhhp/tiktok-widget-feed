@@ -165,7 +165,7 @@ const DateRangePicker = () => {
         end: _endDate,
       });
     }
-  }, [dateRangeSate, optionsDateRange]);
+  }, [dateRangeSate]);
 
   const activator = (
     <DropdownRoot

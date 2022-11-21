@@ -1,29 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MostPostRoot } from "./style";
 import MostPostItemComponent from "./MostPostItem";
 import { getPosts } from "repositories/api";
-import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
+import { IPostResponse } from "repositories/dtos/responses/IPost";
 
 const MostPost = () => {
   const dateRangeSate = useSelector(
     (state: RootReducer) => state.AppReducer.dateRange
   );
 
-  const { data } = useSWR(["/odata/Posts", dateRangeSate], () =>
-    getPosts(dateRangeSate.startDate, dateRangeSate.endDate)
-  );
+  const [data, setData] = useState<IPostResponse | undefined>(undefined);
+  useEffect(() => {
+    getPosts(dateRangeSate.startDate, dateRangeSate.endDate).then((res) => {
+      if (res) setData(res);
+    });
+  }, [dateRangeSate]);
 
-  const posts = data?.value;
-  if (!posts || posts?.length === 0) {
-    return <></>;
-  }
-  return (
+  return data?.value && data?.value?.length > 0 ? (
     <MostPostRoot>
       <h4 className="orichi-post-title">Most Popular Posts</h4>
       <div className="orichi-post-list">
-        {posts?.map((item) => (
+        {data?.value?.map((item) => (
           <MostPostItemComponent
             img={item.image}
             impressionCount={item.impression}
@@ -34,6 +33,8 @@ const MostPost = () => {
         ))}
       </div>
     </MostPostRoot>
+  ) : (
+    <></>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChartRoot, MetricChartRoot } from "./style";
 
 import {
@@ -14,12 +14,12 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { fetchDataAnalytics } from "repositories/api";
-import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { afterDrawCustom, legendMargin, options } from "./AnalysticProvider";
 import MetricContainer from "./MetricContainer";
 import SniperLoading from "ui-components/Loading/SniperLoading";
+import { IAnalyticsResponse } from "repositories/dtos/responses/IAnalytics";
 
 ChartJS.register(
   CategoryScale,
@@ -39,33 +39,36 @@ const MetricChart = () => {
     (state: RootReducer) => state.AppReducer.dateRange
   );
 
-  const { data, error } = useSWR(
-    ["/Analytics", shop, dateRangeSate.startDate, dateRangeSate.startDate],
-    () =>
-      fetchDataAnalytics(shop, {
-        StartTime: dateRangeSate.startDate,
-        EndTime: dateRangeSate.endDate,
-      })
-  );
+  const [state, setState] = useState<IAnalyticsResponse | undefined>();
+
+  useEffect(() => {
+    setState(undefined);
+    fetchDataAnalytics(shop, {
+      StartTime: dateRangeSate.startDate,
+      EndTime: dateRangeSate.endDate,
+    }).then((res) => {
+      if (res) {
+        setState(res);
+      }
+    });
+  }, [dateRangeSate]);
 
   const plugins = [legendMargin, afterDrawCustom];
 
-  const { impression, analytics } = data || {};
   let dataChart: ChartData<"bar", (string | undefined)[] | undefined, string> =
     {
       labels:
-        impression &&
-        impression!.map((item) => {
+        state?.impression &&
+        state?.impression!.map((item) => {
           const date = new Date(item!.time ?? "");
           return `${date.getDate()}/${date.getMonth() + 1}`;
         }),
       datasets: [
         {
           label: "Impression",
-          data: impression?.map((item) => item.impression),
+          data: state?.impression?.map((item) => item.impression),
           backgroundColor: "#7CD4FD",
           borderRadius: 10,
-          barPercentage: 0.3,
           categoryPercentage: 0.6,
         },
       ],
@@ -73,10 +76,10 @@ const MetricChart = () => {
 
   return (
     <MetricChartRoot>
-      <MetricContainer analytics={analytics} />
+      <MetricContainer analytics={state?.analytics} />
       <ChartRoot>
         <p className="orichi-chart-title">Widget Performance</p>
-        {impression ? (
+        {state?.impression ? (
           <Bar options={options} data={dataChart} plugins={plugins} />
         ) : (
           <SniperLoading />
@@ -86,4 +89,4 @@ const MetricChart = () => {
   );
 };
 
-export default MetricChart;
+export default React.memo(MetricChart);

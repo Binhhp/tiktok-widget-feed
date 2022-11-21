@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getRecentCourses } from "repositories/api";
-import useSWR from "swr";
 import { Root } from "./style";
 
 //Swiper
@@ -8,12 +7,17 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RecentCourseItem from "./RecentCourseItem";
 import { Pagination } from "@shopify/polaris";
+import { ICourseResponse } from "repositories/dtos/responses/ICourse";
 SwiperCore.use([Autoplay, Navigation]);
 
 const RecentCourse = () => {
-  const { data } = useSWR("/odata/Courses", getRecentCourses);
+  const [data, setData] = useState<ICourseResponse | undefined>(undefined);
+  useEffect(() => {
+    getRecentCourses().then((res) => {
+      if (res) setData(res);
+    });
+  }, []);
 
-  const courses = data?.value || [];
   const [swiperController, setSwiperController] = useState<SwiperCore>();
 
   const [isNext, setIsNext] = useState(true);
@@ -23,29 +27,31 @@ const RecentCourse = () => {
   const onNext = () => swiperController?.slideNext();
   const onPrev = () => swiperController?.slidePrev();
 
-  return courses.length > 0 ? (
+  return (
     <Root>
       <p className="orichi-courses-title">Recent Course</p>
       <div className="orichi-courses-slider">
-        <Swiper
-          onActiveIndexChange={(swiperCore) => {
-            setIsNext(!swiperCore.isEnd);
-            setIsPrev(!swiperCore.isBeginning);
-            setActiveIndex(swiperCore.activeIndex + 1);
-          }}
-          mousewheel
-          updateOnWindowResize
-          className="swipper"
-          onSwiper={setSwiperController}
-          slidesPerView={"auto"}
-          spaceBetween={16}
-        >
-          {courses.map((item) => (
-            <SwiperSlide key={`slider-${item.id}`}>
-              <RecentCourseItem item={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {data?.value && data?.value?.length > 0 && (
+          <Swiper
+            onActiveIndexChange={(swiperCore) => {
+              setIsNext(!swiperCore.isEnd);
+              setIsPrev(!swiperCore.isBeginning);
+              setActiveIndex(swiperCore.activeIndex + 1);
+            }}
+            mousewheel
+            updateOnWindowResize
+            className="swipper"
+            onSwiper={setSwiperController}
+            slidesPerView={"auto"}
+            spaceBetween={16}
+          >
+            {data?.value?.map((item) => (
+              <SwiperSlide key={`slider-${item.id}`}>
+                <RecentCourseItem item={item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
         <div className="orichi-courses-action">
           <Pagination
             hasNext={isNext}
@@ -53,13 +59,13 @@ const RecentCourse = () => {
             onNext={onNext}
             onPrevious={onPrev}
           ></Pagination>
-          <span className="orichi-courses-page">{`${activeIndex}/${courses.length}`}</span>
+          <span className="orichi-courses-page">{`${activeIndex}/${
+            data?.value?.length ?? 1
+          }`}</span>
         </div>
       </div>
     </Root>
-  ) : (
-    <></>
   );
 };
 
-export default RecentCourse;
+export default React.memo(RecentCourse);

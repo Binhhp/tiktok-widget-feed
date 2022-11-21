@@ -29,6 +29,7 @@ export interface IFormControlSource {
   loading?: boolean;
   size?: "small" | "large";
   jobInterval?: boolean;
+  notDesc?: boolean;
 }
 function FormControlSource(props: IFormControlSource) {
   const widgetReducer = useSelector(
@@ -176,7 +177,9 @@ function FormControlSource(props: IFormControlSource) {
               helpText={`${
                 widgetReducer.settings.source === 0
                   ? ""
-                  : "Do not include the “@” symbol"
+                  : !props.notDesc
+                  ? "Do not include the “@” symbol"
+                  : ""
               }`}
               value={widgetReducer.settings.valueSource}
               onChange={(val) => setValueSource(val)}

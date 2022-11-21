@@ -12,7 +12,7 @@ export const Root = styled("div", "", "orichi-courses")`
     .swiper-container {
       padding-left: 16px;
       padding-top: 16px;
-      padding-bottom: 16px;
+      padding-bottom: 1px;
       padding-right: 16px;
       .swiper-slide {
         width: 80%;
@@ -35,7 +35,7 @@ export const Root = styled("div", "", "orichi-courses")`
   .orichi-courses-action {
     display: flex;
     align-items: center;
-    padding: 0px 16px 16px 16px;
+    padding: 15px 16px 16px 16px;
     .orichi-courses-page {
       margin-left: 16px;
       color: #6d7175;

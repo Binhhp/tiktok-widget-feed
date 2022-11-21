@@ -96,12 +96,6 @@ namespace TiktokWidget.Service.Implements
 
                                     response.Analytics.SetAnlysisConversationRate(totalImpressionLast, totalClicksLast);
                                 }
-                                else
-                                {
-                                    response.Analytics.Impression.AnalysisIndicator = 1;
-                                    response.Analytics.Clicks.AnalysisIndicator = 1;
-                                    response.Analytics.ConversationRate.AnalysisIndicator = 1;
-                                }
                             }
                         }
                     }

@@ -8,6 +8,9 @@ export interface IMainWidgetStyle {
 export const WidgetContainer = styled("div")`
   width: 100%;
   height: 100%;
+  #section1 {
+    max-height: 100%;
+  }
 `;
 
 export const WidgetWrapper = styled("div")<IMainWidgetStyle>`

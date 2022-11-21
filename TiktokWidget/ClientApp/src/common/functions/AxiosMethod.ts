@@ -37,16 +37,4 @@ const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {
   return Promise.resolve(result);
 };
 
-const FetchDataSwr = (req: IQueryModel) => {
-  if (localStorage.getItem("timezone")) {
-    instance.defaults.headers.common["tz"] = `${localStorage.getItem(
-      "timezone"
-    )}`;
-  }
-  return instance({
-    method: req.method,
-    data: req.body,
-    url: req.url,
-  });
-};
-export { FetchDataFromServer, FetchDataSwr };
+export { FetchDataFromServer };
