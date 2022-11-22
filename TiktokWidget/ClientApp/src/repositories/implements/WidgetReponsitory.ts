@@ -15,6 +15,7 @@ import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequ
 import config from "config";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
+import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 
 export class WidgetReponsitory implements IWidgetReponsitory {
   AddJob = async (domain?: string, req?: AddJobRequest) => {
@@ -57,10 +58,11 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     }
   };
 
-  PostClick = async (key: string) => {
+  PostClick = async (key: string, req: SetClickPostRequest) => {
     return await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/TikTokVideos('${key}')/SetClicks`,
+      body: req,
     });
   };
 

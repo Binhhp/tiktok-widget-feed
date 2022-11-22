@@ -11,6 +11,7 @@ import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
+import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
@@ -139,10 +140,11 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     }
   };
 
-  PostClick = async (key: string) => {
+  PostClick = async (key: string, req: SetClickPostRequest) => {
     return await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/InstagramVideos('${key}')/SetClicks`,
+      body: req,
     });
   };
 

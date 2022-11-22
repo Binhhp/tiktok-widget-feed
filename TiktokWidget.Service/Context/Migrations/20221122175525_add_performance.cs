@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    public partial class add_performance_instagram : Migration
+    public partial class add_performance : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,57 +85,21 @@ namespace TiktokWidget.Service.Context.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InstagramTraffic = table.Column<long>(type: "bigint", nullable: false),
-                    TikTokTraffic = table.Column<long>(type: "bigint", nullable: false),
-                    ShopId = table.Column<int>(type: "int", nullable: false)
+                    Impression = table.Column<long>(type: "bigint", nullable: false),
+                    ClickPosts = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    WidgetId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShopId = table.Column<int>(type: "int", nullable: false),
+                    ShopEntityID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Performances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Performances_Shop_ShopId",
-                        column: x => x.ShopId,
+                        name: "FK_Performances_Shop_ShopEntityID",
+                        column: x => x.ShopEntityID,
                         principalTable: "Shop",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PostImpression",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Impression = table.Column<long>(type: "bigint", nullable: false),
-                    Clicks = table.Column<long>(type: "bigint", nullable: false),
-                    PostId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostImpression", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PostImpression_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -155,14 +119,9 @@ namespace TiktokWidget.Service.Context.Migrations
                 column: "WidgetTitle");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Performances_ShopId",
+                name: "IX_Performances_ShopEntityID",
                 table: "Performances",
-                column: "ShopId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PostImpression_PostId",
-                table: "PostImpression",
-                column: "PostId");
+                column: "ShopEntityID");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Product_InstagramWidget_InstagramWidgetId",
@@ -190,12 +149,6 @@ namespace TiktokWidget.Service.Context.Migrations
 
             migrationBuilder.DropTable(
                 name: "Performances");
-
-            migrationBuilder.DropTable(
-                name: "PostImpression");
-
-            migrationBuilder.DropTable(
-                name: "Posts");
 
             migrationBuilder.DropIndex(
                 name: "IX_Product_InstagramWidgetId",

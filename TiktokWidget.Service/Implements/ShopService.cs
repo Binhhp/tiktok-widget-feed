@@ -343,42 +343,5 @@ namespace TiktokWidget.Service.Implements
         {
             return _context.Banner.Where(x => x.Status);
         }
-
-        public IQueryable<PostViewModel> GetPosts(DateTime startTime, DateTime endTime)
-        {
-            var response = Enumerable.Empty<PostViewModel>().AsQueryable();
-            try
-            {
-                var timezoneFromQuery = _httpContextAccessor.HttpContext?.Request?.Headers?["tz"].ToString();
-                if(!string.IsNullOrEmpty(timezoneFromQuery))
-                {
-                    startTime = TimezoneProvider.ConvertIANATimezone(startTime, timezoneFromQuery);
-                    endTime = TimezoneProvider.ConvertIANATimezone(endTime, timezoneFromQuery);
-                }
-                var postImpressions = _context.PostImpression.Include(x => x.Post).Where(x => 
-                    (x.Time.Date > startTime.Date || x.Time.Date == startTime.Date) && 
-                    (x.Time.Date < endTime.Date || x.Time.Date == endTime.Date)).ToList();
-
-                if (postImpressions.Any())
-                {
-                    var result = postImpressions.GroupBy(p => p.Post, i => i, (p, i) => new PostViewModel
-                    {
-                        Id = p.Id,
-                        Title = p.Title,
-                        Description = p.Description,
-                        Content = p.Content,
-                        Url = p.Url,
-                        Image = p.Image,
-                        Impression = i.Sum(x => x.Impression),
-                        Clicks = i.Sum(x => x.Clicks)
-                    }).AsQueryable();
-                    response = result;
-                }
-            }
-            catch
-            {
-            }
-            return response;
-        }
     }
 }

@@ -24,7 +24,7 @@ namespace TiktokWidget.Service.CommandHandlers
             var tikTokWidget = _tiktokWidgetService.GetById(command.WidgetId).FirstOrDefault();
             if (tikTokWidget != null)
             {
-                await _performancesService.SetPerformanceAsync(tikTokWidget.ShopId, command.Time, PerformanceTypeEnum.TikTok);
+                await _performancesService.RiseImpressionWidgetAsync(tikTokWidget.ShopId, tikTokWidget.Id, command.Time, PerformanceTypeEnum.TikTok);
             }
         }
     }

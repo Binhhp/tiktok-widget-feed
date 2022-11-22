@@ -11,11 +11,12 @@ export const getRecentCourses = (): Response<ICourseResponse> => {
 };
 
 export const getPosts = (
-  startDate = "2022-11-03 10:21:11.8899610",
-  endDate = "2022-11-06 10:21:11.8898013"
+  domain: string,
+  startDate = new Date().toString(),
+  endDate = new Date().toString()
 ): Response<IPostResponse> => {
   return axiosInstance.get(
-    `/odata/Posts?startTime=${convertShortDate(
+    `/odata/Shops('${domain}')/Posts?startTime=${convertShortDate(
       startDate
     )}&endTime=${convertShortDate(endDate)}`
   );

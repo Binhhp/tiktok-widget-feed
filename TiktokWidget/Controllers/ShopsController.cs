@@ -171,15 +171,6 @@ namespace TiktokWidget.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [EnableQuery]
-        [ODataRoute("Shops({domain})/Traffic")]
-        public IActionResult GetTraffic([FromODataUri] string domain)
-        {
-            var result = _unitOfWork.Performance.Get(domain);
-            return Ok(result);
-        }
-
         [HttpPost]
         [ODataRoute("Shops({domain})/Feedback")]
         public async Task<IActionResult> PostFeedback([FromODataUri] string domain, [FromBody] PostFeedbackRequest request)

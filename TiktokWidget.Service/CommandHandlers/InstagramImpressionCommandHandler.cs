@@ -24,7 +24,7 @@ namespace TiktokWidget.Service.CommandHandlers
             var instagramWidget = _instagramWidgetService.GetById(command.WidgetId).FirstOrDefault();
             if (instagramWidget != null)
             {
-                await _performancesService.SetPerformanceAsync(instagramWidget.ShopId, command.Time, PerformanceTypeEnum.Instagram);
+                await _performancesService.RiseImpressionWidgetAsync(instagramWidget.ShopId, instagramWidget.Id, command.Time, PerformanceTypeEnum.Instagram);
             }
         }
     }

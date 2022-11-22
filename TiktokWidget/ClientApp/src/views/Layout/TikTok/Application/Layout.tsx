@@ -27,13 +27,16 @@ function Layout(props: LayoutProps) {
       active: true,
     });
 
+    var videoId;
     if (index === 0) {
-      const videoId = templateContext.state.items[index].id;
+      videoId = templateContext.state.items[index].id;
       audioPlayerContext.handleVideoClick(videoId);
     }
 
     const tiktokResp = new WidgetReponsitory();
-    tiktokResp.PostClick(props.id);
+    tiktokResp.PostClick(props.id, {
+      postId: videoId,
+    });
   };
   return (
     <Template

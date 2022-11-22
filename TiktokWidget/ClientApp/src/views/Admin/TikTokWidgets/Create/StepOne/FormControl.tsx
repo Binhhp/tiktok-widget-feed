@@ -111,7 +111,7 @@ function FormControlSource(props: IFormControlSource) {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const onAddJobVideo = () => {
-    if (widgetReducer.settings.valueSource) {
+    if (widgetReducer.settings.valueSource !== undefined) {
       dispatch(WidgetActionTS.SetWorkingSearch(true));
       const widgetReponsitory = new WidgetReponsitory();
       const sourceType = widgetReducer.settings.source ?? 0;

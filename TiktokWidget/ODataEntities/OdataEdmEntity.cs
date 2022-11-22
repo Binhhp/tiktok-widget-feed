@@ -61,7 +61,6 @@ namespace TiktokWidget.ODataEntities
             _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");
             _builder.EntitySet<ShopConfigurationEntity>("ShopConfiguration");
-            _builder.EntitySet<PerformancesEntity>("Traffic");
             _builder.EntitySet<ShopDescriptorEntity>("ShopDescriptor");
             _builder.EntitySet<CoursesEntity>("Courses");
             _builder.EntitySet<BannerEnitty>("Banner");

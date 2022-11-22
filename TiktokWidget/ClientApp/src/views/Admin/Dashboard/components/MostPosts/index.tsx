@@ -11,9 +11,14 @@ const MostPost = () => {
     (state: RootReducer) => state.AppReducer.dateRange
   );
 
+  const shop = useSelector((state: RootReducer) => state.ShopReducer.shop);
   const [data, setData] = useState<IPostResponse | undefined>(undefined);
   useEffect(() => {
-    getPosts(dateRangeSate.startDate, dateRangeSate.endDate).then((res) => {
+    getPosts(
+      shop.domain ?? "",
+      dateRangeSate.startDate,
+      dateRangeSate.endDate
+    ).then((res) => {
       if (res) setData(res);
     });
   }, [dateRangeSate]);

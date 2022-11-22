@@ -6,6 +6,7 @@ import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequ
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
+import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 
 export interface IWidgetReponsitory {
   AddJob: (domain?: string, req?: AddJobRequest) => Promise<BaseResponse>;
@@ -27,7 +28,7 @@ export interface IWidgetReponsitory {
     pageIndex: number,
     showItems?: number
   ) => Promise<IVideoTemplateModel>;
-  PostClick: (key: string) => Promise<any>;
+  PostClick: (key: string, req: SetClickPostRequest) => Promise<any>;
   GetVideosByJob: (
     req: GetVideoByJobRequest,
     showItems?: number

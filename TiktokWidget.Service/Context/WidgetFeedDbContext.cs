@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Entities;
 
@@ -19,8 +21,6 @@ namespace TiktokWidget.Service.Context
         public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
         public DbSet<CoursesEntity> Cources { get; set; }
         public DbSet<BannerEnitty> Banner { get; set; }
-        public DbSet<PostsEntity> Posts { get; set; }
-        public DbSet<PostImpressionEntity> PostImpression { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -85,17 +85,14 @@ namespace TiktokWidget.Service.Context
 
             ////Config performances of shop
             var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
-            performances.HasOne(c => c.Shops).WithMany(e => e.Performances).HasForeignKey(x => x.ShopId);
-
+            performances.Property(g => g.ClickPosts)
+                 .HasConversion(
+                 v => string.Join(",", v),
+                 v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
             //Cources
             modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
             //Banner
             modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
-            //Posts
-            modelBuilder.Entity<PostsEntity>().ToTable("Posts");
-            //Post impression
-            var postImpression = modelBuilder.Entity<PostImpressionEntity>().ToTable("PostImpression");
-            postImpression.HasOne(x => x.Post).WithMany(x => x.Impression).HasForeignKey(x => new { x.PostId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

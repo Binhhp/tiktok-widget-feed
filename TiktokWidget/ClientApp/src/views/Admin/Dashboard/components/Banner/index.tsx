@@ -38,11 +38,13 @@ const Banner = () => {
           >
             {data?.value?.map((item) => (
               <SwiperSlide key={`slider-${item.id}`}>
-                <img
-                  src={item.image}
-                  alt="BannerImg"
-                  className="orichi-slide-img"
-                />
+                <a href={item.url} target="_blank" rel="noreferrer">
+                  <img
+                    src={item.image}
+                    alt="BannerImg"
+                    className="orichi-slide-img"
+                  />
+                </a>
               </SwiperSlide>
             ))}
           </Swiper>

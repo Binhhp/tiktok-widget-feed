@@ -58,7 +58,9 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
     }
     if (props.widget.id) {
       const tiktokResp = new WidgetReponsitory();
-      tiktokResp.PostClick(props.widget.id);
+      tiktokResp.PostClick(props.widget.id, {
+        postId: idIndexItem,
+      });
     }
   };
 

@@ -4,6 +4,7 @@ import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
+import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 
@@ -38,5 +39,5 @@ export interface IInstagramReponsitory {
     domain: string,
     req: PostFeedbackRequest
   ) => Promise<BaseResponse>;
-  PostClick: (key: string) => Promise<any>;
+  PostClick: (key: string, req: SetClickPostRequest) => Promise<any>;
 }

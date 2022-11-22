@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using TiktokWidget.Common.Enums;
 using TiktokWidget.Common.Utils;
 
 namespace TiktokWidget.Service.Entities
@@ -7,11 +9,10 @@ namespace TiktokWidget.Service.Entities
     {
         [NonFormater]
         public DateTime Time { get; set; }
-        public Int64 InstagramTraffic { get; set; }
-        public Int64 InstagramClicks { get; set; }
-        public Int64 TikTokTraffic { get; set; }
-        public Int64 TikTokClicks { get; set; }
+        public Int64 Impression { get; set; }
+        public List<string> ClickPosts { get; set; }
+        public PerformanceTypeEnum Type { get; set; }
+        public string WidgetId { get; set; }
         public int ShopId { get; set; }
-        public ShopEntity Shops { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Commands;
+using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Interfaces;
 
@@ -54,11 +55,12 @@ namespace TiktokWidget.Controllers
 
         [HttpPost]
         [ODataRoute("TikTokVideos({key})/SetClicks")]
-        public async Task<IActionResult> SetTikTokClicks([FromODataUri] string key)
+        public async Task<IActionResult> SetTikTokClicks([FromODataUri] string key, [FromBody] SetClickPostRequest request)
         {
             await Task.Run(() => _mediator.Publish(new TikTokClicksCommand
             {
                 Time = DateTime.UtcNow,
+                PostId = request.PostId,
                 WidgetId = key
             }));
             return Ok();
@@ -97,11 +99,12 @@ namespace TiktokWidget.Controllers
 
         [HttpPost]
         [ODataRoute("InstagramVideos({key})/SetClicks")]
-        public async Task<IActionResult> SetInstagramClicks([FromODataUri] string key)
+        public async Task<IActionResult> SetInstagramClicks([FromODataUri] string key, [FromBody] SetClickPostRequest request)
         {
             await Task.Run(() => _mediator.Publish(new InstagramClicksCommand
             {
                 Time = DateTime.UtcNow,
+                PostId = request.PostId,
                 WidgetId = key
             }));
             return Ok();

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
@@ -35,10 +36,14 @@ namespace TiktokWidget.Controllers
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("Posts")]
-        public IActionResult GetPosts(DateTime startTime, DateTime endTime)
+        [ODataRoute("Shops({domain})/Posts")]
+        public async Task<IActionResult> GetPosts([FromODataUri] string domain, DateTime startTime, DateTime endTime)
         {
-            var posts = _unitOfWork.Shop.GetPosts(startTime, endTime);
+            var posts = await _unitOfWork.Performance.GetPostPopular(domain, new Service.Dtos.Responses.Shops.AnalyzeWidgetRequest
+            {
+                StartTime = startTime,
+                EndTime = endTime
+            });
             return Ok(posts);
         }
     }
