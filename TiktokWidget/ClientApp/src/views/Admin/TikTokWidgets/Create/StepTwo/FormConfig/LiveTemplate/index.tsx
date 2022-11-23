@@ -56,7 +56,8 @@ function LiveTemplate() {
         const res = await new WidgetReponsitory().GetVideosByJob(
           new GetVideoByJobRequest(
             widgetReducer.settings.valueSource,
-            widgetReducer.settings.source
+            widgetReducer.settings.source,
+            true
           ),
           100
         );
