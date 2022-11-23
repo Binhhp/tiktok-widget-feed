@@ -30,7 +30,9 @@ function Layout(props: ILayoutProps) {
     setItem(item);
     const instagramResp = new InstagramReponsitory();
     instagramResp.PostClick(props.widget.id, {
-      postId: item?.id,
+      PostId: item?.id,
+      Image: item?.imageUrl,
+      Description: item?.description,
     });
   };
   return (

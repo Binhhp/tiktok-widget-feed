@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    public partial class add_performance : Migration
+    public partial class add_performance_widget : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,22 @@ namespace TiktokWidget.Service.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ImpressionWidget",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Impression = table.Column<long>(type: "bigint", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    WidgetId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShopId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImpressionWidget", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InstagramWidget",
                 columns: table => new
                 {
@@ -80,27 +96,22 @@ namespace TiktokWidget.Service.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Performances",
+                name: "PostClickWidget",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Impression = table.Column<long>(type: "bigint", nullable: false),
-                    ClickPosts = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Click = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     WidgetId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShopId = table.Column<int>(type: "int", nullable: false),
-                    ShopEntityID = table.Column<int>(type: "int", nullable: true)
+                    PostInfo_Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostInfo_Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostInfo_Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Performances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Performances_Shop_ShopEntityID",
-                        column: x => x.ShopEntityID,
-                        principalTable: "Shop",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_PostClickWidget", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
@@ -117,11 +128,6 @@ namespace TiktokWidget.Service.Context.Migrations
                 name: "IX_InstagramWidget_WidgetTitle",
                 table: "InstagramWidget",
                 column: "WidgetTitle");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Performances_ShopEntityID",
-                table: "Performances",
-                column: "ShopEntityID");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Product_InstagramWidget_InstagramWidgetId",
@@ -145,10 +151,13 @@ namespace TiktokWidget.Service.Context.Migrations
                 name: "Cources");
 
             migrationBuilder.DropTable(
+                name: "ImpressionWidget");
+
+            migrationBuilder.DropTable(
                 name: "InstagramWidget");
 
             migrationBuilder.DropTable(
-                name: "Performances");
+                name: "PostClickWidget");
 
             migrationBuilder.DropIndex(
                 name: "IX_Product_InstagramWidgetId",

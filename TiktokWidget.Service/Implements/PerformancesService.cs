@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Orichi.IoC.Logging;
 using System;
@@ -10,6 +9,7 @@ using TiktokWidget.Common.Enums;
 using TiktokWidget.Common.Utils;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
+using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Responses.Shops;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
@@ -22,15 +22,11 @@ namespace TiktokWidget.Service.Implements
         private readonly WidgetFeedDbContext _dbContext;
         private readonly ILoggerProvider _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ITikTokWidgetService _tiktokService;
-        private readonly IInstagramWidgetService _instagramService;
-        public PerformancesService(WidgetFeedDbContext dbContext, ILoggerProvider logger, IHttpContextAccessor httpContextAccessor, IInstagramWidgetService instagramService, ITikTokWidgetService tiktokService)
+        public PerformancesService(WidgetFeedDbContext dbContext, ILoggerProvider logger, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
-            _instagramService = instagramService;
-            _tiktokService = tiktokService;
         }
         public async Task<AnalyzeWidgetResponse> Analytics(string domain, AnalyzeWidgetRequest request)
         {
@@ -46,26 +42,15 @@ namespace TiktokWidget.Service.Implements
                     request.StartTime = TimezoneProvider.ConvertIANATimezone(request.StartTime, timeZoneFromQuery);
                     request.EndTime = TimezoneProvider.ConvertIANATimezone(request.EndTime, timeZoneFromQuery);
                 }
-
-                var performances = _dbContext.Performances.Where(x =>
-                        x.ShopId.Equals(shop.ID) &&
-                        (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
-                        .ToList()
-                        .GroupBy(x => x.Time)
-                        .Select(x => new PerformanceViewModel
-                        {
-                            Time = x.Key,
-                            Impression = x.Sum(x => x.Impression),
-                            Clicks = x.Sum(x => x.ClickPosts.Count())
-                        });
+                var performanceCurrent = GetPerformances(shop.ID, request.StartTime, request.EndTime);
                 try
                 {
-                    if (performances.Any())
+                    if (performanceCurrent.Any())
                     {
-                        response.Impression = performances;
+                        response.Impression = performanceCurrent;
 
-                        var totalImpression = performances.Sum(x => x.Impression);
-                        var totalClicks = performances.Sum(x => x.Clicks);
+                        var totalImpression = performanceCurrent.Sum(x => x.Impression);
+                        var totalClicks = performanceCurrent.Sum(x => x.Clicks);
 
                         response.Analytics = new Analytics(totalImpression, totalClicks);
                         var period = request.EndTime.Date.Subtract(request.StartTime.Date).Days;
@@ -74,22 +59,14 @@ namespace TiktokWidget.Service.Implements
                             var startTimeHistory = request.StartTime.AddDays(-period);
                             var endTimeHistory = request.EndTime.AddDays(-period);
 
-                            var performanceLast = _dbContext.Performances.Where(x =>
-                                    x.ShopId.Equals(shop.ID) &&
-                                    (x.Time.Date > startTimeHistory.Date || x.Time.Date == startTimeHistory.Date) && (x.Time.Date < endTimeHistory.Date || x.Time.Date == endTimeHistory.Date))
-                                    .GroupBy(x => x.Time).Select(x => new PerformanceViewModel
-                                    {
-                                        Time = x.Key,
-                                        Impression = x.Sum(x => x.Impression),
-                                        Clicks = x.Sum(x => x.ClickPosts.Count())
-                                    }).ToList();
+                            var performanceLastTime = GetPerformances(shop.ID, startTimeHistory, endTimeHistory);
 
-                            if (performanceLast.Any())
+                            if (performanceLastTime.Any())
                             {
-                                var totalImpressionLast = performanceLast.Sum(x => x.Impression);
+                                var totalImpressionLast = performanceLastTime.Sum(x => x.Impression);
                                 response.Analytics.SetAnlysisImpression(totalImpressionLast);
 
-                                var totalClicksLast = performanceLast.Sum(x => x.Clicks);
+                                var totalClicksLast = performanceLastTime.Sum(x => x.Clicks);
                                 response.Analytics.SetAnlysisClicks(totalClicksLast);
 
                                 response.Analytics.SetAnlysisConversationRate(totalImpressionLast, totalClicksLast);
@@ -109,59 +86,105 @@ namespace TiktokWidget.Service.Implements
             return response;
         }
 
-        public async Task SetClicksAsync(int shopId, string widgetId, string postId, DateTime time, PerformanceTypeEnum type)
+        private IEnumerable<PerformanceViewModel> GetPerformances(int shopId, DateTime startTime, DateTime endTime)
         {
-            time = ConvertTimeZone(time);
-            var performance = _dbContext.Performances.FirstOrDefault(x => x.Time.Date.Equals(time.Date) && x.WidgetId == widgetId && x.Type.Equals(type) && x.ShopId == shopId);
-            if(performance != null)
-            {
-                if(performance.ClickPosts != null)
-                {
-                    performance.ClickPosts.Add(postId);
-                    await _dbContext.SaveChangesAsync();
-                }
-            }
-        }
-
-        public async Task RiseImpressionWidgetAsync(int shopId, string widgetId, DateTime time, PerformanceTypeEnum type)
-        {
+            var response = new List<PerformanceViewModel>();
             try
             {
-                time = ConvertTimeZone(time);
-                var dateRange = await _dbContext.Performances.FirstOrDefaultAsync(x => x.Time.Date.Equals(time.Date) && x.Type.Equals(type));
-                if (dateRange != null)
+                var impressionWidgets = _dbContext.ImpressionWidget.Where(x =>
+                        x.ShopId.Equals(shopId) &&
+                        (x.Time.Date > startTime.Date || x.Time.Date == startTime.Date) && (x.Time.Date < endTime.Date || x.Time.Date == endTime.Date))
+                        .ToList();
+                if (impressionWidgets.Any())
                 {
-                    dateRange.Impression += 1;
-                }
-                else
-                {
-                    dateRange = new PerformancesEntity
+                    var clickPostSchedules = new List<AnalysticItem>();
+                    var clickPosts = _dbContext.PostClickWidget.Where(x =>
+                                x.ShopId.Equals(shopId) &&
+                                (x.Time.Date > startTime.Date || x.Time.Date == startTime.Date) && (x.Time.Date < endTime.Date || x.Time.Date == endTime.Date))
+                                .ToList();
+
+                    if (clickPosts.Any())
                     {
-                        Impression = 1,
-                        Time = time,
-                        WidgetId = widgetId,
-                        Type = type,
-                        ShopId = shopId
-                    };
-                    _dbContext.Performances.Add(dateRange);
+                        clickPostSchedules = clickPosts.GroupBy(x => x.Time.Date)
+                                .Select(x => new AnalysticItem
+                                {
+                                    Time = x.Key,
+                                    Count = x.Sum(x => x.Click)
+                                }).ToList();
+
+                    }
+
+                    response = impressionWidgets.GroupBy(x => x.Time.Date).Select(x => new PerformanceViewModel
+                    {
+                        Time = x.Key,
+                        Impression = x.Sum(x => x.Impression),
+                        Clicks = clickPostSchedules.FirstOrDefault(c => c.Time == x.Key)?.Count ?? 0
+                    }).ToList();
                 }
-                await _dbContext.SaveChangesAsync();
             }
             catch(Exception ex)
             {
                 _logger.LogInfo(ex);
             }
+            return response;
         }
+
+        public async Task SetClicksAsync(DateTime dateTime, PostWidgetDto request)
+        {
+            dateTime = ConvertTimeZone(dateTime);
+            var postClicks = _dbContext.PostClickWidget.FirstOrDefault(x => 
+                x.PostInfo.Id == request.Information.Id &&
+                x.Time.Date.Equals(dateTime.Date) && 
+                x.WidgetId == request.WidgetId && 
+                x.Type.Equals(request.Type));
+
+            if(postClicks != null) postClicks.Click += 1;
+            else
+            {
+                await _dbContext.PostClickWidget.AddAsync(new PostClickWidgetEntity
+                {
+                    Click = 1,
+                    ShopId = request.ShopId,
+                    PostInfo = request.Information,
+                    Time = dateTime,
+                    Type = request.Type,
+                    WidgetId = request.WidgetId,
+                });
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task RiseImpressionWidgetAsync(int shopId, string widgetId, DateTime time, PerformanceTypeEnum type)
+        {
+            time = ConvertTimeZone(time);
+            var dateRange = await _dbContext.ImpressionWidget.FirstOrDefaultAsync(x =>
+                    x.Time.Date.Equals(time.Date) &&
+                    x.Type.Equals(type) &&
+                    x.WidgetId == widgetId &&
+                    x.ShopId == shopId);
+
+            if (dateRange != null) dateRange.Impression += 1;
+            else
+            {
+                dateRange = new ImpressionWidgetEntity
+                {
+                    Impression = 1,
+                    Time = time,
+                    WidgetId = widgetId,
+                    Type = type,
+                    ShopId = shopId
+                };
+                _dbContext.ImpressionWidget.Add(dateRange);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         private DateTime ConvertTimeZone(DateTime timeInput)
         {
             var timeZone = _httpContextAccessor.HttpContext.Request?.Headers?["tz"].ToString();
             if (!string.IsNullOrEmpty(timeZone))
             {
-                var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
-                if (timeZoneInfo != null)
-                {
-                    return TimeZoneInfo.ConvertTime(timeInput, timeZoneInfo);
-                }
+                return TimezoneProvider.ConvertIANATimezone(timeInput, timeZone);
             }
             return timeInput;
         }
@@ -181,63 +204,41 @@ namespace TiktokWidget.Service.Implements
                     request.StartTime = TimezoneProvider.ConvertIANATimezone(request.StartTime, timeZoneFromQuery);
                     request.EndTime = TimezoneProvider.ConvertIANATimezone(request.EndTime, timeZoneFromQuery);
                 }
-
-                var performances = _dbContext.Performances.Where(x =>
-                        x.ShopId.Equals(shop.ID) &&
-                        (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
-                    .ToList();
-
-                if (performances.Any())
+                var clickPosts = _dbContext.PostClickWidget.Where(x =>
+                                x.ShopId.Equals(shop.ID) &&
+                                (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
+                                .ToList();
+                if (clickPosts.Any())
                 {
-                    var postIds = new List<string>();
-                    foreach(var performance in performances)
-                    {
-                        if (performance.ClickPosts.Any())
-                        {
-                            postIds.AddRange(performance.ClickPosts.Select(x => $"{performance.ShopId}_{performance.WidgetId}_{performance.Type}_{x}"));
-                        }
-                    }
+                    var postIds = clickPosts.GroupBy(x => x.PostInfo.Id)
+                                .Select(p => new
+                                {
+                                    Id = p.Key,
+                                    Clicks = p.Sum(x => x.Click)
+                                }).OrderByDescending(x => x.Clicks).Take(3).ToList();
                     if (postIds.Any())
                     {
-                        var postPopulars = postIds.GroupBy(x => x).Select(g => new { Id = g.Key, Count = g.Count() }).OrderByDescending(x => x.Count).Take(3).ToList();
-                        if (postPopulars.Any())
+                        var impressionWidgets = _dbContext.ImpressionWidget.Where(x =>
+                            x.ShopId.Equals(shop.ID) &&
+                            (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
+                            .ToList();
+
+                        foreach (var item in postIds)
                         {
-                            foreach(var item in postPopulars)
+                            var postCurrent = clickPosts.FirstOrDefault(x => x.PostInfo.Id == item.Id);
+                            var post = new PostViewModel
                             {
-                                var detailPost = item.Id.Split("_").ToArray();
-                                if ((PerformanceTypeEnum)Enum.Parse(typeof(PerformanceTypeEnum), detailPost[2]) == PerformanceTypeEnum.Instagram)
-                                {
-                                    var videos = _instagramService.GetVideos(detailPost[1]);
-                                    if (videos != null)
-                                    {
-                                        var videoInfo = videos.FirstOrDefault(x => x.Id == detailPost[3]);
-                                        if (videoInfo != null) response.Add(new PostViewModel
-                                        {
-                                            Id = videoInfo.Id,
-                                            Description= videoInfo.Description,
-                                            Clicks = item.Count,
-                                            Impression = performances.Where(x => x.WidgetId == detailPost[1]).Sum(x => x.Impression),
-                                            Image = videoInfo.ImageUrl
-                                        });
-                                    }
-                                }
-                                else if((PerformanceTypeEnum)Enum.Parse(typeof(PerformanceTypeEnum), detailPost[2]) == PerformanceTypeEnum.TikTok)
-                                {
-                                    var videos = _tiktokService.GetVideos(detailPost[1]);
-                                    if (videos != null)
-                                    {
-                                        var videoInfo = videos.FirstOrDefault(x => x.id == detailPost[3]);
-                                        if (videoInfo != null) response.Add(new PostViewModel
-                                        {
-                                            Id = videoInfo.id,
-                                            Description = videoInfo.desc,
-                                            Clicks = item.Count,
-                                            Impression = performances.Where(x => x.WidgetId == detailPost[1]).Sum(x => x.Impression),
-                                            Image = videoInfo.video.originCover
-                                        });
-                                    }
-                                }
+                                Clicks = item.Clicks,
+                                Id = item.Id,
+                                Description = postCurrent?.PostInfo?.Description,
+                                Image = postCurrent?.PostInfo?.Image
+                            };
+                            if (impressionWidgets.Any())
+                            {
+                                var impressionWidgetCurent = impressionWidgets.FirstOrDefault(x => x.WidgetId == postCurrent.WidgetId && x.ShopId == postCurrent.ShopId);
+                                if (impressionWidgetCurent != null) post.Impression = impressionWidgetCurent.Impression;
                             }
+                            response.Add(post);
                         }
                     }
                 }
@@ -248,5 +249,11 @@ namespace TiktokWidget.Service.Implements
             }
             return response;
         }
+    }
+
+    public class AnalysticItem
+    {
+        public DateTime Time { get; set; }
+        public int Count { get; set; }
     }
 }

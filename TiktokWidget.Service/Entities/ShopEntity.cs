@@ -27,6 +27,5 @@ namespace TiktokWidget.Service.Entities
         public ShopConfigurationEntity ShopConfiguration { get; set; }
         public ShopDescriptorEntity ShopDescriptor { get; set; }
         public ICollection<ProductEntity> Products { get; set; }
-        public ICollection<PerformancesEntity> Performances { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using TiktokWidget.Service.Context;
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(WidgetFeedDbContext))]
-    [Migration("20221122175525_add_performance")]
-    partial class add_performance
+    [Migration("20221123142247_add_performance_widget")]
+    partial class add_performance_widget
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,32 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cources");
+                });
+
+            modelBuilder.Entity("TiktokWidget.Service.Entities.ImpressionWidgetEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("Impression")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ShopId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WidgetId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImpressionWidget");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.InstagramWidgetEntity", b =>
@@ -135,19 +161,13 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PerformancesEntity", b =>
+            modelBuilder.Entity("TiktokWidget.Service.Entities.PostClickWidgetEntity", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ClickPosts")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Impression")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("ShopEntityID")
+                    b.Property<int>("Click")
                         .HasColumnType("int");
 
                     b.Property<int>("ShopId")
@@ -164,9 +184,7 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShopEntityID");
-
-                    b.ToTable("Performances");
+                    b.ToTable("PostClickWidget");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.ProductEntity", b =>
@@ -468,11 +486,31 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Navigation("Shops");
                 });
 
-            modelBuilder.Entity("TiktokWidget.Service.Entities.PerformancesEntity", b =>
+            modelBuilder.Entity("TiktokWidget.Service.Entities.PostClickWidgetEntity", b =>
                 {
-                    b.HasOne("TiktokWidget.Service.Entities.ShopEntity", null)
-                        .WithMany("Performances")
-                        .HasForeignKey("ShopEntityID");
+                    b.OwnsOne("TiktokWidget.Service.Entities.PostWidgetInformation", "PostInfo", b1 =>
+                        {
+                            b1.Property<string>("PostClickWidgetEntityId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<string>("Description")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Id")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Image")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("PostClickWidgetEntityId");
+
+                            b1.ToTable("PostClickWidget");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PostClickWidgetEntityId");
+                        });
+
+                    b.Navigation("PostInfo");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.ProductEntity", b =>
@@ -619,8 +657,6 @@ namespace TiktokWidget.Service.Context.Migrations
             modelBuilder.Entity("TiktokWidget.Service.Entities.ShopEntity", b =>
                 {
                     b.Navigation("InstagramWidgets");
-
-                    b.Navigation("Performances");
 
                     b.Navigation("Products");
 

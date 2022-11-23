@@ -43,9 +43,9 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
   });
 
   const onActiveIndexVideo = (index: number) => () => {
-    const idIndexItem = templateContext.state.items[index].id;
-    if (audioPlayerContext.videoId !== idIndexItem) {
-      audioPlayerContext.handleVideoClick(idIndexItem);
+    const item = templateContext.state.items[index];
+    if (audioPlayerContext.videoId !== item.id) {
+      audioPlayerContext.handleVideoClick(item.id);
     }
     setLoading(true);
     if (error?.active) {
@@ -59,7 +59,9 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
     if (props.widget.id) {
       const tiktokResp = new WidgetReponsitory();
       tiktokResp.PostClick(props.widget.id, {
-        postId: idIndexItem,
+        PostId: item.id,
+        Image: item?.video?.originCover,
+        Description: item?.desc,
       });
     }
   };

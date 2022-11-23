@@ -11,8 +11,6 @@ namespace TiktokWidget.ODataEntities.Models
 
         public IEnumerable<TikTokWidgetEntity> TikTokWidgets { get; set; }
 
-        public IEnumerable<PerformancesEntity> Traffic { get; set; }
-
         public IEnumerable<PostViewModel> Posts { get; set; } 
     }
 }

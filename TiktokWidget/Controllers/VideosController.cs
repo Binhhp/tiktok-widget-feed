@@ -8,6 +8,7 @@ using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Commands;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
+using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Controllers
@@ -60,7 +61,12 @@ namespace TiktokWidget.Controllers
             await Task.Run(() => _mediator.Publish(new TikTokClicksCommand
             {
                 Time = DateTime.UtcNow,
-                PostId = request.PostId,
+                PostWidgetInformation = new PostWidgetInformation
+                {
+                    Id = request.PostId,
+                    Description= request.Description,
+                    Image = request.Image,
+                },
                 WidgetId = key
             }));
             return Ok();
@@ -104,7 +110,12 @@ namespace TiktokWidget.Controllers
             await Task.Run(() => _mediator.Publish(new InstagramClicksCommand
             {
                 Time = DateTime.UtcNow,
-                PostId = request.PostId,
+                PostWidgetInformation = new PostWidgetInformation
+                {
+                    Id = request.PostId,
+                    Description = request.Description,
+                    Image = request.Image,
+                },
                 WidgetId = key
             }));
             return Ok();

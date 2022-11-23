@@ -1,3 +1,5 @@
 export default interface SetClickPostRequest {
-  postId?: string;
+  PostId?: string;
+  Description?: string;
+  Image?: string;
 }

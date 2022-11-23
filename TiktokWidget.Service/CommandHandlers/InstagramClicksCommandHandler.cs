@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Commands;
+using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Interfaces;
 
 namespace TiktokWidget.Service.CommandHandlers
@@ -24,7 +25,13 @@ namespace TiktokWidget.Service.CommandHandlers
             var instagramWidget = _instagramWidgetService.GetById(command.WidgetId).FirstOrDefault();
             if (instagramWidget != null)
             {
-                await _performancesService.SetClicksAsync(instagramWidget.ShopId, instagramWidget.Id, command.PostId, command.Time, PerformanceTypeEnum.Instagram);
+                await _performancesService.SetClicksAsync(command.Time, new PostWidgetDto
+                {
+                    Information = command.PostWidgetInformation,
+                    ShopId = instagramWidget.ShopId,
+                    Type = PerformanceTypeEnum.Instagram,
+                    WidgetId = instagramWidget.Id
+                });
             }
         }
     }

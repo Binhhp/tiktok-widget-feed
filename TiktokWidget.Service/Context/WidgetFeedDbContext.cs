@@ -17,7 +17,8 @@ namespace TiktokWidget.Service.Context
         public DbSet<ShopEntity> Shop { get; set; }
         public DbSet<ShopConfigurationEntity> ShopConfiguration { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
-        public DbSet<PerformancesEntity> Performances { get; set; }
+        public DbSet<ImpressionWidgetEntity> ImpressionWidget { get; set; }
+        public DbSet<PostClickWidgetEntity> PostClickWidget { get; set; }
         public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
         public DbSet<CoursesEntity> Cources { get; set; }
         public DbSet<BannerEnitty> Banner { get; set; }
@@ -84,11 +85,9 @@ namespace TiktokWidget.Service.Context
             modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
 
             ////Config performances of shop
-            var performances = modelBuilder.Entity<PerformancesEntity>().ToTable("Performances");
-            performances.Property(g => g.ClickPosts)
-                 .HasConversion(
-                 v => string.Join(",", v),
-                 v => v.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
+            modelBuilder.Entity<ImpressionWidgetEntity>().ToTable("ImpressionWidget");
+            var postWidget = modelBuilder.Entity<PostClickWidgetEntity>().ToTable("PostClickWidget");
+            postWidget.OwnsOne(x => x.PostInfo);
             //Cources
             modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
             //Banner
