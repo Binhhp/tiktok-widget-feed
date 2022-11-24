@@ -21,7 +21,7 @@ export const ChartRoot = styled("div", "", "orichi-chart")`
     transform: translate(-50%, -50%);
   }
   .orichi-chart-title {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     color: #101828;
