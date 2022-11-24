@@ -190,7 +190,7 @@ const DateRangePicker = () => {
   const handleResetDate = () => {
     setSelected(0);
     setActiveDateRange(false);
-    setValueDisplay("Today");
+    setValueDisplay(optionsDateRange[2].content);
   };
 
   //Dropdown handle

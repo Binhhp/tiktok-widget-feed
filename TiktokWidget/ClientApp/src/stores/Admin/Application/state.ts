@@ -1,4 +1,5 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
+import { addDays } from "views/Admin/Dashboard/DateRange/DateFunc";
 
 export type DateRangeType = {
   startDate: string;
@@ -18,7 +19,7 @@ export class ApplicationStoreModelDto {
     this.step = 0;
     this.dateRange = {
       endDate: dateNow.toString(),
-      startDate: dateNow.toString(),
+      startDate: addDays(dateNow, -7).toString(),
     };
   }
 }
@@ -40,7 +41,7 @@ export class ApplicationStoreModel
     this._step = _dto?.step || 0;
     this._dateRange = _dto?.dateRange || {
       endDate: dateNow.toString(),
-      startDate: dateNow.toString(),
+      startDate: addDays(dateNow, -7).toString(),
     };
   }
 
