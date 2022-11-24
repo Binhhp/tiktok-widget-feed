@@ -33,7 +33,7 @@ const Banner = () => {
             centeredSlides={false}
             navigation={false}
             watchOverflow={true}
-            autoplay={true}
+            autoplay={false}
             className="swipper"
           >
             {data?.value?.map((item) => (

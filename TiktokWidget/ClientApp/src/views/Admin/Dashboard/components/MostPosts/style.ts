@@ -2,7 +2,8 @@ import styled from "Dependencies/StyledComponents/Container";
 
 export const MostPostRoot = styled("div", "", "orichi-post")`
   width: 100%;
-  margin-bottom: 57px;
+  margin-bottom: 47px;
+  margin-top: 4%;
   div.orichi-post-list {
     display: flex;
     flex-direction: column;

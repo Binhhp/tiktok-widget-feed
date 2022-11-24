@@ -27,17 +27,16 @@ function Layout(props: LayoutProps) {
       active: true,
     });
 
-    if (index === 0) {
-      const item = templateContext.state.items[index];
-      audioPlayerContext.handleVideoClick(item.id);
-      const tiktokResp = new WidgetReponsitory();
-      tiktokResp.PostClick(props.id, {
-        PostId: item?.id,
-        Image: item?.video?.originCover,
-        Description: item?.desc,
-      });
-    }
+    const item = templateContext.state.items[index];
+    audioPlayerContext.handleVideoClick(item.id);
+    const tiktokResp = new WidgetReponsitory();
+    tiktokResp.PostClick(props.id, {
+      PostId: item?.id,
+      Image: item?.video?.originCover,
+      Description: item?.desc,
+    });
   };
+
   return (
     <Template
       disableContext
