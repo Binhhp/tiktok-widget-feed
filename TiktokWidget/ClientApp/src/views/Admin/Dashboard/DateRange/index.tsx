@@ -124,12 +124,20 @@ const DateRangePicker = () => {
 
   React.useEffect(() => {
     if (selected >= 0) {
-      const endDateNow = new Date();
-      const startDate = addDays(endDateNow, -selected);
-      setSelectedDates({
-        start: startDate,
-        end: endDateNow,
-      });
+      if (selected === 1) {
+        const yesterday = addDays(new Date(), -selected);
+        setSelectedDates({
+          start: yesterday,
+          end: yesterday,
+        });
+      } else {
+        const endDateNow = new Date();
+        const startDate = addDays(endDateNow, -selected);
+        setSelectedDates({
+          start: startDate,
+          end: endDateNow,
+        });
+      }
     }
   }, [selected, handleOnChangeDateRange]);
 
