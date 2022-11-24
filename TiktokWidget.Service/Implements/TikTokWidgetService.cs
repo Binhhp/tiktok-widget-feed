@@ -17,6 +17,7 @@ using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.BusinessExceptions;
 using Orichi.IoC.Logging.Models.Models;
 using Orichi.IoC.Logging;
+using TiktokWidget.Common.Enums;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -25,11 +26,13 @@ namespace TiktokWidget.Service.Implements
         private readonly WidgetFeedDbContext _context;
         private readonly IMapper _mapper;
         private readonly ILoggerProvider _logger;
-        public TikTokWidgetService(WidgetFeedDbContext context, IMapper mapper, ILoggerProvider logger)
+        private readonly IPerformancesService _performanceService;
+        public TikTokWidgetService(WidgetFeedDbContext context, IMapper mapper, ILoggerProvider logger, IPerformancesService performanceService)
         {
             _context = context;
             _mapper = mapper;
             _logger = logger;
+            _performanceService = performanceService;
         }
 
         /// <summary>
@@ -77,6 +80,7 @@ namespace TiktokWidget.Service.Implements
             widget.Products.Clear();
             _context.Widgets.Remove(widget);
             await _context.SaveChangesAsync();
+            await _performanceService.RemoveHistoryWidget(widget.Id, PerformanceTypeEnum.TikTok);
             return response;
         }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.BusinessExceptions;
 using TiktokWidget.Service.Context;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
@@ -26,12 +27,13 @@ namespace TiktokWidget.Service.Implements
         private readonly WidgetFeedDbContext _widgetDbContext;
         private readonly IMapper _mapper;
         private readonly ILoggerProvider _logger;
-
-        public InstagramWidgetService(WidgetFeedDbContext widgetDbContext, IMapper mapper, ILoggerProvider logger)
+        private readonly IPerformancesService _performancesService;
+        public InstagramWidgetService(WidgetFeedDbContext widgetDbContext, IMapper mapper, ILoggerProvider logger, IPerformancesService performancesService)
         {
             _widgetDbContext = widgetDbContext;
             _mapper = mapper;
             _logger = logger;
+            _performancesService = performancesService;
         }
         /// <summary>
         /// get list widget
@@ -145,6 +147,8 @@ namespace TiktokWidget.Service.Implements
             widget.Products.Clear();
             _widgetDbContext.InstagramWidgets.Remove(widget);
             await _widgetDbContext.SaveChangesAsync();
+            await _performancesService.RemoveHistoryWidget(widget.Id, PerformanceTypeEnum.Instagram);
+
             return response;
         }
         /// <summary>

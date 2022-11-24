@@ -56,7 +56,11 @@ function AudioPlayerSlider(props: IAudioPlayerSliderProps) {
         });
       }, 100);
     }
-    if (props.widget.id) {
+    if (
+      props.widget.id !== undefined &&
+      item?.video?.originCover !== undefined &&
+      item?.id !== undefined
+    ) {
       const tiktokResp = new WidgetReponsitory();
       tiktokResp.PostClick(props.widget.id, {
         PostId: item.id,

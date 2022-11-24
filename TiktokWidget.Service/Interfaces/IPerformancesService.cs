@@ -15,5 +15,6 @@ namespace TiktokWidget.Service.Interfaces
         Task SetClicksAsync(DateTime dateTime, PostWidgetDto request);
         Task<AnalyzeWidgetResponse> Analytics(string domain, AnalyzeWidgetRequest request);
         Task<IEnumerable<PostViewModel>> GetPostPopular(string domain, AnalyzeWidgetRequest request);
+        Task RemoveHistoryWidget(string widgetId, PerformanceTypeEnum type);
     }
 }

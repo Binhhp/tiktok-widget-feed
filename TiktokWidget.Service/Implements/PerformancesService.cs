@@ -138,7 +138,11 @@ namespace TiktokWidget.Service.Implements
                 x.WidgetId == request.WidgetId && 
                 x.Type.Equals(request.Type));
 
-            if(postClicks != null) postClicks.Click += 1;
+            if(postClicks != null)
+            {
+                postClicks.PostInfo = request.Information;
+                postClicks.Click += 1;
+            }
             else
             {
                 await _dbContext.PostClickWidget.AddAsync(new PostClickWidgetEntity
@@ -207,6 +211,7 @@ namespace TiktokWidget.Service.Implements
                 var clickPosts = _dbContext.PostClickWidget.Where(x =>
                                 x.ShopId.Equals(shop.ID) &&
                                 (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
+                                .OrderByDescending(x => x.Time)
                                 .ToList();
                 if (clickPosts.Any())
                 {
@@ -223,6 +228,11 @@ namespace TiktokWidget.Service.Implements
                             (x.Time.Date > request.StartTime.Date || x.Time.Date == request.StartTime.Date) && (x.Time.Date < request.EndTime.Date || x.Time.Date == request.EndTime.Date))
                             .ToList();
 
+                        var impressionWidgetArr = new Dictionary<string, long>();
+                        if (impressionWidgets.Any())
+                        {
+                            impressionWidgetArr = impressionWidgets.GroupBy(x => x.WidgetId).ToDictionary(x => x.Key, x => x.Sum(w => w.Impression));
+                        }
                         foreach (var item in postIds)
                         {
                             var postCurrent = clickPosts.FirstOrDefault(x => x.PostInfo.Id == item.Id);
@@ -233,10 +243,9 @@ namespace TiktokWidget.Service.Implements
                                 Description = postCurrent?.PostInfo?.Description,
                                 Image = postCurrent?.PostInfo?.Image
                             };
-                            if (impressionWidgets.Any())
+                            if (impressionWidgetArr.TryGetValue(postCurrent.WidgetId, out var impression))
                             {
-                                var impressionWidgetCurent = impressionWidgets.FirstOrDefault(x => x.WidgetId == postCurrent.WidgetId && x.ShopId == postCurrent.ShopId);
-                                if (impressionWidgetCurent != null) post.Impression = impressionWidgetCurent.Impression;
+                                post.Impression = impression;
                             }
                             response.Add(post);
                         }
@@ -248,6 +257,29 @@ namespace TiktokWidget.Service.Implements
                 _logger.LogInfo(ex);
             }
             return response;
+        }
+
+        public async Task RemoveHistoryWidget(string widgetId, PerformanceTypeEnum type)
+        {
+            try
+            {
+                var impressionWidgets = _dbContext.ImpressionWidget.Where(x => x.WidgetId == widgetId && x.Type.Equals(type)).ToList();
+                if(impressionWidgets.Any())
+                {
+                    _dbContext.ImpressionWidget.RemoveRange(impressionWidgets);
+                }
+
+                var clickPosts = _dbContext.PostClickWidget.Where(x => x.WidgetId == widgetId).ToList();
+                if (clickPosts.Any())
+                {
+                    _dbContext.PostClickWidget.RemoveRange(clickPosts);
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogInfo(ex);
+            }
         }
     }
 
