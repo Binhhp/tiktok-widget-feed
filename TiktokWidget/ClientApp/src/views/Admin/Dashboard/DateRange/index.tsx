@@ -218,7 +218,7 @@ const DateRangePicker = () => {
   };
 
   const handleResetDate = () => {
-    setSelected(0);
+    setSelected(7);
     setActiveDateRange(false);
     setValueDisplay(optionsDateRange[2].content);
   };
