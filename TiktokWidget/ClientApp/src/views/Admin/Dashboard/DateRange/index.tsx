@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useCallback } from "react";
 import { Popover, DatePicker, Button, TextField, Icon } from "@shopify/polaris";
-import { SelectMinor } from "@shopify/polaris-icons";
+import { SelectMinor, TickSmallMinor } from "@shopify/polaris-icons";
 import { DateRangeRoot, DropdownRoot, PopoverContent } from "./DateRange";
 import { DateRangeType } from "stores/Admin/Application/state";
 import Dropdown from "./Dropdown";
@@ -31,7 +31,7 @@ const DateRangePicker = () => {
     year: dateNow.getFullYear(),
   });
 
-  const [valueDisplay, setValueDisplay] = useState("");
+  const [valueDisplay, setValueDisplay] = useState("Last 7 days");
   const [activeDateRange, setActiveDateRange] = useState(false);
   const [popoverActive, setPopoverActive] = useState(false);
 
@@ -42,7 +42,7 @@ const DateRangePicker = () => {
     end: new Date((dateRangeSate && dateRangeSate!.endDate) ?? ""),
   });
 
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(7);
 
   const handleMonthChange = useCallback(
     (month: any, year: any) => setDate({ month, year }),
@@ -77,6 +77,8 @@ const DateRangePicker = () => {
           handleChangeDateRange("0", "Today");
         },
         value: "0",
+        active: valueDisplay === "Today",
+        suffix: valueDisplay === "Today" && <Icon source={TickSmallMinor} />,
       },
       {
         content: "Yesterday",
@@ -85,6 +87,10 @@ const DateRangePicker = () => {
           handleChangeDateRange("1", "Yesterday");
         },
         value: "1",
+        active: valueDisplay === "Yesterday",
+        suffix: valueDisplay === "Yesterday" && (
+          <Icon source={TickSmallMinor} />
+        ),
       },
       {
         content: "Last 7 days",
@@ -93,6 +99,10 @@ const DateRangePicker = () => {
           handleChangeDateRange("7", "Last 7 days");
         },
         value: "7",
+        active: valueDisplay === "Last 7 days",
+        suffix: valueDisplay === "Last 7 days" && (
+          <Icon source={TickSmallMinor} />
+        ),
       },
       {
         content: "Last 30 days",
@@ -101,6 +111,10 @@ const DateRangePicker = () => {
           handleChangeDateRange("30", "Last 30 days");
         },
         value: "30",
+        active: valueDisplay === "Last 30 days",
+        suffix: valueDisplay === "Last 30 days" && (
+          <Icon source={TickSmallMinor} />
+        ),
       },
       {
         content: "Last 60 days",
@@ -109,6 +123,10 @@ const DateRangePicker = () => {
           handleChangeDateRange("60", "Last 60 days");
         },
         value: "60",
+        active: valueDisplay === "Last 60 days",
+        suffix: valueDisplay === "Last 60 days" && (
+          <Icon source={TickSmallMinor} />
+        ),
       },
       {
         content: "Custom",
@@ -117,9 +135,11 @@ const DateRangePicker = () => {
           handleChangeDateRange("-1", "Custom");
         },
         value: "-1",
+        active: valueDisplay === "Custom",
+        suffix: valueDisplay === "Custom" && <Icon source={TickSmallMinor} />,
       },
     ],
-    [handleChangeDateRange]
+    [handleChangeDateRange, valueDisplay]
   );
 
   React.useEffect(() => {
@@ -165,6 +185,8 @@ const DateRangePicker = () => {
         _endDate.getDate() === new Date().getDate()
       ) {
         setValueDisplay(optionsDateRange?.[findIndexOption].content);
+      } else if (_endDate.getDate() === addDays(new Date(), -1).getDate()) {
+        setValueDisplay(optionsDateRange[1].content);
       } else {
         setValueDisplay(optionsDateRange[5].content);
       }
