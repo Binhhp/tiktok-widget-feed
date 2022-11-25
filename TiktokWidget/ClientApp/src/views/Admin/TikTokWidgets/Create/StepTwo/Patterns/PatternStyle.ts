@@ -57,6 +57,7 @@ export const TemplateItemImage = styled("div")<ITemplateItemImage>`
     left: 50%;
     transform: translate(-50%, -50%);
     margin: auto;
+    display: block;
   }
 `;
 export const TextTemplate = styled("div")`

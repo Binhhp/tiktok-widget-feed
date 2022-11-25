@@ -10,8 +10,8 @@ using TiktokWidget.Service.Context;
 namespace TiktokWidget.Service.Context.Migrations
 {
     [DbContext(typeof(WidgetFeedDbContext))]
-    [Migration("20221123142247_add_performance_widget")]
-    partial class add_performance_widget
+    [Migration("20221125123244_add_perfomance_widget")]
+    partial class add_perfomance_widget
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,7 +70,7 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cources");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.ImpressionWidgetEntity", b =>

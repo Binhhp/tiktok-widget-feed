@@ -54,6 +54,7 @@ export const DivImage = styled("div")`
   img {
     width: 100%;
     object-fit: contain;
+    display: block;
   }
 `;
 export const DivImageDone = styled("div")`
@@ -61,6 +62,7 @@ export const DivImageDone = styled("div")`
   img {
     width: 100%;
     object-fit: contain;
+    display: block;
   }
 `;
 export const DivLinkHelp = styled("div")`

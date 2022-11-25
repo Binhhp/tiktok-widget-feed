@@ -68,7 +68,7 @@ namespace TiktokWidget.Service.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cources");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("TiktokWidget.Service.Entities.ImpressionWidgetEntity", b =>

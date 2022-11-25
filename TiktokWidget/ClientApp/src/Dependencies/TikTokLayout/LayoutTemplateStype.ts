@@ -68,6 +68,7 @@ export const DynamicVideo = styled("div", "poster-dynamic")`
     img {
       object-fit: contain;
       height: 100% !important;
+      display: block;
     }
   }
 `;
@@ -91,6 +92,7 @@ export const TemplateImage = styled("div", "poster")<ITemplateImage>`
     background-color: #fafafa;
     img {
       object-fit: cover;
+      display: block;
     }
     &:hover ${DynamicVideo} {
       visibility: visible;

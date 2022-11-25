@@ -20,7 +20,7 @@ namespace TiktokWidget.Service.Context
         public DbSet<ImpressionWidgetEntity> ImpressionWidget { get; set; }
         public DbSet<PostClickWidgetEntity> PostClickWidget { get; set; }
         public DbSet<ShopDescriptorEntity> ShopDescriptors { get; set; }
-        public DbSet<CoursesEntity> Cources { get; set; }
+        public DbSet<CoursesEntity> Courses { get; set; }
         public DbSet<BannerEnitty> Banner { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,7 +89,7 @@ namespace TiktokWidget.Service.Context
             var postWidget = modelBuilder.Entity<PostClickWidgetEntity>().ToTable("PostClickWidget");
             postWidget.OwnsOne(x => x.PostInfo);
             //Cources
-            modelBuilder.Entity<CoursesEntity>().ToTable("Cources");
+            modelBuilder.Entity<CoursesEntity>().ToTable("Course");
             //Banner
             modelBuilder.Entity<BannerEnitty>().ToTable("Banner");
         }

@@ -54,9 +54,6 @@ function Slider(props: LayoutPropTypes) {
               item={item}
               index={index}
               type={props.type}
-              pr={0}
-              pl={0}
-              pb={props.showAll ? 0 : 10}
             ></Item>
           </SwiperSlide>
         ))}

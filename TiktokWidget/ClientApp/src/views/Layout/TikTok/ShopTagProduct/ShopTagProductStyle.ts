@@ -11,6 +11,7 @@ export const DivImagePoster = styled("div", "poster")`
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
   }
 `;

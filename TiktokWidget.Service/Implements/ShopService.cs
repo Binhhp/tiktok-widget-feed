@@ -336,7 +336,7 @@ namespace TiktokWidget.Service.Implements
 
         public IQueryable<CoursesEntity> GetCources()
         {
-            return _context.Cources.Where(x => x.Status);
+            return _context.Courses.Where(x => x.Status);
         }
 
         public IQueryable<BannerEnitty> GetBanners()

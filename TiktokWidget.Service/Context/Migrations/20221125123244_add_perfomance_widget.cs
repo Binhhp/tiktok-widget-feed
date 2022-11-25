@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiktokWidget.Service.Context.Migrations
 {
-    public partial class add_performance_widget : Migration
+    public partial class add_perfomance_widget : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace TiktokWidget.Service.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cources",
+                name: "Course",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -42,7 +42,7 @@ namespace TiktokWidget.Service.Context.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cources", x => x.Id);
+                    table.PrimaryKey("PK_Course", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,7 +148,7 @@ namespace TiktokWidget.Service.Context.Migrations
                 name: "Banner");
 
             migrationBuilder.DropTable(
-                name: "Cources");
+                name: "Course");
 
             migrationBuilder.DropTable(
                 name: "ImpressionWidget");

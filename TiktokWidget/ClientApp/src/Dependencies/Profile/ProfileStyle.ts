@@ -167,6 +167,7 @@ export const AvatarProfile = styled("div", "avatar")<IAvatar>`
       object-fit: cover;
       filter: blur(0px);
       border-radius: 50%;
+      display: block;
     }
   }
 `;

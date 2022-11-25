@@ -47,6 +47,7 @@ export const LoadingTagProduct = styled("div")`
   justify-content: center;
   img {
     width: 40px;
+    display: block;
   }
 `;
 export const TagProductSearch = styled("div")`
@@ -119,6 +120,7 @@ export const ProductImage = styled("div")`
     overflow: hidden;
     border-radius: 2px;
     font-size: 12px;
+    display: block;
   }
 `;
 
