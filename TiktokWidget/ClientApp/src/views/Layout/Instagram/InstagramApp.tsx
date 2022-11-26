@@ -1,4 +1,3 @@
-import InstagramLayoutContextProvider from "Dependencies/InstagramLayout/InstagramLayoutContext";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
@@ -37,7 +36,10 @@ function Instagram(props: IInstagramLayoutProps) {
   };
 
   const getAllWidgetByShop = () => {
-    const domain = window.location.host;
+    const domain = window.Shopify
+      ? window.Shopify["shop"]
+      : window.location.host;
+
     new InstagramReponsitory().Get(0, domain).then((res) => {
       const shop = res.data[0].shops;
       setWidgets([...widgets, ...res.data]);
@@ -60,12 +62,10 @@ function Instagram(props: IInstagramLayoutProps) {
 
   return (
     <ApplicationContainer>
-      <InstagramLayoutContextProvider>
-        {!isPending &&
-          widgets.map((item, index) => (
-            <Layout key={`instagram-${index}`} widget={item}></Layout>
-          ))}
-      </InstagramLayoutContextProvider>
+      {!isPending &&
+        widgets.map((item, index) => (
+          <Layout key={`instagram-${index}`} widget={item}></Layout>
+        ))}
     </ApplicationContainer>
   );
 }

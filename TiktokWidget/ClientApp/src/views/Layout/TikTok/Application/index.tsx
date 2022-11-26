@@ -20,6 +20,7 @@ import {
 } from "stores/Admin/Widget/state";
 import { ShopActionTS } from "stores/Admin/Shop/action";
 import ApplicationContainer from "views/Layout/Common/ApplicationContainer";
+import LayoutTemplateContextProvider from "Dependencies/TikTokLayout/LayoutTemplateContext";
 
 function TikTok(props: ITikTokAppProps) {
   const [widgets, setWidgets] = useState<ISettingProviderWidget[]>([]);
@@ -53,7 +54,7 @@ function TikTok(props: ITikTokAppProps) {
         return new SettingProviderWidget(item).ToDto();
       });
       const shop = res.data[0].shops;
-      setWidgets([...widgets, ...widgetDto]);
+      setWidgets(widgetDto);
       dispatch(
         ShopActionTS.OnSetInformation({
           shop: shop,
@@ -74,25 +75,27 @@ function TikTok(props: ITikTokAppProps) {
   return (
     <ApplicationContainer>
       {widgets.map((item) => (
-        <DivTiKTokenizer key={`TikTok-Widget-${item.id}`}>
-          <AudioPlayerProvider customCss={item.customCss}>
-            <TikTokWrapper>
-              <DivTikTok>
-                {item.showProfile && item.source === 1 && (
-                  <UserProfile></UserProfile>
-                )}
-                <ContainerSection height={100} width={100}>
-                  {!isPending && item.id && (
-                    <TikTokContent hidden={false}>
-                      <Layout id={item.id} widget={item} />
-                    </TikTokContent>
+        <LayoutTemplateContextProvider>
+          <DivTiKTokenizer key={`TikTok-Widget-${item.id}`}>
+            <AudioPlayerProvider customCss={item.customCss}>
+              <TikTokWrapper>
+                <DivTikTok>
+                  {item.showProfile && item.source === 1 && (
+                    <UserProfile></UserProfile>
                   )}
-                </ContainerSection>
-              </DivTikTok>
-            </TikTokWrapper>
-            <AudioPlayerContainer widget={item} />
-          </AudioPlayerProvider>
-        </DivTiKTokenizer>
+                  <ContainerSection height={100} width={100}>
+                    {!isPending && item.id && (
+                      <TikTokContent hidden={false}>
+                        <Layout id={item.id} widget={item} />
+                      </TikTokContent>
+                    )}
+                  </ContainerSection>
+                </DivTikTok>
+              </TikTokWrapper>
+              <AudioPlayerContainer widget={item} />
+            </AudioPlayerProvider>
+          </DivTiKTokenizer>
+        </LayoutTemplateContextProvider>
       ))}
     </ApplicationContainer>
   );

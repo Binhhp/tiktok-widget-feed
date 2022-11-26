@@ -38,7 +38,6 @@ function Layout(props: ILayoutProps) {
   return (
     <InstagramLayoutWrapper>
       <InstagramLayout
-        disableContext
         option={new InstagramOption(props.widget)}
         _queryData={getInstagramStories}
         onClickItem={onClickItem}
