@@ -13,13 +13,13 @@ import {
   ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { fetchDataAnalytics } from "repositories/api";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { afterDrawCustom, legendMargin, options } from "./AnalysticProvider";
 import MetricContainer from "./MetricContainer";
 import SniperLoading from "ui-components/Loading/SniperLoading";
 import { IAnalyticsResponse } from "repositories/dtos/responses/IAnalytics";
+import ShopAPI from "repositories/implements/ShopAPI";
 
 ChartJS.register(
   CategoryScale,
@@ -43,7 +43,7 @@ const MetricChart = () => {
 
   useEffect(() => {
     setState(undefined);
-    fetchDataAnalytics(shop, {
+    ShopAPI.GetDataAnalytics(shop, {
       StartTime: dateRangeSate.startDate,
       EndTime: dateRangeSate.endDate,
     }).then((res) => {

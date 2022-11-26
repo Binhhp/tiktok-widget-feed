@@ -18,7 +18,7 @@ import {
   FormSubmitStep,
   FormValueSource,
 } from "./StepOneStyle";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { SearchMajor } from "@shopify/polaris-icons";
 
@@ -113,20 +113,17 @@ function FormControlSource(props: IFormControlSource) {
   const onAddJobVideo = () => {
     if (widgetReducer.settings.valueSource !== undefined) {
       dispatch(WidgetActionTS.SetWorkingSearch(true));
-      const widgetReponsitory = new WidgetReponsitory();
       const sourceType = widgetReducer.settings.source ?? 0;
-      widgetReponsitory
-        .AddJob(
-          shopReducer.shop.domain,
-          new AddJobRequest(widgetReducer.settings.valueSource, sourceType)
-        )
-        .then((res) => {
-          if (res.Status) {
-            dispatch(WidgetActionTS.RiseSequenceNumber());
-          } else {
-            dispatch(WidgetActionTS.SetWorkingSearch(false));
-          }
-        });
+      TikTokWidgetAPI.AddJob(
+        shopReducer.shop.domain,
+        new AddJobRequest(widgetReducer.settings.valueSource, sourceType)
+      ).then((res) => {
+        if (res.Status) {
+          dispatch(WidgetActionTS.RiseSequenceNumber());
+        } else {
+          dispatch(WidgetActionTS.SetWorkingSearch(false));
+        }
+      });
     }
   };
 

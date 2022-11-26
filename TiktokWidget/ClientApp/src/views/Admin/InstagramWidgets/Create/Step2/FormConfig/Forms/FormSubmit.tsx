@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { FormSubmitWrapper } from "../../Patterns/PatternStyle";
 import toast from "react-hot-toast";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { UriProvider } from "common/functions/FuncUtils";
+import ShopAPI from "repositories/implements/ShopAPI";
 export default function FormSubmit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,9 +28,8 @@ export default function FormSubmit() {
 
   const onSubmit = async () => {
     setLoading(true);
-    const widgetReponsitory = new InstagramReponsitory();
     if (widgetReducer.settings.id) {
-      const response = await widgetReponsitory.Update(
+      const response = await InstagramWidgetAPI.Update(
         widgetReducer.settings.id,
         new SetInstagramWidgetRequest(widgetReducer.settings)
       );
@@ -44,15 +43,14 @@ export default function FormSubmit() {
         toast.error(response.Error);
       }
     } else {
-      const response = await widgetReponsitory.Create(
+      const response = await InstagramWidgetAPI.Create(
         new SetInstagramWidgetRequest(widgetReducer.settings),
         shopReducer.shop.domain
       );
       if (response.Status) {
         dispatch(InstagramWidgetActionTS.OnStep(3));
         dispatch(InstagramWidgetActionTS.OnSetSetting(true));
-        const shopReponsitory = new ShopReponsitory();
-        const result = await shopReponsitory.GetInstagramCount(
+        const result = await ShopAPI.GetInstagramCount(
           shopReducer.shop.domain ?? ""
         );
         if (result === 1) {

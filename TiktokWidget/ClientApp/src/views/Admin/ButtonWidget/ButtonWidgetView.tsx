@@ -26,7 +26,7 @@ import { RootReducer } from "stores/Admin/reducers";
 import Step3 from "./Step3";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
+import ShopAPI from "repositories/implements/ShopAPI";
 import { ButtonPositionProvider } from "./ButtonWidgetModel";
 import { toastNotify } from "Dependencies/Toast";
 import { ImageStorage } from "assets/images/ImageStorage";
@@ -53,8 +53,7 @@ function ButtonWidgetView() {
   const dispatch = useDispatch();
 
   const fetchShopConfiguration = () => {
-    const shopReponsitory = new ShopReponsitory();
-    shopReponsitory.GetConfiguration(shopReducer.shop?.domain).then((res) => {
+    ShopAPI.GetConfiguration(shopReducer.shop?.domain).then((res) => {
       if (res) {
         dispatch(
           ButtonWidgetActionTS.OnSetOptional({
@@ -118,7 +117,6 @@ function ButtonWidgetView() {
     }
     if (shopReducer.shop?.id) {
       setIsPending(true);
-      const shopReponsitory = new ShopReponsitory();
       let statusBtn = true;
       let loadingTitle = `Enabling configuration for ${shopReducer.shop.domain}`;
       let successTitle = `Enabled succeed`;
@@ -135,25 +133,21 @@ function ButtonWidgetView() {
       }
 
       toastNotify.promise(
-        shopReponsitory
-          .Update(shopReducer.shop?.domain, {
-            buttonPosition: ButtonPositionProvider.ToDtoV2(
-              buttonWidget.position
-            ),
-            image: buttonWidget.image,
-            tikTokUserName: buttonWidget.userName,
-            theme: buttonWidget.theme,
-            isEnabled: statusBtn,
-          })
-          .then((res) => {
-            if (res.Status) {
-              fetchShopConfiguration();
-            }
-            setShowNotify(false);
-            setIsPending(false);
-            setStatus("Enabled");
-            return res;
-          }),
+        ShopAPI.Update(shopReducer.shop?.domain, {
+          buttonPosition: ButtonPositionProvider.ToDtoV2(buttonWidget.position),
+          image: buttonWidget.image,
+          tikTokUserName: buttonWidget.userName,
+          theme: buttonWidget.theme,
+          isEnabled: statusBtn,
+        }).then((res) => {
+          if (res.Status) {
+            fetchShopConfiguration();
+          }
+          setShowNotify(false);
+          setIsPending(false);
+          setStatus("Enabled");
+          return res;
+        }),
         {
           loading: loadingTitle,
           success: () => successTitle,

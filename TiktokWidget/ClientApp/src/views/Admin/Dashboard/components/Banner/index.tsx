@@ -4,15 +4,15 @@ import { RootComponent } from "./style";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import { getBanners } from "repositories/api";
 import { IBannerResponse } from "repositories/dtos/responses/IBanner";
+import ShopAPI from "repositories/implements/ShopAPI";
 SwiperCore.use([Autoplay, Pagination]);
 
 const Banner = () => {
   const [data, setData] = useState<IBannerResponse | undefined>(undefined);
 
   useEffect(() => {
-    getBanners().then((res) => {
+    ShopAPI.GetBanners().then((res) => {
       if (res) setData(res);
     });
   }, []);

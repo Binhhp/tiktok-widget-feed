@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
 import CircleLoading from "ui-components/CircleLoading";
@@ -42,7 +42,7 @@ function LiveTemplates() {
         return;
       }
       try {
-        const res = await new InstagramReponsitory().GetVideosByJob(
+        const res = await InstagramWidgetAPI.GetVideosByJob(
           new GetVideoByJobRequest(
             widgetReducer.settings.valueSource,
             widgetReducer.settings.source

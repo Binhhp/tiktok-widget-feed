@@ -126,7 +126,7 @@ namespace TiktokWidget.Service.Implements
             {
                 _logger.LogInfo(ex);
             }
-            return response;
+            return response.OrderBy(x => x.Time).ToList();
         }
 
         public async Task SetClicksAsync(DateTime dateTime, PostWidgetDto request)

@@ -3,7 +3,7 @@ import { Container, ContainerSection } from "common/style/UtilStyles";
 import config from "config";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
+import ShopAPI from "repositories/implements/ShopAPI";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
 import { ButtonWidgetStoreModel } from "stores/Admin/ButtonWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
@@ -24,27 +24,25 @@ function Step3() {
 
   const [themes, setThemes] = useState<SelectOption[]>([]);
   useEffect(() => {
-    new ShopReponsitory()
-      .GetThemes(shopReducer.shop.domain ?? "")
-      .then((res) => {
-        let options: SelectOption[] = [];
-        let defaultValue = "";
-        res.forEach((x, index) => {
-          if (index === 0) defaultValue = String(x.id);
-          options.push({
-            label: x.name,
-            value: String(x.id),
-          });
+    ShopAPI.GetThemes(shopReducer.shop.domain ?? "").then((res) => {
+      let options: SelectOption[] = [];
+      let defaultValue = "";
+      res.forEach((x, index) => {
+        if (index === 0) defaultValue = String(x.id);
+        options.push({
+          label: x.name,
+          value: String(x.id),
         });
-        setThemes(options);
-        if (defaultValue) {
-          dispatch(
-            ButtonWidgetActionTS.OnSetOptional({
-              theme: defaultValue,
-            })
-          );
-        }
       });
+      setThemes(options);
+      if (defaultValue) {
+        dispatch(
+          ButtonWidgetActionTS.OnSetOptional({
+            theme: defaultValue,
+          })
+        );
+      }
+    });
   }, []);
 
   useEffect(() => {

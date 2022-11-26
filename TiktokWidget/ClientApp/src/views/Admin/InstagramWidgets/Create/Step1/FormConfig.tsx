@@ -22,7 +22,7 @@ import {
   FormValueSource,
 } from "views/Admin/TikTokWidgets/Create/StepOne/StepOneStyle";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { SourceTypeEnum } from "repositories/dtos/requests/GetVideoByJobRequest";
 import { SearchMajor } from "@shopify/polaris-icons";
@@ -55,25 +55,22 @@ function FormConfig(props: IFormControl) {
   const onAddJobVideo = () => {
     if (widgetReducer.settings.valueSource) {
       dispatch(InstagramWidgetActionTS.SetWorkingSearch(true));
-      const widgetReponsitory = new InstagramReponsitory();
       const sourceType = widgetReducer.settings.source ?? 0;
-      widgetReponsitory
-        .AddJob(
-          shopReducer.shop.domain,
-          new AddJobRequest(
-            widgetReducer.settings.valueSource,
-            sourceType
-              ? SourceTypeEnum.InstagramHashTag
-              : SourceTypeEnum.InstagramUserName
-          )
+      InstagramWidgetAPI.AddJob(
+        shopReducer.shop.domain,
+        new AddJobRequest(
+          widgetReducer.settings.valueSource,
+          sourceType
+            ? SourceTypeEnum.InstagramHashTag
+            : SourceTypeEnum.InstagramUserName
         )
-        .then((res) => {
-          if (res.Status) {
-            dispatch(InstagramWidgetActionTS.RiseSequenceNumber());
-          } else {
-            dispatch(InstagramWidgetActionTS.SetWorkingSearch(false));
-          }
-        });
+      ).then((res) => {
+        if (res.Status) {
+          dispatch(InstagramWidgetActionTS.RiseSequenceNumber());
+        } else {
+          dispatch(InstagramWidgetActionTS.SetWorkingSearch(false));
+        }
+      });
     }
   };
 

@@ -1,10 +1,8 @@
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { IProductReponsitory } from "repositories/interfaces/IProductReponsitory";
-
-export class ProductReponsitory implements IProductReponsitory {
-  Get = async (pageIndex: number, domain?: string) => {
+export default class ProductAPI {
+  static Get = async (pageIndex: number, domain?: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
       url: `${RootURL.ApiBase}/odata/shops('${domain}')/products?page=${pageIndex}`,

@@ -3,7 +3,7 @@ import { FeedbackBox } from "../SidebarStyle";
 import GoodIcon from "assets/images/Buttons/good-icon.png";
 import SadIcon from "assets/images/Buttons/sad-icon.png";
 import { TextField, Modal, TextContainer } from "@shopify/polaris";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import {
   FeedbackStatus,
   ShopDescriptor,
@@ -44,7 +44,7 @@ const FeedBack = () => {
     if (shopReducer?.shop?.domain) {
       return toastNotify
         .promise(
-          new InstagramReponsitory().PostFeedback(shopReducer.shop.domain, {
+          InstagramWidgetAPI.PostFeedback(shopReducer.shop.domain, {
             Status: FeedbackStatus.Good,
           }),
           {
@@ -70,17 +70,15 @@ const FeedBack = () => {
       return setStatus(undefined);
     }
     if (shopReducer?.shop?.domain) {
-      new InstagramReponsitory()
-        .PostFeedback(shopReducer.shop.domain, {
-          Status: FeedbackStatus.Bad,
-          Feedback: feedbackText,
-        })
-        .then((res) => {
-          if (res.Status) {
-            setStatus("Complete");
-            dispatch(ShopActionTS.OnSetDescriptor(res.Data as ShopDescriptor));
-          }
-        });
+      InstagramWidgetAPI.PostFeedback(shopReducer.shop.domain, {
+        Status: FeedbackStatus.Bad,
+        Feedback: feedbackText,
+      }).then((res) => {
+        if (res.Status) {
+          setStatus("Complete");
+          dispatch(ShopActionTS.OnSetDescriptor(res.Data as ShopDescriptor));
+        }
+      });
     }
   };
   const handleOnClickBad = () => setActive(true);

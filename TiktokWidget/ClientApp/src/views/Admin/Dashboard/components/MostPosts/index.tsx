@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { MostPostRoot } from "./style";
 import MostPostItemComponent from "./MostPostItem";
-import { getPosts } from "repositories/api";
 import { useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { IPostResponse } from "repositories/dtos/responses/IPost";
+import ShopAPI from "repositories/implements/ShopAPI";
 
 const MostPost = () => {
   const dateRangeSate = useSelector(
@@ -14,7 +14,7 @@ const MostPost = () => {
   const shop = useSelector((state: RootReducer) => state.ShopReducer.shop);
   const [data, setData] = useState<IPostResponse | undefined>(undefined);
   useEffect(() => {
-    getPosts(
+    ShopAPI.GetPosts(
       shop.domain ?? "",
       dateRangeSate.startDate,
       dateRangeSate.endDate

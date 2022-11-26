@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Template from "Dependencies/TikTokLayout";
 import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import { AudioPlayerContext } from "../SwiperAudioPlayer/AudioPlayerContext";
 import { ISettingProviderWidget } from "stores/Admin/Widget/state";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 
 interface LayoutProps {
   id: string;
@@ -14,11 +14,7 @@ function Layout(props: LayoutProps) {
   const templateContext = useContext(LayoutTemplateContext);
   const audioPlayerContext = useContext(AudioPlayerContext);
   const fetchData = (pageIndex: number, showItems?: number) => {
-    return new WidgetReponsitory().GetVideos(
-      props.id ?? "",
-      pageIndex,
-      showItems
-    );
+    return TikTokWidgetAPI.GetVideos(props.id ?? "", pageIndex, showItems);
   };
 
   const onOpenVideo = (index: number) => {
@@ -29,8 +25,7 @@ function Layout(props: LayoutProps) {
 
     const item = templateContext.state.items[index];
     audioPlayerContext.handleVideoClick(item.id);
-    const tiktokResp = new WidgetReponsitory();
-    tiktokResp.PostClick(props.id, {
+    TikTokWidgetAPI.PostClick(props.id, {
       PostId: item?.id,
       Image: item?.video?.originCover,
       Description: item?.desc,

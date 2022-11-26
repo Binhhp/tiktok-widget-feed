@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
+import ShopAPI from "repositories/implements/ShopAPI";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { InstagramWidget } from "stores/Admin/InstagramWidget/state";
@@ -59,7 +59,7 @@ function MyWidget() {
     });
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
   const onUpdate = (item: any) => {
-    return new InstagramReponsitory().GetById(item?.id).then((res) => {
+    return InstagramWidgetAPI.GetById(item?.id).then((res) => {
       if (res?.Status) {
         const result = res.Data as BaseInstagramWidget;
         const dto = new InstagramWidget(result).ToDto();
@@ -74,8 +74,7 @@ function MyWidget() {
     });
   };
   const onDelete = async (item: any) => {
-    const widgetReponsitory = new InstagramReponsitory();
-    await toastNotify.promise(widgetReponsitory.Delete(item?.id), {
+    await toastNotify.promise(InstagramWidgetAPI.Delete(item?.id), {
       loading: `Deleting ${item?.widgetTitle} widget`,
       success: (data: any) => `Deleted ${item?.widgetTitle} widget`,
     });
@@ -83,13 +82,9 @@ function MyWidget() {
 
   const [timeZone, setTimeZone] = useState<string | undefined>("UTC");
   const fetchData = async (pageIndex: number) => {
-    const widgetReponsitory = new InstagramReponsitory();
-    const shopReponsitory = new ShopReponsitory();
-    const config = await shopReponsitory.GetConfiguration(
-      shopReducer.shop?.domain
-    );
+    const config = await ShopAPI.GetConfiguration(shopReducer.shop?.domain);
     if (config) setTimeZone(config?.timezone);
-    return widgetReponsitory.Get(pageIndex, shopReducer.shop.domain);
+    return InstagramWidgetAPI.Get(pageIndex, shopReducer.shop.domain);
   };
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const instance = axios.create({
 
 const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {
   let result = new BaseResponse();
-  if (localStorage.getItem("timezone")) {
+  if (!req.nonTimezone && localStorage.getItem("timezone")) {
     instance.defaults.headers.common["tz"] = `${localStorage.getItem(
       "timezone"
     )}`;

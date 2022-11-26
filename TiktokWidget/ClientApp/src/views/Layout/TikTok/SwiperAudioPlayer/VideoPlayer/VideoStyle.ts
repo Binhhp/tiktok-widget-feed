@@ -218,7 +218,6 @@ export const DivErrorVideo = styled(
     display: ${(props) => (props.hidden ? "none" : "auto")};
     background: #202020;
     color: #ffffff;
-    padding: 0 10px;
     h2 {
       text-transform: none !important;
       font-family: "SF Pro Display";

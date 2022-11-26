@@ -15,10 +15,9 @@ import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest"
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
-import { IInstagramReponsitory } from "./../interfaces/IInstagramReponsitory";
 
-export class InstagramReponsitory implements IInstagramReponsitory {
-  AddJob = async (domain?: string, req?: AddJobRequest) => {
+export default class InstagramWidgetAPI {
+  static AddJob = async (domain?: string, req?: AddJobRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/shops('${domain}')/AddJobInstagram`,
@@ -27,7 +26,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  PostFeedback = async (domain: string, req: PostFeedbackRequest) => {
+  static PostFeedback = async (domain: string, req: PostFeedbackRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/Shops('${domain}')/Feedback`,
@@ -35,7 +34,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     });
     return response;
   };
-  Delete = async (key: string) => {
+  static Delete = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "DELETE",
       url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')`,
@@ -43,7 +42,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  GetById = async (key: string) => {
+  static GetById = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
       url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')?$expand=products,shops`,
@@ -51,7 +50,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  GetByIds = async (widgetIds: string[]) => {
+  static GetByIds = async (widgetIds: string[]) => {
     const response = await FetchDataFromServer({
       method: "GET",
       url: `${
@@ -64,7 +63,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  Get = async (pageIndex?: number, domain?: string) => {
+  static Get = async (pageIndex?: number, domain?: string) => {
     let url = `${RootURL.ApiBase}/odata/shops('${domain}')/InstagramWidgets?$expand=products,shops&$count=true`;
     if (pageIndex) {
       url = ODataQuery.BuildODataQuery(
@@ -88,7 +87,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return { count: 0, data: [] };
   };
 
-  Create = async (
+  static Create = async (
     req: SetInstagramWidgetRequest,
     domain?: string
   ): Promise<BaseResponse> => {
@@ -100,7 +99,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  Update = async (key: string, req: SetInstagramWidgetRequest) => {
+  static Update = async (key: string, req: SetInstagramWidgetRequest) => {
     const response = await FetchDataFromServer({
       method: "PUT",
       url: `${RootURL.ApiBase}/odata/InstagramWidgets('${key}')`,
@@ -109,7 +108,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     return response;
   };
 
-  AddTagProducts = async (
+  static AddTagProducts = async (
     key: string,
     req: AddTagProductRequest
   ): Promise<BaseResponse> => {
@@ -120,7 +119,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     });
     return response;
   };
-  GetVideos = async (
+  static GetVideos = async (
     key: string,
     pageIndex: number,
     showItems?: number
@@ -140,7 +139,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     }
   };
 
-  PostClick = async (key: string, req: SetClickPostRequest) => {
+  static PostClick = async (key: string, req: SetClickPostRequest) => {
     return await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/InstagramVideos('${key}')/SetClicks`,
@@ -148,7 +147,7 @@ export class InstagramReponsitory implements IInstagramReponsitory {
     });
   };
 
-  GetVideosByJob = async (
+  static GetVideosByJob = async (
     req: GetVideoByJobRequest,
     showItems?: number
   ): Promise<IInstagramTemplateModel> => {

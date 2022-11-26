@@ -7,7 +7,7 @@ import {
   TikTokContent,
   TikTokWrapper,
 } from "./TiktokStyle";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
@@ -29,7 +29,7 @@ function TikTok(props: ITikTokAppProps) {
 
   const [isPending, setPending] = useState(true);
   const fetchWidget = (id: string) => {
-    new WidgetReponsitory().GetById(id).then((res) => {
+    TikTokWidgetAPI.GetById(id).then((res) => {
       if (res.Status) {
         const result = res.Data as BaseTikTokWidget;
         const dto = new SettingProviderWidget(result).ToDto();
@@ -49,7 +49,7 @@ function TikTok(props: ITikTokAppProps) {
       ? window.Shopify["shop"]
       : window.location.host;
 
-    new WidgetReponsitory().Get(0, domain).then((res) => {
+    TikTokWidgetAPI.Get(0, domain).then((res) => {
       const widgetDto = res.data.map((item) => {
         return new SettingProviderWidget(item).ToDto();
       });

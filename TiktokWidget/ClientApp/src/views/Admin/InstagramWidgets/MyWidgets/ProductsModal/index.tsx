@@ -25,11 +25,11 @@ import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { toastNotify } from "Dependencies/Toast";
 import Image from "ui-components/Image";
 import LoadingInfinite from "ui-components/Loading/ButtonLoading";
-import { ProductReponsitory } from "repositories/implements/ProductReponsitory";
+import ProductAPI from "repositories/implements/ProductAPI";
 import { Waypoint } from "react-waypoint";
 import { RootReducer } from "stores/Admin/reducers";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 
 function ProductModal(props: IProductModalProps) {
   const [keyword, setKeyword] = useState("");
@@ -54,16 +54,13 @@ function ProductModal(props: IProductModalProps) {
 
   const setupId = (id: string) => `${id}${props.widget.id}`;
   const fetchProducts = () => {
-    const productReponsitory = new ProductReponsitory();
-    productReponsitory
-      .Get(page.pageIndex, shopReducer.shop.domain)
-      .then((res) => {
-        setPage({
-          count: res.count,
-          pageIndex: page.pageIndex + 1,
-        });
-        dispatch(InstagramWidgetActionTS.OnSetTagProducts(res.data));
+    ProductAPI.Get(page.pageIndex, shopReducer.shop.domain).then((res) => {
+      setPage({
+        count: res.count,
+        pageIndex: page.pageIndex + 1,
       });
+      dispatch(InstagramWidgetActionTS.OnSetTagProducts(res.data));
+    });
   };
 
   const onSetProductId = (key: string) => () => {
@@ -121,7 +118,6 @@ function ProductModal(props: IProductModalProps) {
 
   const onSaveChange = async () => {
     setLoadingSaveChanges(true);
-    const widgetReponsitory = new InstagramReponsitory();
     const loadingTitle = productId
       ? `Adding ${widgetReducer.products
           .filter((x) => setupId(x.id) === productId)[0]
@@ -145,7 +141,7 @@ function ProductModal(props: IProductModalProps) {
     }
     toastNotify
       .promise(
-        widgetReponsitory.AddTagProducts(
+        InstagramWidgetAPI.AddTagProducts(
           props.widget.id,
           new AddTagProductRequest(products)
         ),

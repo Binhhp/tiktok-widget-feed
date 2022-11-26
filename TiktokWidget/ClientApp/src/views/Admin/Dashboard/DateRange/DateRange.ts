@@ -1,7 +1,7 @@
 import styled from "Dependencies/StyledComponents/Container";
 
 export const DateRangeRoot = styled("div")`
-  width: calc(30% - 20px);
+  width: 30%;
 `;
 
 export const PopoverContent = styled("div")`

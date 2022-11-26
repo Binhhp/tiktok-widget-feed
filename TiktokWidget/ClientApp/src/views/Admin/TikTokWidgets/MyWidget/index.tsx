@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
@@ -58,16 +58,14 @@ function MyWidget() {
     );
   };
   const onDelete = async (item: any) => {
-    const widgetReponsitory = new WidgetReponsitory();
-    await toastNotify.promise(widgetReponsitory.Delete(item?.id), {
+    await toastNotify.promise(TikTokWidgetAPI.Delete(item?.id), {
       loading: `Deleting ${item?.widgetTitle} widget`,
       success: (data: any) => `Deleted ${item?.widgetTitle} widget`,
     });
   };
 
   const fetchData = async (pageIndex: number) => {
-    const widgetReponsitory = new WidgetReponsitory();
-    return widgetReponsitory.Get(pageIndex, shopReducer.shop.domain);
+    return TikTokWidgetAPI.Get(pageIndex, shopReducer.shop.domain);
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { SourceTypeEnum } from "repositories/dtos/requests/GetVideoByJobRequest";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
 import { FlexboxDiv } from "../CreateWidgetStyle";
@@ -30,10 +30,9 @@ function Step1() {
   const onSubmit = async () => {
     setLoading(true);
     dispatch(InstagramWidgetActionTS.OnStep(2));
-    const widgetReponsitory = new InstagramReponsitory();
     const sourceType = widgetReducer.settings.source ?? 0;
     if (widgetReducer.settings.valueSource) {
-      const res = await widgetReponsitory.AddJob(
+      const res = await InstagramWidgetAPI.AddJob(
         shopReducer.shop.domain,
         new AddJobRequest(
           widgetReducer.settings.valueSource,

@@ -13,10 +13,10 @@ import CreateWidgetProvider from "../CreateWidgetProvider";
 import FormControlSource from "./FormControl";
 import { Container } from "common/style/UtilStyles";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import toast from "react-hot-toast";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { UriProvider } from "common/functions/FuncUtils";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 
 function StepOne() {
   const dispatch = useDispatch();
@@ -34,10 +34,9 @@ function StepOne() {
   const onSubmit = async () => {
     setLoading(true);
     dispatch(WidgetActionTS.OnStep(2));
-    const widgetReponsitory = new WidgetReponsitory();
     const sourceType = widgetReducer.settings.source ?? 0;
     if (widgetReducer.settings.valueSource) {
-      const res = await widgetReponsitory.AddJob(
+      const res = await TikTokWidgetAPI.AddJob(
         shopReducer.shop.domain,
         new AddJobRequest(widgetReducer.settings.valueSource, sourceType)
       );

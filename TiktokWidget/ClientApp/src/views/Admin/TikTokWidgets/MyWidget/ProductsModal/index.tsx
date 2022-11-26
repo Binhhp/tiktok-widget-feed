@@ -19,17 +19,17 @@ import {
   TagProductSection,
 } from "../MyWidgetStyle";
 import { IProductModalProps } from "../MyWidgetType";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { toastNotify } from "Dependencies/Toast";
 import Image from "ui-components/Image";
 import LoadingInfinite from "ui-components/Loading/ButtonLoading";
-import { ProductReponsitory } from "repositories/implements/ProductReponsitory";
+import ProductAPI from "repositories/implements/ProductAPI";
 import { Waypoint } from "react-waypoint";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 
 function ProductModal(props: IProductModalProps) {
   const [keyword, setKeyword] = useState("");
@@ -54,16 +54,13 @@ function ProductModal(props: IProductModalProps) {
 
   const setupId = (id: string) => `${id}${props.widget.id}`;
   const fetchProducts = () => {
-    const productReponsitory = new ProductReponsitory();
-    productReponsitory
-      .Get(page.pageIndex, shopReducer.shop.domain)
-      .then((res) => {
-        setPage({
-          count: res.count,
-          pageIndex: page.pageIndex + 1,
-        });
-        dispatch(WidgetActionTS.OnSetTagProducts(res.data));
+    ProductAPI.Get(page.pageIndex, shopReducer.shop.domain).then((res) => {
+      setPage({
+        count: res.count,
+        pageIndex: page.pageIndex + 1,
       });
+      dispatch(WidgetActionTS.OnSetTagProducts(res.data));
+    });
   };
 
   const onSetProductId = (key: string) => () => {
@@ -121,7 +118,6 @@ function ProductModal(props: IProductModalProps) {
 
   const onSaveChange = async () => {
     setLoadingSaveChanges(true);
-    const widgetReponsitory = new WidgetReponsitory();
     const loadingTitle = productId
       ? `Adding ${widgetReducer.products
           .filter((x) => setupId(x.id) === productId)[0]
@@ -145,7 +141,7 @@ function ProductModal(props: IProductModalProps) {
     }
     toastNotify
       .promise(
-        widgetReponsitory.AddTagProducts(
+        TikTokWidgetAPI.AddTagProducts(
           props.widget.id,
           new AddTagProductRequest(products)
         ),

@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequest";
 import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequest";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
+import ShopAPI from "repositories/implements/ShopAPI";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 import { RootReducer } from "stores/Admin/reducers";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { ButtonCancel, FormSubmitWrapper } from "./FormConfigStyle";
@@ -33,9 +33,8 @@ function FormSubmit() {
     if (!widgetReducer.settings.title || !widgetReducer.settings.valueSource)
       return;
     setLoading(true);
-    const widgetReponsitory = new WidgetReponsitory();
     if (widgetReducer.settings.id) {
-      const response = await widgetReponsitory.Update(
+      const response = await TikTokWidgetAPI.Update(
         widgetReducer.settings.id,
         new UpdateWidgetRequest(widgetReducer.settings)
       );
@@ -49,22 +48,19 @@ function FormSubmit() {
         toast.error(response.Error);
       }
     } else {
-      const response = await widgetReponsitory.Create(
+      const response = await TikTokWidgetAPI.Create(
         new CreateWidgetRequest(widgetReducer.settings),
         shopReducer.shop.domain
       );
       if (response.Status) {
         dispatch(WidgetActionTS.OnStep(3));
-        const shopReponsitory = new ShopReponsitory();
-        shopReponsitory
-          .GetWidgetsCount(shopReducer.shop.domain ?? "")
-          .then((val) => {
-            if (val === 1) {
-              dispatch(WidgetActionTS.OnChangStatus("FirstCreated"));
-            }
+        ShopAPI.GetWidgetsCount(shopReducer.shop.domain ?? "").then((val) => {
+          if (val === 1) {
+            dispatch(WidgetActionTS.OnChangStatus("FirstCreated"));
+          }
 
-            dispatch(WidgetActionTS.OnSetWidgetCount(val));
-          });
+          dispatch(WidgetActionTS.OnSetWidgetCount(val));
+        });
         setLoading(false);
         return navigate(
           UriProvider.KeepParameters(

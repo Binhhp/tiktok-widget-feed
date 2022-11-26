@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import InstagramLayout from "Dependencies/InstagramLayout";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import {
   IInstagramDto,
@@ -8,7 +7,7 @@ import {
 } from "Dependencies/InstagramLayout/InstagramLayoutModel";
 import { InstagramLayoutWrapper } from "./LayoutStyle";
 import Detail from "../Detail";
-
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 interface ILayoutProps {
   widget: BaseInstagramWidget;
 }
@@ -18,7 +17,7 @@ function Layout(props: ILayoutProps) {
       props.widget.setting.layoutType === 2
         ? showItems
         : props.widget.setting.limitItems;
-    return new InstagramReponsitory().GetVideos(
+    return InstagramWidgetAPI.GetVideos(
       props.widget.id ?? "",
       pageIndex,
       showAsItems
@@ -28,8 +27,7 @@ function Layout(props: ILayoutProps) {
   const [item, setItem] = useState<IInstagramDto | undefined>(undefined);
   const onClickItem = (item?: IInstagramDto) => () => {
     setItem(item);
-    const instagramResp = new InstagramReponsitory();
-    instagramResp.PostClick(props.widget.id, {
+    InstagramWidgetAPI.PostClick(props.widget.id, {
       PostId: item?.id,
       Image: item?.imageUrl,
       Description: item?.description,

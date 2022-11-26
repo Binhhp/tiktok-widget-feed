@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import "@shopify/polaris/build/esm/styles.css";
 import "swiper/swiper-bundle.css";
 import "@fancyapps/ui/dist/fancybox.css";
-import { ShopReponsitory } from "repositories/implements/ShopReponsitory";
+import ShopAPI from "repositories/implements/ShopAPI";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ShopActionTS } from "stores/Admin/Shop/action";
@@ -19,6 +19,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
+
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,9 +27,7 @@ function App() {
   const [isPending, setPending] = useState(true);
   useEffect(() => {
     if (shop) {
-      const shopReponsitory = new ShopReponsitory();
-      shopReponsitory
-        .Get(shop)
+      ShopAPI.Get(shop)
         .then(async (res) => {
           if (res) {
             if (res?.shopConfiguration && res?.shopConfiguration?.timezone) {
@@ -41,8 +40,8 @@ function App() {
             );
             ChatPlugin.Init(res.domain);
             const [tiktokCount, instagramCount] = await Promise.all([
-              shopReponsitory.GetWidgetsCount(res.domain ?? ""),
-              shopReponsitory.GetInstagramCount(res.domain ?? ""),
+              ShopAPI.GetWidgetsCount(res.domain ?? ""),
+              ShopAPI.GetInstagramCount(res.domain ?? ""),
             ]);
             dispatch(WidgetActionTS.OnSetWidgetCount(tiktokCount));
             dispatch(InstagramWidgetActionTS.OnSetWidgetCount(instagramCount));

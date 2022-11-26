@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { WidgetReponsitory } from "repositories/implements/WidgetReponsitory";
+import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import { SettingProviderWidget } from "stores/Admin/Widget/state";
 import StepTwoUpdate from "./UpdateWidget";
@@ -15,8 +15,7 @@ function StepTwoUpdateMain() {
 
   useEffect(() => {
     if (widgetId) {
-      const widgetResponsitory = new WidgetReponsitory();
-      widgetResponsitory.GetById(widgetId).then((res) => {
+      TikTokWidgetAPI.GetById(widgetId).then((res) => {
         if (res?.Status) {
           const result = res.Data as BaseTikTokWidget;
           const dto = new SettingProviderWidget(result).ToDto();

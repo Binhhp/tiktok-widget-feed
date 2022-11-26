@@ -2,7 +2,6 @@ import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRe
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequest";
-import { IWidgetReponsitory } from "repositories/interfaces/IWidgetReponsitory";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import {
   ITikTokVideoDto,
@@ -17,8 +16,8 @@ import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 
-export class WidgetReponsitory implements IWidgetReponsitory {
-  AddJob = async (domain?: string, req?: AddJobRequest) => {
+export default class TikTokWidgetAPI {
+  static AddJob = async (domain?: string, req?: AddJobRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/shops('${domain}')/AddJob`,
@@ -26,7 +25,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     });
     return response;
   };
-  GetByIds = async (widgetIds: string[]) => {
+  static GetByIds = async (widgetIds: string[]) => {
     const response = await FetchDataFromServer({
       method: "GET",
       url: `${
@@ -38,7 +37,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     }
     return response;
   };
-  GetVideos = async (
+  static GetVideos = async (
     key: string,
     pageIndex: number,
     showItems?: number
@@ -58,7 +57,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     }
   };
 
-  PostClick = async (key: string, req: SetClickPostRequest) => {
+  static PostClick = async (key: string, req: SetClickPostRequest) => {
     return await FetchDataFromServer({
       method: "POST",
       url: `${RootURL.ApiBase}/odata/TikTokVideos('${key}')/SetClicks`,
@@ -66,7 +65,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     });
   };
 
-  GetVideosByJob = async (
+  static GetVideosByJob = async (
     req: GetVideoByJobRequest,
     showItems?: number
   ): Promise<IVideoTemplateModel> => {
@@ -79,7 +78,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     );
   };
 
-  Create = async (
+  static Create = async (
     req: CreateWidgetRequest,
     domain?: string
   ): Promise<BaseResponse> => {
@@ -91,7 +90,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     return response;
   };
 
-  Get = async (pageIndex?: number, domain?: string) => {
+  static Get = async (pageIndex?: number, domain?: string) => {
     let url = `${RootURL.ApiBase}/odata/shops('${domain}')/TikTokWidgets?$expand=products,shops&$count=true`;
     if (pageIndex) {
       url = ODataQuery.BuildODataQuery(
@@ -121,7 +120,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     };
   };
 
-  Delete = async (key: string) => {
+  static Delete = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "DELETE",
       url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')`,
@@ -129,7 +128,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     return response;
   };
 
-  GetById = async (key: string) => {
+  static GetById = async (key: string) => {
     const response = await FetchDataFromServer({
       method: "GET",
       url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')?$expand=products,shops`,
@@ -137,7 +136,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     return response;
   };
 
-  Update = async (key: string, req: UpdateWidgetRequest) => {
+  static Update = async (key: string, req: UpdateWidgetRequest) => {
     const response = await FetchDataFromServer({
       method: "PUT",
       url: `${RootURL.ApiBase}/odata/TikTokWidgets('${key}')`,
@@ -146,7 +145,7 @@ export class WidgetReponsitory implements IWidgetReponsitory {
     return response;
   };
 
-  AddTagProducts = async (
+  static AddTagProducts = async (
     key: string,
     req: AddTagProductRequest
   ): Promise<BaseResponse> => {

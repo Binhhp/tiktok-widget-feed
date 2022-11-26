@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
-import { InstagramReponsitory } from "repositories/implements/InstagramReponsitory";
+import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { ShopActionTS } from "stores/Admin/Shop/action";
 import { RootTikTokReducer } from "stores/Layout/WidgetReducer";
 import ApplicationContainer from "../Common/ApplicationContainer";
@@ -19,7 +19,7 @@ function Instagram(props: IInstagramLayoutProps) {
 
   const [isPending, setPending] = useState(true);
   const getWidgetById = (id: string) => {
-    new InstagramReponsitory().GetById(id).then((res) => {
+    InstagramWidgetAPI.GetById(id).then((res) => {
       if (res.Status) {
         const result = res.Data as BaseInstagramWidget;
         setWidgets([...widgets, result]);
@@ -40,7 +40,7 @@ function Instagram(props: IInstagramLayoutProps) {
       ? window.Shopify["shop"]
       : window.location.host;
 
-    new InstagramReponsitory().Get(0, domain).then((res) => {
+    InstagramWidgetAPI.Get(0, domain).then((res) => {
       const shop = res.data[0].shops;
       setWidgets([...widgets, ...res.data]);
       dispatch(
