@@ -8,7 +8,10 @@ import { IAnalyticsResponse } from "repositories/dtos/responses/IAnalytics";
 import { IBannerResponse } from "repositories/dtos/responses/IBanner";
 import { ICourseResponse } from "repositories/dtos/responses/ICourse";
 import { IPostResponse } from "repositories/dtos/responses/IPost";
-import { convertShortDate } from "views/Admin/Dashboard/DateRange/DateFunc";
+import {
+  convertDateTimeByTimezone,
+  convertShortDate,
+} from "views/Admin/Dashboard/DateRange/DateFunc";
 export default class ShopAPI {
   static GetThemes = async (shopDomain: string) => {
     try {
@@ -98,9 +101,9 @@ export default class ShopAPI {
       method: "GET",
       url: `${
         RootURL.ApiBase
-      }/odata/Shops('${domain}')/Posts?startTime=${convertShortDate(
+      }/odata/Shops('${domain}')/Posts?startTime=${convertDateTimeByTimezone(
         startDate
-      )}&endTime=${convertShortDate(endDate)}`,
+      )}&endTime=${convertDateTimeByTimezone(endDate)}`,
       nonTimezone: true,
     });
     return response.Data as IPostResponse;
@@ -125,9 +128,10 @@ export default class ShopAPI {
       method: "POST",
       url: `${RootURL.ApiBase}/odata/Shops('${shop}')/Analytics`,
       body: {
-        StartTime: convertShortDate(dateRange.StartTime),
-        EndTime: convertShortDate(dateRange.EndTime),
+        StartTime: convertDateTimeByTimezone(dateRange.StartTime),
+        EndTime: convertDateTimeByTimezone(dateRange.EndTime),
       },
+      nonTimezone: true,
     });
     return response.Data as IAnalyticsResponse;
   };

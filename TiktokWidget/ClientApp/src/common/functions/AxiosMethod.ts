@@ -1,19 +1,19 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { IErrorMessage } from "common/interfaces/IErrorMessage";
 import { IQueryModel } from "common/interfaces/IQueryModel";
 import config from "config";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 
-const instance = axios.create({
-  baseURL: config.apiUrl,
-  headers: {
-    "cross-origin-resource-policy": "cross-origin",
-  },
-});
-
 const FetchDataFromServer = async (req: IQueryModel): Promise<BaseResponse> => {
   let result = new BaseResponse();
-  if (!req.nonTimezone && localStorage.getItem("timezone")) {
+  const instance = axios.create({
+    baseURL: config.apiUrl,
+    headers: {
+      "cross-origin-resource-policy": "cross-origin",
+    },
+  });
+
+  if (!req?.nonTimezone && localStorage.getItem("timezone")) {
     instance.defaults.headers.common["tz"] = `${localStorage.getItem(
       "timezone"
     )}`;

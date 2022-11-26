@@ -12,9 +12,13 @@ SwiperCore.use([Autoplay, Navigation]);
 
 const RecentCourse = () => {
   const [data, setData] = useState<ICourseResponse | undefined>(undefined);
+  const [activeIndex, setActiveIndex] = useState(1);
   useEffect(() => {
     ShopAPI.GetRecentCourses().then((res) => {
       setData(res);
+      if (res.value?.length === 0) {
+        setActiveIndex(0);
+      }
     });
   }, []);
 
@@ -22,7 +26,6 @@ const RecentCourse = () => {
 
   const [isNext, setIsNext] = useState(true);
   const [isPrev, setIsPrev] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(1);
 
   const onNext = () => swiperController?.slideNext();
   const onPrev = () => swiperController?.slidePrev();
@@ -48,7 +51,7 @@ const RecentCourse = () => {
       ))}
     </Swiper>
   );
-  return data === undefined || (data?.value && data?.value?.length > 0) ? (
+  return (
     <Root>
       <p className="orichi-courses-title">Recent Course</p>
       <div className="orichi-courses-slider">
@@ -83,14 +86,10 @@ const RecentCourse = () => {
             onNext={onNext}
             onPrevious={onPrev}
           ></Pagination>
-          <span className="orichi-courses-page">{`${activeIndex}/${
-            data?.value?.length ?? 1
-          }`}</span>
+          <span className="orichi-courses-page">{`${activeIndex}/${data?.value?.length}`}</span>
         </div>
       </div>
     </Root>
-  ) : (
-    <></>
   );
 };
 

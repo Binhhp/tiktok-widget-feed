@@ -10,6 +10,18 @@ export function convertShortDate(date: string): string {
   return [year, month, day].join("-");
 }
 
+export function convertDateTimeByTimezone(date: string): string {
+  var _date = new Date(date);
+  return _date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
 export function addDays(date: Date, days: number) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
