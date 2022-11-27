@@ -166,30 +166,38 @@ const DateRangePicker = () => {
       (dateRangeSate && dateRangeSate?.startDate) ?? ""
     );
     const _endDate = new Date((dateRangeSate && dateRangeSate?.endDate) ?? "");
-    const _dateDiffDays = dateDiffDays(_startDate, _endDate);
+    let _dateDiffDays = dateDiffDays(_startDate, _endDate);
 
     if (_dateDiffDays >= 0) {
+      if (_dateDiffDays === 1) {
+        _dateDiffDays = -1;
+      }
+
       const findIndexOption = optionsDateRange.findIndex(
         (x: any) => x.value === _dateDiffDays.toString()
       );
-      if (
-        findIndexOption > 0 &&
-        convertShortDate(new Date().toString()) ===
-          convertShortDate(_endDate.toString())
-      ) {
-        setSelected(_dateDiffDays);
-      }
 
       if (
         optionsDateRange?.[findIndexOption] &&
         _endDate.getDate() === new Date().getDate()
       ) {
+        _dateDiffDays = parseInt(optionsDateRange?.[findIndexOption]?.value);
         setValueDisplay(optionsDateRange?.[findIndexOption].content);
-      } else if (_endDate.getDate() === addDays(new Date(), -1).getDate()) {
-        setValueDisplay(optionsDateRange[1].content);
       } else {
-        setValueDisplay(optionsDateRange[5].content);
+        const yesterday = addDays(new Date(), -1).getDate();
+        if (
+          _endDate.getDate() === yesterday &&
+          _startDate.getDate() === yesterday
+        ) {
+          _dateDiffDays = 1;
+          setValueDisplay(optionsDateRange[1].content);
+        } else {
+          _dateDiffDays = -1;
+          setValueDisplay(optionsDateRange[5].content);
+        }
       }
+
+      setSelected(_dateDiffDays);
       setSelectedDates({
         start: _startDate,
         end: _endDate,

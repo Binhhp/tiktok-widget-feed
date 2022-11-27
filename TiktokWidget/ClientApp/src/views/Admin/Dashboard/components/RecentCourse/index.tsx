@@ -44,8 +44,8 @@ const RecentCourse = () => {
       slidesPerView={"auto"}
       spaceBetween={16}
     >
-      {[{}, {}, {}].map((item: any) => (
-        <SwiperSlide key={`slider-${item.id}`}>
+      {[{}, {}, {}].map((item: any, number: number) => (
+        <SwiperSlide key={`slider-${number}`}>
           <RecentCourseItem item={item} />
         </SwiperSlide>
       ))}
