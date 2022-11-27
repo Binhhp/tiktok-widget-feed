@@ -81,7 +81,7 @@ const RecentCourse = () => {
 
         <div className="orichi-courses-action">
           <Pagination
-            hasNext={isNext}
+            hasNext={data?.value && data?.value?.length > 0 ? isNext : false}
             hasPrevious={isPrev}
             onNext={onNext}
             onPrevious={onPrev}
