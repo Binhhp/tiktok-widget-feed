@@ -48,11 +48,11 @@ function VideoPlayer(props: IVideoProps) {
               height="100%"
               loading="lazy"
               src={
-                props.corsProxy
-                  ? `${props.corsProxy}${props.image}`
-                  : props.image
+                props.image?.startsWith("http")
+                  ? props.image
+                  : `data:image/png;base64,${props.image}`
               }
-              alt={props.image}
+              alt={props.alt}
             ></ImgPoster>
             <DivLoader>
               <TikTokLoader></TikTokLoader>
@@ -73,11 +73,7 @@ function VideoPlayer(props: IVideoProps) {
                 onPause={onPause}
                 onPlay={onPlaying}
                 muted={props.muted}
-                url={
-                  props.corsProxy
-                    ? `${props.corsProxy}${props.playSrc}`
-                    : props.playSrc
-                }
+                url={props.playSrc}
                 playing={status === "Playing"}
                 stopOnUnmount={true}
                 loop={true}

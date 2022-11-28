@@ -14,6 +14,7 @@ export interface IVideoProps {
   hidden?: boolean;
   muted?: boolean;
   corsProxy?: string;
+  alt?: string;
 }
 
 export type StatusType = "Playing" | "Paused";

@@ -8,7 +8,6 @@ interface SliderImageProps {
   images?: string[];
   thunbnail: string;
   desc: string;
-  corsProxy?: string;
   loading?: "opacity" | "fillBlur";
 }
 function SliderImage(props: SliderImageProps) {
@@ -39,7 +38,9 @@ function SliderImage(props: SliderImageProps) {
           <SwiperSlide key={`image-${index}`}>
             <LazyImage
               loading={props.loading ?? "opacity"}
-              src={props.corsProxy ? `${props.corsProxy}${item}` : item}
+              src={
+                item.startsWith("http") ? item : `data:image/png;base64,${item}`
+              }
               alt={props.desc}
             />
           </SwiperSlide>

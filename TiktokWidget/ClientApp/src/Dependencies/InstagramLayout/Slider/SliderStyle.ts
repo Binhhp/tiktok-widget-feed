@@ -14,6 +14,7 @@ export const DivSliderWrapper = styled("div", "root", "orichi-instagram")`
       width: 46px;
       height: 46px;
       border-radius: 50%;
+      display: flex !important;
       &:after {
         font-size: 13px;
         color: #ffffff;
@@ -27,6 +28,7 @@ export const DivSliderWrapper = styled("div", "root", "orichi-instagram")`
       width: 46px;
       height: 46px;
       border-radius: 50%;
+      display: flex !important;
       &:after {
         font-size: 13px;
         color: #ffffff;

@@ -16,7 +16,6 @@ import {
   DivUserName,
 } from "./DetailStyle";
 import VideoPlayer from "Dependencies/VideoPlayer";
-import config from "config";
 
 interface IDetailProps {
   item: IInstagramDto;
@@ -48,16 +47,14 @@ function Detail(props: IDetailProps) {
           {props.item.videoUrl ? (
             <VideoPlayer
               muted
-              image={props.item?.imageUrl ?? ""}
+              image={props.item.imageUrl ?? ""}
               playSrc={props.item.videoUrl ?? ""}
-              corsProxy={config.CORS_PROXY}
             />
           ) : (
             <SliderImage
               desc={props.item.description}
               images={props.item?.imageUrlArr}
               thunbnail={props.item.imageUrl ?? ""}
-              corsProxy={config.CORS_PROXY}
               loading={"fillBlur"}
             />
           )}

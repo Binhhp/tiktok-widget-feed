@@ -39,6 +39,7 @@ export const DivContent = styled("div", "container", DisplayNameStyled)`
   &.orichi-video-container {
     overflow: hidden;
     height: 100%;
+    width: 100%;
   }
 `;
 
@@ -167,6 +168,7 @@ export const ImgPoster = styled("img", "poster", DisplayNameStyled)`
     max-height: 100%;
     max-width: 100%;
     min-height: 90vh;
+    min-width: 40vh;
   }
 `;
 
@@ -224,7 +226,6 @@ export const DivErrorVideo = styled(
     display: ${(props) => (props.hidden ? "none" : "auto")};
     background: #202020;
     color: #ffffff;
-    padding: 0 10px;
     h2 {
       text-transform: none !important;
       font-family: "SF Pro Display";
