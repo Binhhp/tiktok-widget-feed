@@ -30,6 +30,7 @@ export const DivContent = styled("div", "content", "orichi-instagram")`
 
 export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
   &.orichi-instagram-divdesc {
+    min-width: 38vh;
     max-width: 50%;
     display: flex;
     flex-direction: column;
