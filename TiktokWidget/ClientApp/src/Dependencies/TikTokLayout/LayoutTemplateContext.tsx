@@ -37,11 +37,11 @@ function LayoutTemplateContextProvider({ children }: any) {
   const OnAppendItems = (payload: IOnSetItemsProps): void => {
     const item = payload.items[0];
     const user = {
-      author: item.author,
-      avatarThumb: item.avatarThumb,
-      diggCount: item.authorStats?.diggCount,
-      followerCount: item.authorStats?.followerCount,
-      followingCount: item.authorStats?.followingCount,
+      author: item?.author,
+      avatarThumb: item?.avatarThumb,
+      diggCount: item?.authorStats?.diggCount,
+      followerCount: item?.authorStats?.followerCount,
+      followingCount: item?.authorStats?.followingCount,
     };
     if (payload.nonAppend) {
       setState({

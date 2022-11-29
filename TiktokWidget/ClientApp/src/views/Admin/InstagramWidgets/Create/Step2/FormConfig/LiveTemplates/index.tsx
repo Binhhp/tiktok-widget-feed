@@ -1,3 +1,4 @@
+import { EmptySearchResult } from "@shopify/polaris";
 import { ValidatorProvider } from "common/constants/Validator";
 import InstagramLayout from "Dependencies/InstagramLayout";
 import { InstagramLayoutContext } from "Dependencies/InstagramLayout/InstagramLayoutContext";
@@ -12,7 +13,7 @@ import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
 import CircleLoading from "ui-components/CircleLoading";
-import { LiveTemplateWrapper } from "./LiveTemplateStyle";
+import { EmptyWrapper, LiveTemplateWrapper } from "./LiveTemplateStyle";
 
 function LiveTemplates() {
   const widgetReducer = useSelector(
@@ -119,6 +120,15 @@ function LiveTemplates() {
           nonAppend
           showLoadInfinite
           showPageFirst
+          customEmpty={
+            <EmptyWrapper>
+              <EmptySearchResult
+                title="No videos not found"
+                description="Add or update widget with new username and hashtag"
+                withIllustration
+              />
+            </EmptyWrapper>
+          }
         ></InstagramLayout>
       ) : (
         <CircleLoading />

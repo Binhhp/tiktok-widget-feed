@@ -38,7 +38,7 @@ function InstagramLayoutContextProvider({ children }: any) {
   const OnAppendItems = (payload: IOnSetItemsProps): void => {
     const item = payload.items[0];
     const user: IUserInformation = {
-      id: item.user?.id,
+      id: item?.user?.id,
       isPrivate: item?.user?.isPrivate,
       name: item?.user?.name,
       picture: item?.user?.picture,

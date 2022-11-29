@@ -177,6 +177,7 @@ body {
 .img-fill-loading {
   filter: blur(10px);
   clip-path: inset(0);
+  min-width: 53vh;
 }
 
 .img-fill-loaded {

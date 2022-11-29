@@ -113,15 +113,11 @@ body {
 }
 
 .img-loading {
-  /* filter: blur(10px);
-  clip-path: inset(0); */
   opacity: 0;
   transition: .15s opacity ease-in-out;
 }
 
 .img-loaded {
-  /* filter: blur(0px);
-  transition: filter 0.5s linear; */
   opacity: 1;
   transition: .15s opacity ease-in-out;
 }

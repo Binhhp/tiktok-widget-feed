@@ -102,6 +102,7 @@ export const DivItemOrginal = styled(
   "orichi-instagram"
 )`
   &.orichi-instagram-item__orginal {
+    background: rgb(239, 239, 239);
     width: 100%;
     height: 100%;
     display: block;
@@ -115,6 +116,7 @@ export const DivItemOrginal = styled(
 `;
 export const DivItemImage = styled("img", "item__image", "orichi-instagram")`
   &.orichi-instagram-item__image {
+    background: rgb(239, 239, 239);
     width: 100%;
     height: 100%;
     object-fit: cover;

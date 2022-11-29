@@ -206,7 +206,7 @@ namespace TiktokWidget.Service.Implements
         public IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request)
         {
             var response = Enumerable.Empty<InstagramViewModel>().AsQueryable();
-            string type = request.Type == Common.Enums.SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
+            string type = request.Type == SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
             var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
             var JSON = File.ReadAllText(pathFile);
             if (!string.IsNullOrEmpty(JSON))
@@ -223,7 +223,7 @@ namespace TiktokWidget.Service.Implements
                 var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
                 if (widget != null)
                 {
-                    string type = widget.SourceType == Common.Enums.SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
+                    string type = widget.SourceType == SourceTypeEnum.HashTag ? "insta-hashtag" : "insta-username";
                     var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
                     var JSON = File.ReadAllText(pathFile);
                     if (!string.IsNullOrEmpty(JSON))
