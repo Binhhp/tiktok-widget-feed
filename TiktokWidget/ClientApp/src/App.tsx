@@ -20,6 +20,7 @@ import "swiper/swiper.min.css";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 
+console.log = console.warn = console.error = () => {};
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -28,7 +28,9 @@ function ShopTagProduct(props: IShopTagProduct) {
           <Image src={props.product.image} alt={props.product.title}></Image>
         </DivImagePoster>
         <DivDescProduct>
-          <span>{props.product.title}</span>
+          <div>
+            <span>{props.product.title}</span>
+          </div>
           <DivPriceProduct>
             <h3>${props.product.prices}</h3>
             {/* <h5>${props.product.prices}</h5> */}

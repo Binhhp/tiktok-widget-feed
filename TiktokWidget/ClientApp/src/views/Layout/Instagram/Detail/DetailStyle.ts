@@ -13,7 +13,8 @@ export const DivContainer = styled("div", "container", "orichi-instagram")`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-height: 100vh;
+    max-height: 90vh;
+    overflow: hidden;
   }
 `;
 
@@ -30,22 +31,42 @@ export const DivContent = styled("div", "content", "orichi-instagram")`
 
 export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
   &.orichi-instagram-divdesc {
-    min-width: 38vh;
     max-width: 50%;
     display: flex;
     flex-direction: column;
     background: #ffffff;
     justify-content: space-between;
     padding: 15px 11px 10px 11px;
-    p.orichi-instagram-desc {
+    .orichi-instagram-desc {
       margin: 22px 0px;
-      font-family: "SF Pro Display";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      color: #000000;
+      p {
+        margin: 0px;
+        font-family: "SF Pro Display" !important;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        color: #000000;
+        text-overflow: ellipsis;
+        line-height: 18px;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        overflow: hidden;
+        max-height: 54px;
+      }
+      .desc {
+        max-height: max-content;
+        display: block;
+        overflow: auto;
+        line-height: normal;
+      }
     }
   }
+`;
+//Button read more
+export const LinkReadMore = styled("span")`
+  margin: 0px;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 export const DivUserName = styled("div", "user1", "orichi-instagram")`
@@ -126,6 +147,7 @@ export const DivDot = styled("div", "dot", "orichi-instagram")<IDivDot>`
     height: 4px;
     width: 4px;
     border-radius: 50%;
+    display: block !important;
   }
 `;
 
@@ -144,7 +166,12 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
     .orichi-instagram-user {
       display: none;
       background: #ffffff;
-      padding: 0px 11px;
+      padding: 0px 12px;
+    }
+    @media only screen and (min-width: 1200px) {
+      ${DivDesc} {
+        min-width: 38vh;
+      }
     }
     @media only screen and (${breakpoints.device.lg}) {
       ${DivContainer} {
@@ -154,6 +181,7 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
         }
         ${DivDesc} {
           max-width: 100%;
+          min-width: auto;
         }
       }
       .orichi-instagram-user {
@@ -163,7 +191,7 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
           border: none;
         }
       }
-      .username p.orichi-instagram-desc {
+      .username .orichi-instagram-desc {
         margin-top: 0px;
       }
       .username ${DivUserName} {

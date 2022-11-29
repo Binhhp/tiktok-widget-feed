@@ -39,7 +39,7 @@ export const DivItemDesc = styled("div", "item__desc", "orichi-instagram")<
       font-size: 14px;
     }
     p.orichi-instagram-desc {
-      font-family: "SF Pro Display";
+      font-family: "SF Pro Display" !important;
       font-style: normal;
       font-weight: 400;
       font-size: 14px;

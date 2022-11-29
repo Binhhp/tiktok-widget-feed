@@ -37,12 +37,12 @@ export const DivDescProduct = styled(
       font-style: normal;
       font-size: 12px;
       line-height: 16px;
-      margin-bottom: 15px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
+      margin-bottom: 15px;
     }
     h3 {
       font-family: "SF Pro Display";
@@ -88,18 +88,25 @@ export const DivButtonShop = styled("a", "btn__shopping", "orichi-instagram")`
     background: #01f0ea;
     border-radius: 2px;
     border: none;
-    padding: 5px;
-    font-size: 12px;
+    padding: 3.8px;
     color: #fafafa;
     font-weight: 500;
     height: auto;
-    width: 120px;
-    max-width: 100%;
+    width: 100px;
     cursor: pointer;
     text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    span {
+      display: block;
+      height: max-content;
+      font-size: 12px;
+      line-height: 14px;
+      font-family: "SF Pro Display";
+      font-style: normal;
+      font-weight: 400;
+    }
     &:hover {
       background: #03dbd5;
       color: #fafafa;
@@ -144,7 +151,6 @@ export const ShopTagProductWrapper = styled(
         span {
           font-size: 10px;
           line-height: 10px;
-          margin-bottom: 7px;
         }
       }
       ${DivImagePoster} {

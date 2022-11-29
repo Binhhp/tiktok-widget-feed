@@ -14,6 +14,7 @@ import {
   DivTimezone,
   DivTimezoneContent,
   DivUserName,
+  LinkReadMore,
 } from "./DetailStyle";
 import VideoPlayer from "Dependencies/VideoPlayer";
 
@@ -26,6 +27,17 @@ interface IDetailProps {
 function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
+  const onReadMore = () => {
+    const desc = document.getElementById(
+      `${window.btoa(`desc-${props.item.id}`)}`
+    );
+    if (desc) desc.classList.add("desc");
+    const more = document.getElementById(
+      `${window.btoa(`more-${props.item.id}`)}`
+    );
+    if (more) more.style.display = "none";
+  };
+
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
@@ -73,9 +85,21 @@ function Detail(props: IDetailProps) {
                 Follow
               </a>
             </DivUserName>
-            {props.item.description && (
-              <p className="orichi-instagram-desc">{props.item.description}</p>
-            )}
+            <div className="orichi-instagram-desc">
+              {props.item.description && (
+                <p id={`${window.btoa(`desc-${props.item.id}`)}`}>
+                  {props.item.description}
+                </p>
+              )}
+              {props.item.description && props.item.description.length > 230 && (
+                <LinkReadMore
+                  id={`${window.btoa(`more-${props.item.id}`)}`}
+                  onClick={onReadMore}
+                >
+                  ...{props.widget.setting.labelReadMore}
+                </LinkReadMore>
+              )}
+            </div>
           </div>
           <div className="orichi-instagram-item">
             <ShopTagProduct product={props.widget.products[0]} />
