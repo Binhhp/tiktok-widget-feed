@@ -63,9 +63,7 @@ const OnSetSetting = (
     } else {
       copyState.settings = new WidgetStoreModelDto().settings;
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
   return copyState;
 };
 

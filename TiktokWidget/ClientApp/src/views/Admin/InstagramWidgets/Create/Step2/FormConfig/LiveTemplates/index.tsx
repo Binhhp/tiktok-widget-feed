@@ -35,6 +35,7 @@ function LiveTemplates() {
   const [loading, setLoading] = useState(true);
 
   const getVideoFunc = async () => {
+    console.clear();
     if (window._timeout) {
       if (!loading) setLoading(true);
       if (window._timeout < new Date().getTime()) {
@@ -66,6 +67,7 @@ function LiveTemplates() {
       } catch {
         setTimeout(() => getVideoFunc(), 1400);
       }
+      console.clear();
     }
   };
 

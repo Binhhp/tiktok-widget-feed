@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { IErrorMessage } from "common/interfaces/IErrorMessage";
 import { IQueryModel } from "common/interfaces/IQueryModel";
 import config from "config";

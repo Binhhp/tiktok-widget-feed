@@ -129,7 +129,8 @@ export default class InstagramWidgetAPI {
         `${RootURL.ApiBase}/odata/InstagramVideos('${key}')`,
         pageIndex,
         showItems ? showItems : config.showItems,
-        "user"
+        "user",
+        "$orderby=takenAt desc"
       );
     } catch {
       return Promise.resolve({
@@ -156,7 +157,7 @@ export default class InstagramWidgetAPI {
       1,
       showItems ? showItems : config.showItems,
       "",
-      `data=${req.data}&type=${req.type}`
+      `$orderby=takenAt desc&data=${req.data}&type=${req.type}`
     );
   };
 }
