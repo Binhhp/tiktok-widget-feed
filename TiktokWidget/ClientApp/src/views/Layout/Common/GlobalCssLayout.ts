@@ -1,78 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
-    @font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 400;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYREGULAR.woff")
-      format("woff");
-}
 @font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 100;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYULTRALIGHTITALIC.woff")
-      format("woff");
+  font-family: "SF Pro Display"; 
+  src: url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot"); 
+  src: url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.eot?#iefix") format("embedded-opentype"), 
+  url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff2") format("woff2"), 
+  url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.woff") format("woff"), 
+  url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.ttf") format("truetype"), 
+  url("//db.onlinewebfonts.com/t/0b51833ff62e4af8acb5fd3e2bf59e97.svg#SF Pro Display") format("svg"); 
 }
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 200;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYTHINITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 300;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYLIGHTITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 500;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYMEDIUM.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 600;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYSEMIBOLDITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 700;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBOLD.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 800;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYHEAVYITALIC.woff")
-      format("woff");
-}
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: italic;
-  font-weight: 900;
-  src: local("SF Pro Display"),
-    url("https://fonts.cdnfonts.com/s/59278/SFPRODISPLAYBLACKITALIC.woff")
-      format("woff");
-}
-
 html,
 body {
   font-family: "SF Pro Display";
