@@ -152,6 +152,15 @@ export const DivDot = styled("div", "dot", "orichi-instagram")<IDivDot>`
 `;
 
 export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
+  .img-fill-loading {
+    filter: blur(10px);
+    clip-path: inset(0);
+  }
+
+  .img-fill-loaded {
+    filter: blur(0px);
+    transition: filter 0.5s linear;
+  }
   &.orichi-instagram-root {
     max-width: 100%;
     position: fixed;

@@ -132,6 +132,13 @@ export const DivVideoPlay = styled("div", "player", DisplayNameStyled)`
     display: block;
     position: relative;
     height: 100%;
+    max-width: 100%;
+    .poster-loading {
+      min-width: 53vh;
+    }
+    .poster-loaded {
+      min-width: 53vh;
+    }
     ${AbsoluteCenter} {
       svg {
         width: 100%;
@@ -166,9 +173,8 @@ export const ImgPoster = styled("img", "poster", DisplayNameStyled)`
     object-fit: cover;
     display: block;
     max-height: 100%;
-    max-width: 100%;
     min-height: 90vh;
-    min-width: 40vh;
+    width: 100%;
   }
 `;
 

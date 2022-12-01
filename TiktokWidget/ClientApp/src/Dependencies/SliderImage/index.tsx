@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { SliderImageWrapper } from "./SliderImageStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,34 +18,44 @@ function SliderImage(props: SliderImageProps) {
       ? [props.thunbnail]
       : undefined;
 
+  const [load, setLoad] = useState(false);
+  const onLoadImage = () => {
+    setLoad(true);
+  };
   return images ? (
     <SliderImageWrapper>
-      <Swiper
-        observer={true}
-        observeParents={true}
-        parallax={true}
-        centeredSlides={false}
-        updateOnWindowResize
-        watchOverflow={true}
-        slidesPerView={1}
-        pagination
-        navigation
-        slideNextClass="orichi-slider-player-next"
-        slidePrevClass="orichi-slider-player-prev"
-        className="orichi-slider-slider"
-      >
-        {images?.map((item, index) => (
-          <SwiperSlide key={`image-${index}`}>
-            <LazyImage
-              loading={props.loading ?? "opacity"}
-              src={
-                item.startsWith("http") ? item : `data:image/png;base64,${item}`
-              }
-              alt={props.desc}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className={!load ? "loading" : "loaded"}>
+        <Swiper
+          observer={true}
+          observeParents={true}
+          parallax={true}
+          centeredSlides={false}
+          updateOnWindowResize
+          watchOverflow={true}
+          slidesPerView={1}
+          pagination
+          navigation
+          slideNextClass="orichi-slider-player-next"
+          slidePrevClass="orichi-slider-player-prev"
+          className="orichi-slider-slider"
+        >
+          {images?.map((item, index) => (
+            <SwiperSlide key={`image-${index}`}>
+              <LazyImage
+                isLoaded={load}
+                onLoadImage={onLoadImage}
+                loading={props.loading ?? "opacity"}
+                src={
+                  item.startsWith("http")
+                    ? item
+                    : `data:image/png;base64,${item}`
+                }
+                alt={props.desc}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </SliderImageWrapper>
   ) : (
     <></>

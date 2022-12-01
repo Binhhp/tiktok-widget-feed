@@ -71,6 +71,7 @@ export const DivLeftProduct = styled("div", "divleft", "orichi-instagram")`
   &.orichi-instagram-divleft {
     display: flex;
     flex-direction: row;
+    max-width: calc(100% - 100px);
   }
 `;
 

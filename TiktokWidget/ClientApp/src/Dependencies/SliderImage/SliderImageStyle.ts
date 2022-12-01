@@ -5,6 +5,13 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
   &.orichi-slider-divroot {
     height: 100%;
     position: relative;
+    .loading {
+      width: 54vh;
+      overflow: hidden;
+    }
+    .loaded {
+      width: auto;
+    }
     .swiper-container-pointer-events {
       height: 100%;
     }

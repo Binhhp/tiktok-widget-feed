@@ -109,15 +109,4 @@ body {
   opacity: 1;
   transition: .15s opacity ease-in-out;
 }
-
-.img-fill-loading {
-  filter: blur(10px);
-  clip-path: inset(0);
-  min-width: 53vh;
-}
-
-.img-fill-loaded {
-  filter: blur(0px);
-  transition: filter 0.5s linear;
-}
 `;

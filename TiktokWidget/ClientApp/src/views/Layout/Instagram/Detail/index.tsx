@@ -90,14 +90,15 @@ function Detail(props: IDetailProps) {
                   {props.item.description}
                 </p>
               )}
-              {props.item.description && props.item.description.length > 230 && (
-                <LinkReadMore
-                  id={`${window.btoa(`more-${props.item.id}`)}`}
-                  onClick={onReadMore}
-                >
-                  ...{props.widget.setting.labelReadMore}
-                </LinkReadMore>
-              )}
+              {props.item.description &&
+                props.item.description.length > 230 && (
+                  <LinkReadMore
+                    id={`${window.btoa(`more-${props.item.id}`)}`}
+                    onClick={onReadMore}
+                  >
+                    ...{props.widget.setting.labelReadMore}
+                  </LinkReadMore>
+                )}
             </div>
           </div>
           <div className="orichi-instagram-item">
@@ -105,11 +106,14 @@ function Detail(props: IDetailProps) {
             <DivTimezone>
               <DivTimezoneContent color={props.widget.setting.itemColor}>
                 <h2>
-                  {new Date(props.item.takenAt * 1000).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {new Date(props.item.takenAt * 1000).toLocaleDateString(
+                    "en-US",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )}
                 </h2>
                 <DivDot bg="#888888"></DivDot>
                 <h3>View on Instagram</h3>

@@ -38,6 +38,10 @@ function VideoPlayer(props: IVideoProps) {
       message: ErrorCodePlayer.CantLoadPlayer,
     });
   };
+
+  const [loadImage, setLoadImage] = useState(false);
+  const onLoadImage = () => setLoadImage(true);
+
   return (
     <DivVideoWrapper>
       <DivContainer className={`${props.hidden ? "visible" : "show"}`}>
@@ -53,6 +57,8 @@ function VideoPlayer(props: IVideoProps) {
                   : `data:image/png;base64,${props.image}`
               }
               alt={props.alt}
+              onLoad={onLoadImage}
+              className={!loadImage ? "poster-loading" : "poster-loader"}
             ></ImgPoster>
             <DivLoader>
               <TikTokLoader></TikTokLoader>
