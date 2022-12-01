@@ -6,7 +6,7 @@ export const DivContainer = styled("div", "container", "orichi-instagram")`
     display: flex;
     flex-direction: row;
     width: auto;
-    max-width: 100%;
+    max-width: 80%;
     align-items: stretch;
     flex-shrink: 1;
     position: absolute;

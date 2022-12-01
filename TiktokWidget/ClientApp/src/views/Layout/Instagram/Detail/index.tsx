@@ -37,7 +37,6 @@ function Detail(props: IDetailProps) {
     );
     if (more) more.style.display = "none";
   };
-
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
@@ -106,7 +105,7 @@ function Detail(props: IDetailProps) {
             <DivTimezone>
               <DivTimezoneContent color={props.widget.setting.itemColor}>
                 <h2>
-                  {new Date(props.item.takenAt).toLocaleDateString("en-US", {
+                  {new Date(props.item.takenAt * 1000).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
