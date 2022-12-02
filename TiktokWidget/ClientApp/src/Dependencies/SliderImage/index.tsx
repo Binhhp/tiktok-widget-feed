@@ -33,8 +33,8 @@ function SliderImage(props: SliderImageProps) {
           updateOnWindowResize
           watchOverflow={true}
           slidesPerView={1}
-          pagination
-          navigation
+          pagination={load}
+          navigation={load}
           slideNextClass="orichi-slider-player-next"
           slidePrevClass="orichi-slider-player-prev"
           className="orichi-slider-slider"

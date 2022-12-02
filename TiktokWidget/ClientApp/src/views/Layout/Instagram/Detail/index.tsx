@@ -104,7 +104,7 @@ function Detail(props: IDetailProps) {
           <div className="orichi-instagram-item">
             <ShopTagProduct product={props.widget.products[0]} />
             <DivTimezone>
-              <DivTimezoneContent color={props.widget.setting.itemColor}>
+              <DivTimezoneContent>
                 <h2>
                   {new Date(props.item.takenAt * 1000).toLocaleDateString(
                     "en-US",

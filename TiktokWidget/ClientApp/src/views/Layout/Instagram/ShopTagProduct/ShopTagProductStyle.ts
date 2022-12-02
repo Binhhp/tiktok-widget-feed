@@ -71,7 +71,7 @@ export const DivLeftProduct = styled("div", "divleft", "orichi-instagram")`
   &.orichi-instagram-divleft {
     display: flex;
     flex-direction: row;
-    max-width: calc(100% - 100px);
+    max-width: calc(100% - 80px);
   }
 `;
 
@@ -89,11 +89,11 @@ export const DivButtonShop = styled("a", "btn__shopping", "orichi-instagram")`
     background: #01f0ea;
     border-radius: 2px;
     border: none;
-    padding: 3.8px;
+    padding: 5px 3px;
     color: #fafafa;
     font-weight: 500;
     height: auto;
-    width: 100px;
+    width: 80px;
     cursor: pointer;
     text-decoration: none;
     display: flex;
@@ -102,7 +102,7 @@ export const DivButtonShop = styled("a", "btn__shopping", "orichi-instagram")`
     span {
       display: block;
       height: max-content;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 14px;
       font-family: "SF Pro Display";
       font-style: normal;

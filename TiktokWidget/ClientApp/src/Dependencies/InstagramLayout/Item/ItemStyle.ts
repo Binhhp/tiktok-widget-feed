@@ -21,6 +21,9 @@ export const DivItemContent = styled(
     display: none;
     flex-direction: column;
     background: ${(props) => (props.bg ? `${props.bg}50` : "transpent")};
+    &:active {
+      opacity: 0.5;
+    }
   }
 `;
 
