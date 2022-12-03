@@ -1,4 +1,6 @@
+import { UriProvider } from "common/functions/FuncUtils";
 import { NumberFormatter } from "common/functions/NumberFormatter";
+import config from "config";
 import React from "react";
 import { MostPostItem } from "./style";
 type IProp = {
@@ -6,12 +8,14 @@ type IProp = {
   impressionCount: number;
   clickCount: number;
   url: string;
+  desc: string;
 };
 const MostPostItemComponent: React.FC<IProp> = ({
   img,
   clickCount,
   impressionCount,
   url,
+  desc,
 }) => {
   return (
     <MostPostItem>
@@ -22,8 +26,8 @@ const MostPostItemComponent: React.FC<IProp> = ({
         className="orichi-post-poster"
       >
         <img
-          src={img?.startsWith("http") ? img : `data:image/png;base64,${img}`}
-          alt={"img post"}
+          src={UriProvider.FormatURLImage(img, config.CORS_PROXY, true)}
+          alt={desc ?? "Post Popular"}
         />
       </a>
       <div className="orichi-post-content">

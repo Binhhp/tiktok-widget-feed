@@ -17,6 +17,8 @@ import {
   LinkReadMore,
 } from "./DetailStyle";
 import VideoPlayer from "Dependencies/VideoPlayer";
+import config from "config";
+import { UriProvider } from "common/functions/FuncUtils";
 
 interface IDetailProps {
   item: IInstagramDto;
@@ -58,8 +60,16 @@ function Detail(props: IDetailProps) {
           {props.item.videoUrl ? (
             <VideoPlayer
               muted
-              image={props.item.imageUrl ?? ""}
-              playSrc={props.item.videoUrl ?? ""}
+              image={UriProvider.FormatURLImage(
+                props.item.imageUrl,
+                config.CORS_PROXY,
+                true
+              )}
+              playSrc={UriProvider.FormatURLImage(
+                props.item.videoUrl,
+                config.CORS_PROXY,
+                true
+              )}
             />
           ) : (
             <SliderImage
@@ -67,6 +77,8 @@ function Detail(props: IDetailProps) {
               images={props.item?.imageUrlArr}
               thunbnail={props.item.imageUrl ?? ""}
               loading={"fillBlur"}
+              corsProxy={config.CORS_PROXY}
+              isEncodeURI
             />
           )}
         </DivContent>

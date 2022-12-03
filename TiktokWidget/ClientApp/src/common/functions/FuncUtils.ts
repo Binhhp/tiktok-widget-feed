@@ -54,4 +54,21 @@ export class UriProvider {
     }
     return url;
   }
+
+  static FormatURLImage(
+    url?: string,
+    corsProxy?: string,
+    isEncodeURI?: boolean
+  ) {
+    if (url) {
+      return url.startsWith("http")
+        ? url.startsWith("https://cdn.shopify.com")
+          ? url
+          : corsProxy
+          ? `${corsProxy}${isEncodeURI ? encodeURIComponent(url) : url}`
+          : url
+        : `data:image/png;base64,${url}`;
+    }
+    return "";
+  }
 }

@@ -34,6 +34,7 @@ const MostPost = () => {
             clickCount={item.clicks}
             key={item.id}
             url={item.url}
+            desc={item.description}
           />
         ))}
       </div>

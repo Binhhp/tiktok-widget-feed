@@ -51,11 +51,7 @@ function VideoPlayer(props: IVideoProps) {
               crossorigin="anonymous"
               height="100%"
               loading="lazy"
-              src={
-                props.image?.startsWith("http")
-                  ? props.image
-                  : `data:image/png;base64,${props.image}`
-              }
+              src={props.image}
               alt={props.alt}
               onLoad={onLoadImage}
               className={!loadImage ? "poster-loading" : "poster-loader"}

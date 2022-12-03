@@ -179,7 +179,7 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
     }
     @media only screen and (min-width: 1200px) {
       ${DivDesc} {
-        min-width: 38vh;
+        min-width: 45vh;
       }
     }
     @media only screen and (${breakpoints.device.lg}) {

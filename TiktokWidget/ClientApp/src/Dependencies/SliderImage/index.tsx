@@ -3,12 +3,15 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { SliderImageWrapper } from "./SliderImageStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import LazyImage from "./LazyImage";
+import { UriProvider } from "common/functions/FuncUtils";
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 interface SliderImageProps {
   images?: string[];
   thunbnail: string;
   desc: string;
   loading?: "opacity" | "fillBlur";
+  corsProxy?: string;
+  isEncodeURI?: boolean;
 }
 function SliderImage(props: SliderImageProps) {
   const images =
@@ -45,11 +48,11 @@ function SliderImage(props: SliderImageProps) {
                 isLoaded={load}
                 onLoadImage={onLoadImage}
                 loading={props.loading ?? "opacity"}
-                src={
-                  item.startsWith("http")
-                    ? item
-                    : `data:image/png;base64,${item}`
-                }
+                src={UriProvider.FormatURLImage(
+                  item,
+                  props.corsProxy,
+                  props.isEncodeURI
+                )}
                 alt={props.desc}
               />
             </SwiperSlide>

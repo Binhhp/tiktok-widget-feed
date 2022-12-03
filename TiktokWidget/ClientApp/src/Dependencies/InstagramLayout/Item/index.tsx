@@ -13,6 +13,8 @@ import {
 } from "./ItemStyle";
 import { NumberFormatter } from "common/functions/NumberFormatter";
 import { IconComment, IconGalarey, IconHeart, IconMedia } from "../Icons";
+import { UriProvider } from "common/functions/FuncUtils";
+import config from "config";
 
 function Item(props: IItemProps) {
   const [load, setLoad] = useState(false);
@@ -33,11 +35,11 @@ function Item(props: IItemProps) {
           cross-origin="anonymous"
           loading="lazy"
           src=""
-          data-src={
-            props.item.thumbnailUrl?.startsWith("http")
-              ? props.item.thumbnailUrl
-              : `data:image/png;base64,${props.item.thumbnailUrl}`
-          }
+          data-src={UriProvider.FormatURLImage(
+            props.item.thumbnailUrl,
+            config.CORS_PROXY,
+            true
+          )}
           className={load ? "img-loaded" : "img-loading"}
           alt={props.item.description}
         />
