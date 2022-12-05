@@ -16,7 +16,6 @@ import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import ShopAPI from "repositories/implements/ShopAPI";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
-import { InstagramWidget } from "stores/Admin/InstagramWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
 import {
   MyWidgetHeader,
@@ -58,21 +57,15 @@ function MyWidget() {
       productId: "",
     });
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
+
   const onUpdate = (item: any) => {
-    return InstagramWidgetAPI.GetById(item?.id).then((res) => {
-      if (res?.Status) {
-        const result = res.Data as BaseInstagramWidget;
-        const dto = new InstagramWidget(result).ToDto();
-        dispatch(InstagramWidgetActionTS.OnStep(1));
-        dispatch(InstagramWidgetActionTS.OnSetSetting(dto));
-        onClickToCreateWidget();
-        navigate(
-          `/instagram-step-1?shop=${shopReducer.shop.domain}&key=${result.id}`
-        );
-      }
-      return res.Status;
-    });
+    dispatch(InstagramWidgetActionTS.OnStep(1));
+    onClickToCreateWidget();
+    navigate(
+      `/instagram-step-1?shop=${shopReducer.shop.domain}&key=${item.id}`
+    );
   };
+
   const onDelete = async (item: any) => {
     await toastNotify.promise(InstagramWidgetAPI.Delete(item?.id), {
       loading: `Deleting ${item?.widgetTitle} widget`,

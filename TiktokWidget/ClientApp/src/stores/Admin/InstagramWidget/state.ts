@@ -40,7 +40,7 @@ export class InstagramWidget implements IInstagramWidget {
   itemBackground?: string;
   itemColor?: string;
   numberItemPerRow?: number;
-  limitItem?: number;
+  limitItems?: number;
   products?: BaseProduct[];
   constructor(dto?: BaseInstagramWidget) {
     this.id = dto?.id;
@@ -56,7 +56,7 @@ export class InstagramWidget implements IInstagramWidget {
     this.itemBackground = dto?.setting.itemBackGround || "";
     this.itemColor = dto?.setting.itemColor || "";
     this.numberItemPerRow = dto?.setting.numberPerRow || 4;
-    this.limitItem = dto?.setting.limitItems || 16;
+    this.limitItems = dto?.setting.limitItems || 16;
     this.products = dto?.products || [];
   }
   ToDto = (): IInstagramWidget => {

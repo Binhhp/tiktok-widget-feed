@@ -1,12 +1,15 @@
 import { UriProvider } from "common/functions/FuncUtils";
 import { toastNotify } from "Dependencies/Toast";
+import { useQuery } from "hooks";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { SourceTypeEnum } from "repositories/dtos/requests/GetVideoByJobRequest";
+import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
 import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
+import { InstagramWidget } from "stores/Admin/InstagramWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
 import { FlexboxDiv } from "../CreateWidgetStyle";
 import InstagramCreateHOC from "../InstagramCreateHOC";
@@ -16,6 +19,8 @@ import FormConfig from "./FormConfig";
 function Step1() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const widgetId = useQuery().get("key");
 
   useEffect(() => {
     dispatch(InstagramWidgetActionTS.OnStep(1));
@@ -57,6 +62,22 @@ function Step1() {
       }
     }
     setLoading(false);
+  };
+
+  useEffect(() => {
+    if (widgetId) {
+      getDetailWidget(widgetId);
+    }
+  }, []);
+
+  const getDetailWidget = (key: string) => {
+    return InstagramWidgetAPI.GetById(key).then((res) => {
+      if (res?.Status) {
+        const result = res.Data as BaseInstagramWidget;
+        const dto = new InstagramWidget(result).ToDto();
+        dispatch(InstagramWidgetActionTS.OnSetSetting(dto));
+      }
+    });
   };
 
   return (
