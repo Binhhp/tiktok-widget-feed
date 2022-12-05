@@ -323,10 +323,7 @@ export const DivVideoWrapper = styled(
       }
       ${DivVideoPlay} {
         min-width: 100%;
-        height: auto;
-        max-height: calc(
-          100% - ${(props) => (props.showProducts ? 120 : 50)}px
-        );
+        height: 100%;
       }
       ${DivContentVideo} {
         position: absolute;

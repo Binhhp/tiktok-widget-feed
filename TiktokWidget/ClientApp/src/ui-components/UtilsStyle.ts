@@ -191,6 +191,7 @@ export const DivTikTokLoader1 = styled("div")`
   animation: ${AnimationLoaderLeftToRight} 0.8s ease-in-out infinite;
   mix-blend-mode: darken;
   transform: scale(1);
+  display: block !important;
 `;
 
 export const DivTikTokLoader2 = styled("div")`
@@ -202,4 +203,5 @@ export const DivTikTokLoader2 = styled("div")`
   transform: scale(1);
   background: rgb(253, 62, 62);
   animation: ${AnimationLoaderRightToLeft} 0.8s ease-in-out infinite;
+  display: block !important;
 `;

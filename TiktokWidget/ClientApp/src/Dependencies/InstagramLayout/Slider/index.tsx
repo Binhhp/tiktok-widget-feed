@@ -22,14 +22,19 @@ function SliderInstagram(props: SliderProps) {
 
   const sliderNumber = Array.from(
     Array(
-      Math.ceil(props.items.length / (props.option.numberPerRow * 2))
+      Math.ceil(
+        props.items.length /
+          ((window.innerWidth > 1200 ? props.option.numberPerRow : 2) * 2)
+      )
     ).keys()
   );
 
   const RenderData = (number: number): IInstagramDto[] =>
     props.items.slice(
-      number * props.option.numberPerRow * 2,
-      props.option.numberPerRow * 2 * (number + 1)
+      number * (window.innerWidth > 1200 ? props.option.numberPerRow : 2) * 2,
+      (window.innerWidth > 1200 ? props.option.numberPerRow : 2) *
+        2 *
+        (number + 1)
     );
   return (
     <DivSliderWrapper>

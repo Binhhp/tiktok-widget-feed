@@ -199,7 +199,7 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
       .orichi-instagram-user {
         display: block;
         ${DivUserName} {
-          padding: 15px 0px;
+          padding: 10px 0px;
           border: none;
         }
       }
@@ -214,6 +214,14 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
       }
       ${DivContainer} {
         width: 75%;
+        max-width: 100%;
+      }
+      .orichi-slider-divroot img {
+        object-fit: cover;
+      }
+      .orichi-instagram-tz__content {
+        padding-top: 12px;
+        padding-bottom: 2px;
       }
     }
     @media only screen and (${breakpoints.device.sm}) {

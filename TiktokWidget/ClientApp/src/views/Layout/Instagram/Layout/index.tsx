@@ -15,7 +15,9 @@ function Layout(props: ILayoutProps) {
   const getInstagramStories = (pageIndex: number, showItems?: number) => {
     const showAsItems =
       props.widget.setting.layoutType === 2
-        ? showItems
+        ? window.innerWidth > 1200
+          ? showItems
+          : 4
         : props.widget.setting.limitItems;
     return InstagramWidgetAPI.GetVideos(
       props.widget.id ?? "",

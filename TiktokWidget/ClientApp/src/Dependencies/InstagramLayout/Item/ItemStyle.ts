@@ -21,6 +21,7 @@ export const DivItemContent = styled(
     display: none;
     flex-direction: column;
     background: ${(props) => (props.bg ? `${props.bg}50` : "transpent")};
+    padding-top: 20%;
     &:active {
       opacity: 0.5;
     }
@@ -31,7 +32,7 @@ export const DivItemDesc = styled("div", "item__desc", "orichi-instagram")<
   Pick<IItemContent, "color">
 >`
   &.orichi-instagram-item__desc {
-    margin: 20px 7%;
+    margin: 50px 7%;
     span.orichi-instagram-readmore {
       cursor: pointer;
       margin: 0px;
@@ -151,9 +152,20 @@ export const ItemWrapper = styled(
     &:hover ${DivItemContent} {
       display: flex;
     }
+    @media only screen and (min-width: 1590px) {
+      .orichi-instagram-item__content {
+        padding-top: 0px;
+      }
+    }
     @media only screen and (${breakpoints.device.lg}) {
       width: 33.33%;
-      padding-bottom: 33.33%;
+      .orichi-instagram-item__desc {
+        margin-top: auto;
+        margin-bottom: 20px;
+      }
+      .orichi-instagram-item__content {
+        padding-top: 30%;
+      }
     }
     @media only screen and (${breakpoints.device.sm}) {
       width: 50%;

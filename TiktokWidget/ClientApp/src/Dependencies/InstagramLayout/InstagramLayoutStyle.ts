@@ -15,8 +15,8 @@ export const DivTitle = styled("div", "divtitle", "orichi-instagram")`
   &.orichi-instagram-divtitle {
     display: flex;
     align-items: center;
-    width: 100%;
     margin-bottom: 20px;
+    margin-left: 20px;
   }
 `;
 
@@ -26,10 +26,11 @@ export const DivTitleContent = styled(
   "orichi-instagram"
 )`
   &.orichi-instagram-divtitle__content {
-    font-family: "SF Pro Display";
+    font-family: "SF Pro Text";
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 25px;
+    line-height: 20px;
     color: #000000;
     margin: 0;
   }
@@ -64,6 +65,11 @@ export const InstagramLayoutContainer = styled(
     width: 100%;
     height: 100%;
     @media only screen and (${breakpoints.device.lg}) {
+      .orichi-instagram-divtitle {
+        margin-left: 0px;
+        width: 100%;
+        justify-content: center;
+      }
     }
     @media only screen and (${breakpoints.device.sm}) {
     }

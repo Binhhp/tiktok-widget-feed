@@ -13,6 +13,9 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
     .loaded {
       width: 100%;
       height: 100%;
+      .swiper-slide {
+        width: 100% !important;
+      }
     }
     .swiper-container-pointer-events {
       height: 100%;
