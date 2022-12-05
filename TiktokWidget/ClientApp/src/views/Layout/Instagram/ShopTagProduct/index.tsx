@@ -32,8 +32,7 @@ function ShopTagProduct(props: IShopTagProduct) {
             <span>{props.product.title}</span>
           </div>
           <DivPriceProduct>
-            <h3>${props.product.prices}</h3>
-            {/* <h5>${props.product.prices}</h5> */}
+            <span className="div__product-prices">${props.product.prices}</span>
           </DivPriceProduct>
         </DivDescProduct>
       </DivLeftProduct>
@@ -41,7 +40,7 @@ function ShopTagProduct(props: IShopTagProduct) {
         href={`https://${shopReducer.shop?.domain}/products/${props.product?.handle}`}
         target="_blank"
       >
-        <span>View Detail</span>
+        <span className="view-detail">View Detail</span>
       </DivButtonShop>
     </ShopTagProductWrapper>
   ) : (

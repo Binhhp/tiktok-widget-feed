@@ -152,12 +152,12 @@ export const ItemWrapper = styled(
       display: flex;
     }
     @media only screen and (${breakpoints.device.lg}) {
-      width: 50%;
-      padding-bottom: 50%;
+      width: 33.33%;
+      padding-bottom: 33.33%;
     }
     @media only screen and (${breakpoints.device.sm}) {
-      width: 100%;
-      padding-bottom: 100%;
+      width: 50%;
+      padding-bottom: 50%;
     }
     @media only screen and (${breakpoints.device.xm}) {
     }

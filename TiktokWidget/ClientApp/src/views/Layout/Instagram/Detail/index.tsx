@@ -14,7 +14,6 @@ import {
   DivTimezone,
   DivTimezoneContent,
   DivUserName,
-  LinkReadMore,
 } from "./DetailStyle";
 import VideoPlayer from "Dependencies/VideoPlayer";
 import config from "config";
@@ -29,23 +28,14 @@ interface IDetailProps {
 function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
-  const onReadMore = () => {
-    const desc = document.getElementById(
-      `${window.btoa(`desc-${props.item.id}`)}`
-    );
-    if (desc) desc.classList.add("desc");
-    const more = document.getElementById(
-      `${window.btoa(`more-${props.item.id}`)}`
-    );
-    if (more) more.style.display = "none";
-  };
+
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
         <div className="orichi-instagram-user">
           <DivUserName>
             {props.widget.setting.showNetworkIcon && <IconInstagram />}
-            <h2>{props.item?.user?.name}</h2>
+            <span className="div__username">{props.item?.user?.name}</span>
             <DivDot color={props.widget.setting.itemColor}></DivDot>
             <a
               href={`https://www.instagram.com/${props.item?.user?.name}`}
@@ -86,7 +76,7 @@ function Detail(props: IDetailProps) {
           <div className="orichi-instagram-item username">
             <DivUserName>
               {props.widget.setting.showNetworkIcon && <IconInstagram />}
-              <h2>{props.item.user?.name}</h2>
+              <span className="div__username">{props.item.user?.name}</span>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
               <a
                 href={`https://www.instagram.com/${props.widget?.valueSource}`}
@@ -98,26 +88,20 @@ function Detail(props: IDetailProps) {
             </DivUserName>
             <div className="orichi-instagram-desc">
               {props.item.description && (
-                <p id={`${window.btoa(`desc-${props.item.id}`)}`}>
+                <p
+                  className="div__desc"
+                  id={`${window.btoa(`desc-${props.item.id}`)}`}
+                >
                   {props.item.description}
                 </p>
               )}
-              {props.item.description &&
-                props.item.description.length > 230 && (
-                  <LinkReadMore
-                    id={`${window.btoa(`more-${props.item.id}`)}`}
-                    onClick={onReadMore}
-                  >
-                    ...{props.widget.setting.labelReadMore}
-                  </LinkReadMore>
-                )}
             </div>
           </div>
           <div className="orichi-instagram-item">
             <ShopTagProduct product={props.widget.products[0]} />
             <DivTimezone>
               <DivTimezoneContent>
-                <h2>
+                <span className="datepicker">
                   {new Date(props.item.takenAt * 1000).toLocaleDateString(
                     "en-US",
                     {
@@ -126,9 +110,9 @@ function Detail(props: IDetailProps) {
                       day: "numeric",
                     }
                   )}
-                </h2>
+                </span>
                 <DivDot bg="#888888"></DivDot>
-                <h3>View on Instagram</h3>
+                <span className="view-on">View on Instagram</span>
               </DivTimezoneContent>
             </DivTimezone>
           </div>

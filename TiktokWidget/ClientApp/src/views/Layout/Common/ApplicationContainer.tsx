@@ -3,7 +3,7 @@ function ApplicationContainer({ children }: any) {
   useEffect(() => {
     [
       "https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.0/swiper-bundle.min.css",
-      // "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css",
+      "https://fonts.googleapis.com/css?family=Roboto",
     ].forEach((item: string) => {
       var styleEl = document.createElement("link");
       styleEl.rel = "stylesheet";

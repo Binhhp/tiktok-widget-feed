@@ -10,7 +10,7 @@ export default function LazyImage(props: LazyImageProps) {
   return (
     <img
       loading="lazy"
-      src={props.src}
+      src={props.src ?? ""}
       alt={props.alt}
       className={
         props.isLoaded

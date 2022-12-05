@@ -5,33 +5,29 @@ export const DivContainer = styled("div", "container", "orichi-instagram")`
   &.orichi-instagram-container {
     display: flex;
     flex-direction: row;
-    width: auto;
-    max-width: 80%;
+    max-width: 70%;
     align-items: stretch;
     flex-shrink: 1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     max-height: 90vh;
     overflow: hidden;
+    margin: auto;
   }
 `;
 
 export const DivContent = styled("div", "content", "orichi-instagram")`
   &.orichi-instagram-content {
     background: #000000;
-    max-width: 50%;
+    max-width: 60%;
     max-height: 100%;
     overflow: hidden;
-    min-width: 200px;
+    min-width: 60%;
     min-height: 30vh;
   }
 `;
 
 export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
   &.orichi-instagram-divdesc {
-    max-width: 50%;
+    max-width: 40%;
     display: flex;
     flex-direction: column;
     background: #ffffff;
@@ -39,19 +35,17 @@ export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
     padding: 15px 11px 10px 11px;
     .orichi-instagram-desc {
       margin: 22px 0px;
-      p {
+      p.div__desc {
         margin: 0px;
-        font-family: "SF Pro Display" !important;
+        font-family: "Roboto" !important;
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 10px;
         color: #000000;
         text-overflow: ellipsis;
         line-height: 18px;
-        -webkit-line-clamp: 3;
-        display: -webkit-box;
+        max-height: 100%;
         overflow: hidden;
-        max-height: 54px;
       }
       .desc {
         max-height: max-content;
@@ -79,20 +73,23 @@ export const DivUserName = styled("div", "user1", "orichi-instagram")`
     svg {
       margin-right: 7px;
     }
-    h2 {
-      font-family: "SF Pro Display";
-      font-size: 16px;
+    span.div__username {
+      font-family: "Roboto" !important;
+      font-style: normal;
       font-weight: 700;
+      font-size: 14px;
       line-height: 16px;
       color: #000000;
       margin: 0px;
       word-break: keep-all;
     }
     a {
+      font-family: "Roboto" !important;
       text-decoration: none;
       color: #0095f6;
+      font-style: normal;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 16px;
     }
   }
@@ -113,24 +110,25 @@ export const DivTimezoneContent = styled(
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 17px;
+    padding-bottom: 7px;
     border-top: 1px solid rgba(213, 213, 213, 0.53);
-    h2 {
+    span.datepicker {
       font-style: italic;
       text-transform: uppercase;
-      font-family: "SF Pro Display";
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 16px;
+      font-family: "Roboto" !important;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 119.19%;
       color: #888888;
       margin: 0px;
     }
-    h3 {
+    span.view-on {
       color: #888888;
-      font-family: "SF Pro Display";
-      font-size: 14px;
+      font-family: "Roboto" !important;
       font-weight: 400;
-      line-height: 16px;
+      font-size: 10px;
+      line-height: 119.19%;
       font-style: italic;
       margin: 0px;
     }
@@ -172,6 +170,11 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
     justify-content: center;
     align-items: center;
     z-index: 999999;
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    justify-content: center;
+    flex-direction: column;
     .orichi-instagram-user {
       display: none;
       background: #ffffff;

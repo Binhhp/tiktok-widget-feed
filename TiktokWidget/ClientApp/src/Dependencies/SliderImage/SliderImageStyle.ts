@@ -6,17 +6,18 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
     height: 100%;
     position: relative;
     .loading {
-      width: 54vh;
+      width: 100%;
+      height: 90vh;
       overflow: hidden;
     }
     .loaded {
-      width: auto;
+      width: 100%;
+      height: 100%;
     }
     .swiper-container-pointer-events {
       height: 100%;
     }
     .swiper-slide {
-      width: 100% !important;
       max-width: 100%;
     }
     .swiper-pagination-bullet {
@@ -28,8 +29,7 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
     .orichi-slider-img {
       width: 100%;
       height: 100%;
-      min-height: 90vh;
-      max-height: 90vh;
+      min-height: 100%;
       object-fit: contain;
       display: block;
       cursor: pointer;
@@ -37,7 +37,7 @@ export const SliderImageWrapper = styled("div", "divroot", "orichi-slider")`
 
     @media only screen and (${breakpoints.device.lg}) {
       .orichi-slider-img {
-        min-height: auto;
+        min-height: 0px;
       }
     }
     .swiper-button-next {

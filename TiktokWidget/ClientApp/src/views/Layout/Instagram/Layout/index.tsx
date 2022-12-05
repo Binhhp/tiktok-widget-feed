@@ -29,7 +29,7 @@ function Layout(props: ILayoutProps) {
     setItem(item);
     InstagramWidgetAPI.PostClick(props.widget.id, {
       PostId: item?.id,
-      Image: item?.imageUrl,
+      Image: item?.thumbnailUrl,
       Description: item?.description,
     });
   };

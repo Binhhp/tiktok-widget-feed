@@ -33,7 +33,7 @@ export const DivDescProduct = styled(
     height: 100%;
     max-width: calc(100% - 70px);
     span {
-      font-family: "SF Pro Display";
+      font-family: "SF Pro Text" !important;
       font-style: normal;
       font-size: 12px;
       line-height: 16px;
@@ -44,8 +44,8 @@ export const DivDescProduct = styled(
       -webkit-line-clamp: 2;
       margin-bottom: 15px;
     }
-    h3 {
-      font-family: "SF Pro Display";
+    span.div__product-prices {
+      font-family: "SF Pro Text" !important;
       font-style: normal;
       color: #000000;
       font-weight: 700;
@@ -56,7 +56,7 @@ export const DivDescProduct = styled(
       margin-right: 5px;
     }
     h5 {
-      font-family: "SF Pro Display";
+      font-family: "SF Pro Text" !important;
       font-style: normal;
       color: #000000;
       font-size: 13px;
@@ -79,8 +79,13 @@ export const DivPriceProduct = styled("div", "price", "orichi-instagram")`
   &.orichi-instagram-price {
     display: flex;
     flex-direction: row;
-    font-family: "SF Pro Display";
+    font-family: "SF Pro Text" !important;
     align-items: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
   }
 `;
 
@@ -99,14 +104,14 @@ export const DivButtonShop = styled("a", "btn__shopping", "orichi-instagram")`
     display: flex;
     justify-content: center;
     align-items: center;
-    span {
+    span.view-detail {
       display: block;
       height: max-content;
-      font-size: 14px;
-      line-height: 14px;
-      font-family: "SF Pro Display";
+      font-family: "SF Pro Text" !important;
       font-style: normal;
       font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
     }
     &:hover {
       background: #03dbd5;
