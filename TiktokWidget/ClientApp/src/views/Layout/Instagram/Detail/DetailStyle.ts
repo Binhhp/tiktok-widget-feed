@@ -5,10 +5,10 @@ export const DivContainer = styled("div", "container", "orichi-instagram")`
   &.orichi-instagram-container {
     display: flex;
     flex-direction: row;
-    max-width: 70%;
+    width: 70%;
     align-items: stretch;
     flex-shrink: 1;
-    max-height: 90vh;
+    max-height: 90%;
     overflow: hidden;
     margin: auto;
   }
@@ -27,7 +27,7 @@ export const DivContent = styled("div", "content", "orichi-instagram")`
 
 export const DivDesc = styled("div", "divdesc", "orichi-instagram")`
   &.orichi-instagram-divdesc {
-    max-width: 40%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     background: #ffffff;
@@ -192,7 +192,7 @@ export const DivDetailWrapper = styled("div", "root", "orichi-instagram")`
           max-width: 100%;
         }
         ${DivDesc} {
-          max-width: 100%;
+          width: 100%;
           min-width: auto;
         }
       }

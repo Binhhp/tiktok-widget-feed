@@ -29,19 +29,24 @@ function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
 
+  const followLink = props.item?.user?.name
+    ? `https://www.instagram.com/${props.item?.user?.name}`
+    : props.widget.sourceType === "UserName"
+    ? `https://www.instagram.com/${props.widget.valueSource}`
+    : `https://www.instagram.com/explore/tags/${props.widget.valueSource}`;
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
         <div className="orichi-instagram-user">
           <DivUserName>
             {props.widget.setting.showNetworkIcon && <IconInstagram />}
-            <span className="div__username">{props.item?.user?.name}</span>
+            <span className="div__username">
+              {props.item?.user?.name
+                ? props.item?.user?.name
+                : props.widget.valueSource}
+            </span>
             <DivDot color={props.widget.setting.itemColor}></DivDot>
-            <a
-              href={`https://www.instagram.com/${props.item?.user?.name}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={followLink} target="_blank" rel="noreferrer">
               Follow
             </a>
           </DivUserName>
@@ -76,13 +81,13 @@ function Detail(props: IDetailProps) {
           <div className="orichi-instagram-item username">
             <DivUserName>
               {props.widget.setting.showNetworkIcon && <IconInstagram />}
-              <span className="div__username">{props.item.user?.name}</span>
+              <span className="div__username">
+                {props.item?.user?.name
+                  ? props.item?.user?.name
+                  : props.widget.valueSource}
+              </span>
               <DivDot color={props.widget.setting.itemColor}></DivDot>
-              <a
-                href={`https://www.instagram.com/${props.widget?.valueSource}`}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={followLink} target="_blank" rel="noreferrer">
                 Follow
               </a>
             </DivUserName>

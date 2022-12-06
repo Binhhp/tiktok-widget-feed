@@ -63,12 +63,15 @@ function Item(props: IItemProps) {
           </DivItemContentContractItem>
         </DivItemContentContract>
         <DivItemDesc color={props.option.itemColor}>
-          <p className="orichi-instagram-desc">
+          <p className="orichi-instagram-desc" id="desctt">
             {props.item.description?.trimEnd()}
           </p>
-          <span className="orichi-instagram-readmore">
-            ...&nbsp;{props.option.labelReadMore ?? "read more"}
-          </span>
+          {props.item.description.length > 230 &&
+            props.option.labelReadMore && (
+              <span className="orichi-instagram-readmore">
+                ...{props.option.labelReadMore}
+              </span>
+            )}
         </DivItemDesc>
       </DivItemContent>
     </ItemWrapper>

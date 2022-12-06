@@ -51,8 +51,8 @@ export const DivItemDesc = styled("div", "item__desc", "orichi-instagram")<
       margin: 0px 0px 3px 0px;
       overflow: hidden;
       line-height: 18px;
-      -webkit-line-clamp: 3;
-      max-height: 54px;
+      -webkit-line-clamp: 4;
+      max-height: 72px;
       display: -webkit-box;
       color: ${(props) => props.color ?? "#ffffff"};
     }
