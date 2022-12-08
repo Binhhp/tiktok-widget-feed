@@ -16,6 +16,7 @@ import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import ShopAPI from "repositories/implements/ShopAPI";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
+import { InstagramWidget } from "stores/Admin/InstagramWidget/state";
 import { RootReducer } from "stores/Admin/reducers";
 import {
   MyWidgetHeader,
@@ -59,11 +60,22 @@ function MyWidget() {
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
 
   const onUpdate = (item: any) => {
+    getDetailWidget(item?.id);
     dispatch(InstagramWidgetActionTS.OnStep(1));
     onClickToCreateWidget();
     navigate(
       `/instagram-step-1?shop=${shopReducer.shop.domain}&key=${item.id}`
     );
+  };
+
+  const getDetailWidget = (key: string) => {
+    return InstagramWidgetAPI.GetById(key).then((res) => {
+      if (res?.Status) {
+        const result = res.Data as BaseInstagramWidget;
+        const dto = new InstagramWidget(result).ToDto();
+        dispatch(InstagramWidgetActionTS.OnSetSetting(dto));
+      }
+    });
   };
 
   const onDelete = async (item: any) => {

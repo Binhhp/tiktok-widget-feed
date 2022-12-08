@@ -8,6 +8,12 @@ export default createGlobalStyle`
     url(${FontUrl})
       format("truetype");
 }
+@font-face {
+  font-family: "SF Pro Text";
+  src: local("SF Pro Text"),
+    url(${FontUrl})
+      format("truetype");
+}
 html,
 body {
   font-family: "SF Pro Display";
