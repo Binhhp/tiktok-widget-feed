@@ -18,6 +18,10 @@ const config = {
   urlInstallTikTok:
     "https://apps.shopify.com/tikify-tiktok-button#modal-show=ReviewListingModal",
   CORS_PROXY: "https://shopifycdn.orichi.info/api/proxy?url=",
+  FONT: {
+    SFProDispayFont: `https://test-tiktok.orichi.info/SFProDisplay-Regular.ttf`,
+    SFProTextFont: `https://test-tiktok.orichi.info/SFProText-Regular.ttf`,
+  },
 };
 
 export default config;

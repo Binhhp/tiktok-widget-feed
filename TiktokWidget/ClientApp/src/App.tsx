@@ -19,6 +19,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
+import { UriProvider } from "common/functions/FuncUtils";
 
 console.log = console.warn = console.error = () => {};
 function App() {
@@ -46,6 +47,9 @@ function App() {
             ]);
             dispatch(WidgetActionTS.OnSetWidgetCount(tiktokCount));
             dispatch(InstagramWidgetActionTS.OnSetWidgetCount(instagramCount));
+            if (instagramCount === 0) {
+              navigate(UriProvider.KeepParameters("/instagram-step-1"));
+            }
           } else {
             navigate("/not-found");
           }

@@ -2,7 +2,11 @@ import { Icon } from "@shopify/polaris";
 import { ProductsMinor } from "@shopify/polaris-icons";
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
 import { UriProvider } from "common/functions/FuncUtils";
-import { Container, ContainerSection } from "common/style/UtilStyles";
+import {
+  Container,
+  ContainerSection,
+  LinkRouter,
+} from "common/style/UtilStyles";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
 import { toastNotify } from "Dependencies/Toast";
@@ -170,6 +174,13 @@ function MyWidget() {
         <ContainerSection bg="transparent" width={100} mb={30}>
           <MyWidgetHeader>
             <h2>My Widget</h2>
+            <LinkRouter
+              onClick={onClickToCreateWidget}
+              size="small"
+              to={UriProvider.KeepParameters("/instagram-step-1")}
+            >
+              Create new widget
+            </LinkRouter>
           </MyWidgetHeader>
         </ContainerSection>
         <ContainerSection bg="transparent" height={100} width={100}>

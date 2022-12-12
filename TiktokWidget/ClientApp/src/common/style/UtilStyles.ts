@@ -47,7 +47,7 @@ export const LinkRouter = styled(Link)<IButtonCustom>`
   padding: 7px 23px;
   border-radius: 2px;
   font-weight: 400;
-  font-size: ${(props: IButtonCustom) => (props.size === "small" ? 13 : 18)}px;
+  font-size: ${(props: IButtonCustom) => (props.size === "small" ? 15 : 18)}px;
   cursor: pointer;
   border: ${(props) =>
     props.borderColor ? `1px solid ${props.borderColor}` : "none"};
