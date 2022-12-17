@@ -189,9 +189,9 @@ function DataTables(props: IDataTableProps) {
           </h2>
           <div className="copy-board">
             <p>{`<script src="${props.addToStore?.script}" defer></script>`}</p>
-            <p>{`<div class="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}</p>
+            <p>{`<div name="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}</p>
             <CopyButton
-              script={`<script src="${props.addToStore?.script}" defer></script><div class="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}
+              script={`<script src="${props.addToStore?.script}" defer></script><div name="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}
             ></CopyButton>
           </div>
           <div className="guides">
