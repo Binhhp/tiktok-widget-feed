@@ -1,11 +1,12 @@
 import { createGlobalStyle } from "styled-components";
+import FontUrlDisplay from "assets/fonts/SFProDisplay-Regular.ttf";
 import FontUrl from "assets/fonts/SFProText-Regular.ttf";
 
 export default createGlobalStyle`
     @font-face {
   font-family: "SF Pro Display";
   src: local("SF Pro Display"),
-    url(${FontUrl})
+    url(${FontUrlDisplay})
       format("truetype");
 }
 @font-face {
@@ -127,5 +128,24 @@ body {
   opacity: 1;
   transition: .15s opacity ease-in-out;
 }
-
+#btn-need-help-table{
+  cursor: pointer;
+  text-decoration-line: underline;
+  font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 11px;
+}
+.Polaris-Modal-Footer__FooterContent{
+  position: relative;
+}
+.modal-title-store{
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+}
 `;

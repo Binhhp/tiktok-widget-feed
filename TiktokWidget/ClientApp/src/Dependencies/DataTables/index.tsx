@@ -1,18 +1,23 @@
 import {
   EmptySearchResult,
+  Icon,
   IndexTable,
   Modal,
   Spinner,
 } from "@shopify/polaris";
+import { ExternalSmallMinor, InfoMinor } from "@shopify/polaris-icons";
 import { IndexTableHeading } from "@shopify/polaris/build/ts/latest/src/components/IndexTable";
 import { NonEmptyArray } from "@shopify/polaris/build/ts/latest/src/types";
+import { ChatPlugin } from "common/functions/ChatPlugin";
 import { ContainerSection } from "common/style/UtilStyles";
+import config from "config";
 import React, { useEffect, useState } from "react";
 import { Waypoint } from "react-waypoint";
 import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import { AbsoluteCenter } from "ui-components/UtilsStyle";
 import Actions from "./Actions";
-import { AlertTitle, DataTablesProvider } from "./DataTablesStyle";
+import CopyButton from "./Actions/CopyButton";
+import { AddToStore, AlertTitle, DataTablesProvider } from "./DataTablesStyle";
 import { IColumnProvider, IDataTableProps } from "./DataTablesType";
 
 function DataTables(props: IDataTableProps) {
@@ -50,12 +55,19 @@ function DataTables(props: IDataTableProps) {
       });
   };
 
+  const [showAddToStore, setShowAddToStore] = useState("");
+  const onCloseAddToStore = () => setShowAddToStore("");
+  const onShowAddToStore = (id: string) => () => setShowAddToStore(id);
+
   const actions = (item: any) => (
     <Actions
       onEdit={onHandleUpdate(item)}
       onDelete={onHandleUpdate(item, true)}
+      showAddToStore={props.addToStore?.isShow}
+      onHandleAddToStore={onShowAddToStore(item.id)}
     ></Actions>
   );
+
   useEffect(() => {
     fetchData(true);
   }, [props.reload]);
@@ -150,6 +162,58 @@ function DataTables(props: IDataTableProps) {
     </Modal>
   );
 
+  const RenderAddToStore = (
+    <Modal
+      title={
+        <h2 className="modal-title-store">Add the widget to your website</h2>
+      }
+      open={showAddToStore !== ""}
+      onClose={onCloseAddToStore}
+      primaryAction={{
+        id: "btn-install-store",
+        content: "I have installed the code",
+        loading: loadingButton,
+        onAction: onCloseAddToStore,
+      }}
+      footer={
+        <span id="btn-need-help-table" onClick={ChatPlugin.Open}>
+          Need help?
+        </span>
+      }
+    >
+      <Modal.Section>
+        <AddToStore>
+          <h2>
+            Copy and paste this code into desired place of your website (HTML
+            editor, website template, theme, section, etc)
+          </h2>
+          <div className="copy-board">
+            <p>{`<script src="${props.addToStore?.script}" defer></script>`}</p>
+            <p>{`<div class="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}</p>
+            <CopyButton
+              script={`<script src="${props.addToStore?.script}" defer></script><div class="${props.addToStore?.divName}" data-id="${showAddToStore}"></div>`}
+            ></CopyButton>
+          </div>
+          <div className="guides">
+            <Icon source={InfoMinor} color="interactive" />
+            <div className="guides-text">
+              <span>Video Tutorials</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+              <a
+                href={config.Guides}
+                target="_blank"
+                className="watch-guides"
+                rel="noreferrer"
+              >
+                Watch guides on YouTube.{" "}
+                <Icon source={ExternalSmallMinor} color="primary" />
+              </a>
+            </div>
+          </div>
+        </AddToStore>
+      </Modal.Section>
+    </Modal>
+  );
+
   const renderData = dataTable.map((item, index) => (
     <IndexTable.Row id={`data-table-${index}`} key={index} position={index}>
       {props.columns.map((col, indexCol) => (
@@ -184,6 +248,7 @@ function DataTables(props: IDataTableProps) {
               </ContainerSection>
             )}
             {renderAlert}
+            {props.addToStore?.isShow && RenderAddToStore}
           </>
         )}
         {loading && (

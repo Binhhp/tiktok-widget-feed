@@ -22,6 +22,11 @@ const config = {
     SFProDispayFont: `https://test-tiktok.orichi.info/SFProDisplay-Regular.ttf`,
     SFProTextFont: `https://test-tiktok.orichi.info/SFProText-Regular.ttf`,
   },
+  Guides: "https://www.youtube.com/watch?v=-b3aYmI7PyA",
+  SCRIPTS: {
+    INSTAGRAM: `${window.location.origin}/instagram.js`,
+    TIKTOK: `${window.location.origin}/tiktok.js`,
+  },
 };
 
 export default config;

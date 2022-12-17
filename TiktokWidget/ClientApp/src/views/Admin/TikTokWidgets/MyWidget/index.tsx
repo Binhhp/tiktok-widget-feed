@@ -7,6 +7,7 @@ import {
   ContainerSection,
   LinkRouter,
 } from "common/style/UtilStyles";
+import config from "config";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
 import { toastNotify } from "Dependencies/Toast";
@@ -155,6 +156,11 @@ function MyWidget() {
               onUpdate={onUpdate}
               reload={reload}
               onSetCount={onSetCount}
+              addToStore={{
+                divName: "orichi",
+                isShow: true,
+                script: config.SCRIPTS.TIKTOK,
+              }}
             ></DataTables>
           )}
         </ContainerSection>

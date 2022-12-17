@@ -1,20 +1,26 @@
-import { Icon, Tooltip } from "@shopify/polaris";
-import { DeleteMinor, EditMinor } from "@shopify/polaris-icons";
+import { Button, Tooltip } from "@shopify/polaris";
 import React from "react";
-import { ActionItem, ActionWrapper } from "./ActionStyle";
+import { ActionWrapper } from "./ActionStyle";
 import { IActionProps } from "./ActionsType";
 function Actions(props: IActionProps) {
   return (
     <ActionWrapper>
+      {props.showAddToStore && (
+        <Tooltip content="Add to store" dismissOnMouseOut>
+          <Button id="btn-addtostore" onClick={props.onHandleAddToStore}>
+            Add to store
+          </Button>
+        </Tooltip>
+      )}
       <Tooltip content="Edit" dismissOnMouseOut>
-        <ActionItem onClick={props.onEdit}>
-          <Icon source={EditMinor}></Icon>
-        </ActionItem>
+        <Button id="btn-edit" onClick={props.onEdit}>
+          Edit
+        </Button>
       </Tooltip>
       <Tooltip content="Delete" dismissOnMouseOut>
-        <ActionItem bg="#E20000" onClick={props.onDelete}>
-          <Icon source={DeleteMinor}></Icon>
-        </ActionItem>
+        <Button id="btn-delete-table" onClick={props.onDelete}>
+          Delete
+        </Button>
       </Tooltip>
     </ActionWrapper>
   );

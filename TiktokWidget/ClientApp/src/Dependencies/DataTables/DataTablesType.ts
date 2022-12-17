@@ -4,11 +4,17 @@ export interface IDataTableProps {
   queryData: (pageIndex: number) => Promise<NonNullable<IQueryDataTable<any>>>;
   labelAction?: string;
   reload?: number;
+  addToStore?: AddToStoreParams;
   onUpdate: (item: any) => any;
   onDelete: (item: any) => any;
   onSetCount?: (count: number) => void;
 }
 
+export interface AddToStoreParams {
+  isShow: boolean;
+  script: string;
+  divName: string;
+}
 export interface IColumnProvider {
   title: string;
   fieldName: string;
