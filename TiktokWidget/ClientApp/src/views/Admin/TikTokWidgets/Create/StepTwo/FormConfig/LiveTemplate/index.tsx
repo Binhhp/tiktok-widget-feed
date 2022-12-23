@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import {
-  CaptionConfig,
   FormConfigurationWrapper,
   IconMobile,
   MobileDeviceView,
   MobileHeader,
   MobileInformation,
-  TitleConfig,
+  TikTokHeaderLive,
+  TikTokTitleLive,
 } from "../FormConfigStyle";
 import React, { useContext, useEffect, useState } from "react";
 import { Icon } from "@shopify/polaris";
@@ -25,6 +25,7 @@ import { IVideoTemplateModel } from "Dependencies/TikTokLayout/LayoutTemplateMod
 import { ValidatorProvider } from "common/constants/Validator";
 import { WidgetActionTS } from "stores/Admin/Widget/action";
 import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
+import { TikTokCaption } from "views/Layout/TikTok/Application/TiktokStyle";
 
 function LiveTemplate() {
   const widgetReducer = useSelector(
@@ -164,10 +165,16 @@ function LiveTemplate() {
   return (
     <FormConfigurationWrapper>
       {!widgetReducer.mobile && widgetReducer.settings.header === "enable" && (
-        <TitleConfig>{widgetReducer.settings.titleHeader}</TitleConfig>
-      )}
-      {!widgetReducer.mobile && (
-        <CaptionConfig>{widgetReducer.settings.caption}</CaptionConfig>
+        <TikTokHeaderLive>
+          {widgetReducer.settings.titleHeader && (
+            <TikTokTitleLive>
+              {widgetReducer.settings.titleHeader}
+            </TikTokTitleLive>
+          )}
+          {widgetReducer.settings.caption && (
+            <TikTokCaption>{widgetReducer.settings.caption}</TikTokCaption>
+          )}
+        </TikTokHeaderLive>
       )}
       <MobileDeviceView
         width={
@@ -198,6 +205,18 @@ function LiveTemplate() {
               </IconMobile>
             </MobileInformation>
           </MobileHeader>
+        )}
+        {widgetReducer.mobile && widgetReducer.settings.header === "enable" && (
+          <TikTokHeaderLive>
+            {widgetReducer.settings.titleHeader && (
+              <TikTokTitleLive>
+                {widgetReducer.settings.titleHeader}
+              </TikTokTitleLive>
+            )}
+            {widgetReducer.settings.caption && (
+              <TikTokCaption>{widgetReducer.settings.caption}</TikTokCaption>
+            )}
+          </TikTokHeaderLive>
         )}
         {widgetReducer.mobile && widgetReducer.settings.source === 1 && (
           <Profile

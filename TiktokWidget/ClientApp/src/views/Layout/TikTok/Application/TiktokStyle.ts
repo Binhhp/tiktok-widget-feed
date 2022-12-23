@@ -18,6 +18,32 @@ export const TikTokWrapper = styled("div", "wrapper-div2")`
   }
 `;
 
+export const TikTokHeader = styled("div", "header")`
+  &.orichi-tiktok-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+`;
+
+export const TikTokTitle = styled("span", "title")`
+  &.orichi-tiktok-title {
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 20px;
+    margin-bottom: 17px;
+  }
+`;
+
+export const TikTokCaption = styled("span", "caption")`
+  &.orichi-tiktok-caption {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+  }
+`;
 export interface ITikTokContent {
   hidden: boolean;
 }

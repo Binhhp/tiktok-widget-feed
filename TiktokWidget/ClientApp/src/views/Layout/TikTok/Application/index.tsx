@@ -4,7 +4,10 @@ import { useDispatch } from "react-redux";
 import {
   DivTikTok,
   DivTiKTokenizer,
+  TikTokCaption,
   TikTokContent,
+  TikTokHeader,
+  TikTokTitle,
   TikTokWrapper,
 } from "./TiktokStyle";
 import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
@@ -76,6 +79,14 @@ function TikTok(props: ITikTokAppProps) {
     <ApplicationContainer>
       {widgets.map((item) => (
         <LayoutTemplateContextProvider>
+          <TikTokHeader>
+            {item?.header && item?.titleHeader && (
+              <TikTokTitle>{item.titleHeader}</TikTokTitle>
+            )}
+            {item.header && item?.caption && (
+              <TikTokCaption>{item.caption}</TikTokCaption>
+            )}
+          </TikTokHeader>
           <DivTiKTokenizer key={`TikTok-Widget-${item.id}`}>
             <AudioPlayerProvider customCss={item.customCss}>
               <TikTokWrapper>
