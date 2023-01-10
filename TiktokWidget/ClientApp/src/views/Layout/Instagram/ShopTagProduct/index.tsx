@@ -11,9 +11,11 @@ import {
 import { useSelector } from "react-redux";
 import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
 import { RootTikTokReducer } from "stores/Layout/WidgetReducer";
+import MoneyCurrentFormat from "common/functions/MoneyCurrentFormat";
 
 export interface IShopTagProduct {
   product?: BaseProduct | false | undefined;
+  format?: string;
 }
 
 function ShopTagProduct(props: IShopTagProduct) {
@@ -32,7 +34,12 @@ function ShopTagProduct(props: IShopTagProduct) {
             <span>{props.product.title}</span>
           </div>
           <DivPriceProduct>
-            <span className="div__product-prices">${props.product.prices}</span>
+            <span className="div__product-prices">
+              {MoneyCurrentFormat.FormatMoney(
+                props.product.prices,
+                props.format
+              )}
+            </span>
           </DivPriceProduct>
         </DivDescProduct>
       </DivLeftProduct>

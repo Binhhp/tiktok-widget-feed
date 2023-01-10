@@ -29,11 +29,13 @@ function Detail(props: IDetailProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, props.onExit);
 
-  const followLink = props.item?.user?.name
-    ? `https://www.instagram.com/${props.item?.user?.name}`
-    : props.widget.sourceType === "UserName"
-    ? `https://www.instagram.com/${props.widget.valueSource}`
-    : `https://www.instagram.com/explore/tags/${props.widget.valueSource}`;
+  const followLink =
+    props.widget.sourceType === "UserName"
+      ? props.item?.user?.name
+        ? `https://www.instagram.com/${props.item?.user?.name?.toLowerCase()}`
+        : `https://www.instagram.com/${props.widget?.valueSource?.toLowerCase()}`
+      : `https://www.instagram.com/explore/tags/${props.widget?.valueSource?.toLowerCase()}`;
+
   return (
     <DivDetailWrapper>
       <DivContainer ref={wrapperRef}>
@@ -103,7 +105,10 @@ function Detail(props: IDetailProps) {
             </div>
           </div>
           <div className="orichi-instagram-item">
-            <ShopTagProduct product={props.widget.products[0]} />
+            <ShopTagProduct
+              format={props.widget.shops?.currency}
+              product={props.widget.products[0]}
+            />
             <DivTimezone>
               <DivTimezoneContent>
                 <span className="datepicker">

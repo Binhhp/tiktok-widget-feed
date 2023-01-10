@@ -47,7 +47,8 @@ export default class TikTokWidgetAPI {
         `${RootURL.ApiBase}/odata/TikTokVideos('${key}')`,
         pageIndex,
         showItems ? showItems : config.showItems,
-        "video,music,challenges"
+        "video,music,challenges",
+        "$orderby=createTime desc"
       );
     } catch {
       return Promise.resolve({
