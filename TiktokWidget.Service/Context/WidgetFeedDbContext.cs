@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Entities;
 
@@ -41,6 +40,10 @@ namespace TiktokWidget.Service.Context
                 v => v == SourceTypeEnum.HashTag ? "hashtag" : "username",
                 v => v == "hashtag" ? SourceTypeEnum.HashTag : SourceTypeEnum.UserName);
             tiktokWidget.HasMany(c => c.Products).WithOne(e => e.Widget);
+            tiktokWidget.Property(g => g.DisableShowItems)
+                        .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+            tiktokWidget.Property(g => g.ItemSorts)
+                        .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
 
             //Config job entity
             var job = modelBuilder.Entity<JobEntity>().ToTable("Job");
@@ -78,12 +81,15 @@ namespace TiktokWidget.Service.Context
             instagramWidget.Property(p => p.ValueSource).IsRequired().HasMaxLength(255);
             instagramWidget.Property(g => g.SourceType).HasMaxLength(50);
             instagramWidget.Property(g => g.SourceType)
-                .HasConversion(
-                v => ConvertSource(v),
-                v => ConvertSourceToEnum(v));
+                           .HasConversion(v => ConvertSource(v), v => ConvertSourceToEnum(v));
             instagramWidget.HasMany(c => c.Products).WithOne(e => e.InstagramWidget);
-            modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
+            instagramWidget.Property(g => g.DisableShowItems)
+                           .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+            instagramWidget.Property(g => g.ItemSorts)
+                           .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
 
+            modelBuilder.Entity<ShopEntity>().HasMany(c => c.InstagramWidgets).WithOne(e => e.Shops).HasForeignKey(x => x.ShopId);
+            
             ////Config performances of shop
             modelBuilder.Entity<ImpressionWidgetEntity>().ToTable("ImpressionWidget");
             var postWidget = modelBuilder.Entity<PostClickWidgetEntity>().ToTable("PostClickWidget");

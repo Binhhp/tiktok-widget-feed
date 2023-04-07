@@ -10,20 +10,20 @@ function MediaCardGuides() {
     <MediaCardGuidesDiv>
       <MediaCardWrapper>
         <MediaCard
-          title="How to embed the Instagram Feed to the website"
+          title="How to add the Instagram feed video to the website?"
           primaryAction={{
             content: "Learn more",
             onAction: () => {
               window.open(config.learnMoreUrl);
             },
           }}
-          description="You have a great product. Now, it’s time to test your idea to see if it can become a business."
+          description="Boost your website Higher visitor engagement with Instagram Video Feed."
         >
           <FancyBox src={config.youtubeUrl}>
             <VideoThumbnail
               onClick={() => {}}
               videoLength={81}
-              thumbnailUrl={ImageStorage.VideoBackgroundGuides}
+              thumbnailUrl={ImageStorage.Instagram.InstagramVideoBackgroundGuides}
             />
           </FancyBox>
         </MediaCard>

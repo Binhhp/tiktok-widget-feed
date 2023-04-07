@@ -138,7 +138,6 @@ namespace TiktokWidget
                     builder.AddService<ODataSerializerProvider>(Microsoft.OData.ServiceLifetime.Singleton, s => new EntityTypeSerializerProvider(s));
                     builder.AddService<ODataBatchHandler>(Microsoft.OData.ServiceLifetime.Singleton, serviceProvider => new DefaultODataBatchHandler());
                 });
-                //endpoints.MapODataRoute(routeName: "odata", routePrefix: "odata", OdataEdmEntity.GetEdmModel(), new DefaultODataBatchHandler());
             });
 
             if (env.EnvironmentName != "Development")

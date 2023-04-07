@@ -15,7 +15,7 @@ import {
   MobileViewMenu,
 } from "./LogoSection";
 
-const LogoSection = () => {
+const LogoSection = React.memo(function LogoSection() {
   const dispatch = useDispatch();
   const appReducer = useSelector((state: RootReducer) => state.AppReducer);
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
@@ -40,6 +40,6 @@ const LogoSection = () => {
       </LogoWrapper>
     </LogoSectionContext>
   );
-};
+});
 
 export default LogoSection;

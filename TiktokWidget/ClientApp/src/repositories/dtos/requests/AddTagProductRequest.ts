@@ -1,7 +1,7 @@
-import { BaseProduct } from "../responses/BaseProduct";
+import { ProductResponse } from "../responses/ProductResponse";
 export class AddTagProductRequest {
-  Products: BaseProduct[];
-  constructor(products?: BaseProduct[]) {
+  Products: ProductResponse[];
+  constructor(products?: ProductResponse[]) {
     this.Products = products ? products : [];
   }
 }

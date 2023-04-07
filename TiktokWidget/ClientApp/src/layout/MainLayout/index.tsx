@@ -4,10 +4,9 @@ import { ChildrenContent, MainContent, MainLayoutWrapper } from "./index.style";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { WidgetActionTS } from "stores/Admin/TiktokWidget/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { RootReducer } from "stores/Admin/reducers";
-import { UriProvider } from "common/functions/FuncUtils";
 
 const MainLayout: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();

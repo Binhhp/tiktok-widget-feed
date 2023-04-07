@@ -9,14 +9,27 @@ import {
 } from "Dependencies/InstagramLayout/InstagramLayoutModel";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
-import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
+import { GetVideoByJobInstagramRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import PostFeedbackRequest from "repositories/dtos/requests/PostFeedbackRequest";
 import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
 import { SetInstagramWidgetRequest } from "repositories/dtos/requests/SetInstagramWidgetRequest";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
+import { SetWidgetItemsManagerRequest } from "repositories/dtos/requests/SetWidgetItemsManagerRequest";
 
 export default class InstagramWidgetAPI {
+  static SetWidgetItemsManager = async (
+    widgetId: string,
+    req: SetWidgetItemsManagerRequest
+  ) => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/InstagramWidgets('${widgetId}')/SetOptionShowItems`,
+      body: req,
+    });
+    return response;
+  };
+
   static AddJob = async (domain?: string, req?: AddJobRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
@@ -78,10 +91,15 @@ export default class InstagramWidgetAPI {
     const response = await FetchDataFromServer({ method: "GET", url: url });
     if (response.Status) {
       const result = response.Data;
-      const data = result?.value as BaseInstagramWidget[];
+      const data = result?.value as InstagramWidgetResponse[];
+
+      const widgets = data.map(item => {
+        var widget: InstagramWidgetResponse = {...item, valueSource: item.valueSource.normalize()};
+        return widget;
+      });
       return {
         count: result["@odata.count"] || result?.value.length || 0,
-        data: data,
+        data: widgets,
       };
     }
     return { count: 0, data: [] };
@@ -130,7 +148,7 @@ export default class InstagramWidgetAPI {
         pageIndex,
         showItems ? showItems : config.showItems,
         "user",
-        "$orderby=takenAt desc"
+        "$orderby=index asc"
       );
     } catch {
       return Promise.resolve({
@@ -149,15 +167,22 @@ export default class InstagramWidgetAPI {
   };
 
   static GetVideosByJob = async (
-    req: GetVideoByJobRequest,
-    showItems?: number
+    req: GetVideoByJobInstagramRequest,
+    showItems?: number,
+    pageIndex?: number,
+    widgetId?: string
   ): Promise<IInstagramTemplateModel> => {
+    let query = `$orderby=takenAt desc`;
+    if (widgetId) {
+      query = `$orderby=index asc&widgetId=${widgetId}`;
+    }
     return DataTableFunc.BuildPaging<IInstagramDto>(
       `${RootURL.ApiBase}/odata/InstagramVideos`,
-      1,
+      pageIndex ?? 1,
       showItems ? showItems : config.showItems,
       "",
-      `$orderby=takenAt desc&data=${req.data}&type=${req.type}`
+      query,
+      req
     );
   };
 }

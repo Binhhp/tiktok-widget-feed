@@ -6,5 +6,6 @@ namespace TiktokWidget.Service.Dtos.Requests.TikTokWidgets
     {
         public string Data { get; set; }
         public SourceTypeEnum Type { get; set; }
+        public string WidgetId { get; set; }
     }
 }

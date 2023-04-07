@@ -20,7 +20,7 @@ import CopyButton from "./Actions/CopyButton";
 import { AddToStore, AlertTitle, DataTablesProvider } from "./DataTablesStyle";
 import { IColumnProvider, IDataTableProps } from "./DataTablesType";
 
-function DataTables(props: IDataTableProps) {
+const DataTables = React.memo(function DataTables(props: IDataTableProps) {
   const [dataTable, setDataTable] = useState<Array<any>>([]);
   const [page, setPage] = useState({
     pageIndex: 1,
@@ -221,7 +221,9 @@ function DataTables(props: IDataTableProps) {
           {renderFields(item, col)}
         </IndexTable.Cell>
       ))}
-      <IndexTable.Cell key={`col-action`}>{actions(item)}</IndexTable.Cell>
+      <IndexTable.Cell className="data-actions" key={`col-action`}>
+        {actions(item)}
+      </IndexTable.Cell>
     </IndexTable.Row>
   ));
   return (
@@ -276,5 +278,6 @@ function DataTables(props: IDataTableProps) {
       </IndexTable>
     </DataTablesProvider>
   );
-}
-export default React.memo(DataTables);
+});
+
+export default DataTables;

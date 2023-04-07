@@ -1,14 +1,20 @@
-﻿using TiktokWidget.Common.Enums;
+﻿using System.Collections.Generic;
+using TiktokWidget.Common.Enums;
+using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Dtos.Requests.InstagramWidgets
 {
     public class CreateInstagramWidgetRequest
     {
+        public string Id { get; set; }
         public string WidgetTitle { get; set; }
         public SourceTypeEnum SourceType { get; set; }
         public string ValueSource { get; set; }
+        public IEnumerable<string> DisableShowItems { get; set; }
+        public IEnumerable<string> ItemSorts { get; set; }
         public Header Header { get; set; }
         public Optional Options { get; set; }
+        public IEnumerable<ProductEntity> Products { get; set; }
     }
 
     public class Header

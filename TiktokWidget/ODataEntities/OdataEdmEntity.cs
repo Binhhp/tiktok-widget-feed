@@ -21,12 +21,14 @@ namespace TiktokWidget.ODataEntities
         }
         private static List<string> TikTokWidgetActions = new List<string>
         {
-            "UpdateProduct"
+            "UpdateProduct",
+            "SetOptionShowItems"
         };
 
         private static List<string> InstagramWidgetActions = new List<string>
         {
-            "UpdateProduct"
+            "UpdateProduct",
+            "SetOptionShowItems"
         };
 
         private static List<string> InstagramVideoActions = new List<string>
@@ -57,6 +59,7 @@ namespace TiktokWidget.ODataEntities
             _builder.EntitySet<ShopWidgetsOdataEntity>("ShopWidgets");
             _builder.EntitySet<TikTokWidgetEntity>("TikTokWidgets");
             _builder.EntitySet<InstagramWidgetEntity>("InstagramWidgets");
+
             _builder.EntitySet<ShopOdataEntity>("Shops").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ShopEntity>("ShopEntity").EntityType.HasKey(x => new { x.Domain });
             _builder.EntitySet<ProductEntity>("Products");

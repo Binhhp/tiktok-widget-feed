@@ -35,7 +35,7 @@ function ColorPickerWidget(props: IColorPickerWidget) {
   return (
     <ColorPickerMain>
       {active ? (
-        <ColorPickerWrapper>
+        <ColorPickerWrapper id={type}>
           <ColorPickerSection ref={wrapperRef}>
             <HexColorPicker
               className="color-picker"

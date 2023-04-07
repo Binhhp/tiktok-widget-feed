@@ -11,12 +11,17 @@ import config from "config";
 import DataTables from "Dependencies/DataTables";
 import { IColumnProvider } from "Dependencies/DataTables/DataTablesType";
 import { toastNotify } from "Dependencies/Toast";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
+import { SetWidgetItemsManagerRequest } from "repositories/dtos/requests/SetWidgetItemsManagerRequest";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import ShopAPI from "repositories/implements/ShopAPI";
 import { ApplicationActionTS } from "stores/Admin/Application/action";
@@ -30,22 +35,23 @@ import {
   TagProductSelectedIcon,
   TimeZoneColumn,
 } from "./MyWidgetStyle";
+import { MyWidgetState } from "./MyWidgetType";
 import ProductModal from "./ProductsModal";
+import InstagramVideoPreview from "Dependencies/InstagramLayout/VideoManager";
 
 function MyWidget() {
-  const widgetReducer = useSelector(
-    (state: RootReducer) => state.InstagramWidgetReducer
-  );
-
-  const [modal, setModal] = useState({
+  //Config information modal
+  const [modal, setModal] = useState<MyWidgetState>({
     active: false,
-    widget: {},
     productId: "",
+    activeVideos: false,
   });
 
+  //Reload datatables
   const [reload, setReload] = useState<number>(0);
-  const handleChange =
-    (products: BaseProduct[], widget: BaseInstagramWidget) => () => {
+
+  const onSaveChangeProductInfo =
+    (products: ProductResponse[], widget: InstagramWidgetResponse) => () => {
       setModal({
         ...modal,
         active: !modal.active,
@@ -56,10 +62,19 @@ function MyWidget() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const instagramWidgetReducer = useSelector(
+    (state: RootReducer) => state.InstagramWidgetReducer
+  );
+  useLayoutEffect(() => {
+    if (!instagramWidgetReducer.count) {
+      return navigate(UriProvider.KeepParameters(`/instagram-step-1`));
+    }
+  }, [instagramWidgetReducer.count]);
+
   const handleClose = () =>
     setModal({
+      ...modal,
       active: !modal.active,
-      widget: {},
       productId: "",
     });
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
@@ -76,7 +91,7 @@ function MyWidget() {
   const getDetailWidget = (key: string) => {
     return InstagramWidgetAPI.GetById(key).then((res) => {
       if (res?.Status) {
-        const result = res.Data as BaseInstagramWidget;
+        const result = res.Data as InstagramWidgetResponse;
         const dto = new InstagramWidget(result).ToDto();
         dispatch(InstagramWidgetActionTS.OnSetSetting(dto));
       }
@@ -97,33 +112,38 @@ function MyWidget() {
     return InstagramWidgetAPI.Get(pageIndex, shopReducer.shop.domain);
   };
 
-  useEffect(() => {
-    dispatch(ApplicationActionTS.OnHandleMenuItem("my-instagram-widget", true));
-    dispatch(InstagramWidgetActionTS.OnStep(0));
-    dispatch(InstagramWidgetActionTS.OnSetSetting(true));
-  }, []);
-
-  useEffect(() => {
-    if (!widgetReducer.count)
-      return navigate(UriProvider.KeepParameters(`/instagram-step-1`));
-  }, [widgetReducer.count]);
-
   const onReloadData = () => {
     handleClose();
     setReload(Math.floor(Math.random() * 1000));
   };
 
   const RenderTagProduct = (
-    products: BaseProduct[],
-    widget: BaseInstagramWidget
+    products: ProductResponse[],
+    widget: InstagramWidgetResponse
   ) => (
-    <TagProductSelected onClick={handleChange(products, widget)}>
+    <TagProductSelected onClick={onSaveChangeProductInfo(products, widget)}>
       <span>{products.length} selected</span>
       <TagProductSelectedIcon>
         <Icon source={ProductsMinor}></Icon>
       </TagProductSelectedIcon>
     </TagProductSelected>
   );
+
+  const onSaveChangesVideoManager = (item: InstagramWidgetResponse) => () => {
+    if (modal.activeVideos) {
+      setModal({
+        ...modal,
+        activeVideos: false,
+        widget: undefined,
+      });
+    } else {
+      setModal({
+        ...modal,
+        activeVideos: true,
+        widget: item,
+      });
+    }
+  };
 
   const WidgetColumns: IColumnProvider[] = [
     {
@@ -154,6 +174,34 @@ function MyWidget() {
         return RenderTagProduct(item?.products, item);
       },
     },
+    {
+      title: "Posts",
+      fieldName: "numberItems",
+      onRender: (item: any) => {
+        const widget = item as InstagramWidgetResponse;
+        let videos = widget.videos;
+        if (widget?.setting.limitItems && widget.setting.limitItems < videos) {
+          videos = widget.setting.limitItems;
+        }
+
+        if (widget.disableShowItems && widget.itemSorts) {
+          const extractItems = widget.itemSorts.filter(
+            (x) => !widget.disableShowItems?.includes(x)
+          ).length;
+          if (extractItems < videos) {
+            videos = extractItems;
+          }
+        }
+        return (
+          <div
+            onClick={onSaveChangesVideoManager(item)}
+            className="number-items"
+          >
+            {videos} posts
+          </div>
+        );
+      },
+    },
   ];
 
   const onClickToCreateWidget = () => {
@@ -169,6 +217,48 @@ function MyWidget() {
   const onSetCount = (count: number) =>
     dispatch(InstagramWidgetActionTS.OnSetWidgetCount(count));
 
+  const onHandleModal = useCallback(
+    async (
+      videoUnchecked: string[],
+      itemSorted: string[],
+      disableTopNewItems?: boolean
+    ) => {
+      if (modal.widget && itemSorted && itemSorted.length > 0) {
+        const req: SetWidgetItemsManagerRequest = {
+          DisableShowItems: videoUnchecked,
+          ItemSorts: itemSorted,
+        };
+        if (disableTopNewItems) {
+          req.DisableTopNewItems = disableTopNewItems;
+        }
+        const resp = await InstagramWidgetAPI.SetWidgetItemsManager(
+          modal.widget?.id ?? "",
+          req
+        );
+        if (!resp.Status) {
+          toastNotify.error({
+            message: resp.Error,
+          });
+        } else {
+          onReloadData();
+          toastNotify.success({
+            message: `Set ${modal.widget.widgetTitle} successfully`,
+          });
+        }
+      }
+
+      onCloseModal();
+    },
+    [modal.activeVideos]
+  );
+
+  const onCloseModal = () => {
+    setModal({
+      ...modal,
+      activeVideos: false,
+      widget: undefined,
+    });
+  };
   return (
     <MyWidgetWrapper>
       <Container bg="transparent" flexDirection="column">
@@ -205,10 +295,30 @@ function MyWidget() {
       <ProductModal
         productId={modal.productId}
         active={modal.active}
-        widget={modal.widget as BaseTikTokWidget}
+        widget={modal.widget}
         handleClose={handleClose}
         onReloadData={onReloadData}
       ></ProductModal>
+      {modal.widget && (
+        <InstagramVideoPreview
+          videoUncheckedDefault={
+            (modal.widget && modal.widget.disableShowItems) ?? []
+          }
+          onCloseModal={onCloseModal}
+          active={modal.activeVideos}
+          onSaveChanges={onHandleModal}
+          hiddenButtonBack
+          buttonSaveText="Save"
+          optionsShowItem={{
+            valueSource: modal.widget.valueSource,
+            sourceType: modal.widget.sourceType,
+            disableTopNewItems:
+              modal.widget.setting?.disableTopNewItems ?? false,
+            widgetId: modal.widget?.id,
+            limitItems: modal.widget?.setting?.limitItems,
+          }}
+        />
+      )}
     </MyWidgetWrapper>
   );
 }

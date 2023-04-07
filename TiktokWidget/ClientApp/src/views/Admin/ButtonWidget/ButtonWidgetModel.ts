@@ -1,6 +1,5 @@
-
 import { ButtonPositionEnumRequest } from "repositories/dtos/requests/UpdateShopConfigurationRequest";
-import { ButtonPositionEnum } from "repositories/dtos/responses/BaseShopConfiguration";
+import { ButtonPositionEnum } from "repositories/dtos/responses/ShopConfigurationResponse";
 import { IButtonPositionInit } from "stores/Admin/ButtonWidget/state";
 
 export interface IButtonWidgetProps {

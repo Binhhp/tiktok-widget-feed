@@ -107,6 +107,12 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DisableShowItems")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemSorts")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
@@ -368,6 +374,12 @@ namespace TiktokWidget.Service.Context.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DisableShowItems")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemSorts")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
@@ -413,6 +425,9 @@ namespace TiktokWidget.Service.Context.Migrations
                         {
                             b1.Property<string>("InstagramWidgetId")
                                 .HasColumnType("nvarchar(100)");
+
+                            b1.Property<bool>("DisableTopNewItems")
+                                .HasColumnType("bit");
 
                             b1.Property<string>("ItemBackGround")
                                 .HasMaxLength(18)
@@ -610,6 +625,9 @@ namespace TiktokWidget.Service.Context.Migrations
                             b1.Property<string>("CustomCss")
                                 .HasColumnType("nvarchar(max)");
 
+                            b1.Property<bool>("DisableTopNewItems")
+                                .HasColumnType("bit");
+
                             b1.Property<string>("LabelReadMore")
                                 .HasMaxLength(155)
                                 .HasColumnType("nvarchar(155)");
@@ -619,6 +637,9 @@ namespace TiktokWidget.Service.Context.Migrations
                                 .HasColumnType("nvarchar(155)");
 
                             b1.Property<int>("LayoutType")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("NumberItems")
                                 .HasColumnType("int");
 
                             b1.Property<int>("NumberPerRow")

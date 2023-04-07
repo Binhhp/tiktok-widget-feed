@@ -14,7 +14,7 @@ namespace TiktokWidget.Service.Interfaces
 {
     public interface IInstagramWidgetService : IScopedDependency
     {
-        IQueryable<InstagramWidgetEntity> Get(string domain);
+        IQueryable<InstagramWidgetViewModel> Get(string domain);
         IQueryable<InstagramWidgetEntity> GetById(string key);
         IQueryable<InstagramWidgetEntity> GetByIds(IEnumerable<string> widgetIds);
         Task<CreateInstagramWidgetResponse> CreateWidgetsAsync(string domain, CreateInstagramWidgetRequest request);
@@ -25,5 +25,6 @@ namespace TiktokWidget.Service.Interfaces
         IQueryable<InstagramViewModel> GetVideoJob(GetVideoByJobRequest request);
         IQueryable<InstagramViewModel> GetVideos(string widgetId);
         Task<AddJobResponse> AddJob(AddJobRequest request);
+        Task SetOptionShowItemsAsync(string widgetId, SetOptionShowItemsInstagramRequest request);
     }
 }

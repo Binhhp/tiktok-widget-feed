@@ -8,12 +8,13 @@ using TiktokWidget.Service.Dtos.Requests.Widget;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Models;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Interfaces
 {
     public interface ITikTokWidgetService : IScopedDependency
     {
-        IQueryable<TikTokWidgetEntity> Get(string domain);
+        IQueryable<TiktokWidgetViewModel> Get(string domain);
         IQueryable<TikTokWidgetEntity> GetById(string key);
         IQueryable<TikTokWidgetEntity> GetByIds(IEnumerable<string> widgetIds);
         Task<CreateWidgetResponse> CreateAsync(string domain, WidgetCreateDto request);
@@ -24,5 +25,6 @@ namespace TiktokWidget.Service.Interfaces
         int GetCounts(string domain);
         Task<AddJobResponse> AddJob(AddJobRequest request);
         IQueryable<TikTokVideoViewModel> GetVideoJob(GetVideoByJobRequest request);
+        Task SetOptionShowItemsAsync(string widgetId, SetOptionShowItemsTiktokRequest request);
     }
 }

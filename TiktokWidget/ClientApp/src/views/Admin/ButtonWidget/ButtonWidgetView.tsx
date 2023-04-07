@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "stores/Admin/reducers";
 import Step3 from "./Step3";
 import { ButtonWidgetActionTS } from "stores/Admin/ButtonWidget/action";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { WidgetActionTS } from "stores/Admin/TiktokWidget/action";
 import ShopAPI from "repositories/implements/ShopAPI";
 import { ButtonPositionProvider } from "./ButtonWidgetModel";
 import { toastNotify } from "Dependencies/Toast";

@@ -7,16 +7,18 @@ export enum SourceTypeEnum {
 }
 export class GetVideoByJobRequest {
   public data: string;
-  public type: string;
-  constructor(data?: string, type?: number, isTikTok?: boolean) {
+  public type: number;
+  constructor(data?: string, type?: number) {
     this.data = data ?? "";
-    this.type =
-      type === 0
-        ? isTikTok
-          ? String(SourceTypeEnum.HashTag)
-          : String(SourceTypeEnum.InstagramHashTag)
-        : isTikTok
-        ? String(SourceTypeEnum.UserName)
-        : String(SourceTypeEnum.InstagramUserName);
+    this.type = type ?? SourceTypeEnum.HashTag;
+  }
+}
+
+export class GetVideoByJobInstagramRequest {
+  public data: string;
+  public type: number;
+  constructor(data?: string, type?: number) {
+    this.data = data ?? "";
+    this.type = type ?? SourceTypeEnum.InstagramHashTag;
   }
 }

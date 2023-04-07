@@ -58,6 +58,9 @@ function NavGroup(props: INavGroupProps) {
     }
   });
 
+  const enableMenuItems = appReducer.menuItems.some(
+    (x) => x === props.item?.id
+  );
   return (
     <NavGroupWrapper>
       {props.item?.label && props.index > 0 && (
@@ -72,7 +75,7 @@ function NavGroup(props: INavGroupProps) {
         level={1}
       ></NavItem>
       {props.item?.children &&
-        (appReducer.menuItems.some((x) => x === props.item?.id) ||
+        (enableMenuItems ||
           props.item.children.some((x) =>
             window.location.pathname.includes(x.id)
           )) && <NavGroupMenuItem>{items}</NavGroupMenuItem>}
@@ -80,4 +83,4 @@ function NavGroup(props: INavGroupProps) {
   );
 }
 
-export default NavGroup;
+export default React.memo(NavGroup);

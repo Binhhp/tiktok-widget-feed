@@ -7,7 +7,7 @@ import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 import {
   FeedbackStatus,
   ShopDescriptor,
-} from "repositories/dtos/responses/BaseShop";
+} from "repositories/dtos/responses/ShopResponse";
 import { toastNotify } from "Dependencies/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { ShopActionTS } from "stores/Admin/Shop/action";

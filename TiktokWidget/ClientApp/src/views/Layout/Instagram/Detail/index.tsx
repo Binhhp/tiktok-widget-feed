@@ -3,7 +3,7 @@ import { IconInstagram } from "Dependencies/InstagramLayout/Icons";
 import { IInstagramDto } from "Dependencies/InstagramLayout/InstagramLayoutModel";
 import { useOutsideAlerter } from "hooks";
 import React, { useRef } from "react";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
 import ShopTagProduct from "../ShopTagProduct";
 import {
   DivContainer,
@@ -21,7 +21,7 @@ import { UriProvider } from "common/functions/FuncUtils";
 
 interface IDetailProps {
   item: IInstagramDto;
-  widget: BaseInstagramWidget;
+  widget: InstagramWidgetResponse;
   onExit: () => void;
 }
 

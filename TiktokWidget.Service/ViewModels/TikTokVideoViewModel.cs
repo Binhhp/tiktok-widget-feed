@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Models
 {
-    public class TikTokVideoViewModel
+    public class TikTokVideoViewModel : BaseViewModel
     {
-        public string id { get; set; }
         public string desc { get; set; }
         public string createTime { get; set; }
         public VideoDetail video { get; set; }

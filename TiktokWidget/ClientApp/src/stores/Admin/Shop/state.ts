@@ -1,8 +1,8 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
-import { BaseShop } from "repositories/dtos/responses/BaseShop";
+import { ShopResponse } from "repositories/dtos/responses/ShopResponse";
 
 export class ShopStoreModelDto {
-  shop: BaseShop;
+  shop: ShopResponse;
   constructor() {
     this.shop = {
       id: 0,
@@ -11,18 +11,18 @@ export class ShopStoreModelDto {
 }
 
 export class ShopStoreModel implements ICloneStore<ShopStoreModel> {
-  protected _shop: BaseShop;
+  protected _shop: ShopResponse;
   constructor(_dto?: ShopStoreModelDto) {
     this._shop = _dto?.shop ?? {
       id: 0,
     };
   }
 
-  public get shop(): BaseShop {
+  public get shop(): ShopResponse {
     return this._shop;
   }
 
-  public set shop(v: BaseShop) {
+  public set shop(v: ShopResponse) {
     this._shop = v;
   }
   Clone(): ShopStoreModel {

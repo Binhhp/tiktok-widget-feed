@@ -2,13 +2,12 @@
 
 namespace TiktokWidget.Service.ViewModels
 {
-    public class InstagramViewModel
+    public class InstagramViewModel : BaseViewModel
     {
         public int DimensionWidth { get; set; }
         public int DimensionHeight { get; set; }
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
-        public string Id { get; set; }
         public string Type { get; set; }
         public string LocationId { get; set; }
         public string LocationName { get; set; }

@@ -23,9 +23,11 @@ export const FormConfiguration = styled("div")`
   }
 `;
 
-export const FormLeft = styled("div")`
-  margin-right: 7px;
-  width: calc(50% - 7px);
+export const FormLeft = styled("div", "form", "orichi-onboarding-ins")`
+  &.orichi-onboarding-ins-form {
+    margin-right: 7px;
+    width: calc(50% - 7px);
+  }
 `;
 
 export const FormRight = styled("div")`

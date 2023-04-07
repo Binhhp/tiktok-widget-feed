@@ -1,5 +1,4 @@
 import { ImageStorage } from "assets/images/ImageStorage";
-import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { TemplateInstagramType } from "stores/Admin/InstagramWidget/state";
 
 interface ITemplateLayout {
@@ -23,4 +22,5 @@ const templates: ITemplateLayout[] = [
 
 export class TemplateModel {
   public static layouts: typeof templates = templates;
+  public static layoutOnboarding: typeof templates = templates.reverse();
 }

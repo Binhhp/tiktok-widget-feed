@@ -55,15 +55,18 @@ function NavItem(props: INavItemProps) {
     };
 
   const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
+  const appReducer = useSelector((state: RootReducer) => state.AppReducer);
 
   const activeMenu =
     props.level === 1
       ? window.location.pathname === props.url
-      : window.location.pathname.includes(props.id);
+      : window.location.pathname.includes(props.id) ||
+        appReducer.menuActive.includes(props.id);
 
-  return (!InstagramWidgetReducer.count ||
+  return ((!InstagramWidgetReducer.count ||
     InstagramWidgetReducer.count === 0) &&
-    props.id === "my-instagram-widget" ? (
+    props.id === "my-instagram-widget") ||
+    (!TikTokWidgetReducer.count && props.id === "my-widget") ? (
     <></>
   ) : (
     <ListItemWrapper>

@@ -12,21 +12,23 @@ import { ShopActionTS } from "stores/Admin/Shop/action";
 import Loader from "ui-components/Loading/ComponentLoader";
 import withAppProvider from "Dependencies/ApplicationProvider";
 import { useQuery } from "hooks";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { WidgetActionTS } from "stores/Admin/TiktokWidget/action";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
 import { ChatPlugin } from "common/functions/ChatPlugin";
+import { InspectPlugin } from "common/functions/InspectPlugin";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 import { UriProvider } from "common/functions/FuncUtils";
 
-console.log = console.warn = console.error = () => {};
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const shop = useQuery().get("shop");
+  const admin = useQuery().get("admin");
   const [isPending, setPending] = useState(true);
+
   useEffect(() => {
     if (shop) {
       ShopAPI.Get(shop)
@@ -40,13 +42,23 @@ function App() {
                 shop: res,
               })
             );
-            ChatPlugin.Init(res.domain);
             const [tiktokCount, instagramCount] = await Promise.all([
               ShopAPI.GetWidgetsCount(res.domain ?? ""),
               ShopAPI.GetInstagramCount(res.domain ?? ""),
             ]);
             dispatch(WidgetActionTS.OnSetWidgetCount(tiktokCount));
             dispatch(InstagramWidgetActionTS.OnSetWidgetCount(instagramCount));
+            //Chat plugin
+            if (admin !== "1") {
+              ChatPlugin.Init(res.domain);
+              InspectPlugin.Init(res.domain);
+            }
+            if (tiktokCount > 0 || instagramCount > 0) {
+              navigate(UriProvider.KeepParameters("/"));
+              setPending(false);
+              return;
+            }
+
             if (instagramCount === 0) {
               navigate(UriProvider.KeepParameters("/instagram-step-1"));
             }

@@ -1,6 +1,6 @@
 import { IInstagramWidget, InstagramWidgetStatus } from "./state";
 import { InstagramWidgetActEnum } from "./enum";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 
 export interface IOnStep {
   type: typeof InstagramWidgetActEnum.STEP;
@@ -18,7 +18,7 @@ export interface IOnHandleMobile {
 
 export interface IGetTagProducts {
   type: typeof InstagramWidgetActEnum.GET_TAG_PRODUCTS;
-  payload: BaseProduct[];
+  payload: ProductResponse[];
   isReplace: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { ShopDescriptor } from "repositories/dtos/responses/BaseShop";
+import { ShopDescriptor } from "repositories/dtos/responses/ShopResponse";
 import { ShopActEnum } from "./enum";
 import { ShopStoreModelDto } from "./state";
 

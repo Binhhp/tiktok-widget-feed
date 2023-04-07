@@ -1,6 +1,6 @@
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 export default class ProductAPI {
   static Get = async (pageIndex: number, domain?: string) => {
     const response = await FetchDataFromServer({
@@ -11,7 +11,7 @@ export default class ProductAPI {
       const result = response.Data;
       return {
         count: result["@odata.count"] ?? result?.value.length ?? 0,
-        data: result?.value as BaseProduct[],
+        data: result?.value as ProductResponse[],
       };
     }
     return {

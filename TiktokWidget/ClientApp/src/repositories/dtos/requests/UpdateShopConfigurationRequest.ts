@@ -1,7 +1,7 @@
-import { BaseShopConfiguration } from "../responses/BaseShopConfiguration";
+import { ShopResponseConfiguration } from "../responses/ShopConfigurationResponse";
 
 export type UpdateShopConfigurationRequest = Pick<
-  BaseShopConfiguration,
+  ShopResponseConfiguration,
   "image" | "theme" | "tikTokUserName"
 > & {
   buttonPosition: ButtonPositionEnumRequest;

@@ -1,4 +1,4 @@
-import { ISettingProviderWidget } from "stores/Admin/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/TiktokWidget/state";
 
 export interface IAudioPlayerWrapper {
   active: boolean;

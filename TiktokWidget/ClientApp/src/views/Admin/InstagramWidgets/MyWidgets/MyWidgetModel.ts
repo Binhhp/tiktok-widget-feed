@@ -1,8 +1,11 @@
 import { DateTimeFormatter } from "common/functions/DateTimeFormat";
-import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
+import { TiktokWidgetResponse } from "repositories/dtos/responses/TiktokWidgetResponse";
 
 export class DataService {
-  public static ToDto = (obj: BaseTikTokWidget[], renderTag: any): any[] => {
+  public static ToDto = (
+    obj: TiktokWidgetResponse[],
+    renderTag: any
+  ): any[] => {
     return obj.map((item) => {
       var dt = new Date(item.modifyDate);
       if (dt.getFullYear() < new Date().getFullYear()) {

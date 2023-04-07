@@ -18,6 +18,9 @@ using TiktokWidget.Service.BusinessExceptions;
 using Orichi.IoC.Logging.Models.Models;
 using Orichi.IoC.Logging;
 using TiktokWidget.Common.Enums;
+using System.Net.Http;
+using TiktokWidget.Service.Extensions;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Implements
 {
@@ -99,10 +102,58 @@ namespace TiktokWidget.Service.Implements
         /// Hàm lấy danh sách
         /// </summary>
         /// <returns></returns>
-        public IQueryable<TikTokWidgetEntity> Get(string domain)
+        public IQueryable<TiktokWidgetViewModel> Get(string domain)
         {
-            var response = _context.Widgets.Where(x => x.Shops != null && x.Shops.Domain == domain).AsQueryable();
-            return response;
+            var response = new List<TiktokWidgetViewModel>();
+            var widgets = _context.Widgets.Include(x => x.Products).Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).ToList();
+            bool isSaveChanges = false;
+            if(widgets.Any())
+            {
+                foreach (var widget in widgets)
+                {
+                    var widgetResp = _mapper.Map<TiktokWidgetViewModel>(widget);
+                    try
+                    {
+                        string type = widget.SourceType == SourceTypeEnum.HashTag ? "hashtag" : "username";
+                        var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+                        var JSON = File.ReadAllText(pathFile);
+                        if (!string.IsNullOrEmpty(JSON))
+                        {
+                            var videos = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).OrderByDescending(x => x.createTime).ToList();
+                            widgetResp.Videos = videos.Count();
+                            if (videos.Count() > widget.ItemSorts.Count())
+                            {
+                                var differenceVideos = videos.Count() - widget.ItemSorts.Count();
+                                var videoNewImports = videos.GetRange(0, differenceVideos).Select(x => x.Id).ToList();
+                                videoNewImports.AddRange(widget.ItemSorts);
+                                widget.ItemSorts = videoNewImports;
+                                widgetResp.ItemSorts = widget.ItemSorts;
+
+                                if (!isSaveChanges) isSaveChanges = true;
+                            }
+                        }
+                        else
+                        {
+                            widgetResp.Videos = widget.Setting.NumberItems;
+                        }
+                    }
+                    catch
+                    {
+                        widgetResp.Videos = widget.Setting.NumberItems;
+                        AddJob(new AddJobRequest
+                        {
+                            Data = widget.ValueSource,
+                            Type = widget.SourceType
+                        }).GetAwaiter().GetResult();
+                    }
+                    response.Add(widgetResp);
+                }
+            }
+            if (isSaveChanges)
+            {
+                _context.SaveChanges();
+            }
+            return response.AsQueryable();
         }
 
 
@@ -119,6 +170,13 @@ namespace TiktokWidget.Service.Implements
                 throw new NotFoundException(key);
             }
             var widgetEntity = _mapper.Map<TikTokWidgetEntity>(request);
+
+            if ((!widget.ValueSource.Equals(widgetEntity.ValueSource, StringComparison.CurrentCultureIgnoreCase) || widget.SourceType != widgetEntity.SourceType) && widgetEntity.ItemSorts.Any())
+            {
+                widget.ItemSorts = widgetEntity.ItemSorts;
+                widget.DisableShowItems = widgetEntity.DisableShowItems;
+            }
+
             widget.SourceType = widgetEntity.SourceType;
             widget.ValueSource = widgetEntity.ValueSource;
             widget.ModifyDate = DateTime.Now;
@@ -181,7 +239,10 @@ namespace TiktokWidget.Service.Implements
             await _context.SaveChangesAsync();
             return new ResponseBase();
         }
-
+        /// <summary>
+        /// Get videos for client
+        /// </summary>
+        /// <param name="widgetId">widget id</param>
         public IQueryable<TikTokVideoViewModel> GetVideos(string widgetId)
         {
             var response = Enumerable.Empty<TikTokVideoViewModel>().AsQueryable();
@@ -192,12 +253,42 @@ namespace TiktokWidget.Service.Implements
                 {
                     return response;
                 }
-                string type = widget.SourceType == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+                string type = widget.SourceType == SourceTypeEnum.HashTag ? "hashtag" : "username";
                 var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
                 var JSON = File.ReadAllText(pathFile);
                 if (!string.IsNullOrEmpty(JSON))
                 {
-                    response = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).ToList().AsQueryable();
+                    var videos = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).OrderByDescending(x => x.createTime);
+                    var disableTopNewItems = widget?.Setting?.DisableTopNewItems ?? false;
+                    response = videos.BuildItems<TikTokVideoViewModel>(widget.ItemSorts, widget.DisableShowItems, disableTopNewItems,
+                        (outputItemSorts) =>
+                    {
+                        widget.ItemSorts = outputItemSorts;
+                        _context.SaveChanges();
+                    }).Take(widget.Setting.NumberItems);
+
+                    //check image available
+                    try
+                    {
+                        using (HttpClient client = new HttpClient())
+                        {
+                            HttpResponseMessage res = client.GetAsync(response.First().video.originCover).GetAwaiter().GetResult();
+
+                            if (res.StatusCode != System.Net.HttpStatusCode.OK)
+                            {
+                                response = Enumerable.Empty<TikTokVideoViewModel>().AsQueryable();
+                                AddJob(new AddJobRequest()
+                                {
+                                    Data = widget.ValueSource,
+                                    Type = widget.SourceType
+                                }).GetAwaiter().GetResult();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogInfo(ex);
+                    }
                 }
             }
             catch(Exception ex)
@@ -229,18 +320,63 @@ namespace TiktokWidget.Service.Implements
             await _context.SaveChangesAsync();
             return new AddJobResponse();
         }
-
+        /// <summary>
+        /// Get video job from admin
+        /// </summary>
+        /// <param name="request"></param>
         public IQueryable<TikTokVideoViewModel> GetVideoJob(GetVideoByJobRequest request)
         {
             var response = Enumerable.Empty<TikTokVideoViewModel>().AsQueryable();
-            string type = request.Type == Common.Enums.SourceTypeEnum.HashTag ? "hashtag" : "username";
+            string type = request.Type == SourceTypeEnum.HashTag ? "hashtag" : "username";
             var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{request.Data}.json");
             var JSON = File.ReadAllText(pathFile);
             if (!string.IsNullOrEmpty(JSON))
             {
-                response = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).ToList().AsQueryable();
+                var videos = JsonConvert.DeserializeObject<IEnumerable<TikTokVideoViewModel>>(JSON).OrderByDescending(x => x.createTime).ToList().AsQueryable();
+                if (!string.IsNullOrEmpty(request.WidgetId))
+                {
+                    var widget = _context.Widgets.FirstOrDefault(x => x.Id.Equals(request.WidgetId));
+                    if (widget != null)
+                    {
+                        videos = videos.BuildItems<TikTokVideoViewModel>(widget.ItemSorts, null, widget.Setting.DisableTopNewItems, 
+                            (outputItemSorts) =>
+                        {
+                            widget.ItemSorts = outputItemSorts;
+                            _context.SaveChanges();
+                        });
+                    }
+                }
+                response = videos;
+                //check image available
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage res = client.GetAsync(response.First().video.originCover).GetAwaiter().GetResult();
+
+                    if (res.StatusCode != System.Net.HttpStatusCode.OK)
+                    {
+                        AddJob(new AddJobRequest()
+                        {
+                            Data = request.Data,
+                            Type = request.Type
+                        }).GetAwaiter().GetResult();
+                        throw new Exception("Image in data is not available.");
+                    }
+                }
             }
             return response;
+        }
+
+        public async Task SetOptionShowItemsAsync(string widgetId, SetOptionShowItemsTiktokRequest request)
+        {
+            var widget = await _context.Widgets.FirstOrDefaultAsync(x => x.Id == widgetId);
+            if (widget == null)
+            {
+                throw new NotFoundException($"{widgetId}");
+            }
+            widget.DisableShowItems = request.DisableShowItems;
+            widget.ItemSorts = request.ItemSorts;
+            widget.Setting.DisableTopNewItems = request.DisableTopNewItems;
+            await _context.SaveChangesAsync();
         }
     }
 }

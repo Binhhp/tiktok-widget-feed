@@ -2,6 +2,7 @@ import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { ODataQuery } from "common/functions/ODataQuery";
 import { IQueryDataTable } from "./DataTablesType";
+import { IQueryModel } from "common/interfaces/IQueryModel";
 
 export default class DataTableFunc {
   static async BuildPaging<T>(
@@ -9,7 +10,8 @@ export default class DataTableFunc {
     pageIndex: number,
     pageNumber: number,
     expand?: string,
-    queryCustom?: string
+    queryCustom?: string,
+    req?: any
   ): Promise<IQueryDataTable<T>> {
     let urlBuilt = ODataQuery.BuildODataQuery(
       url,
@@ -23,10 +25,15 @@ export default class DataTableFunc {
     if (queryCustom) {
       urlBuilt += `&${queryCustom}`;
     }
-    response = await FetchDataFromServer({
+    const requestData: IQueryModel = {
       method: "GET",
       url: urlBuilt,
-    });
+    };
+    if (req) {
+      requestData.method = "POST";
+      requestData.body = req;
+    }
+    response = await FetchDataFromServer(requestData);
     if (response.Status) {
       const result = response.Data;
       return {

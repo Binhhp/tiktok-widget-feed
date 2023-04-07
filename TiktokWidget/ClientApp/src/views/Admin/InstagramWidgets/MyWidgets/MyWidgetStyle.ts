@@ -17,6 +17,7 @@ export const TagProductSelected = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  width: max-content;
   cursor: pointer;
   span {
     margin-right: 4px;
@@ -149,7 +150,17 @@ export const ProductModalWrapper = styled("div")`
 export const MyWidgetWrapper = styled("div")`
   width: 100%;
   height: 100%;
-  padding: 50px;
+  padding: 50px 40px;
+  .number-items {
+    width: max-content;
+    font-family: "SF Pro Text";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2c6ecb;
+    cursor: pointer;
+  }
   @media only screen and (${breakpoints.device.lg}) {
     padding: 20px 10px;
     ${MyWidgetHeader} {

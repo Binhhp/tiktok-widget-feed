@@ -10,6 +10,8 @@ namespace TiktokWidget.Service.Entities
         public string WidgetTitle { get; set; }
         public SourceTypeEnum SourceType { get; set; }
         public string ValueSource { get; set; }
+        public IEnumerable<string> DisableShowItems { get; set; }
+        public IEnumerable<string> ItemSorts { get; set; }
         public virtual InstagramOptions Setting { get; set; }
         public virtual HeaderInstagramOptions Header { get; set; }
         public DateTime CreateDate { get; set; }

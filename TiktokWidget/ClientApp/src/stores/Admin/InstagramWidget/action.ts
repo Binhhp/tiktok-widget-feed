@@ -1,4 +1,4 @@
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 import { InstagramWidgetActEnum } from "./enum";
 import { InstagramWidgetType } from "./model";
 import { IInstagramWidget, InstagramWidgetStatus } from "./state";
@@ -42,11 +42,11 @@ export class InstagramWidgetActionTS {
   }
 
   public static OnSetSetting(
-    step: IInstagramWidget | boolean
+    options: IInstagramWidget | boolean
   ): InstagramWidgetType {
     return {
       type: InstagramWidgetActEnum.SETTING,
-      payload: step,
+      payload: options,
     };
   }
 
@@ -58,7 +58,7 @@ export class InstagramWidgetActionTS {
   }
 
   public static OnSetTagProducts(
-    products: BaseProduct[],
+    products: ProductResponse[],
     isReplace: boolean = false
   ): InstagramWidgetType {
     return {

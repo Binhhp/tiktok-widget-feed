@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InstagramLayout from "Dependencies/InstagramLayout";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
 import {
   IInstagramDto,
   InstagramOption,
@@ -9,7 +9,7 @@ import { InstagramLayoutWrapper } from "./LayoutStyle";
 import Detail from "../Detail";
 import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
 interface ILayoutProps {
-  widget: BaseInstagramWidget;
+  widget: InstagramWidgetResponse;
 }
 function Layout(props: ILayoutProps) {
   const getInstagramStories = (pageIndex: number, showItems?: number) => {

@@ -1,7 +1,7 @@
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
-import { CreateWidgetRequest } from "repositories/dtos/requests/CreateWidgetRequest";
+import { CreateWidgetRequest } from "repositories/dtos/requests/CreateTiktokWidgetRequest";
 import { BaseResponse } from "repositories/dtos/responses/BaseResponse";
 import {
   ITikTokVideoDto,
@@ -9,14 +9,27 @@ import {
 } from "Dependencies/TikTokLayout/LayoutTemplateModel";
 import { ODataQuery } from "common/functions/ODataQuery";
 import DataTableFunc from "Dependencies/DataTables/DataTableModel";
-import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
-import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateWidgetRequest";
+import { TiktokWidgetResponse } from "repositories/dtos/responses/TiktokWidgetResponse";
+import { UpdateWidgetRequest } from "repositories/dtos/requests/UpdateTiktokWidgetRequest";
 import config from "config";
 import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { GetVideoByJobRequest } from "repositories/dtos/requests/GetVideoByJobRequest";
 import SetClickPostRequest from "repositories/dtos/requests/SetClickPostRequest";
+import { SetWidgetItemsManagerRequest } from "repositories/dtos/requests/SetWidgetItemsManagerRequest";
 
 export default class TikTokWidgetAPI {
+  static SetWidgetItemsManager = async (
+    widgetId: string,
+    req: SetWidgetItemsManagerRequest
+  ) => {
+    const response = await FetchDataFromServer({
+      method: "POST",
+      url: `${RootURL.ApiBase}/odata/TikTokWidgets('${widgetId}')/SetOptionShowItems`,
+      body: req,
+    });
+    return response;
+  };
+
   static AddJob = async (domain?: string, req?: AddJobRequest) => {
     const response = await FetchDataFromServer({
       method: "POST",
@@ -48,7 +61,7 @@ export default class TikTokWidgetAPI {
         pageIndex,
         showItems ? showItems : config.showItems,
         "video,music,challenges",
-        "$orderby=createTime desc"
+        "$orderby=index asc"
       );
     } catch {
       return Promise.resolve({
@@ -68,14 +81,21 @@ export default class TikTokWidgetAPI {
 
   static GetVideosByJob = async (
     req: GetVideoByJobRequest,
-    showItems?: number
+    showItems?: number,
+    pageIndex?: number,
+    widgetId?: string
   ): Promise<IVideoTemplateModel> => {
+    let query = ``;
+    if (widgetId) {
+      query += `&$orderby=index asc&widgetId=${widgetId}`;
+    }
     return DataTableFunc.BuildPaging<ITikTokVideoDto>(
       `${RootURL.ApiBase}/odata/TikTokVideos`,
-      1,
+      pageIndex ?? 1,
       showItems ? showItems : config.showItems,
       "video,music,challenges",
-      `data=${req.data}&type=${req.type}`
+      query,
+      req
     );
   };
 
@@ -109,10 +129,14 @@ export default class TikTokWidgetAPI {
     });
     if (response.Status) {
       const result = response.Data;
-      const data = result?.value as BaseTikTokWidget[];
+      const data = result?.value as TiktokWidgetResponse[];
+      const widgets = data.map(item => {
+        var widget: TiktokWidgetResponse = {...item, valueSource: item.valueSource.normalize()};
+        return widget;
+      });
       return {
         count: result["@odata.count"] || result?.value.length || 0,
-        data: data,
+        data: widgets,
       };
     }
     return {

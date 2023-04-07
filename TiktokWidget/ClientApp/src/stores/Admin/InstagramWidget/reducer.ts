@@ -1,4 +1,4 @@
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 import { InstagramWidgetActEnum } from "./enum";
 import { InstagramWidgetType } from "./model";
 import {
@@ -59,6 +59,9 @@ const OnSetSetting = (
       if (payload.limitItems !== undefined)
         copyState.settings.limitItems = payload.limitItems;
       if (payload.products) copyState.settings.products = payload.products;
+      if (payload.disableShowItems)
+        copyState.settings.disableShowItems = payload.disableShowItems;
+      if (payload.itemSorts) copyState.settings.itemSorts = payload.itemSorts;
     } else {
       copyState.settings = new InstagramWidgetStoreModel().settings;
     }
@@ -70,7 +73,7 @@ const OnSetSetting = (
 
 const OnGetTagProducts = (
   state: InstagramWidgetStoreModel,
-  payload: BaseProduct[],
+  payload: ProductResponse[],
   isReplace = false
 ) => {
   let copyState = state.Clone();

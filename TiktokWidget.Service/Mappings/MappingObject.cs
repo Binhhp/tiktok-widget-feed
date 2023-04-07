@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using TiktokWidget.Service.Dtos.Requests.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
@@ -7,6 +8,7 @@ using TiktokWidget.Service.Dtos.Responses.Shop;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Entities.ValueObjects;
+using TiktokWidget.Service.ViewModels;
 
 namespace TiktokWidget.Service.Mappings
 {
@@ -15,8 +17,14 @@ namespace TiktokWidget.Service.Mappings
 
         public MappingObject()
         {
-            CreateMap<CreateShopConfigurationRequest, ShopConfigurationEntity>();
-            CreateMap<ProductDto, ProductEntity>();
+            CreateMap<CreateShopConfigurationRequest, ShopConfigurationEntity>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()));
+
+            CreateMap<ProductDto, ProductEntity>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()));
+
+            CreateMap<InstagramWidgetEntity, InstagramWidgetViewModel>();
+            CreateMap<TikTokWidgetEntity, TiktokWidgetViewModel>();
 
             CreateMap<UpdateWidgetRequest, TikTokWidgetEntity>()
                 .ForMember(x => x.Setting, opt => opt.MapFrom(src => new TikTokOptions
@@ -30,7 +38,8 @@ namespace TiktokWidget.Service.Mappings
                     LayoutType = src.LayoutType,
                     NumberPerRow = src.NumberPerRow,
                     ShowNetworkIcon = src.ShowNetworkIcon,
-                    CustomCss = src.CustomCss
+                    CustomCss = src.CustomCss,
+                    NumberItems = src.NumberItems,
                 })).ForMember(x => x.Header, opt => opt.MapFrom(src => new HeaderOptions
                 {
                     Caption = src.Caption,
@@ -39,8 +48,9 @@ namespace TiktokWidget.Service.Mappings
                 }));
             // widget
             CreateMap<WidgetCreateDto, TikTokWidgetEntity>()
-                .ForMember(x => x.CreateDate, opt => opt.MapFrom(src => System.DateTime.Now))
-                .ForMember(x => x.ModifyDate, opt => opt.MapFrom(src => System.DateTime.Now))
+                .ForMember(x => x.CreateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(x => x.ModifyDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(x => x.Id, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Id) ? src.Id : Guid.NewGuid().ToString()))
                 .ForMember(x => x.Setting, opt => opt.MapFrom(src => new TikTokOptions
                 {
                     LabelReadMore = src.LabelReadMore,
@@ -52,7 +62,8 @@ namespace TiktokWidget.Service.Mappings
                     LayoutType = src.LayoutType,
                     NumberPerRow = src.NumberPerRow,
                     ShowNetworkIcon = src.ShowNetworkIcon,
-                    CustomCss = src.CustomCss
+                    CustomCss = src.CustomCss,
+                    NumberItems = src.NumberItems,
                 })).ForMember(x => x.Header, opt => opt.MapFrom(src => new HeaderOptions
                 {
                     Caption = src.Caption,
@@ -62,8 +73,9 @@ namespace TiktokWidget.Service.Mappings
 
             //Map Request Instagram Widget to Entity
             CreateMap<CreateInstagramWidgetRequest, InstagramWidgetEntity>()
-                .ForMember(x => x.CreateDate, opt => opt.MapFrom(src => System.DateTime.Now))
-                .ForMember(x => x.ModifyDate, opt => opt.MapFrom(src => System.DateTime.Now))
+                .ForMember(x => x.CreateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(x => x.ModifyDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(x => x.Id, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Id) ? src.Id : Guid.NewGuid().ToString()))
                 .ForMember(x => x.Setting, opt => opt.MapFrom(src => new InstagramOptions
                 {
                     LabelReadMore = src.Options.LabelReadMore,
@@ -82,7 +94,8 @@ namespace TiktokWidget.Service.Mappings
                 }));
 
 
-            CreateMap<ShopCreateDto, ShopEntity>();
+            CreateMap<ShopCreateDto, ShopEntity>()
+                .ForMember(x => x.ID, opt => opt.MapFrom(src => Guid.NewGuid().ToString()));
         }
     }
 }

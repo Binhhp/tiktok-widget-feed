@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { WidgetActionTS } from "stores/Admin/TiktokWidget/action";
 import Loader from "ui-components/Loading/ComponentLoader";
 import CreateWidgetProvider from "./CreateWidgetProvider";
 import {
@@ -17,25 +17,23 @@ import {
 } from "./CreateWidgetStyle";
 function CreateWidget() {
   const dispatch = useDispatch();
-  const widgetReducer = useSelector(
+  const tiktokReducer = useSelector(
     (state: RootReducer) => state.TiktokWidgetReducer
   );
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(WidgetActionTS.OnSetSetting(true));
-  }, []);
-
-  useEffect(() => {
-    if (widgetReducer.count && widgetReducer.count > 0) {
+    if (tiktokReducer.count) {
       navigate(UriProvider.KeepParameters(`/create-widget-step-1`));
       dispatch(WidgetActionTS.OnStep(1));
-    } else dispatch(WidgetActionTS.OnStep(0));
+    }
+    return;
   }, []);
 
   return (
     <CreateWidgetProvider>
-      {widgetReducer.count !== undefined && widgetReducer.count === 0 ? (
+      {tiktokReducer.count !== undefined && tiktokReducer.count === 0 ? (
         <CreateWidgetWrapper>
           <Content>
             <Title>

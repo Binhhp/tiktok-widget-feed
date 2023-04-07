@@ -34,6 +34,14 @@ namespace TiktokWidget.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [ODataRoute("TikTokWidgets({key})/SetOptionShowItems")]
+        public async Task<IActionResult> SetOptionShowItems([FromODataUri] string key, [FromBody] SetOptionShowItemsTiktokRequest request)
+        {
+            await _unitOfWork.TikTok.SetOptionShowItemsAsync(key, request);
+            return Ok();
+        }
+
         [HttpPut]
         [ODataRoute("TikTokWidgets({key})")]
         public async Task<IActionResult> Put([FromODataUri] string key, [FromBody] UpdateWidgetRequest request)

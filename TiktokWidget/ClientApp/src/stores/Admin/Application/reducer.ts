@@ -1,31 +1,32 @@
-import { ApplicationActEnum } from './enum';
-import { ApplicationType } from './model';
-import { ApplicationStoreModel, DateRangeType } from './state';
+import { ApplicationActEnum } from "./enum";
+import { ApplicationType } from "./model";
+import { ApplicationStoreModel, DateRangeType } from "./state";
 
 const OnHandleMenuItemSelected = (
   state: ApplicationStoreModel,
   payload: {
     menuItem: string;
     active: boolean;
-  },
+  }
 ) => {
   let copyState = state.Clone();
   if (payload.active) {
     copyState.menuActive = payload.menuItem;
-  }
-  if (!copyState.menuItems.includes(payload.menuItem)) {
-    copyState.menuItems.push(payload.menuItem);
   } else {
-    copyState.menuItems = copyState.menuItems.filter(
-      (x) => x !== payload.menuItem,
-    );
+    if (!copyState.menuItems.includes(payload.menuItem)) {
+      copyState.menuItems.push(payload.menuItem);
+    } else {
+      copyState.menuItems = copyState.menuItems.filter(
+        (x) => x !== payload.menuItem
+      );
+    }
   }
   return copyState;
 };
 
 const OnHandleMenuItemMobileSelected = (
   state: ApplicationStoreModel,
-  payload: boolean = false,
+  payload: boolean = false
 ) => {
   let copyState = state.Clone();
   copyState.mobileMenuView = payload;
@@ -34,7 +35,7 @@ const OnHandleMenuItemMobileSelected = (
 
 const OnHandleChangeDateRangeSelected = (
   state: ApplicationStoreModel,
-  payload: DateRangeType,
+  payload: DateRangeType
 ) => {
   let copyState = state.Clone();
   copyState.dateRange = payload;
@@ -43,7 +44,7 @@ const OnHandleChangeDateRangeSelected = (
 
 const ApplicationReducer = (
   state: ApplicationStoreModel = new ApplicationStoreModel(),
-  action: ApplicationType,
+  action: ApplicationType
 ): ApplicationStoreModel => {
   switch (action.type) {
     case ApplicationActEnum.MENU_TOGGLE:

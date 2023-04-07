@@ -9,11 +9,11 @@ import {
   ShopTagProductWrapper,
 } from "./ShopTagProductStyle";
 import { useSelector } from "react-redux";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 import { RootTikTokReducer } from "stores/Layout/WidgetReducer";
 
 export interface IShopTagProduct {
-  product?: BaseProduct | false | undefined;
+  product?: ProductResponse | false | undefined;
 }
 
 function ShopTagProduct(props: IShopTagProduct) {

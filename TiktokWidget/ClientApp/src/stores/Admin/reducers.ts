@@ -3,7 +3,7 @@ import ApplicationReducer from "./Application/reducer";
 import ButtonWidgetReducer from "./ButtonWidget/reducer";
 import InstagramWidgetReducer from "./InstagramWidget/reducer";
 import ShopReducer from "./Shop/reducer";
-import WidgetReducer from "./Widget/reducer";
+import WidgetReducer from "./TiktokWidget/reducer";
 
 const rootStateProvider = {
   AppReducer: ApplicationReducer,

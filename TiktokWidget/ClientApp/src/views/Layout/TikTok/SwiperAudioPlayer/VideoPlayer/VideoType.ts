@@ -1,5 +1,5 @@
 import { ITikTokVideoDto } from "Dependencies/TikTokLayout/LayoutTemplateModel";
-import { ISettingProviderWidget } from "stores/Admin/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/TiktokWidget/state";
 
 export interface IVideoWrapperStyle {
   width?: number;

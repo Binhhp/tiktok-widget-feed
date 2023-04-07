@@ -20,12 +20,9 @@ import { ErrorMessage, ValidatorProvider } from "common/constants/Validator";
 import {
   FormStackRadio,
   FormValueSource,
-} from "views/Admin/TikTokWidgets/Create/StepOne/StepOneStyle";
+} from "views/Admin/TikTokWidgets/Create/Step1/StepOneStyle";
 import { InstagramWidgetActionTS } from "stores/Admin/InstagramWidget/action";
-import InstagramWidgetAPI from "repositories/implements/InstagramWidgetAPI";
-import { AddJobRequest } from "repositories/dtos/requests/AddJobRequest";
 import { SourceTypeEnum } from "repositories/dtos/requests/GetVideoByJobRequest";
-import { SearchMajor } from "@shopify/polaris-icons";
 
 export interface IFormControl {
   onSubmit?: () => void;
@@ -33,7 +30,6 @@ export interface IFormControl {
   saveStore?: boolean;
   loading?: boolean;
   size?: "small" | "large";
-  jobInterval?: boolean;
 }
 
 function FormConfig(props: IFormControl) {
@@ -45,33 +41,12 @@ function FormConfig(props: IFormControl) {
   const handleSourceType = (_checked: any, newValue: string) => {
     dispatch(
       InstagramWidgetActionTS.OnSetSetting({
-        source: newValue === "hashtag" ? 0 : 1,
+        source:
+          newValue === "hashtag"
+            ? SourceTypeEnum.InstagramHashTag
+            : SourceTypeEnum.InstagramUserName,
       })
     );
-  };
-
-  const shopReducer = useSelector((state: RootReducer) => state.ShopReducer);
-
-  const onAddJobVideo = () => {
-    if (widgetReducer.settings.valueSource) {
-      dispatch(InstagramWidgetActionTS.SetWorkingSearch(true));
-      const sourceType = widgetReducer.settings.source ?? 0;
-      InstagramWidgetAPI.AddJob(
-        shopReducer.shop.domain,
-        new AddJobRequest(
-          widgetReducer.settings.valueSource,
-          sourceType
-            ? SourceTypeEnum.InstagramHashTag
-            : SourceTypeEnum.InstagramUserName
-        )
-      ).then((res) => {
-        if (res.Status) {
-          dispatch(InstagramWidgetActionTS.RiseSequenceNumber());
-        } else {
-          dispatch(InstagramWidgetActionTS.SetWorkingSearch(false));
-        }
-      });
-    }
   };
 
   const [errorTitle, setErrorTitle] = useState("");
@@ -87,8 +62,16 @@ function FormConfig(props: IFormControl) {
   };
 
   const setValueSource = async (val: string) => {
-    if (val.startsWith("#") && widgetReducer.settings.source === 0) return;
-    if (val.includes("@") && widgetReducer.settings.source === 1) return;
+    if (
+      val.startsWith("#") &&
+      widgetReducer.settings.source === SourceTypeEnum.InstagramHashTag
+    )
+      return;
+    if (
+      val.includes("@") &&
+      widgetReducer.settings.source === SourceTypeEnum.InstagramUserName
+    )
+      return;
     validateValueSource(val);
     dispatch(
       InstagramWidgetActionTS.OnSetSetting({
@@ -119,14 +102,20 @@ function FormConfig(props: IFormControl) {
   };
   const validateValueSource = (val?: string): boolean => {
     let isError = false;
-    if (widgetReducer.settings.source === 0 && !val) {
+    if (
+      widgetReducer.settings.source === SourceTypeEnum.InstagramHashTag &&
+      !val
+    ) {
       setErrorValue(ErrorMessage.REQUIREMENTS.format("Hashtag"));
       isError = true;
-    } else if (widgetReducer.settings.source === 1 && !val) {
-      setErrorValue(ErrorMessage.REQUIREMENTS.format("Tiktok username"));
+    } else if (
+      widgetReducer.settings.source === SourceTypeEnum.InstagramUserName &&
+      !val
+    ) {
+      setErrorValue(ErrorMessage.REQUIREMENTS.format("Instagram username"));
       isError = true;
     } else if (
-      widgetReducer.settings.source === 1 &&
+      widgetReducer.settings.source === SourceTypeEnum.InstagramUserName &&
       !ValidatorProvider.UserName(val)
     ) {
       setErrorValue(ErrorMessage.WIDGET_USERNAME);
@@ -163,7 +152,10 @@ function FormConfig(props: IFormControl) {
                 <RadioButton
                   label="Hashtag"
                   id="hashtag"
-                  checked={widgetReducer.settings.source === 0}
+                  checked={
+                    widgetReducer.settings.source ===
+                    SourceTypeEnum.InstagramHashTag
+                  }
                   name="hashtag"
                   value="0"
                   onChange={handleSourceType}
@@ -171,7 +163,10 @@ function FormConfig(props: IFormControl) {
                 <RadioButton
                   id="username"
                   label="Username"
-                  checked={widgetReducer.settings.source === 1}
+                  checked={
+                    widgetReducer.settings.source ===
+                    SourceTypeEnum.InstagramUserName
+                  }
                   name="username"
                   value="1"
                   onChange={handleSourceType}
@@ -184,7 +179,8 @@ function FormConfig(props: IFormControl) {
                 id="value"
                 label=""
                 helpText={`${
-                  widgetReducer.settings.source === 0
+                  widgetReducer.settings.source ===
+                  SourceTypeEnum.InstagramHashTag
                     ? "Do not include the “#” symbol"
                     : "Do not include the “@” symbol"
                 }`}
@@ -194,14 +190,6 @@ function FormConfig(props: IFormControl) {
                 autoComplete="off"
                 error={errorValue}
               />
-              {props.jobInterval && (
-                <Button
-                  loading={widgetReducer.workingSearch}
-                  icon={SearchMajor}
-                  onClick={onAddJobVideo}
-                  id="orichi-search"
-                />
-              )}
             </FormValueSource>
             <FormContentFooterDiv>
               <Button

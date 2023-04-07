@@ -1,6 +1,4 @@
-﻿using System;
-
-using TiktokWidget.Common.Enums;
+﻿using TiktokWidget.Common.Enums;
 
 namespace TiktokWidget.Service.Entities
 {

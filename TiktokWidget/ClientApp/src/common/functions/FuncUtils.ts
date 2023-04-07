@@ -72,3 +72,21 @@ export class UriProvider {
     return "";
   }
 }
+
+export class Guid {
+  static NewGuid() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  }
+}
+
+export function ConvertUnicode(input: string): string {
+  return input.replace(/\\+u([0-9a-fA-F]{4})/g, (a,b) =>
+    String.fromCharCode(parseInt(b, 16)));
+}

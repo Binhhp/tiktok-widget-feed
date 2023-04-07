@@ -17,6 +17,7 @@ namespace TiktokWidget.Service.Entities.ValueObjects
         public string ItemColor { get; set; }
         public int NumberPerRow { get; set; }
         public int LimitItems { get; set; }
+        public bool DisableTopNewItems { get; set; }
         public virtual InstagramWidgetEntity InstagramWidget { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 import { IInstagramWidget } from "stores/Admin/InstagramWidget/state";
+import { ProductResponse } from "../responses/ProductResponse";
 
 interface HeaderInstagramOwner {
   enable: boolean;
@@ -18,13 +19,18 @@ interface InstagramOptionOwner {
 }
 
 export class SetInstagramWidgetRequest {
+  public Id?: string;
   public WidgetTitle: string;
   public SourceType: number;
   public ValueSource: string;
   public Header: HeaderInstagramOwner;
   public Options: InstagramOptionOwner;
+  public DisableShowItems?: string[];
+  public ItemSorts?: string[];
+  public Products?: ProductResponse[];
 
-  constructor(dto?: IInstagramWidget) {
+  constructor(dto: IInstagramWidget) {
+    this.Id = dto?.id;
     this.WidgetTitle = dto?.title || "";
     this.SourceType = dto?.source || 0;
     this.ValueSource = dto?.valueSource || "";
@@ -35,6 +41,9 @@ export class SetInstagramWidgetRequest {
     if (!dto?.titleHeader) {
       this.Header.enable = false;
     }
+    this.DisableShowItems = dto?.disableShowItems;
+    this.ItemSorts = dto?.itemSorts;
+    this.Products = dto?.products;
     this.Options = {
       LabelLoadMore: dto?.labelLoadMore || "",
       LoadMoreBackGround: dto?.loadMoreBackground || "",
@@ -46,5 +55,11 @@ export class SetInstagramWidgetRequest {
       NumberPerRow: dto?.numberItemPerRow || 0,
       ShowNetworkIcon: dto?.showNetworkIcon === "enable",
     };
+    if (dto?.disableShowItems) {
+      this.DisableShowItems = dto.disableShowItems;
+    }
+    if (dto?.itemSorts) {
+      this.ItemSorts = dto?.itemSorts;
+    }
   }
 }

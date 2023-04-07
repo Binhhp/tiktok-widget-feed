@@ -221,6 +221,7 @@ namespace TiktokWidget.Service.Implements
                             Status = 1,
                             TrialDay = 0,
                             TimeZone = shopInformation.IANATimezone,
+                            InstalledDate = Convert.ToInt64(DateTime.Now.ToString("yyyyMMdd")),
                         });
                         shopEntity.ID = resCreateShop.Id;
                     }

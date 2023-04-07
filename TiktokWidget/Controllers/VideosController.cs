@@ -4,10 +4,10 @@ using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using TiktokWidget.Common.Enums;
 using TiktokWidget.Service.Commands;
 using TiktokWidget.Service.Dtos.Requests.Shops;
 using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
+using TiktokWidget.Service.Dtos.Requests.Videos;
 using TiktokWidget.Service.Entities;
 using TiktokWidget.Service.Interfaces;
 
@@ -37,21 +37,22 @@ namespace TiktokWidget.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         [EnableQuery]
         [ODataRoute("TikTokVideos")]
-        public IActionResult GetTikTokVideos(string data, SourceTypeEnum type)
+        public IActionResult GetTikTokVideos([FromBody] GetVideoJobRequest request)
         {
-            if (!string.IsNullOrEmpty(data))
+            var requestDto = new GetVideoByJobRequest
             {
-                var response = _unitOfWork.TikTok.GetVideoJob(new GetVideoByJobRequest
-                {
-                    Data = data,
-                    Type = type
-                });
-                return Ok(response);
+                Data = request.Data,
+                Type = request.Type
+            };
+            if (Request.Query.TryGetValue("widgetId", out var widgetId))
+            {
+                requestDto.WidgetId = widgetId;
             }
-            return BadRequest();
+            var response = _unitOfWork.TikTok.GetVideoJob(requestDto);
+            return Ok(response);
         }
 
         [HttpPost]
@@ -72,21 +73,22 @@ namespace TiktokWidget.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpPost]
         [EnableQuery]
         [ODataRoute("InstagramVideos")]
-        public IActionResult GetInstagramVideos(string data, SourceTypeEnum type)
+        public IActionResult GetInstagramVideos([FromBody] GetVideoJobRequest request)
         {
-            if (!string.IsNullOrEmpty(data))
+            var requestDto = new GetVideoByJobRequest
             {
-                var response = _unitOfWork.Instagram.GetVideoJob(new GetVideoByJobRequest
-                {
-                    Data = data,
-                    Type = type
-                });
-                return Ok(response);
+                Data = request.Data,
+                Type = request.Type
+            };
+            if (Request.Query.TryGetValue("widgetId", out var widgetId))
+            {
+                requestDto.WidgetId = widgetId;
             }
-            return BadRequest();
+            var response = _unitOfWork.Instagram.GetVideoJob(requestDto);
+            return Ok(response);
         }
 
         [HttpGet]

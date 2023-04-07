@@ -34,6 +34,14 @@ namespace TiktokWidget.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [ODataRoute("InstagramWidgets({key})/SetOptionShowItems")]
+        public async Task<IActionResult> SetOptionShowItems([FromODataUri] string key, [FromBody] SetOptionShowItemsInstagramRequest request)
+        {
+            await _unitOfWork.Instagram.SetOptionShowItemsAsync(key, request);
+            return Ok();
+        }
+
         [HttpDelete]
         [ODataRoute("InstagramWidgets({key})")]
         public async Task<IActionResult> Delete([FromODataUri] string key)

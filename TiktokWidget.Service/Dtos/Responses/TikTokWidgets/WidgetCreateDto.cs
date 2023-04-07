@@ -1,13 +1,18 @@
-﻿using TiktokWidget.Common.Enums;
+﻿using System.Collections.Generic;
+using TiktokWidget.Common.Enums;
+using TiktokWidget.Service.Entities;
 
 namespace TiktokWidget.Service.Dtos.Responses.TikTokWidgets
 {
     public class WidgetCreateDto
     {
+        public string Id { get; set; }
         public string WidgetTitle { get; set; }
         public SourceTypeEnum SourceType { get; set; }
         public string ValueSource { get; set; }
         public string TagProduct { get; set; }
+        public IEnumerable<string> DisableShowItems { get; set; }
+        public IEnumerable<string> ItemSorts { get; set; }
 
         #region Setting
         public int LayoutType { get; set; }
@@ -19,6 +24,7 @@ namespace TiktokWidget.Service.Dtos.Responses.TikTokWidgets
         public string BackGround { get; set; }
         public string Color { get; set; }
         public int NumberPerRow { get; set; }
+        public int NumberItems { get; set; }
         public string CustomCss { get; set; }
         #endregion
 
@@ -27,5 +33,6 @@ namespace TiktokWidget.Service.Dtos.Responses.TikTokWidgets
         public string Title { get; set; }
         public string Caption { get; set; }
         #endregion
+        public IEnumerable<ProductEntity> Products { get; set; }
     }
 }

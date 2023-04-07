@@ -12,6 +12,9 @@ export const DataTablesProvider = styled("div")<IDataTableProvider>`
   .Polaris-IndexTable__TableHeading {
     padding: 1rem 1rem 1rem 0px;
   }
+  .data-actions {
+    width: 260px;
+  }
   table {
     width: ${(props) => props.width || 100}%;
   }
@@ -36,6 +39,7 @@ export const DataTablesProvider = styled("div")<IDataTableProvider>`
   }
   thead th:last-child {
     text-align: center;
+    width: 270px;
   }
   svg {
     width: 35px;

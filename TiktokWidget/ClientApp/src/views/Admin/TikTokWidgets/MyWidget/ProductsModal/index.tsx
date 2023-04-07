@@ -21,14 +21,14 @@ import {
 import { IProductModalProps } from "../MyWidgetType";
 import { AddTagProductRequest } from "repositories/dtos/requests/AddTagProductRequest";
 import { useDispatch, useSelector } from "react-redux";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
 import { toastNotify } from "Dependencies/Toast";
 import Image from "ui-components/Image";
 import LoadingInfinite from "ui-components/Loading/ButtonLoading";
 import ProductAPI from "repositories/implements/ProductAPI";
 import { Waypoint } from "react-waypoint";
 import { RootReducer } from "stores/Admin/reducers";
-import { WidgetActionTS } from "stores/Admin/Widget/action";
+import { WidgetActionTS } from "stores/Admin/TiktokWidget/action";
 import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 
 function ProductModal(props: IProductModalProps) {
@@ -36,7 +36,7 @@ function ProductModal(props: IProductModalProps) {
 
   const [productId, setProductId] = useState("");
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<BaseProduct[]>([]);
+  const [products, setProducts] = useState<ProductResponse[]>([]);
 
   const widgetReducer = useSelector(
     (state: RootReducer) => state.TiktokWidgetReducer
@@ -52,7 +52,7 @@ function ProductModal(props: IProductModalProps) {
 
   const dispatch = useDispatch();
 
-  const setupId = (id: string) => `${id}${props.widget.id}`;
+  const setupId = (id: string) => `${id}${props?.widget?.id ?? ""}`;
   const fetchProducts = () => {
     ProductAPI.Get(page.pageIndex, shopReducer.shop.domain).then((res) => {
       setPage({
@@ -117,6 +117,7 @@ function ProductModal(props: IProductModalProps) {
   };
 
   const onSaveChange = async () => {
+    if (!props.widget) return;
     setLoadingSaveChanges(true);
     const loadingTitle = productId
       ? `Adding ${widgetReducer.products

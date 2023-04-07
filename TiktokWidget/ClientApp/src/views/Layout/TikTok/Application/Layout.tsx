@@ -3,7 +3,7 @@ import Template from "Dependencies/TikTokLayout";
 import { TemplateType } from "Dependencies/TikTokLayout/LayoutTemplateType";
 import { LayoutTemplateContext } from "Dependencies/TikTokLayout/LayoutTemplateContext";
 import { AudioPlayerContext } from "../SwiperAudioPlayer/AudioPlayerContext";
-import { ISettingProviderWidget } from "stores/Admin/Widget/state";
+import { ISettingProviderWidget } from "stores/Admin/TiktokWidget/state";
 import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
 
 interface LayoutProps {

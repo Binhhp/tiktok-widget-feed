@@ -6,4 +6,5 @@ interface Window {
   Shopify: any;
   $crisp: any;
   _timeout: number;
+  _syncJob: boolean;
 }

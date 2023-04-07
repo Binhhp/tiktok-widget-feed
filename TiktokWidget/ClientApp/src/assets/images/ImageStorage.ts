@@ -67,5 +67,6 @@ export const ImageStorage = {
   Instagram: {
     InstagramGuides,
     InstagramGuides2,
+      InstagramVideoBackgroundGuides: "https://img.youtube.com/vi/j74EmTuj3P8/maxresdefault.jpg"
   },
 };

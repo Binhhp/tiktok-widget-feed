@@ -11,7 +11,7 @@ import {
   TikTokWrapper,
 } from "./TiktokStyle";
 import TikTokWidgetAPI from "repositories/implements/TikTokWidgetAPI";
-import { BaseTikTokWidget } from "repositories/dtos/responses/BaseTikTokWidget";
+import { TiktokWidgetResponse } from "repositories/dtos/responses/TiktokWidgetResponse";
 import UserProfile from "./UserInformation";
 import Layout from "./Layout";
 import { ITikTokAppProps } from "../TikTokModel";
@@ -20,7 +20,7 @@ import { AudioPlayerProvider } from "../SwiperAudioPlayer/AudioPlayerContext";
 import {
   ISettingProviderWidget,
   SettingProviderWidget,
-} from "stores/Admin/Widget/state";
+} from "stores/Admin/TiktokWidget/state";
 import { ShopActionTS } from "stores/Admin/Shop/action";
 import ApplicationContainer from "views/Layout/Common/ApplicationContainer";
 import LayoutTemplateContextProvider from "Dependencies/TikTokLayout/LayoutTemplateContext";
@@ -34,7 +34,7 @@ function TikTok(props: ITikTokAppProps) {
   const fetchWidget = (id: string) => {
     TikTokWidgetAPI.GetById(id).then((res) => {
       if (res.Status) {
-        const result = res.Data as BaseTikTokWidget;
+        const result = res.Data as TiktokWidgetResponse;
         const dto = new SettingProviderWidget(result).ToDto();
         setWidgets([...widgets, dto]);
         dispatch(
@@ -91,7 +91,7 @@ function TikTok(props: ITikTokAppProps) {
             <AudioPlayerProvider customCss={item.customCss}>
               <TikTokWrapper>
                 <DivTikTok>
-                  {item.showProfile && item.source === 1 && (
+                  {item.showProfile === "enable" && item.source === 1 && (
                     <UserProfile></UserProfile>
                   )}
                   <ContainerSection height={100} width={100}>

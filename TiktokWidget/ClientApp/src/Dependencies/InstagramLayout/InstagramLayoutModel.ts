@@ -1,4 +1,4 @@
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
 import {
   IInstagramWidget,
   TemplateInstagramType,
@@ -37,7 +37,7 @@ export class InstagramOption {
   itemBackground: string;
   itemColor: string;
   header: boolean;
-  constructor(dto?: BaseInstagramWidget) {
+  constructor(dto?: InstagramWidgetResponse) {
     this.title = dto?.header.title ?? "";
     this.type =
       dto?.setting.layoutType === 1

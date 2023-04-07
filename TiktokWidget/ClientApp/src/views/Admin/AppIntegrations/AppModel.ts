@@ -1,7 +1,7 @@
 export default class AppIntegrationProvider {
   static FacebookPixel: AppModel = {
-    title: "Facebook Pixels Conversion API",
-    desc: "#1 Facebook Pixel tracking, Conversion API supported, Solution for IOS update, Tracking 100% purchase events",
+    title: "Orichi: Tiktok & Facebook Pixels",
+    desc: "#1 Facebook Pixel, Multi Pixel, Conversion API, Tiktok Pixel",
     url: "https://apps.shopify.com/yuri-facebook-multi-pixels?surface_source=tiktok&surface_type=in-app",
   };
   static QuantityDiscount: AppModel = {

@@ -1,18 +1,39 @@
 import { createGlobalStyle } from "styled-components";
-import FontUrlDisplay from "assets/fonts/SFProDisplay-Regular.ttf";
+import FontUrlDisplay2 from "assets/fonts/SFProDisplay-Regular2.ttf";
 import FontUrl from "assets/fonts/SFProText-Regular.ttf";
+import FontPoppinsUrl from "assets/fonts/Poppins-Regular.ttf";
+import FontLatoUrl from "assets/fonts/Lato-Regular.ttf";
+import JostUrl from "assets/fonts/Jost.ttf";
 
 export default createGlobalStyle`
     @font-face {
   font-family: "SF Pro Display";
   src: local("SF Pro Display"),
-    url(${FontUrlDisplay})
+    url(${FontUrlDisplay2})
+      format("truetype");
+}
+@font-face {
+  font-family: "Jost";
+  src: local("Jost"),
+    url(${JostUrl})
       format("truetype");
 }
 @font-face {
   font-family: "SF Pro Text";
   src: local("SF Pro Text"),
     url(${FontUrl})
+      format("truetype");
+}
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url(${FontPoppinsUrl})
+      format("truetype");
+}
+@font-face {
+  font-family: "Lato";
+  src: local("Lato"),
+    url(${FontLatoUrl})
       format("truetype");
 }
 html,
@@ -46,6 +67,9 @@ div[p-color-scheme="light"] {
 }
 #feedback-submit.Polaris-Button--loading{
   background: var(--p-action-primary-disabled)
+}
+#btn-save-onboarding{
+  background: #FB447A;
 }
 html {
     --scrollbarBG: #ffffff;
@@ -147,5 +171,44 @@ body {
   font-weight: 400;
   font-size: 20px;
   line-height: 28px;
+}
+
+
+.dragging {
+  filter: drop-shadow(-4px 5px 10px rgba(38, 38, 38, 0.21));
+  border: 1px solid rgba(79, 76, 76, 0.63) !important;
+}
+.check-video .Polaris-Choice__Control {
+  margin: 0px;
+  z-index: 9999;
+}
+.check-video  span.Polaris-Checkbox__Backdrop::before {
+  background-color: #fb447a;
+}
+.video-item {
+  z-index: 999;
+  cursor: pointer;
+  .video-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 10px 11px 10px;
+    height: 50px;
+  }
+  background: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  height: 100%;
+  .video-item-image {
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
 }
 `;

@@ -1,15 +1,17 @@
 import { ICloneStore } from "common/interfaces/ICloneStore";
-import { BaseProduct } from "repositories/dtos/responses/BaseProduct";
-import { BaseInstagramWidget } from "repositories/dtos/responses/BaseInstagramWidget";
+import { ProductResponse } from "repositories/dtos/responses/ProductResponse";
+import { InstagramWidgetResponse } from "repositories/dtos/responses/InstagramWidgetResponse";
+import { SourceTypeEnum } from "repositories/dtos/requests/GetVideoByJobRequest";
 
 export enum TemplateInstagramType {
   Slider = 1,
   List = 2,
 }
+
 export interface IInstagramWidget {
   id?: string;
   title?: string;
-  source?: number;
+  source?: SourceTypeEnum.InstagramHashTag | SourceTypeEnum.InstagramUserName;
   valueSource?: string;
   layout?: TemplateInstagramType.Slider | TemplateInstagramType.List;
   header?: "enable" | "disable";
@@ -22,7 +24,9 @@ export interface IInstagramWidget {
   itemColor?: string;
   numberItemPerRow?: number;
   limitItems?: number;
-  products?: BaseProduct[];
+  products?: ProductResponse[];
+  disableShowItems?: string[];
+  itemSorts?: string[];
 }
 
 export class InstagramWidget implements IInstagramWidget {
@@ -41,11 +45,16 @@ export class InstagramWidget implements IInstagramWidget {
   itemColor?: string;
   numberItemPerRow?: number;
   limitItems?: number;
-  products?: BaseProduct[];
-  constructor(dto?: BaseInstagramWidget) {
+  products?: ProductResponse[];
+  disableShowItems?: string[];
+  itemSorts?: string[];
+  constructor(dto?: InstagramWidgetResponse) {
     this.id = dto?.id;
     this.title = dto?.widgetTitle || "";
-    this.source = dto?.sourceType.toLowerCase() === "hashtag" ? 0 : 1;
+    this.source =
+      dto?.sourceType === "InstagramHashTag"
+        ? SourceTypeEnum.InstagramHashTag
+        : SourceTypeEnum.InstagramUserName;
     this.valueSource = dto?.valueSource || "";
     this.layout = dto?.setting.layoutType || 0;
     this.header = dto?.header.enable ? "enable" : "disable";
@@ -58,6 +67,8 @@ export class InstagramWidget implements IInstagramWidget {
     this.numberItemPerRow = dto?.setting.numberPerRow || 4;
     this.limitItems = dto?.setting.limitItems || 16;
     this.products = dto?.products || [];
+    this.disableShowItems = dto?.disableShowItems || [];
+    this.itemSorts = dto?.itemSorts || [];
   }
   ToDto = (): IInstagramWidget => {
     return this as IInstagramWidget;
@@ -69,7 +80,7 @@ export class InstagramWidgetStoreModelDto {
   step: number;
   mobile: boolean;
   settings: IInstagramWidget;
-  products: BaseProduct[] | undefined;
+  products: ProductResponse[] | undefined;
   count: number | undefined;
   status: InstagramWidgetStatus;
   sequenceNumber: number;
@@ -85,7 +96,7 @@ export class InstagramWidgetStoreModelDto {
     this.settings = {
       id: "",
       title: "",
-      source: 0,
+      source: SourceTypeEnum.InstagramHashTag,
       valueSource: "",
       layout: TemplateInstagramType.Slider,
       header: "enable",
@@ -100,6 +111,8 @@ export class InstagramWidgetStoreModelDto {
       numberItemPerRow: 4,
       limitItems: 16,
       products: [],
+      itemSorts: [],
+      disableShowItems: [],
     };
   }
 }
@@ -109,7 +122,7 @@ export class InstagramWidgetStoreModel
 {
   protected _step: number;
   protected _mobile: boolean;
-  protected _products: BaseProduct[];
+  protected _products: ProductResponse[];
   protected _settings: IInstagramWidget;
   protected _count: number | undefined;
   protected _status: InstagramWidgetStatus;
@@ -126,7 +139,7 @@ export class InstagramWidgetStoreModel
     this._settings = _dto?.settings || {
       id: "",
       title: "",
-      source: 0,
+      source: SourceTypeEnum.InstagramHashTag,
       valueSource: "",
       layout: TemplateInstagramType.Slider,
       header: "enable",
@@ -141,6 +154,8 @@ export class InstagramWidgetStoreModel
       numberItemPerRow: 4,
       limitItems: 16,
       products: [],
+      itemSorts: [],
+      disableShowItems: [],
     };
   }
   public get workingSearch(): boolean {
@@ -175,11 +190,11 @@ export class InstagramWidgetStoreModel
     this._count = v;
   }
 
-  public get products(): BaseProduct[] {
+  public get products(): ProductResponse[] {
     return this._products;
   }
 
-  public set products(v: BaseProduct[]) {
+  public set products(v: ProductResponse[]) {
     this._products = v;
   }
 

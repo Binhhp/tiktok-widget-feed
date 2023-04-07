@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Orichi.IoC.Logging;
@@ -17,6 +16,7 @@ using TiktokWidget.Service.Dtos.Requests.TikTokWidgets;
 using TiktokWidget.Service.Dtos.Responses.InstagramWidgets;
 using TiktokWidget.Service.Dtos.Responses.TikTokWidgets;
 using TiktokWidget.Service.Entities;
+using TiktokWidget.Service.Extensions;
 using TiktokWidget.Service.Interfaces;
 using TiktokWidget.Service.ViewModels;
 
@@ -39,11 +39,71 @@ namespace TiktokWidget.Service.Implements
         /// get list widget
         /// </summary>
         /// <param name="domain">domain of shop</param>
-        public IQueryable<InstagramWidgetEntity> Get(string domain)
+        public IQueryable<InstagramWidgetViewModel> Get(string domain)
         {
-            var response = Enumerable.Empty<InstagramWidgetEntity>().AsQueryable();
-            response = _widgetDbContext.InstagramWidgets.Where(x => x.Shops != null && x.Shops.Domain.Equals(domain));
-            return response;
+            var response = new List<InstagramWidgetViewModel>();
+            var widgets = _widgetDbContext.InstagramWidgets.Include(x => x.Products).Where(x => x.Shops != null && x.Shops.Domain.Equals(domain)).ToList();
+            bool isSaveChanges = false;
+            if(widgets.Any())
+            {
+                foreach (var widget in widgets)
+                {
+                    var widgetResp = _mapper.Map<InstagramWidgetViewModel>(widget);
+                    try
+                    {
+                        string type = (widget.SourceType == SourceTypeEnum.InstagramHashTag || widget.SourceType == SourceTypeEnum.HashTag) ? "insta-hashtag" : "insta-username";
+                        var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
+                        var JSON = File.ReadAllText(pathFile);
+                        if (!string.IsNullOrEmpty(JSON))
+                        {
+                            var videos = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).OrderByDescending(x => x.TakenAt).ToList();
+                            widgetResp.Videos = videos.Count();
+                            if (videos.Count() > widget.ItemSorts.Count())
+                            {
+                                var differenceVideos = videos.Count() - widget.ItemSorts.Count();
+                                var videoNewImports = videos.GetRange(0, differenceVideos).Select(x => x.Id).ToList();
+                                videoNewImports.AddRange(widget.ItemSorts);
+                                widget.ItemSorts = videoNewImports;
+                                widgetResp.ItemSorts = widget.ItemSorts;
+
+                                if (!isSaveChanges)
+                                {
+                                    isSaveChanges = true;
+                                }
+                                //Update widget wrong sourcetype from version before
+                                if (widget.SourceType == SourceTypeEnum.HashTag)
+                                {
+                                    widget.SourceType = SourceTypeEnum.InstagramHashTag;
+                                }
+                                else if (widget.SourceType == SourceTypeEnum.UserName)
+                                {
+                                    widget.SourceType = SourceTypeEnum.InstagramUserName;
+                                }
+                                _widgetDbContext.Update(widget);
+                            }
+                        }
+                        else
+                        {
+                            widgetResp.Videos = widget.Setting.LimitItems;
+                        }
+                    }
+                    catch
+                    {
+                        widgetResp.Videos = widget.Setting.LimitItems;
+                        AddJob(new AddJobRequest
+                        {
+                            Data = widget.ValueSource,
+                            Type = widget.SourceType
+                        }).GetAwaiter().GetResult();
+                    }
+                    response.Add(widgetResp);
+                }
+            }
+            if (isSaveChanges)
+            {
+                _widgetDbContext.SaveChanges();
+            }
+            return response.AsQueryable();
         }
         /// <summary>
         /// get by single id
@@ -91,7 +151,6 @@ namespace TiktokWidget.Service.Implements
 
             var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
             widgetEntity.Shops = shop;
-
             await _widgetDbContext.InstagramWidgets.AddAsync(widgetEntity);
             await _widgetDbContext.SaveChangesAsync();
 
@@ -115,6 +174,13 @@ namespace TiktokWidget.Service.Implements
                 throw new NotFoundException(key);
             }
             var widgetEntity = _mapper.Map<InstagramWidgetEntity>(request);
+
+            if(!widget.ValueSource.Equals(widgetEntity.ValueSource, StringComparison.CurrentCultureIgnoreCase) || widget.SourceType != widgetEntity.SourceType)
+            {
+                widget.ItemSorts = widgetEntity.ItemSorts;
+                widget.DisableShowItems = widgetEntity.DisableShowItems;
+            }
+
             widget.SourceType = widgetEntity.SourceType;
             widget.ValueSource = widgetEntity.ValueSource;
             widget.ModifyDate = DateTime.Now;
@@ -211,7 +277,21 @@ namespace TiktokWidget.Service.Implements
             var JSON = File.ReadAllText(pathFile);
             if (!string.IsNullOrEmpty(JSON))
             {
-                response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).ToList().AsQueryable();
+                var videos = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).OrderByDescending(x => x.TakenAt).ToList().AsQueryable();
+                if (!string.IsNullOrEmpty(request.WidgetId))
+                {
+                    var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id.Equals(request.WidgetId));
+                    if (widget != null)
+                    {
+                        videos = videos.BuildItems<InstagramViewModel>(widget.ItemSorts, null, widget.Setting.DisableTopNewItems, 
+                            (outputItemSorts) =>
+                            {
+                                widget.ItemSorts = outputItemSorts;
+                                _widgetDbContext.SaveChanges();
+                            });
+                    }
+                }
+                response = videos;
             }
             return response;
         }
@@ -221,14 +301,34 @@ namespace TiktokWidget.Service.Implements
             try
             {
                 var widget = _widgetDbContext.InstagramWidgets.FirstOrDefault(x => x.Id == widgetId);
+                //Update sourcetype wrong from version before
+                if(widget.SourceType == SourceTypeEnum.HashTag)
+                {
+                    widget.SourceType = SourceTypeEnum.InstagramHashTag;
+                    _widgetDbContext.SaveChanges();
+                }
+                else if (widget.SourceType == SourceTypeEnum.UserName) {
+                    widget.SourceType = SourceTypeEnum.InstagramUserName;
+                    _widgetDbContext.SaveChanges();
+                }
                 if (widget != null)
                 {
-                    string type = widget.SourceType == SourceTypeEnum.HashTag ? "insta-hashtag" : "insta-username";
+                    string type = widget.SourceType == SourceTypeEnum.InstagramHashTag ? "insta-hashtag" : "insta-username";
                     var pathFile = Path.Combine(Directory.GetCurrentDirectory(), "JsonData", "Video", type, $"{widget.ValueSource}.json");
                     var JSON = File.ReadAllText(pathFile);
                     if (!string.IsNullOrEmpty(JSON))
                     {
-                        response = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).Take(widget.Setting.LimitItems).AsQueryable();
+                        var videos = JsonConvert.DeserializeObject<IEnumerable<InstagramViewModel>>(JSON).OrderByDescending(x => x.TakenAt);
+                        var disableTopNewItems = widget?.Setting?.DisableTopNewItems ?? false;
+                        response = videos.BuildItems<InstagramViewModel>(widget.ItemSorts, widget.DisableShowItems, disableTopNewItems,
+                            (outputItemSorts) =>
+                            {
+                                if (widget.ItemSorts.Count() != outputItemSorts.Count())
+                                {
+                                    widget.ItemSorts = outputItemSorts;
+                                    _widgetDbContext.SaveChanges();
+                                }
+                            }).Take(widget.Setting.LimitItems);
                     }
                 }
             }
@@ -254,6 +354,19 @@ namespace TiktokWidget.Service.Implements
                 await _widgetDbContext.SaveChangesAsync();
             }
             return new AddJobResponse();
+        }
+
+        public async Task SetOptionShowItemsAsync(string widgetId, SetOptionShowItemsInstagramRequest request)
+        {
+            var widget = await _widgetDbContext.InstagramWidgets.FirstOrDefaultAsync(x => x.Id == widgetId);
+            if(widget == null)
+            {
+                throw new NotFoundException($"{widgetId}");
+            }
+            widget.DisableShowItems = request.DisableShowItems;
+            widget.ItemSorts = request.ItemSorts;
+            widget.Setting.DisableTopNewItems = request.DisableTopNewItems;
+            await _widgetDbContext.SaveChangesAsync();
         }
     }
 }

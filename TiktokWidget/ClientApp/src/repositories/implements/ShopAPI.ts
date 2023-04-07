@@ -1,17 +1,14 @@
 import { RootURL } from "common/constants/RootURL";
 import { FetchDataFromServer } from "common/functions/AxiosMethod";
 import { UpdateShopConfigurationRequest } from "repositories/dtos/requests/UpdateShopConfigurationRequest";
-import { BaseShop } from "repositories/dtos/responses/BaseShop";
-import { BaseShopConfiguration } from "repositories/dtos/responses/BaseShopConfiguration";
+import { ShopResponse } from "repositories/dtos/responses/ShopResponse";
+import { ShopResponseConfiguration } from "repositories/dtos/responses/ShopConfigurationResponse";
 import { BaseTheme } from "repositories/dtos/responses/BaseTheme";
 import { IAnalyticsResponse } from "repositories/dtos/responses/IAnalytics";
 import { IBannerResponse } from "repositories/dtos/responses/IBanner";
 import { ICourseResponse } from "repositories/dtos/responses/ICourse";
 import { IPostResponse } from "repositories/dtos/responses/IPost";
-import {
-  convertDateTimeByTimezone,
-  convertShortDate,
-} from "views/Admin/Dashboard/DateRange/DateFunc";
+import { convertDateTimeByTimezone } from "views/Admin/Dashboard/DateRange/DateFunc";
 export default class ShopAPI {
   static GetThemes = async (shopDomain: string) => {
     try {
@@ -33,7 +30,7 @@ export default class ShopAPI {
         url: `${RootURL.ApiBase}/odata/shops('${domain}')/shopConfiguration`,
       });
       if (response.Status) {
-        return response.Data as BaseShopConfiguration;
+        return response.Data as ShopResponseConfiguration;
       }
     } catch {}
     return null;
@@ -45,7 +42,7 @@ export default class ShopAPI {
       url: `${RootURL.ApiBase}/odata/shops('${shopDomain}')?$expand=shopDescriptor,shopConfiguration`,
     });
     if (response.Status) {
-      return response.Data as BaseShop;
+      return response.Data as ShopResponse;
     }
     return null;
   };
@@ -112,7 +109,7 @@ export default class ShopAPI {
   static GetBanners = async (): Promise<IBannerResponse> => {
     const response = await FetchDataFromServer({
       method: "GET",
-      url: `${RootURL.ApiBase}/odata/Banner"`,
+      url: `${RootURL.ApiBase}/odata/Banner`,
     });
     return response.Data as IBannerResponse;
   };
